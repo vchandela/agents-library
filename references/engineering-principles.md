@@ -27,3 +27,7 @@ Bare minimum in v1. Everything else goes in a "later" list, written down so it i
 ## When it is a bug fix
 
 A bug report names one instance. Ask what kind of mistake it is, grep for every other place the code makes the same mistake, and fix those too. Otherwise the same bug returns wearing a different filename.
+
+## Pull requests
+
+Keep each PR under about 200 lines of production code, and atomic: one reviewable change that stands on its own. Bigger work becomes a stack, each PR built on the one before. Estimate the size before writing code, and plan the split along natural seams, for example backend first and UI on top.

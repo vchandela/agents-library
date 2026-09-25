@@ -7,7 +7,7 @@ description: Use when an approved plan exists and implementation is starting. No
 
 Execute it precisely, completely, and in order. No shortcuts, no skipped steps.
 
-Apply `references/engineering-principles.md`.
+Apply `references/engineering-principles.md` and `references/testing.md`.
 
 ## Before writing any code
 
