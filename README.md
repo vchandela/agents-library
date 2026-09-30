@@ -79,8 +79,11 @@ Every public skills repo I read assumes one agent plans, builds and reviews. Tha
 ## Layout
 
     skills/       one folder each, SKILL.md inside
-    references/   shared text the skills point at, never copied
+    references/   shared text the skills point at; edit it only here
+    scripts/      sync-references.sh copies references/ into each skill
     docs/         what was taken from where, and what was refused
+
+Each skill carries its own copy of `references/`, so a single skill folder still works when it is copied, zipped, uploaded or installed as a plugin. Edit the top-level `references/`, then run `scripts/sync-references.sh`. CI fails if a copy is stale.
 
 ## Writing a skill
 
