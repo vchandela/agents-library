@@ -59,6 +59,8 @@ Follow explain-simply's step-by-step shape, with the details in `references/rese
 - **Failure modes**, **tensions** as left-versus-right cards with a middle path, and **one recommendation** with where the alternative would win.
 - **What was not found**: empty searches, blocked sites, unverified claims, open questions. **An empty result is information**, and reporting silence as validation is how a design gets called novel when it is unexamined.
 
+When the research ends in a proposed design, mock up its real artifacts in the user's own domain: the actual file tree, one filled-in page, one example database row, one event timeline. "One page per cause, linked from symptoms" landed only once the reader saw `index.md`, a symptom page and a cause page written out for a real alert.
+
 Discuss in chat before rewriting a page the user is reading. Answer each question with a real example, then fold the answers into the steps where they belong.
 
 ## Rationalisations to refuse
