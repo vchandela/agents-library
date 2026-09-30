@@ -42,6 +42,13 @@ The person who sends a document is accountable for all of it, whatever produced 
 - Show options side by side with their costs. Mark one only when the user has a view, labelled "<name>'s preference"; otherwise "options, for the team to choose". Your recommendation is not the user's.
 - Settled decisions go in one collapsed table: chosen, rejected, and why.
 
+## Review docs versus working docs
+
+- A doc for reviewers is short (one to two pages), in the team's doc tool, and written or heavily edited by the user. A long spec or plan is the author's working document, not the review doc.
+- Ask reviewers only about changes a user or stakeholder would see. Internal choices are the owner's call; state them, don't ask.
+- Never offer an option nobody would pick, and never place the answer below the question where a top-down reader meets the question first.
+- Give the migration and rollout real detail (what each mode produces, how it is compared, cutover, rollback); leave low-level architecture out, since it is configuration.
+
 ## Rules for reviews
 
 - Judge the work, not whether an agent helped. Say why something is hard to read: it buries the point, it is too long, it makes claims the reader can't check.

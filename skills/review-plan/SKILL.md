@@ -68,6 +68,14 @@ End with one of:
 
 **Never end without a verdict.** A review that lists concerns and stops leaves the author guessing whether they may proceed.
 
+## Re-review rounds
+
+When the plan comes back after fixes, show what the revision did.
+
+- **Tag every finding by origin:** **new** (text added since the last round), **caused by a fix** (a revision introduced it), or **old** (it was already in the plan last round).
+- **Hold severities steady.** An old finding moves up a level only when you show a new, concrete failure path. A fresh reviewer rating it higher is not enough.
+- **Make the trend honest.** If the count of serious findings rises, say in one line whether that came from new text, from fixes, or from old text seen differently.
+
 ## Bounded
 
 Up to five rounds of back and forth. If five rounds have not converged, the disagreement is about requirements, not the plan, and a human decides.

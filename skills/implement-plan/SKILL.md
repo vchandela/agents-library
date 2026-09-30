@@ -44,4 +44,4 @@ You are not a code monkey. You are the last line of defence before this ships.
 
 ## Done when
 
-Every step in the plan is done or explicitly deferred with a reason, each was verified by running something, and every question you hit was asked rather than guessed.
+Every step in the plan is done or explicitly deferred with a reason, each was verified by running something, and every question you hit was asked rather than guessed. Any real-world test from `references/testing.md` has passed on the deployed system before you call it live.

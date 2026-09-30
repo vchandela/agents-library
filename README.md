@@ -44,7 +44,7 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 |---|---|
 | `write-tech-doc` | A proposal for colleagues who read critically |
 | `write-blog` | A shipped system becomes a published post |
-| `explain-simply` | First principles, no hand waving |
+| `explain-simply` | First principles, no hand waving; also explainer pages |
 | `honest-feedback` | What you actually think |
 
 **Meta.**

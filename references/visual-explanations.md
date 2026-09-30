@@ -1,6 +1,6 @@
 # Visual explanations
 
-Applied by the spec, plan and plan-review skills.
+Applied by the spec, plan, plan-review and explain-simply skills.
 
 ## The rule
 
@@ -23,6 +23,10 @@ When introducing a new mechanism or term, choose the clearest visual form:
 Do not use all of them for every point. Prefer a diagram plus a real example. Add prose only for the facts the visual cannot carry. Plain text is enough when the idea is already obvious.
 
 This is not a "minimum viable diagram" rule. A tiny diagram that still requires the reader to decode a paragraph has failed. Make the visual complete enough to stand on its own.
+
+## Step by step first
+
+When the subject is new to the reader, or done for the first time, explain it as numbered steps in order (why it exists, the pieces, one run, where it breaks), each with plain words, one small picture, a real example and a one-line takeaway. System names come at the end of each step. An overview of boxes and arrows goes after the steps as a recap, never in their place.
 
 ## Before using a term
 

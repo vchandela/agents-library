@@ -26,7 +26,7 @@ Apply `references/visual-explanations.md`. Prefer diagrams and real examples ove
 
 ## Testing
 
-Apply `references/testing.md`. Tests are steps in the plan, interleaved with implementation, not a cleanup phase at the end.
+Apply `references/testing.md`. Tests are steps in the plan, interleaved with implementation, not a cleanup phase at the end. If the spec has a real-world test, the last step runs it, run against the deployed system, and it gates announcing the change as live.
 
 ## Grounding
 

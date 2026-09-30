@@ -53,6 +53,8 @@ Keep going until you can state the system back and the user agrees. Then write t
 
 **Non-functional.** Idempotency, ordering, atomicity, each yes or no and why. Performance targets if they exist. What is logged or measured.
 
+**How we test it for real** (when repo tests can't show it working). The real-world test from `references/testing.md`: action, exact input, expected result, what failure looks like. Prefer replaying the ask that started the work.
+
 **Open items.** One numbered list: item, recommended answer, other options. Every assumption goes here, including ones the plan depends on. Access to external systems follows the team's existing route. Reviewers reply per number.
 
 ## The document

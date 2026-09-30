@@ -32,6 +32,15 @@ Answer all four. If any answer is no, drop the finding or lower its severity.
 
 Report what you are more than eighty percent sure about. Consolidate repeats into one finding. **Severity inflation costs more trust than a missed finding**, and a review nobody trusts is a review nobody reads.
 
+## Re-review rounds
+
+When the same change is reviewed again after fixes, the reader needs to see what the fixes did, not a fresh list that looks like churn.
+
+- **Tag every finding by origin:** **new** (code added since the last round), **caused by a fix** (a fix from the last round introduced it), or **old** (the code was already there last round).
+- **Hold severities steady.** An old finding moves up a level only when the reviewer shows a new, concrete failure path. A fresh reviewer rating it higher is not enough. Otherwise keep last round's level.
+- **Make the trend honest.** If the count of medium or major findings rises, say in one line whether that came from new code, from fixes, or from old code seen differently.
+- **Brief helpers the same way.** When reviewer subagents do the digging, give them last round's severities and tell them to keep those levels unless they can show a new failure path.
+
 ## Principles
 
 - Favour deleting code over adding it.
