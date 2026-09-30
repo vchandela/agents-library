@@ -17,6 +17,11 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | mgechev/skills-best-practices | The three step validation loop, which replaced a compliance harness. |
 | [vercel-labs/skills](https://github.com/vercel-labs/skills) | Distribution. `npx skills add` already handles 80+ agents. |
 | [anthropics/skills](https://github.com/anthropics/skills) | Minimal frontmatter. Two fields. |
+| [Anthropic, multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) | Scale effort to the question; sub-agents with clear, non-overlapping boundaries; a separate citation pass. |
+| [humanlayer/humanlayer](https://github.com/humanlayer/humanlayer) | Read the user's own material first, fully, before searching. |
+| [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | One round of clarifying questions, a written brief, stop when searches repeat. |
+| [stanford-oval/storm](https://github.com/stanford-oval/storm) | Research by perspective; ask "what did we find and not use?" before writing. |
+| addyosmani/agent-skills | Label what could not be verified, in the text. |
 
 ## Refused
 
@@ -35,4 +40,5 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 
 Not found in any of the repos read.
 
+- **Authority badges counted by organisation.** No research skill or deep-research tool read scores how widely an idea is adopted; GPT Researcher only de-duplicates URLs.
 - **Separation of proposer and critic.** All five assume one agent plans, implements and reviews. The pipeline here hands off instead, with bounded rounds and a gate before implementation.
