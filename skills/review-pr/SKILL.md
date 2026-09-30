@@ -30,6 +30,8 @@ Answer all four. If any answer is no, drop the finding or lower its severity.
 3. Have I read the callers, the imports and the test?
 4. Is the severity defensible?
 
+A proposed fix gets the same bar: say what else it changes that people will see, and check it. "Let the bot's shadow mode join channels, joining only reads" was wrong: a Slack join posts "<bot> has joined the channel" to everyone, which made a silent mode visible.
+
 Report what you are more than eighty percent sure about. Consolidate repeats into one finding. **Severity inflation costs more trust than a missed finding**, and a review nobody trusts is a review nobody reads.
 
 ## Re-review rounds
@@ -40,6 +42,17 @@ When the same change is reviewed again after fixes, the reader needs to see what
 - **Hold severities steady.** An old finding moves up a level only when the reviewer shows a new, concrete failure path. A fresh reviewer rating it higher is not enough. Otherwise keep last round's level.
 - **Make the trend honest.** If the count of medium or major findings rises, say in one line whether that came from new code, from fixes, or from old code seen differently.
 - **Brief helpers the same way.** When reviewer subagents do the digging, give them last round's severities and tell them to keep those levels unless they can show a new failure path.
+- **Pin each round to exact commits.** Fetch without hiding errors, list the head of every PR, and name those SHAs in the report. A first round once reported bugs that were already fixed, because it read an hours-old fetch. A later "nothing changed" came from a fetch whose error had been sent to `/dev/null`. If the heads have not moved, say so instead of reviewing again.
+- **Reproduce what matters on the real system.** Anything medium or above gets a scratch test. Transaction, lock and cancel behaviour gets tested on the real database: a lost record after a failed COMMIT only showed up on Postgres, and the SQLite suite passed.
+
+## When the PRs come as a set
+
+Review related PRs, often spread across repos, as one change. Two checks catch what a per-PR review misses:
+
+- **Follow each change into the code that reads it in the other repos.** Example: a product PR stopped honouring an environment pin on GitHub-started builds. Artemis still read that pin from the build message to decide which builds were its own, so it would reattach to the wrong build or cancel a real PR's CI. Each PR was correct alone; the pair was not.
+- **A fix to a doc or a claim: grep for every copy**, including UI labels and code comments. A wrong "6 h" claim was fixed in CLAUDE.md and a docstring, while the operator-facing form label still said it.
+
+Say which order the set should merge in, and which PRs depend on each other.
 
 ## Principles
 
@@ -52,6 +65,8 @@ When the same change is reviewed again after fixes, the reader needs to see what
 Same bar. Fix what is real. For the rest, **leave a one line reason before resolving**, so the next person knows it was considered and not just cleared.
 
 ## Output
+
+Write it in the voice of `references/writing-voice.md`. For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome. End with a recap table: PR, verdict, blocking or not.
 
 Say what you checked and found sound, as well as what you did not. A review listing only failures reads as though nothing else was examined.
 
