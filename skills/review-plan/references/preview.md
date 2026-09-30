@@ -11,6 +11,7 @@ A document that parses is not a document that reads well. Look at it the way the
 1. **Parse every diagram.** Run each Mermaid block through Mermaid's own parser (a local `mermaid` + `jsdom` script). Confirm the check fails on a known-broken diagram once, so a pass means something.
 2. **Build a local preview** that renders diagrams the way the host does. For claude.ai artifacts: Mermaid in `securityLevel: 'strict'`, `useMaxWidth: false`, theme `base`. Add `<meta charset="utf-8">`.
 3. **Serve it and open it in Chrome** (`python3 -m http.server` on 127.0.0.1; Chrome tools can't open `file://` or scroll inside an artifact's sandboxed frame).
+   Pass `--directory <dir>` and an unusual port, then `curl` the page and grep for a string from your file before screenshotting: another session's server on a common port (8765) silently served a different page, and the first round of screenshots showed the wrong document.
    No Chrome tools in the session? Drive the installed Chrome with Playwright (`playwright-core` with `executablePath` set to the local Chrome), screenshot each section element, and read the screenshots back as images. Checking that the HTML parses is not a preview.
 4. **Check, with a screenshot of each diagram and each table:**
    - at desktop width AND phone width (390 px), in light AND dark mode, with every `<details>` opened;

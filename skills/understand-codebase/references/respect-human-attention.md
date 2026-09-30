@@ -19,6 +19,7 @@ The person who sends a document is accountable for all of it, whatever produced 
 - **Edit for density.** Three bullets where three do the job, not ten. No raw dumps, no emoji. Supporting detail still has to be easy to read.
 - **Every claim is checked** before the user sends it, because they answer for it.
 - **Messages asking for a decision** (a Slack post, a review request) carry the user's reasoning. Draft for the user to post, in their voice, and keep it short.
+- **A shared doc is written item by item, in the user's words.** For a page teammates will read (a tech-debt list, an issues page), draft each entry in chat, 2 to 4 lines, and write to the doc only the text the user approved, one item at a time. The long explanation, diagrams and evidence go in a linked page, not the doc, so readers only read a little. Example: a tech-debt page with 17 fully written sections was cleared back to an empty "Issues" heading, with each issue to be drafted, approved, then added, because the user wanted "writing things in notion doc myself with draft from you... this way folks don't have to read a lot".
 
 ## Authorship boxes
 
@@ -41,6 +42,8 @@ The person who sends a document is accountable for all of it, whatever produced 
 - Number the open questions first (1 to N) and settled ones after, so "#3" always means something a reviewer can answer.
 - Show options side by side with their costs. Mark one only when the user has a view, labelled "<name>'s preference"; otherwise "options, for the team to choose". Your recommendation is not the user's.
 - Settled decisions go in one collapsed table: chosen, rejected, and why.
+- **Before a question reaches a person, try to answer it yourself.** Check the vendor's docs, the dashboard, the code, or run a spike. Only what truly belongs to someone else stays: access they grant, a setting they own, a policy call. Send those once, together, after testing. Example: "is there a read-only WorkOS role?" and "can agent logins use the WorkOS MCP?" were both drafted for the WorkOS owner, and both were answered by the WorkOS docs (Support Viewer; the MCP only supports a normal login).
+- **A technical choice that evidence can settle is not a question.** "MCP or CLI?" was settled by spiking both. The team gets the outcome and the reason, not a vote.
 
 ## Review docs versus working docs
 
