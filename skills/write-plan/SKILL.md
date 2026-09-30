@@ -49,6 +49,14 @@ Same discipline as the spec. The user reviews it, then a teammate, before any co
 - On every revision, fold the change into the step it affects. Never append.
 - Plain words, no em dashes.
 
+## Folding in plan review
+
+Vivek's instruction for review feedback: "be pragmatic in incorporating them". Treat each finding as a claim to check, not an order.
+
+- Open every `file:line` the reviewer cites before accepting. On ARTM-309 a reviewer said a harvest prompt reads "20 incident threads"; the prompt only says "follow the most relevant threads one hop", so the plan said that instead.
+- When a finding contradicts the repo's docs, the code wins. A CLAUDE.md line said each step owns its microVM; `server.mjs` showed a wave shares one, so the finding held. Report the stale doc line to the user as a separate one-line fix; don't fix it in this plan.
+- Fold each accepted fix into the step it changes, then reply with one row per finding: accepted, modified or rejected, and what changed.
+
 ## Done when
 
 The preview in `references/preview.md` passes. Every spec invariant maps to a step, every assumption is flagged, and the testing approach matches what the repo can actually do. Next: `review-plan`, on a different agent. See `references/handoff-protocol.md`.
