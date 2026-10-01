@@ -16,6 +16,7 @@ Ask questions until you are clear on what exists today, what is being built, and
 One page, two at most, three only if the material truly needs it. Assume a reader with no patience and real expertise.
 
 - **Problem first.** State precisely what is wrong before proposing anything. Most weak docs start solutioning in paragraph two.
+- **Then the whole solution in one picture**, when the solution has a handful of parts (other docs, such as a single decision or a comparison, need other shapes): a diagram of four to seven big boxes, so every reader knows the parts before any detail. Each box then gets its own section that goes deeper layer by layer, and one real example runs through every section to tie the story together.
 - **First principles.** What is fundamentally true here, what are we actually dealing with.
 - **Then the solution**, concise, with diagrams.
 - Suggest phases where the work splits into phases.
