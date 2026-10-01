@@ -28,6 +28,8 @@ Apply `references/writing-voice.md`. Tables and diagrams instead of paragraphs w
 
 One per option, where options are being compared. A diagram per option does more for a reader than three paragraphs of contrast.
 
+Apply `references/respect-human-attention.md`, including its rules for systems: a design asks people only what a machine cannot decide.
+
 ## Be honest about tradeoffs
 
 Name the real limits, including the ones easy to gloss over. A doc that only lists upsides reads as a pitch, and a reader who has shipped things will discount all of it.

@@ -98,6 +98,8 @@ An explainer page follows everything above, plus:
 - **An issues list keeps everything about one issue in one entry.** What is wrong, the fix ideas, what a call or review said, and what is still unanswered all sit under that issue's heading. No separate "Ideas", "Open questions" or per-area sections that split one problem across the page. When walking issues one at a time, give each the same shape so it sticks: an everyday scene that maps one to one, what actually happens (a sequence diagram of one real case), today next to the fix as a table and a timeline, an "Is this healthy?" box, what could not be checked, and a recap. The reader asked for exactly this after seeing a page with 17 sections plus separate ideas and questions: "consolidate the headings and issues so we don't have multiple sections for issues".
 - **Preview before every publish, non-negotiable.** Apply `references/preview.md`: screenshots of every section at desktop and phone width, light and dark, looked at and fixed before the page goes out.
 
+Apply `references/respect-human-attention.md`, including its rules for systems: a design asks people only what a machine cannot decide.
+
 ## Words
 
 - Plain words, short sentences, active voice. No flourish or metaphor where a plain noun works: "every step goes through this one call", not "every step crosses the one teal edge".

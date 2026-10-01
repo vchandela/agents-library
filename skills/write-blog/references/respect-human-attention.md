@@ -12,6 +12,15 @@ The person who sends a document is accountable for all of it, whatever produced 
 | Detailed sections (behaviour, errors, data, steps, tests) | Written with the agent, then edited down for density. |
 | Raw output kept for reference (logs, full analyses) | Allowed, inside a clearly labelled block, never passed off as the user's words. |
 
+## Systems you design respect attention too
+
+The same rule covers what a design asks of people once it runs, not only what a document asks of its readers. People care about outcomes and want few touchpoints.
+
+- **List every human touchpoint** in the design (reviews, grading, labelling, digests, alerts, approvals) with who, how often and how long it takes, then cut or shrink each one before proposing it.
+- **Ask a person only when a machine can't decide**, in a place they already work (a field at ticket close, a PR approval, an issue assigned through CODEOWNERS), with the evidence attached. No new channels and no daily digests nobody acts on.
+- **Machines check, people decide.** A reviewer approves a PR whose claims are already verified, with evidence inline; they tick only what the machine could not verify.
+- Example: a knowledge-base design first had a daily "guard digest" message and owners ticking every claim. Both were cut: the guard now asks for a fix PR that the owner only approves, and only unverified claims need a tick.
+
 ## Rules for the document
 
 - **Label where the agent's work begins.** One plain line at the boundary, for example: "Detail below drafted with an AI agent and reviewed by <name>." A reader must always know which parts carry the user's judgment.
