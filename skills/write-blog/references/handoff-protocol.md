@@ -61,3 +61,10 @@ A handoff file goes in the OS temp directory, not the repo. It points at the spe
 ## Why bounded
 
 Unbounded review finds infinite issues, because any plan can be criticised forever. Five rounds is enough to catch what matters and short enough to finish.
+
+## Several agents, one branch
+
+- **Claim the branch before a push-bound full run**, and the others hold until it is released. A full suite takes minutes; another agent's push in that window makes the run stale, and two runs were lost in one evening to exactly this race.
+- **Shared test fixtures drift.** A template database, a cache or a build directory that several worktrees share is at whatever the last run left it. Check its version before trusting a red run: 226 failures in one run were a template built from the main branch, missing one migration.
+- **One ledger of instructions, in a file every agent reads**, so nothing the human said lives only in one agent's context.
+
