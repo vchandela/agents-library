@@ -107,6 +107,32 @@ Measure on a throttled phone (390px, slow 4G, 4x CPU), not a laptop. Lighthouse 
 - Every indexable page has its own title, description, canonical, `og:title`, `og:description`, `og:image` and `twitter:card`. Links travel through chat apps, and a page without them shares as a bare URL.
 - Structured data only where a search engine still uses it; check the current rich-result eligibility before adding it.
 
+## Taste: what separates a crafted page from a template
+
+Measured on Apple, Linear, Stripe, Vercel and Raycast in October 2026, with GOV.UK as the plain control. Each line is a number a probe can read from computed styles, so it is checked, not argued.
+
+| Check | Crafted sites | Finding when |
+|---|---|---|
+| Letter spacing on text 32px and up | -0.015 to -0.06em, tighter as it grows | 0 or positive |
+| Line height on text 40px and up | 1.0 to 1.15 | 1.2 or more |
+| Distinct font weights on a page | 2 or 3 | 4 or more |
+| Button weight | 400 to 510 | 600 or more with a glow or a lift |
+| Families | one sans, plus a mono only for code or data | a third face, or mono on labels for a non-technical reader |
+| Share of text nodes in the accent colour | under 10% (Stripe 9%, Apple under 4%) | over 15%: nothing stands out |
+| Neutral text colours | 3 or 4 steps | 5 or more |
+| Corner radii | 2 or 3, plus a pill | 5 or more |
+| Type sizes | one ratio, whole pixels | fractional sizes, ratios that jump |
+| Shadows | neutral, layered, low alpha; in dark, a hairline and a top highlight | any saturated or coloured glow |
+| UI transition length | 100 to 250ms, ease-out, properties listed | over 300ms, ease-in, or `transition: all` |
+| Hover and press | hover raises contrast; press scales to about 0.97 | a 1px lift and nothing else |
+| Content at rest | visible with no scroll and no script | sections at opacity 0 until revealed, counters at 0 |
+| Browser bar colour | read from the page, follows the chosen theme | a typed hex that is right in one theme |
+
+Two that are judgement, not probes:
+
+- **The first screen shows the product.** Linear shows its app, Apple the phone. A heading over a gradient shows nothing that is yours.
+- **The 2024 to 2026 template, all at once, is the tell**: a centred hero, a pill eyebrow in mono capitals, an italic serif accent word, a glowing pill button, a dot grid or gradient wash, an autoplaying logo or face marquee, count-up numbers, and sections alternating text left and card right. Any one can be a choice. Four together is a template.
+
 ## Severity
 
 P0 blocks the task. P1 is a real difficulty or an accessibility failure. P2 has a workaround. P3 is polish. Unsure between two? Ask whether a user would contact support about it. If yes, it is at least P1.
