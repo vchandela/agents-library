@@ -18,6 +18,11 @@ Apply `references/engineering-principles.md`: DRY, YAGNI, KISS, SOLID, cut prema
 - **Every assumption goes in the spec's open items**, not here. A step that changes under another pick says how.
 - Verify every `file:line` and claim before publishing. Cut steps for work the platform already does.
 - No shorthand.
+- **Global constraints first.** A short section near the top lists every project wide requirement from the spec with its exact value (versions, limits, names, formats). Every step and every reviewer inherits it.
+- **Each step is a vertical slice** that can be checked on its own, sized to fit one fresh session, with acceptance criteria, what is out of scope for it, and the steps that block it. A step with no open blockers can start now.
+- **Each step names what it produces and consumes**: exact function names, signatures and paths a later step relies on. A later step calling `clear_layers()` when an earlier one defined `clear_full_layers()` is a bug in the plan.
+- **Every command says what passing looks like.** `Run: pytest tests/test_x.py::test_y` then `Expected: FAIL, name 'y' is not defined`. The implementer compares, rather than judges.
+- A step that will wait days before anyone picks it up names the interface and the behaviour it changes, not a line number, because lines move. A step done now keeps `file:line`.
 - Every step uses an existing repo pattern and cites it. Anything new to the repo stays out of the plan until the user confirms it; list it under "needs sign-off".
 
 ## Teach the implementation
@@ -26,7 +31,9 @@ Apply `references/visual-explanations.md`. Prefer diagrams and real examples ove
 
 ## Testing
 
-Apply `references/testing.md`. Tests are steps in the plan, interleaved with implementation, not a cleanup phase at the end. If the spec has a real-world test, the last step runs it, run against the deployed system, and it gates announcing the change as live.
+Apply `references/testing.md`. Tests are steps in the plan, interleaved with implementation, not a cleanup phase at the end. If the spec has a real-world test, the last step runs it, run against the deployed system, and it gates announcing the change as live. If the change reaches users, the last steps are the rollback plan and the first-hour checks from `references/shipping.md`.
+
+**Name the inputs nobody tested.** List up to five inputs or failure modes the spec implies but no planned test exercises (empty, duplicate, concurrent, partial failure, a user doing the reasonable unexpected thing), most likely first. Add a test for each to the step that owns the code. The spec's silence about an input is not permission for it to break.
 
 ## Grounding
 
@@ -59,4 +66,4 @@ Vivek's instruction for review feedback: "be pragmatic in incorporating them". T
 
 ## Done when
 
-The preview in `references/preview.md` passes. Every spec invariant maps to a step, every assumption is flagged, and the testing approach matches what the repo can actually do. Next: `review-plan`, on a different agent. See `references/handoff-protocol.md`.
+The preview in `references/preview.md` passes. Every spec invariant maps to a step, every assumption is flagged, and the testing approach matches what the repo can actually do. No step decides nothing (TBD, TODO, "handle edge cases"). Names and types match across steps. The plan is not longer than the code it describes: a plan full of finished function bodies has written the code instead of deciding it. Next: `review-plan`, on a different agent. See `references/handoff-protocol.md`.

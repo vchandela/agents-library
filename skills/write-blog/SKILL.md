@@ -31,8 +31,8 @@ Arc: hook or incident, the core idea, what a developer actually sees, the tradeo
 - **Open with three bullets**: the problem, the approach, the result. This is what gets screenshotted.
 - Concrete numbers early.
 - Two to five diagrams, spread through the piece, not clustered at the top. Lead with one that captures the core insight.
-- One bold takeaway per section, the part that generalises past your case.
-- End on one line worth quoting.
+- One takeaway per section, the part that generalises, stated as a claim the section has not already made.
+- End on the last concrete fact or consequence. Never a line that repeats the post.
 
 ## Honesty
 

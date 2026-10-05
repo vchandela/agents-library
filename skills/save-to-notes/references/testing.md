@@ -5,7 +5,7 @@ Applied by write-spec, write-plan and implement-plan. Referenced, never copied.
 ## The loop
 
 - **Red.** Write the failing test first. Run it and watch it fail for the reason you expect: the feature is missing, not a typo or a bad import. A test that passes on its first run proves nothing, so fix the test.
-- **Green.** Write the least code that makes it pass. Run the repo's full suite, not just your file.
+- **Green.** Write the least code that makes it pass. Run the repo's full suite, not just your file. A failure in the full suite that you did not cause still goes in your report by name. A red test you saw and did not mention is a false report.
 - **Refactor only on green.** Tidy (rename, extract, dedupe) only while every test passes. Then a red after tidying means the tidy broke it; tidying while something is already red leaves you unable to tell which change did.
 - Code written before its test: stash it, confirm the test fails without it, restore it. Never skip the red.
 - Bug fix: reproduce it in a failing test before touching the fix.
@@ -17,10 +17,13 @@ Applied by write-spec, write-plan and implement-plan. Referenced, never copied.
 - Go through the public entry point. Fake only what crosses a process boundary: network APIs, the clock, randomness. Use a real test DB where it is cheap. Never mock your own modules.
 - Assert everything the user would see in that scenario, in that one test. "One behaviour per test" means one scenario, not one assert.
 - A thin test is fine for a tricky pure function. It is never the only proof.
+- **Agree the seams first.** Before the first test, write down where you will test (the public interfaces) and confirm them with the user. Prefer a seam that already exists, and the highest one that still shows the behaviour. Fewer seams is better; one is ideal.
 
 ## A test worth keeping
 
-- **Name the break.** Say which production change would make it fail. If none would, delete it.
+- **Name the break.** Say which production change would make it fail, and whether that change would be a bug or a decision. If only a decision (a constant, a message's wording) can fail it, it is a change detector. If no change would fail it, delete it.
+- **Mock below what the test depends on.** Before replacing a method, list what it does besides return a value. A mock that swallows a config write the next step reads makes the test pass and production fail. Mock the slow or external call one level down.
+- **One fixture per branch.** Give success, error and malformed input their own fake, so the wrong branch cannot satisfy the assertion.
 - **Expected values are typed out, never recomputed.** `assert slugify("Hello World") == "hello-world"`, not `== "Hello World".lower().replace(" ", "-")`. A bug in the shared logic sits on both sides and passes.
 - **Assert outcomes, not calls.** Check the output, the state, the side effect. A mock earns no assertion of its own.
 - **Fakes have the real shape**, with every documented field. A partial fake hides the field production needs.
@@ -35,6 +38,8 @@ Applied by write-spec, write-plan and implement-plan. Referenced, never copied.
 - **Grepping source text instead of running it.** The exception is code CI cannot run at all; say so in the test.
 - **Flaky or order-dependent tests.** Fix or delete; never retry them green.
 - **Testing the framework** rather than your code.
+- **Sleeping for a guessed time.** `sleep(0.5)` then assert passes on a fast laptop and fails in CI. Wait for the condition itself (the event arrived, the file exists, the count reached five), poll it, and fail with a named timeout. A fixed delay is right only when timing is the behaviour under test, and then a comment says where the number came from.
+- **Layered tests after a refactor.** Once tests exist at the deeper interface, delete the old tests on the shallow modules it replaced. Keeping both doubles the upkeep and pins the old shape.
 
 ## The real-world test
 
@@ -49,6 +54,21 @@ Repo tests are often enough. When they cannot show the change working for its re
 
 Terraform, Helm, shell: say so and why, then use the closest real check. `terraform plan` output review, a linter, a manual checklist mapped to the spec. Every invariant still maps to a check, even when that check is a person reading something.
 
+## A claim and its evidence
+
+| Claim | Needs | Not enough |
+|---|---|---|
+| Tests pass | The suite command, run now, zero failures | An earlier run, "should pass" |
+| The build works | The build command, exit 0 | The linter passing |
+| The bug is fixed | The original reproduction, now correct | The code changed |
+| The regression test works | It failed with the fix reverted | It passes |
+| An agent finished | The diff shows the change, and you ran its tests | The agent said done |
+| Requirements met | Each one ticked against the spec | Tests pass |
+
+"Should", "probably" and "seems to" in a status line mean the check has not run. Run it, then say what it returned.
+
 ## Done when
 
 Every new behaviour and every error case has a test that failed before the code existed. The full suite is green with the repo's own command, the output is clean, and the evidence is shown: the command run and what it returned. If the change has a real-world test, it has passed on the deployed system or its exact steps are with the user.
+
+List only commands you ran. Reading the code is not running it. A check you skipped is named, with the reason.

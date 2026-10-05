@@ -122,6 +122,25 @@ Add the strongest evidence tag beside it:
 
 Also note counter-evidence in the tooltip ("Counter: Cursor reports gains from embeddings"). An idea with many users and published counter-evidence is marked **mixed**.
 
+## Source authority
+
+Counting organisations says how widely an idea is used. It does not say whether a fact is true. For a fact about a framework, library, API or standard, rank the sources:
+
+| Rank | Source | Example |
+|---|---|---|
+| 1 | Official documentation for the version in use | the framework's own reference page |
+| 2 | Official blog or changelog | release notes, migration guides |
+| 3 | Web standards references | MDN, web.dev, the spec |
+| 4 | Compatibility data | caniuse, node.green |
+
+Never cite as primary: Stack Overflow answers, blog posts or tutorials however popular, AI-written summaries, and training data.
+
+- **Read the version first.** Take it from the dependency file (`package.json`, `pyproject.toml`, `go.mod`). The version decides which pattern is correct. If it is missing, ask.
+- **Fetch the page, not the site.** The exact reference page, deep-linked with its anchor.
+- **When two official sources disagree,** say so, and check which one holds for the version in use.
+- **What cannot be found is labelled UNVERIFIED in the text.** A disclaimer is not a check.
+- **Never copy an outbound endpoint** (telemetry, analytics) from a doc example into code without telling the user.
+
 ## Report shape
 
 The reader should be able to skip every article. For a page, follow explain-simply's step-by-step structure.

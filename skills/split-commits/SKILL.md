@@ -19,6 +19,10 @@ First line says what changed, in plain words, under about seventy characters. Th
 
 Explain the reasoning, not the diff. The diff is already there. What it cannot show is what you decided and what you rejected.
 
+Run the last pass from `references/machine-tells.md` on the message and keep only the final text.
+
 ## Done when
 
 Each commit does one thing, each leaves the repo working, and each message would still make sense to someone reading it in a year.
+
+Before handing it over, run the full suite on the exact tree being pushed; a green run earlier proves only that earlier tree. Confirm the base branch rather than assuming main. Never delete a branch, worktree or uncommitted file the user did not ask to delete.

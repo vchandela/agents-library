@@ -32,6 +32,14 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 - **Facts block, judgements warn.** A path is protected or it is not. Whether a change carried a lesson is a judgement. A gate with false positives gets switched off, which is worse than no gate.
 - **Keep an incident log.** One entry per real failure, with its mechanism and date. It is the cheapest document in any repo, and the one people actually reread.
 - **One fact has one home.** Two documents may never disagree.
+- **Guard the bar itself.** Agents take the cheapest road to green. At review, diff for: a threshold lowered, a test skipped or its assertions removed, a new suppression comment (`# noqa`, `eslint-disable`, coverage ignore), a stub or empty catch, a new exception. Tightening is silent. Loosening is loud.
+- **Ratchet when there is no target.** Record today's value and refuse to get worse. A target the code fails today becomes a red build everyone learns to ignore.
+- **At least one check the agent cannot argue with.** Its own tests are circular. An outside checker (an accessibility scanner, a vulnerability database, a real browser) is not.
+- **Every exception has an owner and an expiry date.**
+- **Cost decides where a check runs:** seconds after each edit, a minute at task end, everything else in CI.
+- **Hooks are fast, bounded and fail safe.** An optional hook that fails must not block the session starting. No network unless the hook needs it.
+- **Record a decision only when it is hard to reverse, surprising without context, and the result of a real trade-off.** All three, or skip it. One paragraph is enough.
+- **Record rejections where the next proposer will look.** One file per rejected idea, for example `.out-of-scope/dark-mode.md`, with the reason and every request that asked for it. Read these before taking a new request.
 
 ## 4. Never overwrite
 
