@@ -8,6 +8,8 @@ Look at the screen and write down what is wrong before running any detector, lin
 
 ## Evidence
 
+- A link checker's 403, 404 or certificate error is fetched again from a real browser before it is reported. Bot walls and a missing local certificate store produced 41 false dead links in one pass; three survived the second check.
+
 - A screenshot is evidence only if it is not blank, shows what its name claims, and exists for every required width and theme. A width nobody captured is a width nobody inspected.
 - Say what produced each finding: emulated viewport, synthesized touch, real device, which browser. Say what stayed untested.
 

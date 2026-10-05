@@ -9,6 +9,13 @@ Applied by write-plan, implement-plan and qa-live-site, whenever a change reache
 - Define "working" first: write the two to four questions someone on call will ask about this change. Every log line or metric added must help answer one.
 - A critical finding from any review means no ship, unless the user accepts the risk in writing.
 
+## Several sessions, one main branch
+
+- **Claim main before a push-bound full test run, and release it after the push.** The others hold until "released". Two full runs were lost in one day to a session landing first and forcing a rebase and rerun.
+- A version number follows push order, not the order work was claimed. A lower number landing after a higher one sends the version backwards.
+- After anyone else lands, rebase and run the whole suite again before pushing. A green run on the old base proves nothing about the new one.
+- Say which shared files a change touches when claiming, so a collision is a message rather than a conflict.
+
 ## The first hour after
 
 1. The health check answers 200.
