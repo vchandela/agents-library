@@ -14,6 +14,7 @@ Applied by write-plan, implement-plan and qa-live-site, whenever a change reache
 - **Claim main before a push-bound full test run, and release it after the push.** The others hold until "released". Two full runs were lost in one day to a session landing first and forcing a rebase and rerun.
 - A version number follows push order, not the order work was claimed. A lower number landing after a higher one sends the version backwards.
 - After anyone else lands, rebase and run the whole suite again before pushing. A green run on the old base proves nothing about the new one.
+- Never edit, rebase or rebuild a working tree while a test run is reading it; the result then describes no tree at all. Work on the next change in a second worktree.
 - Say which shared files a change touches when claiming, so a collision is a message rather than a conflict.
 
 ## The first hour after
