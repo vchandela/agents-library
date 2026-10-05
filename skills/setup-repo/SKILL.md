@@ -27,7 +27,7 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 
 ## 3. The conventions themselves
 
-- **The instruction file is a router.** It holds what is always true and points at everything else. Anything loaded every session costs every session. A file that grows past a few hundred lines is a file nobody reads to the end, including the model.
+- **The instruction file is a router, with a budget and a test on the budget.** It holds what is always true and points at everything else; anything loaded every session costs every session and lowers adherence. Under 200 lines (Anthropic's guidance for CLAUDE.md) and under 32 KiB (Codex truncates AGENTS.md past that, silently). Each rule is the rule, its check and a pointer; its history goes to the incident log, a procedure to a skill, a rule for one directory to a path-scoped rule. Imports do not save anything: they load at launch too. Of the lab repos surveyed in 2026 (claude-code 40 lines, Agent SDK 82, workers-sdk 157), none tested the size, which is how files reach 500 lines. Add the test.
 - **A rule with no check is a rule you break yourself.** Every breach happens while doing one thing and looks right from inside it. Write the check with the rule, or write down that there is not one.
 - **Facts block, judgements warn.** A path is protected or it is not. Whether a change carried a lesson is a judgement. A gate with false positives gets switched off, which is worse than no gate.
 - **Keep an incident log.** One entry per real failure, with its mechanism and date. It is the cheapest document in any repo, and the one people actually reread.

@@ -58,10 +58,10 @@ Same discipline as the spec. The user reviews it, then a teammate, before any co
 
 ## Folding in plan review
 
-Vivek's instruction for review feedback: "be pragmatic in incorporating them". Treat each finding as a claim to check, not an order.
+Be pragmatic about review feedback. Treat each finding as a claim to check, not an order.
 
-- Open every `file:line` the reviewer cites before accepting. On ARTM-309 a reviewer said a harvest prompt reads "20 incident threads"; the prompt only says "follow the most relevant threads one hop", so the plan said that instead.
-- When a finding contradicts the repo's docs, the code wins. A CLAUDE.md line said each step owns its microVM; `server.mjs` showed a wave shares one, so the finding held. Report the stale doc line to the user as a separate one-line fix; don't fix it in this plan.
+- Open every `file:line` the reviewer cites before accepting. Reviewers misquote: one said a prompt reads "20 incident threads" when it only said "follow the most relevant threads one hop", so the plan said what the file says.
+- When a finding contradicts the repo's docs, the code wins. An instruction file said each step owns its VM; the server code showed a wave shares one, so the finding held. Report the stale doc line to the user as a separate one-line fix; don't fix it in this plan.
 - Fold each accepted fix into the step it changes, then reply with one row per finding: accepted, modified or rejected, and what changed.
 
 ## Done when

@@ -39,6 +39,7 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 | `qa-live-site` | QA a deployed app, states first, then seven phases |
 | `diagnose-bug` | A loop that goes red first, then the cause, then the fix |
 | `review-security` | Proves a trust boundary failure from source, or says what it could not see |
+| `review-product-page` | Will a stranger get it, believe it and act? Positioning first, then the page in impact order |
 
 **Writing.**
 

@@ -40,6 +40,9 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | The pre-send deletion check; state restated every turn; name a cause only with evidence; isolated, pinned baselines; inspection is not execution. |
 | obra/superpowers | Root cause before any fix, with the three-failures stop; the claim and evidence table; global constraints and produces and consumes in plans; never pre-judge the reviewer; a green baseline. |
 | [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | The six-part bar for a finding; three verdicts, with no severity on needs validation; severity capped by shown impact; the ledger as the coverage claim; a fresh verifier that tries to refute. |
+| [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | One positioning doc every page skill reads first; review a page in impact order (clarity, headline, one action, proof, objections, friction); the "Now you can" test; the perception gap; the four forces of switching; activation as time to the first win, do not show, empty states that teach, started progress and peak-end; four copy tells (negation lists, pile-ons, self-answered reveals, stock pitch). |
+| [RefoundAI/lenny-skills](https://github.com/RefoundAI/lenny-skills) | Positioning: the status quo is the real competitor; name the foil; win on one value vector, not "better". |
+| openai/codex, anthropics/claude-code, Anthropic memory docs | Instruction file budget: under 200 lines (Anthropic), under 32 KiB (Codex truncates silently); none of the surveyed lab repos tests the size, so add the test. |
 
 ## Refused
 
@@ -49,6 +52,8 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | ECC | 286 skills, 68 agents, 94 commands | A catalogue to maintain. Eighteen is the working set. |
 | ECC | Auto extracted "learned" skills from transcripts | Unreviewed content writing itself is the thing a curated repo exists to prevent. |
 | ECC | Per session cost tracking, desktop notifications, MCP health checks | Agency scale problems. |
+| marketingskills, pm-skills, Product-Manager-Skills, lenny-skills | 272 skills between them: SWOT, PESTLE, Porter, lean canvas, OKR brainstorms, persona templates, headline formula catalogues, cold email, ads | Frameworks that produce documents rather than change what ships. One skill that judges a page and rewrites it beats forty that fill templates. |
+| lenny-skills | Guest quotes as the substance of each skill | Authority by name. Kept the idea, dropped the quote. |
 | ECC | The plugin bootstrap resolver | A 900 character inline resolver for marketplace installs. Not needed for a repo you clone. |
 | everyone | A build step that compiles skills from fragments | Five of five hand write. Ten lines of duplication does not justify a generator and a drift test. |
 | everyone | An install script | `npx skills add` exists and does symlinks properly. |
