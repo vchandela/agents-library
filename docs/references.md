@@ -22,19 +22,49 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | One round of clarifying questions, a written brief, stop when searches repeat. |
 | [stanford-oval/storm](https://github.com/stanford-oval/storm) | Research by perspective; ask "what did we find and not use?" before writing. |
 | addyosmani/agent-skills | Label what could not be verified, in the text. |
+| addyosmani/agent-skills | Source authority order for a fact: official docs for the version in use first, never training data. |
+| addyosmani/agent-skills | Performance as keep or revert: one change, measured the same way, and neutral is a revert. Never present a number you did not measure. |
+| addyosmani/agent-skills | The reviewer gets the artifact and the contract, never the author's claim. |
+| addyosmani/agent-skills | Guard the bar itself: a loosened threshold or new suppression is loud. Ratchets. Exceptions with an owner and expiry. |
+| addyosmani/agent-skills | A rollback plan before any deploy, first-hour checks, staged rollout thresholds. |
+| addyosmani/agent-skills | Interview with a guess attached to every question. |
+| [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Judge the screen before reading any detector output. Check the evidence before reviewing it. |
+| pbakaus/impeccable | Bounded inspection rounds: one batch, one confirming round. |
+| pbakaus/impeccable | The craft floor and detector thresholds as a generic UI checklist; personas; copy rules for errors and empty states. |
+| [blader/humanizer](https://github.com/blader/humanizer) | One theory of machine tells, ranked by strength, with a last pass that compares facts as well as style. |
+| [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | Pick the diagram by what the reader must understand; a complexity budget; the remove test; grammar per diagram type. |
+| [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | Map hubs and recorded why before reading; tag every relationship read, inferred or unclear; search in the repo's own words. |
+| [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | The ordered ladder before writing code, the never-cut floor, cut corners marked in code with a trigger, numbered tagged simplification findings. |
+| DietrichGebert/ponytail | Change a skill against two baselines, and prefer an operation to a principle (measured 0 of 3 against 6 of 6). |
+| mattpocock/skills | A red-capable loop before any hypothesis; interviews in frontier rounds; a spec axis in review; vertical slices and expand-contract; fog versus out of scope; the deletion test; no-ops. |
+| [ayghri/i-have-adhd](https://github.com/ayghri/i-have-adhd) | The pre-send deletion check; state restated every turn; name a cause only with evidence; isolated, pinned baselines; inspection is not execution. |
+| obra/superpowers | Root cause before any fix, with the three-failures stop; the claim and evidence table; global constraints and produces and consumes in plans; never pre-judge the reviewer; a green baseline. |
+| [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | The six-part bar for a finding; three verdicts, with no severity on needs validation; severity capped by shown impact; the ledger as the coverage claim; a fresh verifier that tries to refute. |
 
 ## Refused
 
 | From | Refused | Why |
 |---|---|---|
 | obra/superpowers | Nine harness plugin directories | Ship the one in use. Add another when another is actually used. |
-| ECC | 286 skills, 68 agents, 94 commands | A catalogue to maintain. Sixteen is the working set. |
+| ECC | 286 skills, 68 agents, 94 commands | A catalogue to maintain. Eighteen is the working set. |
 | ECC | Auto extracted "learned" skills from transcripts | Unreviewed content writing itself is the thing a curated repo exists to prevent. |
 | ECC | Per session cost tracking, desktop notifications, MCP health checks | Agency scale problems. |
 | ECC | The plugin bootstrap resolver | A 900 character inline resolver for marketplace installs. Not needed for a repo you clone. |
 | everyone | A build step that compiles skills from fragments | Five of five hand write. Ten lines of duplication does not justify a generator and a drift test. |
 | everyone | An install script | `npx skills add` exists and does symlinks properly. |
-| me | A compliance measurement harness | The three step validation above gets most of the value with none of the machinery. Revisit if a skill keeps being ignored in practice. |
+| me | A compliance measurement harness | The three step validation above gets most of the value with none of the machinery. Revisit if a skill keeps being ignored in practice. The two-baseline runs taken from ponytail are manual runs for one change, not a standing harness. |
+| mattpocock/skills | "Refactoring is not part of the loop" | Conflicts with refactor only on green. |
+| mattpocock/skills | One assertion per test | Conflicts with fat tests. |
+| mattpocock/skills | No file paths in specs | `file:line` is how claims stay checkable. Taken only for briefs that wait days. |
+| mattpocock/skills | "Prompt the positive" as a rule | Conflicts with the prohibition finding; only the pairing is taken. |
+| DietrichGebert/ponytail | "Never stall on an answer you can default" | Conflicts with stop and ask after a plan is approved. Rulings are allowed only on unattended runs. |
+| ponytail, i-have-adhd | Always-on persistence modes and intensity levels | A skill fires when relevant; persistence belongs in a hook. |
+| obra/superpowers | "1% chance, you must" skill invocation, all caps iron laws | Anything that must always hold is a hook. Keep the content, refuse the shouting. |
+| obra/superpowers | "Delete means delete" for code written before its test | Stash, confirm red, restore proves the same without throwing work away. |
+| cloudflare/security-audit-skill | Artifact promotion, JSON validators, budget arithmetic | One-organisation scale. The ideas behind them are kept. |
+| pbakaus/impeccable | Aesthetic bans (fonts, palettes, eyebrows) | Taste for marketing pages, not a generic floor. |
+| addyosmani/agent-skills | Error-budget gates and fixed canary percentages | Assume an SLO and a flag service most repos do not have. |
+| mattpocock/skills, humanizer | A retro skill and a prose detector script | Delete before adding: the checks they would run are already in testing and machine tells. |
 
 ## Own
 

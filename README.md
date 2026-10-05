@@ -2,7 +2,7 @@
 
 Library of skills, prompts and other best practices.
 
-Sixteen skills for engineering work with coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
+Eighteen skills for engineering work with coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
 
 ## Install
 
@@ -36,7 +36,9 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 
 | Skill | Does |
 |---|---|
-| `qa-live-site` | QA a deployed app, states first, then six phases |
+| `qa-live-site` | QA a deployed app, states first, then seven phases |
+| `diagnose-bug` | A loop that goes red first, then the cause, then the fix |
+| `review-security` | Proves a trust boundary failure from source, or says what it could not see |
 
 **Writing.**
 
@@ -96,6 +98,28 @@ Before shipping one:
 1. **Trigger test.** Paste only the frontmatter into a fresh chat. Ask for three prompts that should fire it and three that should not. If the model cannot separate them, the description is wrong.
 2. **Baseline.** Run a real task without the skill and write down how it goes wrong. If nothing goes wrong, the skill has no reason to exist.
 3. **Loopholes.** Run it again with the skill and note every excuse for skipping a step. Those become the rationalisation table.
+4. **Match the form to the failure.**
+
+   | The baseline went wrong by | Write | Not |
+   |---|---|---|
+   | Knowing the rule and breaking it under pressure | A prohibition, a rationalisation table, red flags | "Prefer" or "consider" |
+   | Complying, with output of the wrong shape | The shape itself: its parts, in order | A list of don'ts |
+   | Leaving out one required part | A required slot in the template it fills | A reminder near the template |
+   | Behaviour that should depend on a condition | A conditional on something observable | A rule plus exceptions |
+
+   A nuance clause ("don't X unless it matters") reopens the negotiation. Pair every prohibition with the behaviour you want instead.
+5. **Micro-test the wording.** Send a tempting task five or more times with the skill and five times with no guidance. If the control does not fail, there is nothing to fix. Read every output yourself. Five different shapes across five runs means the wording does not bind yet.
+6. **Change against two baselines.** Run the same task three ways: no skill, the current skill, the changed skill. Include one task the change should help and one existing task it could break. Wording that does not move the result does not ship, however reasonable it reads.
+7. **Isolate the baseline.** Run every arm with your own hooks, plugins and memory switched off (`claude --setting-sources ""`), and pin the model. Two public skill repos found their baseline secretly running the skill under test through an always-on hook.
+8. **Prove the check before trusting it.** Every scoring check gets one known good and one known bad answer, and must pass the first and fail the second. Check that every task can be passed at all.
+9. **Prefer an operation to a principle.** "Trace the flow end to end" scored 0 of 3 in one public eval. "Grep every caller of the function you touch and fix the shared function once" scored 6 of 6.
+
+While writing:
+
+- **Every step ends on a check.** "Every modified model accounted for" makes the agent do the work. "Produce a change list" does not.
+- **Hunt no-ops.** A sentence the model already obeys by default costs context and changes nothing. Test it by running without it, then delete it.
+- **Do not restate the environment.** A line that copies `package.json` scripts or the directory layout goes stale. Write what a lookup cannot find: the reason, the gotcha, the unwritten convention.
+- **Inline what every path through the skill needs; put what only some paths need in `references/`.**
 
 ## Licence
 
