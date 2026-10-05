@@ -40,7 +40,7 @@ Look at the screen and write down what is wrong before running any detector, lin
 
 Every screen and control answers each of these, or says why it cannot happen: default, hover, focus, active, disabled, loading, empty, error, success, permission denied, long content, missing content, offline or slow.
 
-- An empty state says which empty it is: first use, no results, filtered out, no permission, or failure. Each gives the next action.
+- An empty state says which empty it is: first use, no results, filtered out, no permission, or failure. Each gives the next action, and suggestions match the filter the reader chose.
 - Loading names the real operation. Never invent progress.
 - Content is visible without JavaScript having run. Nothing sits at opacity 0 waiting for a reveal.
 
@@ -82,6 +82,30 @@ Measured, never estimated from code. Label each number lab or field.
 | TTFB | under 800ms | |
 
 The LCP image is not lazy-loaded. Every image declares width and height.
+
+Measure on a throttled phone (390px, slow 4G, 4x CPU), not a laptop. Lighthouse in the lab ranks Apple, Stripe, Linear and Vercel's own homepages at 29 to 45 for performance (October 2026): a famous site is not a performance reference, so compare against the budget, not against them.
+
+## Loading (what the fastest sites do, and what each saved when measured)
+
+- Every image below the fold has `loading="lazy"`; the LCP image has `fetchpriority="high"`. Off-screen eager images cost one site 32% of its LCP on slow 4G. Lazy loading appears on 4 of 5 top reference homepages.
+- Serve images at the size they are shown, in AVIF or WebP, with `srcset`. A 168px JPEG shown at 48px is a finding.
+- Fingerprinted file names cached a year as `immutable`; HTML short. With `max-age=0` on CSS and JS, every navigation waits on a revalidation before it paints. Stripe, Linear, Vercel and GOV.UK all do it.
+- Scripts are `defer` or `type=module`, never plain tags that block parsing. The only inline script in the head is the one that must run before paint (a theme flash guard).
+- Preload only what paints above the fold: usually the font of the LCP text. Preloading a font nothing above the fold uses delays the one that matters.
+- No chained requests to draw one screen. If a screen needs A then B, the server returns both in A. A late second response that inserts content above what the reader is looking at is a layout shift even when CLS reads 0.
+- Count bytes and time in CI: a byte ceiling per page, plus a throttled LCP check. Real-user numbers when the platform allows (GOV.UK runs RUM and synthetic budgets with alerts).
+
+## Resilience
+
+- The page works when a script fails, not only when JavaScript is off. Hide content for an effect only under a class the script adds after it has loaded (`.armed .reveal { opacity:0 }`), never in the base stylesheet.
+- Never replace a true value with a placeholder at load for an animation. A screen reader, a search engine's renderer and a link preview read the page without scrolling: a count-up zeroed at load tells them "0". Zero it just before it scrolls into view.
+- A page served from a shared cache cannot know who is reading. Write moments as `<time datetime>` in UTC and let the browser show them in the reader's zone and language. Never hard-code a time zone.
+- Every element a script reads is on a page that loads that script. A hook rendered on five pages and read by a script loaded on one is a control that does nothing on four. Check it per page, not per repository.
+
+## Sharing
+
+- Every indexable page has its own title, description, canonical, `og:title`, `og:description`, `og:image` and `twitter:card`. Links travel through chat apps, and a page without them shares as a bare URL.
+- Structured data only where a search engine still uses it; check the current rich-result eligibility before adding it.
 
 ## Severity
 
