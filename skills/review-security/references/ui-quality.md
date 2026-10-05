@@ -55,7 +55,7 @@ Every screen and control answers each of these, or says why it cannot happen: de
 
 ## Input
 
-- Touch targets at least 44 by 44px.
+- Touch targets at least 44 by 44px. **Measure the hit area by tapping, not by reading the width**: a control drawn at 38px with a centred 44px `::after` passes, and a curl-and-CSS audit reports it as failing. Probe `elementFromPoint` 2px outside each edge.
 - Every action works by keyboard, with a visible focus ring. Esc closes what it opened.
 - Drag and swipe surfaces work under real touch, not only at a narrow viewport.
 - Reduced motion keeps the state change and drops the movement. A global zero-duration kill that removes feedback is a finding.
