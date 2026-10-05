@@ -11,6 +11,10 @@ A model picks the choice that fits the widest range of readers. A person picks f
 | Tell | Looks like | Write instead |
 |---|---|---|
 | Not X but Y | "It's not just a cache, it's a contract." "This does not mean X. It means Y." | The claim alone. Keep a contrast only when the reader really believes X. |
+| Negation list | "No setup, no templates, no waiting. No contract." | Say what does happen. State one real absence once, near the button ("No card needed"). |
+| Pile-on | "..., no exports, no spreadsheets, no second copy." trailing a full claim | End the sentence at the claim. |
+| Self-answered reveal | "The result? 3x faster." "The best part: it learns." | Say it. A reader's own question in an FAQ is fine. |
+| Stock pitch | "Whether you're X or Y", "Say goodbye to", "Unlock the power of", "X, reimagined", "Take it to the next level" | The specific thing it does for one reader. |
 | Closer that repeats | "That is the real win." "Let that sink in." A line after an example saying what it showed. | Cut it. Keep a last line only if it adds a fact or a consequence. |
 | Saying that sounds deep | "At its core", "the real question is", "X is the language of Y" | The specific claim. |
 | Run-up | "Let's dive in." "Here's the thing." "Honestly?" | Start with the point. |
