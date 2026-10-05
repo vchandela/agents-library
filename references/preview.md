@@ -16,7 +16,8 @@ A document that parses is not a document that reads well. Look at it the way the
 4. **Check, with a screenshot of each diagram and each table:**
    - at desktop width AND phone width (390 px), in light AND dark mode, with every `<details>` opened;
    - no horizontal page scroll at phone width, and no script errors in the console;
-   - on a phone, wide diagrams scroll sideways at a readable size instead of shrinking to fit;
+   - on a phone, wide diagrams scroll sideways at a readable size instead of shrinking to fit: the SVG has a `min-width` equal to its drawn width, inside its own `overflow-x: auto` wrapper. An `overflow: hidden` ancestor clips it with no scrollbar, and a page-overflow check still passes, so look;
+   - every screenshot shows what its name claims, with nothing blank; a missing width or theme is a failed check, not a skipped one;
    - no line or label crosses a box or another label;
    - tooltips appear and are not clipped;
    - every diagram rendered (no raw source left on the page);
@@ -26,7 +27,7 @@ A document that parses is not a document that reads well. Look at it the way the
    - spacing between sections, tables and figures is comfortable;
    - colours work in dark mode too.
 5. **Ship what you previewed.** For claude.ai artifacts, don't rely on the host's Mermaid renderer: it can fail where a local render works. Save each rendered SVG from the preview and embed it in place of the `<pre class="mermaid">` block; keep the Mermaid source in your working files for edits.
-6. **Fix, then repeat from step 1.** Publish only when every check passes.
+6. **Fix every defect from the round in one batch, then run one full confirming round** from step 1. A defect found then came from the batch; fix it and confirm once more. Publish only when a full round passes.
 7. **Clean up:** stop the server and close the tab.
 
 ## Rules that prevent most failures
