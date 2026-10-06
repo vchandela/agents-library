@@ -7,7 +7,7 @@ description: Use when something is broken, throwing, failing, flaky or slow and 
 
 A loop first, a theory second, a fix last. A fix for a symptom is a guess that happened to pass.
 
-Apply `references/testing.md` and `references/engineering-principles.md`.
+Apply `references/testing.md`, `references/engineering-principles.md` and `references/use-your-judgement.md`.
 
 ## 1. Build the loop
 

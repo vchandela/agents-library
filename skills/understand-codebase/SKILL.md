@@ -62,7 +62,7 @@ Answer the two kinds of question in their own shape. "What is X connected to?" i
 
 End with three to five questions this map can now answer, each with why it is worth asking: an unclear link, a module that bridges two areas, a hub you have not explained. Offer to trace the one that crosses the most areas. List the searches that found nothing, so the next reader does not repeat them.
 
-Apply `references/writing-voice.md`. Define jargon the first time it appears.
+Apply `references/use-your-judgement.md` and `references/writing-voice.md`. Define jargon the first time it appears.
 Analogies and concrete examples for anything abstract. Assume the reader is
 competent but new to this system.
 
