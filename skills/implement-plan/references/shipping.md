@@ -15,6 +15,7 @@ Applied by write-plan, implement-plan and qa-live-site, whenever a change reache
 - A version number follows push order, not the order work was claimed. A lower number landing after a higher one sends the version backwards.
 - After anyone else lands, rebase and run the whole suite again before pushing. A green run on the old base proves nothing about the new one.
 - Never edit, rebase or rebuild a working tree while a test run is reading it; the result then describes no tree at all. Work on the next change in a second worktree.
+- A conflict where both sides added at the same place is not resolved by joining the two hunks: a hunk boundary can fall inside a function. After every resolution, compile or parse each file it touched before continuing the rebase.
 - Say which shared files a change touches when claiming, so a collision is a message rather than a conflict.
 
 ## The first hour after
