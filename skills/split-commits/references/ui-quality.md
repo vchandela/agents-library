@@ -21,6 +21,8 @@ Look at the screen and write down what is wrong before running any detector, lin
 - No horizontal page scroll at the narrowest width. Nothing clipped, nothing overlapping text.
 - Body text never touches the viewport edge: at least a 16px gutter.
 - No cards inside cards.
+- A row of items that wraps strands the last one alone, and a step diagram then reads as ending early. Balance wrapped rows (the narrowest width that needs no more rows), and switch to an even grid when an item would still be alone.
+- Text with inline parts (a superscript, a link, a code span) inside a flex or grid item goes in one inline wrapper, or each part becomes its own spaced item: "e  2x" for e².
 - Keyboard and screen-reader order match the visual order.
 
 ## Typography
@@ -53,6 +55,7 @@ Every screen and control answers each of these, or says why it cannot happen: de
 - Prefer undo to a confirmation dialog when undo is safe.
 - Labels stay visible. A placeholder is an example, not a label.
 - One word per concept across the product.
+- Write out each abbreviation at its first use on every page, from one list of names, rendered rather than hand-typed, and never inside a heading or a quote.
 - Ask before changing factual copy or adding a claim.
 
 ## Input
