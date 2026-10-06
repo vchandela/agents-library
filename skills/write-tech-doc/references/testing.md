@@ -51,7 +51,7 @@ Repo tests are often enough. When they cannot show the change working for its re
 - **Replay the original ask.** The best real-world test is the request that motivated the change, sent the way its user sent it. Example: a team's chat bot gains an MCP server for its identity provider because it could not answer "which users in this org log in with SSO?". The test is to ask the bot that same question in chat. If it answers from the identity provider's data, the change works. If it still says it has no access, it does not, whatever the unit tests say.
 - **Write it down as four things:** the action (a Slack ping, a UI click, a CLI call), the exact input, the expected result, and what failure looks like.
 - **Add a negative check where it matters.** For a read-only integration, ask for a write and see it refused.
-- **When there is one, nothing is announced as live until it has passed.** Run it yourself, or hand the user the exact steps, before saying the change is done.
+- **When there is one, nothing is announced as live until it has passed.** Hand the user the exact steps, or run it yourself when it posts nowhere other people read or the user asked, before saying the change is done.
 
 ## When the repo cannot run tests
 

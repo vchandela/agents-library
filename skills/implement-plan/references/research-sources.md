@@ -34,7 +34,7 @@ To discover more: the ZenML LLMOps database, Evidently AI's list of LLM case stu
 
 Some sites refuse a plain fetch. Try once, record the failure in the file, then use a workaround, and say which one you used.
 
-- openai.com often returns 403. The `https://r.jina.ai/<url>` reader usually works.
+- openai.com often returns 403. The `https://r.jina.ai/<url>` reader usually works. For public URLs only: never send an internal, signed or authenticated URL through a third-party reader.
 - x.com returns 402. Use the search result text, marked as such.
 - Reddit is often blocked for search tools and curl. Say so in the gaps rather than skip it silently.
 - Medium sometimes returns 403. Try the author's own site or a cached copy.

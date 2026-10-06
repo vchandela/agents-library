@@ -1,6 +1,6 @@
 ---
 name: review-product-page
-description: Use when a page or a first-run flow has to make a stranger act (homepage, landing, pricing, signup, onboarding) and it needs a product and copy review, or rewriting. Not for visual polish (references/ui-quality.md) or code review.
+description: Use when a page or a first-run flow has to make a stranger act (homepage, landing, pricing, signup, onboarding) and it needs a product and copy review, or rewriting. Not for visual polish or code review.
 ---
 
 # Review a product page

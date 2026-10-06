@@ -2,13 +2,13 @@
 
 Library of skills, prompts and other best practices.
 
-Eighteen skills for engineering work with coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
+Nineteen skills for engineering work with coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
 
 ## Install
 
     npx skills add vchandela/agents-library
 
-Project scope or global, symlink or copy. Or clone it and symlink `skills/` into `~/.claude/skills/`.
+Project scope or global, symlink or copy. Or clone it and link each skill folder into `~/.claude/skills/`; never link `SKILL.md` on its own.
 
 ## What is in here
 
@@ -62,7 +62,7 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 
 An agent reviewing its own plan re-reads its own reasoning and finds it convincing, because it is the reasoning it just chose. So the pipeline is six skills rather than one, and three of them hand off to a different session and ideally a different model family. `references/handoff-protocol.md` has the detail.
 
-Every public skills repo I read assumes one agent plans, builds and reviews. That assumption is the bug.
+Most public skill repos let one agent plan, build and review. A few now hand review to a separate agent or provider. This pipeline makes the handoff a gate: no implementation before an independent plan review, and bounded rounds.
 
 ## Principles
 

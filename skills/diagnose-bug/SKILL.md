@@ -7,18 +7,18 @@ description: Use when something is broken, throwing, failing, flaky or slow and 
 
 A loop first, a theory second, a fix last. A fix for a symptom is a guess that happened to pass.
 
-Apply `references/testing.md`, `references/engineering-principles.md` and `references/use-your-judgement.md`.
+Apply `references/testing.md`, `references/engineering-principles.md`, `references/use-your-judgement.md` and `references/untrusted-input.md`.
 
 ## 1. Build the loop
 
 Read the whole error and stack trace first, and check what changed: recent commits, dependencies, config, environment. Then take the first loop that reaches the bug:
 
 1. A failing test at the seam where the bug shows.
-2. A curl or HTTP script against a running instance.
+2. A curl or HTTP script against a local or staging instance; against production, read-only requests only, and ask first.
 3. A CLI call with a fixture input, diffed against a known good output.
 4. A headless browser script that asserts on the page, the console or the network.
-5. A captured real request, payload or log, replayed through the code path.
-6. A bisect script, when it worked at one commit and not another (`git bisect run`).
+5. A captured real request, payload or log, replayed locally through the code path, with tokens, cookies and personal data removed first.
+6. A bisect script, when it worked at one commit and not another (`git bisect run`), in a separate worktree, never in the user's checkout.
 7. A scripted person: numbered prompts for a human, answers captured as `KEY=value` lines.
 
 Make it sharp (assert the exact symptom, not "did not crash"), deterministic (pin the clock, seed randomness) and fast. For a flaky bug, raise the failure rate (loop it 100 times, add load, narrow the timing window) until it fails often enough to work against.
@@ -33,7 +33,7 @@ Confirm the loop shows the failure the user described, not one nearby. Then cut 
 
 ## 3. Find where it breaks
 
-- **Several components** (CI to build to deploy, API to service to database): log what enters and leaves each boundary, run once, and read which boundary first holds the wrong value.
+- **Several components** (CI to build to deploy, API to service to database): log what enters and leaves each boundary (never secrets, tokens, cookies or personal data: log their presence or length), run once, and read which boundary first holds the wrong value.
 - **Deep in a call stack:** trace the bad value backwards to where it was created. Fix there, not where it surfaced.
 - **It works somewhere else:** list every difference between working and broken, however small. Do not decide in advance that one cannot matter.
 - **Something appears during tests and no test owns it:** run the test files one at a time and check after each. The first one that creates it is the polluter.

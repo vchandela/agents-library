@@ -15,6 +15,8 @@ Apply `references/ui-quality.md` for any screen, and `references/shipping.md` fo
 
 Writing the states down is the whole skill. Nearly every real defect comes from asking what a state should be, not from clicking around. A screen can grow a mode nobody specified, and no test catches it, because tests ask whether a behaviour works and never ask what a state was meant to be.
 
+Before phases 4 and 5, confirm in writing that the user owns the target, authorises active testing, and which environment it is. Prefer staging. Never load a shared service to prove a limit is missing.
+
 ## Phases
 
 **1. Smoke.** Console errors, any 4xx or 5xx in the network tab, the page at phone width and at desktop, both light and dark.

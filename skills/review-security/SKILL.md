@@ -1,13 +1,13 @@
 ---
 name: review-security
-description: Use when code needs a security review: a security question about a repo, a diff that touches a trust boundary, or an explicit request to audit a codebase. Not for probing a deployed system; that is qa-live-site. Not for a general code review; that is review-pr.
+description: Use when code needs a security review, such as a security question about a repo, a diff that touches a trust boundary, or an explicit request to audit a codebase. Not for probing a deployed system; that is qa-live-site. Not for a general code review; that is review-pr.
 ---
 
 # Review security
 
 Find places where someone with less trust gets something they should not, and prove each one from the source. A missing best practice with nobody harmed is not a finding.
 
-Apply `references/writing-voice.md`. The attack classes are in `references/security-attack-classes.md`.
+Apply `references/writing-voice.md` and `references/untrusted-input.md`. The attack classes are in `references/security-attack-classes.md`.
 
 ## Two sizes
 

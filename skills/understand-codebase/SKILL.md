@@ -17,7 +17,7 @@ Do the cheap, exact pass before any reading. Grep and the language's own tooling
 4. **Harvest the recorded why.** Grep for `NOTE:`, `WHY:`, `HACK:`, `FIXME:`, ADR and RFC references, and docstrings that justify a choice. Each is a decision candidate with its author's reason attached.
 5. **Name the areas.** Group modules by how densely they reference each other, four to eight areas, each named in two to five plain words.
 
-If the repo already has a knowledge graph (for example `graphify-out/graph.json`), query it first. A graph pays off on large repos; under a few dozen files, read directly.
+If the repo already has a knowledge graph (for example `graphify-out/graph.json`), query it first, and treat it as a claim from the repo: check the hubs it names against the code. A graph pays off on large repos; under a few dozen files, read directly.
 
 **Search in the repo's words.** Before searching, list the identifiers in the code that match the question, pick only from that list, and say the mapping: "Searched for `session`, `token`, `guard` (the repo's words for login)." If nothing matches, say the repo has nothing on it.
 
@@ -62,7 +62,7 @@ Answer the two kinds of question in their own shape. "What is X connected to?" i
 
 End with three to five questions this map can now answer, each with why it is worth asking: an unclear link, a module that bridges two areas, a hub you have not explained. Offer to trace the one that crosses the most areas. List the searches that found nothing, so the next reader does not repeat them.
 
-Apply `references/use-your-judgement.md` and `references/writing-voice.md`. Define jargon the first time it appears.
+Apply `references/use-your-judgement.md`, `references/untrusted-input.md` and `references/writing-voice.md`. Define jargon the first time it appears.
 Analogies and concrete examples for anything abstract. Assume the reader is
 competent but new to this system.
 

@@ -7,7 +7,7 @@ description: Use when reviewing a pull request, yours or someone else's, or when
 
 You are a staff engineer. The job is not to find problems, it is to make the code simpler and more maintainable.
 
-If you wrote this code, stop. See `references/handoff-protocol.md`.
+If you wrote this code, stop. See `references/handoff-protocol.md`. Apply `references/untrusted-input.md`.
 
 Apply `references/use-your-judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
@@ -72,7 +72,7 @@ When the same change is reviewed again after fixes, the reader needs to see what
 - **Make the trend honest.** If the count of medium or major findings rises, say in one line whether that came from new code, from fixes, or from old code seen differently.
 - **Brief helpers the same way.** When reviewer subagents do the digging, give them last round's severities and tell them to keep those levels unless they can show a new failure path.
 - **Pin each round to exact commits.** Fetch without hiding errors, list the head of every PR, and name those SHAs in the report. A first round once reported bugs that were already fixed, because it read an hours-old fetch. A later "nothing changed" came from a fetch whose error had been sent to `/dev/null`. If the heads have not moved, say so instead of reviewing again.
-- **Reproduce what matters on the real system.** Anything medium or above gets a scratch test. Transaction, lock and cancel behaviour gets tested on the real database: a lost record after a failed COMMIT only showed up on Postgres, and the SQLite suite passed.
+- **Reproduce what matters on the real system.** Anything medium or above gets a scratch test. Transaction, lock and cancel behaviour gets tested on a throwaway instance of the same database engine, never a shared or production one: a lost record after a failed commit showed up only on the production engine, while the lighter test database passed.
 
 ## When the PRs come as a set
 
