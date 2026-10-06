@@ -9,7 +9,7 @@ Explain from first principles, with examples grounded in reality.
 
 **The bar is hard: easy to digest without losing technical depth.** Simplifying by removing the difficult part is not this. Keep the depth, change the delivery.
 
-Apply `references/use-your-judgement.md`, `references/writing-voice.md` and `references/visual-explanations.md`. For a page, also apply `references/preview.md`.
+Apply `references/use-your-judgement.md`, `references/stop-decide-hold.md`, `references/writing-voice.md` and `references/visual-explanations.md`. For a page, also apply `references/preview.md`.
 
 ## Read before you explain
 
