@@ -65,6 +65,7 @@ Failure this prevents: a page about a background sync system led with a six-box 
 - **Every claim carries its example.** "A merge takes up to two hours to deploy" is a claim. The cron line `13 */2 * * *` beside it is the explanation. Quote the real code or config, small enough to read in place, with its path.
 - **Decisions are comparisons, drawn side by side.** A and B next to each other, as a diagram or a row-by-row table, with the part that differs made obvious. A paragraph that describes one option and then mentions another is not a comparison.
 - **Every comparison ends in a verdict.** Say which wins here, and why. Name where the loser wins.
+- **Read what a metric counts before quoting it.** A dashboard field's name is not its definition: open the query behind it, then say in the sentence what it includes and excludes. Failure this prevents: "the pool built 900 envs and served 4 instantly" went to a colleague, who said the numbers were wrong. `deployed` also counted runs' own deploys, and `instant` counted people only, hiding 13 instant hand-outs to automated runs.
 - **Numbers show their working.** A cost is size × unit price × hours, with where the price came from, and says "estimate" when it is not the bill.
 - **"When to use which" is a table**: the situation, the choice, and a real example from the system being explained.
 
