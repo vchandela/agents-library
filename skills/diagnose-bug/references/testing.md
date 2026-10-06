@@ -39,6 +39,7 @@ Applied by write-spec, write-plan and implement-plan. Referenced, never copied.
 - **Flaky or order-dependent tests.** Fix or delete; never retry them green.
 - **Testing the framework** rather than your code.
 - **Sleeping for a guessed time.** `sleep(0.5)` then assert passes on a fast laptop and fails in CI. Wait for the condition itself (the event arrived, the file exists, the count reached five), poll it, and fail with a named timeout. A fixed delay is right only when timing is the behaviour under test, and then a comment says where the number came from.
+- **Testing only the state a fresh user is in.** Changing what a stored value means (a cached flag, a cookie, a local storage key, a row's default) leaves every existing user holding the old shape, and a suite that creates its fixtures fresh never meets it. When the meaning of stored state changes, add a test that starts from the old shape and walks the main path. A shipped example: a cache that held `true` came to mean a version string, every member from before that day looked signed out, and Log in sent them in a loop.
 - **Layered tests after a refactor.** Once tests exist at the deeper interface, delete the old tests on the shallow modules it replaced. Keeping both doubles the upkeep and pins the old shape.
 
 ## The real-world test
