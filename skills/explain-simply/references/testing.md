@@ -1,6 +1,6 @@
 # Testing
 
-Applied by write-spec, write-plan and implement-plan. Referenced, never copied.
+Applied by any skill that writes, plans or judges tests. Referenced, never copied.
 
 ## The loop
 
@@ -43,6 +43,7 @@ Applied by write-spec, write-plan and implement-plan. Referenced, never copied.
 - **A check that walks a list of pages.** A list is blind to the page added next week, and to the forty it never named: one layout test held a single guide, so four others ran wider than the phone and nothing failed. Walk every page the router can serve, and fix the kind of mistake on all of them in the same change, not the one instance someone reported.
 - **Reading layout back mid-transition.** A script that sets a size and then measures gets the old value while a CSS transition runs, and reduced-motion styles often give every element a 1ms transition. It looks like a script that never ran. Measure with `transition: none` set, and run layout tests with reduced motion on.
 - **A list of pages that never checks each one loaded.** A probe walking pages measures a 404 or an error page as clean. Assert each response is OK before measuring it: a craft check passed on a question page that did not exist in the test database.
+- **Shared test fixtures drift.** A template database, a cache or a build directory that several worktrees share is at whatever the last run left it. Check its version before trusting a red run: 226 failures in one run were a template built from the main branch, missing one migration.
 - **Layered tests after a refactor.** Once tests exist at the deeper interface, delete the old tests on the shallow modules it replaced. Keeping both doubles the upkeep and pins the old shape.
 
 ## The real-world test

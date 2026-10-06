@@ -1,6 +1,6 @@
 ---
 name: write-tech-doc
-description: Use when a technical proposal or design doc is needed for colleagues who will read it critically. Interviews first, writes after alignment. Not for a public blog post; that is write-blog.
+description: Use when a technical proposal or design doc is needed for colleagues who will read it critically. Not for a public blog post; that is write-blog.
 ---
 
 # Write a technical doc
@@ -16,9 +16,8 @@ Ask questions until you are clear on what exists today, what is being built, and
 One page, two at most, three only if the material truly needs it. Assume a reader with no patience and real expertise.
 
 - **Problem first.** State precisely what is wrong before proposing anything. Most weak docs start solutioning in paragraph two.
-- **Then the whole solution in one picture**, when the solution has a handful of parts (other docs, such as a single decision or a comparison, need other shapes): a diagram of four to seven big boxes, so every reader knows the parts before any detail. Each box then gets its own section that goes deeper layer by layer, and one real example runs through every section to tie the story together.
-- **First principles.** What is fundamentally true here, what are we actually dealing with.
-- **Then the solution**, concise, with diagrams.
+- **Then first principles.** What is fundamentally true here, what are we actually dealing with.
+- **Then the solution**, concise: when it has a handful of parts, one picture of four to seven big boxes, each box a section that goes deeper layer by layer, with one real example running through every section (`references/visual-explanations.md`, "Steps first, or the map first"). A single decision or a comparison needs another shape.
 - Suggest phases where the work splits into phases.
 - Sections worth having: overview, design decisions, diagrams, tradeoffs, and what is knowingly left undone.
 

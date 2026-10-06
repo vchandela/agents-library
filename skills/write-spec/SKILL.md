@@ -1,6 +1,6 @@
 ---
 name: write-spec
-description: Use when someone wants to build something and the requirements are not pinned down yet. Interviews first, writes the spec after. Not for a task whose shape is already agreed, and not for writing the implementation plan.
+description: Use when someone wants to build something and the requirements are not pinned down yet. Not for a task whose shape is already agreed, and not for writing the implementation plan.
 ---
 
 # Write a spec
@@ -94,7 +94,7 @@ Apply `references/respect-human-attention.md`: the user's overview (boxed "Writt
 - Real diagrams (Mermaid) and real tables, not monospace text blocks.
 - **Preview before every publish.** Apply `references/preview.md`: parse every diagram, render a local preview, inspect it in Chrome, fix, repeat. Not optional.
 - Plain words in full sentences. Cut fluff, not the words that make a sentence readable. Titles name the thing in plain terms ("How we read Slack", not "reading code").
-- For review: the artifact is the document; Notion holds the links and the open items for comments.
+- For review: the artifact is the document; the team's doc tool holds the links and the open items for comments.
 
 ## Done when
 

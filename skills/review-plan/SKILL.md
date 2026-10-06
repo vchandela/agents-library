@@ -1,6 +1,6 @@
 ---
 name: review-plan
-description: Use when a plan needs adversarial review before implementation starts. Runs in a fresh session, on a different model from the one that wrote the plan. Not for reviewing code or a diff; that is review-pr.
+description: Use when a plan needs adversarial review before implementation starts. Not for reviewing code or a diff; that is review-pr.
 ---
 
 # Review a plan
@@ -76,11 +76,7 @@ End with one of:
 
 ## Re-review rounds
 
-When the plan comes back after fixes, show what the revision did.
-
-- **Tag every finding by origin:** **new** (text added since the last round), **caused by a fix** (a revision introduced it), or **old** (it was already in the plan last round).
-- **Hold severities steady.** An old finding moves up a level only when you show a new, concrete failure path. A fresh reviewer rating it higher is not enough.
-- **Make the trend honest.** If the count of serious findings rises, say in one line whether that came from new text, from fixes, or from old text seen differently.
+When the plan comes back after fixes, show what the revision did: `references/handoff-protocol.md`, "Re-review rounds".
 
 ## Bounded
 

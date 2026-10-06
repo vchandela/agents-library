@@ -1,6 +1,6 @@
 ---
 name: setup-repo
-description: Use when a repository needs engineering conventions applied, whether it is new or already has code and history. Detects the stack and proposes a diff. Never overwrites what is already there.
+description: Use when a repository, new or existing, needs engineering conventions applied. Not for learning an unfamiliar repo; that is understand-codebase.
 ---
 
 # Set up a repo
@@ -22,7 +22,7 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 | 0 | always | An instruction file shaped as a router, not an encyclopedia. An incident log. |
 | 1 | it is a git repo | Commit conventions. A version and changelog gate on push. |
 | 2 | a test runner exists | Red, green, then break it and watch it fail again. A coverage floor if wanted. |
-| 3 | Claude Code is used | Lifecycle hooks, one dispatcher, profiles to turn them down. |
+| 3 | Claude Code is used | Lifecycle hooks through one dispatcher, and one switch to turn them off. A check reads the working tree, never the tool name. |
 | 4 | no test runner exists | Say so plainly, then substitute the closest real verification and map every rule to one. |
 
 ## 3. The conventions themselves

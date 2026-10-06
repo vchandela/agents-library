@@ -2,7 +2,7 @@
 
 Library of skills, prompts and other best practices.
 
-Eighteen skills for engineering work with coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
+Engineering skills for coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
 
 ## Install
 
@@ -86,7 +86,7 @@ Every public skills repo I read assumes one agent plans, builds and reviews. Tha
     scripts/      sync-references.sh copies references/ into each skill
     docs/         what was taken from where, and what was refused
 
-Each skill carries its own copy of `references/`, so a single skill folder still works when it is copied, zipped, uploaded or installed as a plugin. Edit the top-level `references/`, then run `scripts/sync-references.sh`. CI fails if a copy is stale.
+Each skill that uses `references/` carries its own copy, so a single skill folder still works when it is copied, zipped, uploaded or installed as a plugin. Edit the top-level `references/`, then run `scripts/sync-references.sh`. CI fails if a copy is stale.
 
 ## Writing a skill
 

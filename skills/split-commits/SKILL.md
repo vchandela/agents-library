@@ -1,6 +1,6 @@
 ---
 name: split-commits
-description: Use when finished work needs to become commits. Splits one change into a series of logical commits rather than one large one.
+description: Use when finished work is ready to commit. Not for reviewing the change; that is review-pr.
 ---
 
 # Split into logical commits

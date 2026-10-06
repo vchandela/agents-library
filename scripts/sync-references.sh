@@ -12,6 +12,14 @@ set -eu
 cd "$(dirname "$0")/.."
 
 status=0
+# A skill that points at references/ but has no copy works in this repo and
+# breaks the moment it is installed on its own.
+for dir in skills/*/; do
+  if grep -q 'references/' "${dir}SKILL.md" && [ ! -e "${dir}references" ]; then
+    echo "missing: ${dir}references (mkdir it and run scripts/sync-references.sh)"
+    status=1
+  fi
+done
 for dir in skills/*/; do
   dest="${dir}references"
   [ -e "$dest" ] || [ -L "$dest" ] || continue
