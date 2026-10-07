@@ -33,7 +33,7 @@ For any real decision, decide first, then present it. Two or three options side 
 
 Follow the repo's conventions. Use first principles to check that a convention fits and to weigh the user's suggestions, not to invent new patterns. Anything new to the repo must be necessary, and the user confirms it before it goes in the spec.
 
-Apply `references/use-your-judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals.
+Apply `references/use-your-judgement.md` and `references/stop-decide-hold.md`: propose requirements the user did not mention but the domain needs, marked as proposals.
 
 Apply `references/engineering-principles.md`. Every choice is a tradeoff: each piece of complexity says what it buys, or moves to a "later" list. Pragmatic, not perfect.
 
