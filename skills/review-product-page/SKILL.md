@@ -12,7 +12,7 @@ A page has one job: a stranger understands it, believes it, and does the one thi
 Copy cannot be judged against nothing. Read the product's positioning doc if one exists; otherwise draft it from the site and the repo, mark each guess, and ask only about the guesses.
 
 - **Who**, in one line, and who it is not for.
-- **The status quo**: what they do today without you. It is the real competitor, and it is usually a spreadsheet, a cousin's advice, a coaching centre or doing nothing.
+- **The status quo**: what they do today without you. It is the real competitor, and it is usually a spreadsheet, a friend's advice, an agency or doing nothing.
 - **The foil**: the old way you replace, named.
 - **The one value vector** where you are plainly better, in a way the reader cares about. Being "better" in general is a trap; be different on one axis.
 - **Proof** you can show, and **the top three objections**.
@@ -33,7 +33,7 @@ Copy cannot be judged against nothing. Read the product's positioning doc if one
 
 Apply `references/writing-voice.md` and `references/machine-tells.md`. Clarity beats cleverness; benefits beat features; one idea per section.
 
-**The perception gap.** Read each key line as each audience. "Move fast" is momentum to one reader and risk to another; a student and the parent paying hear different things. Frame for the one who decides.
+**The perception gap.** Read each key line as each audience. "Move fast" is momentum to one reader and risk to another; the user and the person paying hear different things. Frame for the one who decides.
 
 ## 3. Report
 

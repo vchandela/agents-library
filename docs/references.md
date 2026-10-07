@@ -49,7 +49,7 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | From | Refused | Why |
 |---|---|---|
 | obra/superpowers | Nine harness plugin directories | Ship the one in use. Add another when another is actually used. |
-| ECC | 286 skills, 68 agents, 94 commands | A catalogue to maintain. Nineteen is the working set. |
+| ECC | 286 skills, 68 agents, 94 commands | A catalogue to maintain. A small working set, each skill earning its place. |
 | ECC | Auto extracted "learned" skills from transcripts | Unreviewed content writing itself is the thing a curated repo exists to prevent. |
 | ECC | Per session cost tracking, desktop notifications, MCP health checks | Agency scale problems. |
 | marketingskills, pm-skills, Product-Manager-Skills, lenny-skills | 272 skills between them: SWOT, PESTLE, Porter, lean canvas, OKR brainstorms, persona templates, headline formula catalogues, cold email, ads | Frameworks that produce documents rather than change what ships. One skill that judges a page and rewrites it beats forty that fill templates. |
@@ -76,4 +76,4 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 Not found in any of the repos read.
 
 - **Authority badges counted by organisation.** No research skill or deep-research tool read scores how widely an idea is adopted; GPT Researcher only de-duplicates URLs.
-- **Separation of proposer and critic.** Most let one agent plan, implement and review; a few now hand review to a separate agent or provider. The pipeline here makes the handoff a gate, with bounded rounds and a gate before implementation.
+- **Separation of proposer and critic.** All five assume one agent plans, implements and reviews. The pipeline here hands off instead, with bounded rounds and a gate before implementation.

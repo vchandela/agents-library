@@ -49,9 +49,10 @@ This is not a "minimum viable diagram" rule. A tiny diagram that still requires 
 
 Before publishing, ask of every box: can it go, or merge with one it always travels with? Ask of every arrow: does the layout already show it? Remove those. The plain-words note under a label is not up for removal; it is how a tired reader reads the arrow.
 
-## Step by step first
+## Steps first, or the map first: it depends on the reader
 
-When the subject is new to the reader, or done for the first time, explain it as numbered steps in order (why it exists, the pieces, one run, where it breaks), each with plain words, one small picture, a real example and a one-line takeaway. System names come at the end of each step. An overview of boxes and arrows goes after the steps as a recap, never in their place.
+- **A reader new to the subject** (learning how something works): numbered steps in order (why it exists, the pieces, one run, where it breaks), each with plain words, one small picture, a real example and a one-line takeaway. System names come at the end of each step. An overview of boxes and arrows goes after the steps as a recap, never in their place.
+- **A reader who knows the domain and is judging a design** (a spec, a plan, a tech doc, a system page): the problem in a few lines, then one map of four to seven big boxes, then a section per box, layer by layer.
 
 ## Before using a term
 

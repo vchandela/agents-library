@@ -1,7 +1,7 @@
 {
   "name": "agents-library",
   "version": "0.1.0",
-  "description": "Nineteen engineering skills for coding agents, built around one rule: the agent that produced the work does not review the work.",
+  "description": "Engineering skills for coding agents, built around one rule: the agent that produced the work does not review the work.",
   "author": {
     "name": "Vivek Chandela"
   },

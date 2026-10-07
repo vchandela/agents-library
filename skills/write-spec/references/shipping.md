@@ -15,7 +15,14 @@ Applied by write-plan, implement-plan and qa-live-site, whenever a change reache
 - A version number follows push order, not the order work was claimed. A lower number landing after a higher one sends the version backwards.
 - After anyone else lands, rebase and run the whole suite again before pushing. A green run on the old base proves nothing about the new one.
 - Never edit, rebase or rebuild a working tree while a test run is reading it; the result then describes no tree at all. Work on the next change in a second worktree.
+- A conflict where both sides added at the same place is not resolved by joining the two hunks: a hunk boundary can fall inside a function. After every resolution, compile or parse each file it touched before continuing the rebase.
 - Say which shared files a change touches when claiming, so a collision is a message rather than a conflict.
+
+## A change to connections, caching or concurrency
+
+- Run a burst against production before calling it done: tens of uncached requests at once, counting status codes. A pooled database engine passed 1,316 tests and still failed 1 in 10 production requests under a 40-wide burst; one command found it, and a revert proved it.
+- Test with the driver production uses. A suite on a different database driver says nothing about pooling, prepared statements or timeouts on the real one.
+- Make sure an unhandled exception still writes a log row and serves your own error page. An exception that escapes the logging middleware is an outage nobody records.
 
 ## The first hour after
 

@@ -1,6 +1,6 @@
 ---
 name: honest-feedback
-description: Use when someone wants an honest assessment and suspects they are being agreed with too easily. Use on drafts, plans, ideas and decisions.
+description: Use when someone asks what you really think of a draft, plan, idea or decision, or suspects they are being agreed with too easily. Not for a plan before implementation; that is review-plan. Not for a diff; that is review-pr.
 ---
 
 # Honest feedback

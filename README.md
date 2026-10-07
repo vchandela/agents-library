@@ -2,13 +2,13 @@
 
 Library of skills, prompts and other best practices.
 
-Nineteen skills for engineering work with coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
+Engineering skills for coding agents. Portable across Claude Code, Claude Desktop, Codex and anything else that reads `SKILL.md`.
 
 ## Install
 
     npx skills add vchandela/agents-library
 
-Project scope or global, symlink or copy. Or clone it and link each skill folder into `~/.claude/skills/`; never link `SKILL.md` on its own.
+Project scope or global, symlink or copy. Or clone it and symlink `skills/` into `~/.claude/skills/`.
 
 ## What is in here
 
@@ -62,7 +62,7 @@ Project scope or global, symlink or copy. Or clone it and link each skill folder
 
 An agent reviewing its own plan re-reads its own reasoning and finds it convincing, because it is the reasoning it just chose. So the pipeline is six skills rather than one, and three of them hand off to a different session and ideally a different model family. `references/handoff-protocol.md` has the detail.
 
-Most public skill repos let one agent plan, build and review. A few now hand review to a separate agent or provider. This pipeline makes the handoff a gate: no implementation before an independent plan review, and bounded rounds.
+Every public skills repo I read assumes one agent plans, builds and reviews. That assumption is the bug.
 
 ## Principles
 
@@ -86,7 +86,7 @@ Most public skill repos let one agent plan, build and review. A few now hand rev
     scripts/      sync-references.sh copies references/ into each skill
     docs/         what was taken from where, and what was refused
 
-Each skill carries its own copy of `references/`, so a single skill folder still works when it is copied, zipped, uploaded or installed as a plugin. Edit the top-level `references/`, then run `scripts/sync-references.sh`. CI fails if a copy is stale.
+Each skill that uses `references/` carries its own copy, so a single skill folder still works when it is copied, zipped, uploaded or installed as a plugin. Edit the top-level `references/`, then run `scripts/sync-references.sh`. CI fails if a copy is stale.
 
 ## Writing a skill
 

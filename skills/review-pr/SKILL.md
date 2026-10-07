@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Use when reviewing a pull request, yours or someone else's, or when triaging review comments left by a bot. Runs in a fresh session so the review is not reading its own reasoning.
+description: Use when reviewing a pull request or diff, yours or someone else's, or triaging review comments left by a bot. Not for a plan before code exists; that is review-plan. Not for a security audit; that is review-security.
 ---
 
 # Review a pull request
@@ -66,11 +66,9 @@ The spec says what must work; it does not list every input. For behaviour it is 
 
 When the same change is reviewed again after fixes, the reader needs to see what the fixes did, not a fresh list that looks like churn.
 
-- **Tag every finding by origin:** **new** (code added since the last round), **caused by a fix** (a fix from the last round introduced it), or **old** (the code was already there last round).
+The shared rules (tag by origin, hold severities, honest trend, brief helpers the same way) are `references/handoff-protocol.md`, "Re-review rounds". For a diff, also:
+
 - **One verdict per old finding:** addressed or not addressed, with `file:line`. Attempted is not addressed: the defect has to be gone. Problems outside the fix go in a separate list and do not reopen the round.
-- **Hold severities steady.** An old finding moves up a level only when the reviewer shows a new, concrete failure path. A fresh reviewer rating it higher is not enough. Otherwise keep last round's level.
-- **Make the trend honest.** If the count of medium or major findings rises, say in one line whether that came from new code, from fixes, or from old code seen differently.
-- **Brief helpers the same way.** When reviewer subagents do the digging, give them last round's severities and tell them to keep those levels unless they can show a new failure path.
 - **Pin each round to exact commits.** Fetch without hiding errors, list the head of every PR, and name those SHAs in the report. A first round once reported bugs that were already fixed, because it read an hours-old fetch. A later "nothing changed" came from a fetch whose error had been sent to `/dev/null`. If the heads have not moved, say so instead of reviewing again.
 - **Reproduce what matters on the real system.** Anything medium or above gets a scratch test. Transaction, lock and cancel behaviour gets tested on a throwaway instance of the same database engine, never a shared or production one: a lost record after a failed commit showed up only on the production engine, while the lighter test database passed.
 

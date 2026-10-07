@@ -64,7 +64,15 @@ Unbounded review finds infinite issues, because any plan can be criticised forev
 
 ## Several agents, one branch
 
-- **Claim the branch before a push-bound full run**, and the others hold until it is released. A full suite takes minutes; another agent's push in that window makes the run stale, and two runs were lost in one evening to exactly this race.
-- **Shared test fixtures drift.** A template database, a cache or a build directory that several worktrees share is at whatever the last run left it. Check its version before trusting a red run: 226 failures in one run were a template built from the main branch, missing one migration.
+- **Claiming the branch before a push-bound run**, and the other rules for sharing one main branch: `references/shipping.md`, "Several sessions, one main branch".
 - **One ledger of instructions, in a file every agent reads**, so nothing the human said lives only in one agent's context.
+
+## Re-review rounds
+
+When the same work is reviewed again after fixes, the reader needs to see what the fixes did, not a fresh list that looks like churn. Applied by review-pr and review-plan.
+
+- **Tag every finding by origin:** **new** (added since the last round), **caused by a fix** (a fix from the last round introduced it), or **old** (already there last round).
+- **Hold severities steady.** An old finding moves up a level only when the reviewer shows a new, concrete failure path. A fresh reviewer rating it higher is not enough.
+- **Make the trend honest.** If the count of serious findings rises, say in one line whether that came from new work, from fixes, or from old work seen differently.
+- **Brief helpers the same way.** Give reviewer sub-agents last round's severities and tell them to keep those levels unless they can show a new failure path.
 
