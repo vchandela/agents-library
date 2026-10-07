@@ -9,6 +9,7 @@
 - `references/research-sources.md`: the eight source types, engineering blogs to target, access workarounds, the sub-agent and fact-check prompts, the authority score, and the report shape.
 
 ### Changed
+- `references/explaining.md` is the one home for how to explain (ground up, an example per claim, decisions side by side, questions answered where they arise, and the devices that landed with real readers). `explain-simply` drops from about 2,700 words to 1,400 and `understand-codebase` loses its drifting copy of the same rules. `preview.md` says a Markdown document in a repo needs only its diagrams parsed and one rendered read.
 - Every pipeline skill takes what held up from eight public skill repos: see `docs/references.md` for each idea's source and what was refused. `testing` gains a claim and evidence table; `engineering-principles` a ladder, a never-cut floor and keep or revert performance work; `handoff-protocol` what a reviewer receives; `visual-explanations` a form chooser, a budget and diagram grammar; `write-spec` interviews in rounds.
 - `qa-live-site` and `split-commits` now carry `references/`.
 - `respect-human-attention` covers the systems a skill designs: list every human touchpoint, ask a person only when a machine can't decide, in a place they already work, with evidence attached. `write-tech-doc` and `explain-simply` now apply it.

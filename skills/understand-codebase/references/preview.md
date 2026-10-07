@@ -2,7 +2,7 @@
 
 **Non-negotiable.** No page is published or republished without this preview, however small the edit.
 
-Applied by the spec, plan, plan-review and explain-simply skills. Required every time a document is published or republished.
+Applied by the spec, plan, plan-review and explain-simply skills. Required every time a page is published or republished for people to view (an artifact, a hosted page). A Markdown document committed to a repo needs step 1 (diagrams parse) and one read of it rendered where its readers will see it (the code host's preview); the rest applies to pages.
 
 A document that parses is not a document that reads well. Look at it the way the reader will, then publish.
 

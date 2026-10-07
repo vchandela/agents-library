@@ -62,7 +62,7 @@ Answer the two kinds of question in their own shape. "What is X connected to?" i
 
 End with three to five questions this map can now answer, each with why it is worth asking: an unclear link, a module that bridges two areas, a hub you have not explained. Offer to trace the one that crosses the most areas. List the searches that found nothing, so the next reader does not repeat them.
 
-Apply `references/use-your-judgement.md`, `references/stop-decide-hold.md`, `references/untrusted-input.md` and `references/writing-voice.md`. Define jargon the first time it appears.
+Apply `references/use-your-judgement.md`, `references/stop-decide-hold.md`, `references/untrusted-input.md`, `references/writing-voice.md` and `references/explaining.md`. Define jargon the first time it appears.
 Analogies and concrete examples for anything abstract. Assume the reader is
 competent but new to this system.
 
@@ -76,38 +76,6 @@ Each decision names the alternative rejected and the cost accepted, the diagram 
 
 ## Voice and level
 
-`references/writing-voice.md` covers plain English, no dashes, and tables over
-paragraphs. This section adds only what that file does not.
+Apply `references/explaining.md` (ground up, an example per claim, decisions side by side, questions answered where they arise).
 
-Match the reader, and say so if you cannot tell. Assume a competent engineer who
-is new to *this* system: fluent in queues, databases, distributed systems and
-LLM agents, and unfamiliar with this repo's own vocabulary. Define the repo's
-terms of art on first use. Do not define general engineering terms.
-
-**Build from the ground up.** Define each term where it first appears, in order.
-Never open a section with a summary that uses words the reader has not met yet;
-it reads as noise and has to be decoded after the fact. A recap belongs at the
-END, once every word in it means something. That is how a complex section fits
-in the reader's head at once.
-
-**Show the alternative side by side, not in prose.** A decision is a comparison,
-so draw it as one: A and B next to each other, with the arrow or box that
-actually differs highlighted. A paragraph that describes the current design and
-then mentions what it replaced is not a comparison: the reader cannot see the
-difference, they have to reconstruct it. One shared diagram per decision beats
-one diagram for the whole page.
-
-**Every claim carries its example.** "Adding a workflow is a YAML file and a
-six-line class" is a characterisation; the six lines and the YAML beside them are
-the explanation. Quote the real code, small enough to read in place, with its
-`path:line` so the reader can open it. A decision explained without an example
-is the most common failure of this skill.
-
-**Answer each question where it arises.** A judgement about whether a design is
-healthy goes in a box directly under the part that describes it, never in a
-section at the end.
-
-**Plain words means no flourish.** "Every step goes through this one call" beats
-"every step crosses the one teal edge." If a sentence would sound odd read aloud
-in a standup, rewrite it. When a reader says a section is too verbose, explain it
-more simply; do not delete it.
+Assume a competent engineer who is new to *this* system: fluent in queues, databases, distributed systems and LLM agents, and unfamiliar with this repo's own vocabulary. Define the repo's terms of art on first use, never general engineering terms. If you cannot tell who the reader is, say so.
