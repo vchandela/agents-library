@@ -92,7 +92,7 @@ Each skill that uses `references/` carries its own copy, so a single skill folde
 
 Two frontmatter fields, `name` and `description`. The description is the whole trigger: write it as "Use when ...", and add what it is **not** for, or it fires on neighbouring work.
 
-Keep the body short. Under 500 lines is the ceiling, under 200 words is the target for anything used often. Put long material in `references/` and point at it.
+Keep the body short, and count what it loads: every rule in the skill and in the references it applies competes for attention, and models follow each rule less as the count grows. Under 500 lines is the ceiling; move a rule a script can check into the script. Put long material in `references/` and point at it.
 
 Before shipping one:
 

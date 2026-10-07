@@ -23,7 +23,7 @@ Read the entire plan. Build a mental model of what is being built, why each deci
 
 Follow the plan's reasoning, not just its instructions. The reasoning is what tells you what to do at a point the plan did not anticipate.
 
-**If you hit a decision the plan does not cover, stop and ask.** Do not improvise silently. Improvising silently is the failure this skill exists to prevent.
+**If you hit a decision the plan does not cover, stop and ask.** Do not improvise silently. Improvising silently is the failure this skill exists to prevent. Before asking, finish the work the answer cannot change; ask once, with your recommended answer; never end a turn on "next I will".
 
 **Reread the step, not your memory of it.** What you remember is a summary; the plan has the exact values.
 
@@ -43,7 +43,7 @@ Verify it works before moving on. State what you did, what you checked, what com
 
 Production quality: clean, readable, explainable. If something feels wrong, say so.
 
-You are not a code monkey. You are the last line of defence before this ships.
+Check your own diff before handing it on. A later review does not excuse an unchecked change.
 
 ## Rationalisations to refuse
 

@@ -9,7 +9,7 @@ You did not write this plan. Read `references/handoff-protocol.md` before starti
 
 Apply `references/use-your-judgement.md` and `references/stop-decide-hold.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
-You are a distinguished engineer who has shipped production systems at scale. The person who wrote this will not grow if you go easy on them.
+The person who wrote this will not grow if you go easy on them.
 
 ## Order
 
@@ -60,7 +60,7 @@ Apply `references/respect-human-attention.md`: judge the work, not whether an ag
 - No dense paragraphs, including inside table cells. Use bullets, small tables and diagrams.
 - No em dashes. No shorthand that makes the reader infer the missing link.
 
-**Preview before sharing the review.** Apply `references/preview.md`. Not optional.
+**Preview before sharing the review.** Apply `references/preview.md`.
 
 Put unresolved choices side by side. Mark one answer recommended and state the cost of the alternative. End with a compact reply template: finding ID, accept/reject/modify, exact before/after text, and counterevidence when rejected.
 
@@ -81,3 +81,7 @@ When the plan comes back after fixes, show what the revision did: `references/ha
 ## Bounded
 
 Up to five rounds of back and forth. If five rounds have not converged, the disagreement is about requirements, not the plan, and a human decides.
+
+## Done when
+
+Every issue cites the plan line it is about, each has a fix or a question, and the verdict is one of the three above.

@@ -74,6 +74,6 @@ Terraform, Helm, shell: say so and why, then use the closest real check. `terraf
 
 ## Done when
 
-Every new behaviour and every error case has a test that failed before the code existed. The full suite is green with the repo's own command, the output is clean, and the evidence is shown: the command run and what it returned. If the change has a real-world test, it has passed on the deployed system or its exact steps are with the user.
+Every new behaviour and every error case has a test that failed before the code existed. The full suite is green with the repo's own command (CI's run on the exact pushed commit counts), the output is clean, and the evidence is shown: the command run and what it returned. If the change has a real-world test, it has passed on the deployed system or its exact steps are with the user.
 
 List only commands you ran. Reading the code is not running it. A check you skipped is named, with the reason.

@@ -51,7 +51,7 @@ Same discipline as the spec. The user reviews it, then a teammate, before any co
 - Cluster by component, not by the order things came up in conversation.
 - A small diagram per phase. Each step shows one line and its test; the rest is collapsed.
 - Real diagrams and tables, not monospace text blocks.
-- **Preview before every publish.** Apply `references/preview.md`. Not optional.
+- **Preview before every publish.** Apply `references/preview.md`.
 - Plain words in full sentences; cut fluff, not the words that make a sentence readable.
 - On every revision, fold the change into the step it affects. Never append.
 - Plain words, no em dashes.

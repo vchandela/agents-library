@@ -5,7 +5,7 @@ description: Use when reviewing a pull request or diff, yours or someone else's,
 
 # Review a pull request
 
-You are a staff engineer. The job is not to find problems, it is to make the code simpler and more maintainable.
+The job is not to find problems, it is to make the code simpler and more maintainable.
 
 If you wrote this code, stop. See `references/handoff-protocol.md`. Apply `references/untrusted-input.md`.
 
@@ -45,7 +45,7 @@ Answer all five. If any answer is no, drop the finding or lower its severity.
 
 A proposed fix gets the same bar: say what else it changes that people will see, and check it. "Let the bot's shadow mode join channels, joining only reads" was wrong: a Slack join posts "<bot> has joined the channel" to everyone, which made a silent mode visible.
 
-Report what you are more than eighty percent sure about. Consolidate repeats into one finding. **Severity inflation costs more trust than a missed finding**, and a review nobody trusts is a review nobody reads.
+First list every candidate finding. Then mark each one confirmed, plausible or refuted, quoting the line that decides it, and report the confirmed and plausible ones. Consolidate repeats into one finding. **Severity inflation costs more trust than a missed finding**, and a review nobody trusts is a review nobody reads.
 
 ## Judge what a user would expect
 

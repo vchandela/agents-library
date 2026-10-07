@@ -28,4 +28,4 @@ No hedging, no "you might want to consider", no softening a real problem into a 
 
 ## Check
 
-Would you say this to someone whose work you respected? If not, it is either too soft or too rude, and both are failures.
+Before sending, confirm the four parts under "What to give" are each there: the strongest objection, the weakest assumption, what would have to be true, and what you would do instead. Then confirm the tone is plain: no padding before the point, and no harsh word the point does not need.
