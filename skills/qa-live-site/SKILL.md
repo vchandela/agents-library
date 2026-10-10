@@ -68,3 +68,7 @@ If you created test data, say where it is and how to remove it.
     Blocking   1. ...
 
 **"Ready: YES" requires a rollback plan** (`references/shipping.md`). **"Ready: NO" with an empty blocking list is not a result.** Either name what is wrong, or the answer is yes.
+
+## Done when
+
+Every cell of the state grid was worked. Each of the seven phases ran or names why it was skipped. Every finding has its request or `file:line` and its evidence. The verdict block is filled, and "Ready" is backed by a rollback plan or a blocking list.
