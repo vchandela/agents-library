@@ -1,6 +1,6 @@
 # UI quality
 
-Applied by design-ui, qa-live-site, review-pr and implement-plan, only when the change has a screen. Every item is checked on the rendered page, at the widths the product supports, in every theme it ships. A clean linter or detector run is a floor, not proof.
+Every item is checked on the rendered page, at the widths the product supports, in every theme it ships. A clean linter or detector run is a floor, not proof.
 
 ## Order: judge first, then run the tools
 

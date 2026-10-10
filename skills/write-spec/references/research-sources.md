@@ -1,6 +1,6 @@
 # Research sources, prompts and scoring
 
-Used by `research-prior-art`. The skill says what to do. This file holds the long parts: where to look, which companies to target, what to send each sub-agent, how to score an idea, and what the report looks like.
+`research-prior-art` says what to do. This file holds the long parts: where to look, which companies to target, what to send each sub-agent, how to score an idea, and what the report looks like.
 
 ## The eight source types
 

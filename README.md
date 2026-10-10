@@ -97,7 +97,7 @@ Keep the body short, and count what it loads: every rule in the skill and in the
 
 Before shipping one:
 
-1. **Trigger test.** Paste only the frontmatter into a fresh chat. Ask for three prompts that should fire it and three that should not. If the model cannot separate them, the description is wrong.
+1. **Trigger test, measured.** Write three prompts that must fire the skill, in the words users type, and three near misses that a neighbouring skill owns. Each is a case in `evals/` with a `tool_used: Skill` grader (`max: 0` and `arm: both` for a near miss). Run `claude plugin eval . --case '<skill>-*' --ablation none --model <pinned>` and record x of n fires with the Claude Code version. Asking a model to sort prompts by description is not a trigger test.
 2. **Baseline.** Run a real task without the skill and write down how it goes wrong. If nothing goes wrong, the skill has no reason to exist.
 3. **Loopholes.** Run it again with the skill and note every excuse for skipping a step. Those become the rationalisation table.
 4. **Match the form to the failure.**
@@ -112,7 +112,7 @@ Before shipping one:
    A nuance clause ("don't X unless it matters") reopens the negotiation. Pair every prohibition with the behaviour you want instead.
 5. **Micro-test the wording.** Send a tempting task five or more times with the skill and five times with no guidance. If the control does not fail, there is nothing to fix. Read every output yourself. Five different shapes across five runs means the wording does not bind yet.
 6. **Change against two baselines.** Run the same task three ways: no skill, the current skill, the changed skill. Include one task the change should help and one existing task it could break. Wording that does not move the result does not ship, however reasonable it reads.
-7. **Isolate the baseline.** Run every arm with your own hooks, plugins and memory switched off (`claude --setting-sources ""`), and pin the model. Two public skill repos found their baseline secretly running the skill under test through an always-on hook.
+7. **Isolate the baseline.** Run every arm with your own hooks, plugins and memory switched off (`claude --setting-sources ""`), outside any git repo (Claude Code shows the model recent commits), with the model pinned and the CLI version recorded. Open one transcript per arm to see what was injected. Two public skill repos found their baseline secretly running the skill under test through an always-on hook. `claude plugin eval` does this isolation for you.
 8. **Prove the check before trusting it.** Every scoring check gets one known good and one known bad answer, and must pass the first and fail the second. Check that every task can be passed at all.
 9. **Prefer an operation to a principle.** "Trace the flow end to end" scored 0 of 3 in one public eval. "Grep every caller of the function you touch and fix the shared function once" scored 6 of 6.
 
@@ -122,6 +122,10 @@ While writing:
 - **Hunt no-ops.** A sentence the model already obeys by default costs context and changes nothing. Test it by running without it, then delete it.
 - **Do not restate the environment.** A line that copies `package.json` scripts or the directory layout goes stale. Write what a lookup cannot find: the reason, the gotcha, the unwritten convention.
 - **Inline what every path through the skill needs; put what only some paths need in `references/`.**
+- **Name the case the model would do alone.** Models skip a skill for a task they can do unaided, so the description names it: "even when the diff is pasted inline" took one public review skill from 7 to 21 fires out of 27.
+- **End the turn where the skill's output ends.** A spec or plan skill says to stop and ask for approval. Without it, Opus 5.5 sometimes went on to build the project.
+- **A rationalisation row keeps its reason.** Rows cut down to labels held 5 of 10 runs under pressure, against 8 of 10 with the reasons.
+- **The rule that must survive a long session goes in the first screen.** After compaction only the start of a skill comes back.
 
 ## Licence
 

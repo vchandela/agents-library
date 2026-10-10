@@ -1,7 +1,5 @@
 # Engineering principles
 
-Applied by the pipeline skills. Referenced, never copied.
-
 ## The four
 
 - **DRY.** One fact has one home. A second copy is right the day it is written and wrong from the moment either changes.
@@ -71,7 +69,7 @@ Do not make something faster until something is measured slow.
 3. **Change one thing.** Three changes measured together give one number nobody can attribute.
 4. **Re-measure the same way:** same command, same conditions, same cache state. A cold baseline against a warm result measures the cache.
 5. **Decide strictly.** Beyond run-to-run noise and tests green: keep, with before and after in the commit message. Within noise, worse, or a test went red: revert. **Neutral is a revert.**
-6. **Log every attempt, kept and reverted,** in the PR description. A reverted idea leaves no trace in git, so it gets tried again.
+6. **Log every attempt, kept and reverted,** in the PR description's Evidence paragraph. A reverted idea leaves no trace in git, so it gets tried again.
 7. **Guard the metric users feel** with a budget in CI or a field alert.
 
 **Never present a number you did not measure.** Reading code finds "potential impact", never a measurement. Lab and field numbers are different numbers; label which one you have.
@@ -84,4 +82,4 @@ Keep each PR under about 200 lines of production code, and atomic: one reviewabl
 
 Slice vertically where you can: each PR is a thin path through every layer that works and can be checked on its own. Backend first and UI later ships code nobody can exercise until the last PR. The exception is a wide mechanical change (a rename, a retyped shared symbol) that breaks every caller at once: expand (add the new form beside the old), migrate callers in batches with one PR each, then contract (delete the old form) once nothing uses it.
 
-A PR body has three parts. **Summary:** the smallest picture that makes the point, often a diff of a call tree or file tree rather than prose. **Evidence:** before and after, as a test run or output; a screenshot when the change is visual. **Merge danger:** a one-way or two-way door (can it be rolled back cheaply?) and the blast radius in a word or two.
+A PR body says what the PR does now, in the voice of `references/writing-voice.md`: full sentences, each design decision with a short before and after example, and a small tree diff where it is clearer than prose. Then two short paragraphs. **Evidence:** before and after, as a test run or output, and a screenshot when the change is visual. **Merge danger:** a one-way or two-way door (can it be rolled back cheaply?) and the blast radius.

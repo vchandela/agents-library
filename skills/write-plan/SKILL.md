@@ -27,7 +27,7 @@ Apply `references/engineering-principles.md`: DRY, YAGNI, KISS, SOLID, cut prema
 
 ## Teach the implementation
 
-Apply `references/visual-explanations.md`. Prefer diagrams and real examples over prose. The plan must include a diagram showing the order of components or phases and a real-looking worked example. For any non-obvious new mechanism, show the relevant call order, state or data using the clearest visual form. Pseudocode is optional and secondary; use it only when the implementer still needs to see an exact check or ordering, mark it as pseudocode, and name the files that will contain the real implementation.
+Apply `references/visual-explanations.md`. The plan's diagram shows the order of components or phases. Pseudocode, when the implementer still needs an exact check or ordering, is marked as pseudocode and names the files that will hold the real code.
 
 ## Testing
 
@@ -52,9 +52,8 @@ Same discipline as the spec. The user reviews it, then a teammate, before any co
 - A small diagram per phase. Each step shows one line and its test; the rest is collapsed.
 - Real diagrams and tables, not monospace text blocks.
 - **Preview before every publish.** Apply `references/preview.md`.
-- Plain words in full sentences; cut fluff, not the words that make a sentence readable.
+- Apply `references/writing-voice.md`.
 - On every revision, fold the change into the step it affects. Never append.
-- Plain words, no em dashes.
 
 ## Folding in plan review
 
@@ -66,4 +65,4 @@ Be pragmatic about review feedback. Treat each finding as a claim to check, not 
 
 ## Done when
 
-The preview in `references/preview.md` passes. Every spec invariant maps to a step, every assumption is flagged, and the testing approach matches what the repo can actually do. No step decides nothing (TBD, TODO, "handle edge cases"). Names and types match across steps. The plan is not longer than the code it describes: a plan full of finished function bodies has written the code instead of deciding it. Next: `review-plan`, on a different agent. See `references/handoff-protocol.md`.
+The preview in `references/preview.md` passes. Every spec invariant maps to a step, every assumption is flagged, and the testing approach matches what the repo can actually do. No step decides nothing (TBD, TODO, "handle edge cases"). Names and types match across steps. The plan is not longer than the code it describes: a plan full of finished function bodies has written the code instead of deciding it. Then end the turn with the link and the questions for the user. No code is written in this turn. Next: `review-plan`, on a different agent. See `references/handoff-protocol.md`.

@@ -1,7 +1,5 @@
 # Respect human attention
 
-Applied by every skill whose output another person reads: specs, plans, reviews, and messages.
-
 The person who sends a document is accountable for all of it, whatever produced it. The reader must never spend more effort decoding it than the sender spent producing it. The more a document asks for someone's judgment, the more of it must be the sender's own.
 
 ## Who writes what

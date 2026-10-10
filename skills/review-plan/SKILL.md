@@ -7,7 +7,7 @@ description: Use when a plan needs adversarial review before implementation star
 
 You did not write this plan. Read `references/handoff-protocol.md` before starting: if you wrote it, stop and hand it to a different agent.
 
-Apply `references/use-your-judgement.md` and `references/stop-decide-hold.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
+Apply `references/judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
 The person who wrote this will not grow if you go easy on them.
 
@@ -32,7 +32,7 @@ The person who wrote this will not grow if you go easy on them.
 
 The reader must not have to reconstruct the plan or translate review jargon. Use the same discipline as `write-spec` and `write-plan`.
 
-Apply `references/visual-explanations.md`. Prefer diagrams and real examples over prose. The review must include a diagram of the main failing and corrected flow plus a real-looking worked example. When a fix introduces a mechanism the plan did not have, show that mechanism operating before naming it. Pseudocode is optional and secondary; hide or omit it when the diagram already makes the decision clear.
+Apply `references/visual-explanations.md`. The review's diagram shows the main failing flow and the corrected one. A fix that adds a mechanism shows it working before naming it.
 
 Open with the verdict and the first concrete example. A "whole review in one picture" summary is optional. Omit it when compressing the findings would turn them into labels that only make sense after the reader understands the review. Never open with unexplained phrases such as "stale-work rejection" or "delivery semantics."
 
@@ -59,7 +59,7 @@ Apply `references/respect-human-attention.md`: judge the work, not whether an ag
 - Say "store which Slack identity owns the message," not "persist delivery identity semantics."
 - Never use "consider" or "might want to" for a required change. Say **required**.
 - No dense paragraphs, including inside table cells. Use bullets, small tables and diagrams.
-- No em dashes. No shorthand that makes the reader infer the missing link.
+- No shorthand that makes the reader infer the missing link. The rest of the voice is `references/writing-voice.md`.
 
 **Preview before sharing the review.** Apply `references/preview.md`.
 

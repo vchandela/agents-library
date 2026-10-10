@@ -21,7 +21,7 @@ One page, two at most, three only if the material truly needs it. Assume a reade
 - Suggest phases where the work splits into phases.
 - Sections worth having: overview, design decisions, diagrams, tradeoffs, and what is knowingly left undone.
 
-Apply `references/use-your-judgement.md`, `references/stop-decide-hold.md` and `references/writing-voice.md`. Tables and diagrams instead of paragraphs wherever they carry the same content. Every word earns its place.
+Apply `references/judgement.md` and `references/writing-voice.md`. Tables and diagrams instead of paragraphs wherever they carry the same content. Every word earns its place.
 
 ## Diagrams
 

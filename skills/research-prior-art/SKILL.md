@@ -7,7 +7,7 @@ description: Use when you are about to design something, or are new to a technic
 
 Designing from first principles is good. Designing from scratch, when five companies have already published how they did it, is waste. A wrong research finding costs more than a wrong line of code, because the design and the code are built on it.
 
-Apply `references/writing-voice.md` and `references/visual-explanations.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/use-your-judgement.md` and `references/stop-decide-hold.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why.
+Apply `references/writing-voice.md` and `references/visual-explanations.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/judgement.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why.
 
 ## 1. Brief first
 
@@ -42,7 +42,7 @@ When the user wants it exhaustive, or the landscape names a handful of companies
 - Merge by idea, not by URL. The same idea under two names is one idea. A repost, a summary site or a vendor quoting its customer counts once.
 - Give each idea an authority badge from the number of independent organisations using it, plus its strongest evidence tag. The rubric is in `references/research-sources.md`. **Nobody else scores adoption this way, which is exactly why it helps**: it separates "three blogs say so" from "eleven teams ship it".
 - Ask before writing: what did we find and not use? What did the slices disagree on?
-- Sort every idea and gap Now, Later or Drop per `references/stop-decide-hold.md`. Send one follow-up round, only for gaps that block a Now decision, then stop; a second round needs the user's yes.
+- Sort every idea and gap Now, Later or Drop per `references/judgement.md`. Send one follow-up round, only for gaps that block a Now decision, then stop; a second round needs the user's yes.
 
 ## 4. Fact-check, in a separate agent
 

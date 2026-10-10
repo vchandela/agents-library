@@ -1,6 +1,6 @@
 # Security attack classes
 
-Used by `review-security`. Pick the classes the map shows a real boundary for. Do not pick one because a language or library name appears.
+Pick the classes the map shows a real boundary for. Do not pick one because a language or library name appears.
 
 ## Ordinary classes
 

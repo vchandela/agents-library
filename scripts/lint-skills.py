@@ -2,11 +2,12 @@
 """Lint every skill so a broken one fails CI instead of failing in a user's tool.
 
 Checks, standard library only:
-  - frontmatter has only `name` and `description`, and parses as strict YAML would
+  - frontmatter has only `name`, `description`, `license` and `disable-model-invocation`, and parses as strict YAML would
     (a value containing ": " must be quoted);
   - `name` matches the folder and the spec's pattern; description is 1 to 1,024 characters;
   - the body stays under about 5,000 tokens (3,500 words);
   - every `references/X.md` a skill mentions exists in that skill's own folder;
+  - no unescaped $ARGUMENTS, $N or ${CLAUDE_...} in a body;
   - no hidden Unicode (zero-width or bidirectional controls) and no HTML comments.
 
     python3 scripts/lint-skills.py
@@ -42,15 +43,17 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
         if ": " in value and not quoted:
             fail(skill, f"unquoted ': ' in {key!r} breaks strict YAML parsers")
         fields[key.strip()] = value
-    extra = set(fields) - {"name", "description"}
+    extra = set(fields) - {"name", "description", "license", "disable-model-invocation"}
     if extra:
-        fail(skill, f"frontmatter keys other than name and description: {sorted(extra)}")
+        fail(skill, f"frontmatter keys outside name, description, license and disable-model-invocation: {sorted(extra)}")
     if fields.get("name") != folder or not NAME.match(folder):
         fail(skill, f"name {fields.get('name')!r} must equal the folder {folder!r} and match {NAME.pattern}")
     if not 1 <= len(fields.get("description", "")) <= 1024:
         fail(skill, "description must be 1 to 1,024 characters")
     if len(parts[2].split()) > MAX_WORDS:
         fail(skill, f"body is {len(parts[2].split())} words; keep it under {MAX_WORDS}")
+    if re.search(r"(?<!\\)\$(ARGUMENTS|[0-9]|\{CLAUDE_)", parts[2]):
+        fail(skill, "$ARGUMENTS, $N or ${CLAUDE_...} in the body is replaced when the skill is invoked with arguments; escape it")
     for ref in sorted(set(re.findall(r"references/([\w.-]+\.md)", text))):
         if not (skill.parent / "references" / ref).exists():
             fail(skill, f"mentions references/{ref} but the skill folder does not ship it")

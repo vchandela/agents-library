@@ -1,6 +1,6 @@
 # Explaining
 
-How to make a reader understand something new: a system, a concept, a decision. Applied by the explain-simply and understand-codebase skills, and by anything that teaches. `writing-voice.md` covers the words; this file covers the order and the evidence.
+How to make a reader understand something new: a system, a concept, a decision. `writing-voice.md` covers the words; this file covers the order and the evidence.
 
 ## Build from the ground up
 

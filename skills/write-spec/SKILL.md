@@ -37,7 +37,7 @@ For any real decision, decide first, then present it. Two or three options side 
 
 Follow the repo's conventions. Use first principles to check that a convention fits and to weigh the user's suggestions, not to invent new patterns. Anything new to the repo must be necessary, and the user confirms it before it goes in the spec.
 
-Apply `references/use-your-judgement.md` and `references/stop-decide-hold.md`: propose requirements the user did not mention but the domain needs, marked as proposals.
+Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals.
 
 Apply `references/engineering-principles.md`. Every choice is a tradeoff: each piece of complexity says what it buys, or moves to a "later" list. Pragmatic, not perfect.
 
@@ -49,7 +49,7 @@ When an interface is the decision, have three sub-agents each design it under a 
 
 ## Teach the design
 
-Apply `references/visual-explanations.md`. Prefer diagrams and real examples over prose. The spec must include an end-to-end diagram of the core behaviour and a real-looking worked example. Each non-obvious new mechanism gets the clearest useful visual before the document relies on its name. The visual must stand on its own. Pseudocode is optional and secondary; include it only when the visual does not make the exact check or ordering clear.
+Apply `references/visual-explanations.md`. The spec's diagram shows the core behaviour end to end.
 
 ## Interview first
 
@@ -77,7 +77,7 @@ Keep going until no branch is unvisited, nothing is silently assumed, and you ca
 
 **How we test it for real** (when repo tests can't show it working). The real-world test from `references/testing.md`: action, exact input, expected result, what failure looks like. Prefer replaying the ask that started the work.
 
-**Open items.** One numbered list: item, recommended answer, other options. Every assumption goes here, including ones the plan depends on. Access to external systems follows the team's existing route. Reviewers reply per number.
+**Open items.** One numbered list: item, the options with their costs, and the user's preference where they have one. Your recommendation goes to the user in chat, not into the doc as the team's answer. Every assumption goes here, including ones the plan depends on. Access to external systems follows the team's existing route. Reviewers reply per number.
 
 Split what is not being decided now in two. **Not yet specified:** in scope, but you cannot phrase the question sharply yet; revisit as decisions land. **Out of scope:** ruled beyond this spec, with one line of why; it does not come back unless the goal changes. The test is whether you can state the question precisely now, not whether you can answer it.
 
@@ -85,22 +85,22 @@ Split what is not being decided now in two. **Not yet specified:** in scope, but
 
 Apply `references/respect-human-attention.md`: the user's overview (boxed "Written by <name>"), one "AI-assisted · human-reviewed" box where agent-drafted sections begin, what stays visible versus collapsed, and open questions numbered first with options, not your picks.
 
-2 to 3 pages, tight and complete.
+Up to 3 pages for the working spec, tight and complete. The short page the team reviews is 1 to 2 (`references/respect-human-attention.md`).
 
 - Open with the core flow in a diagram, not a compressed summary of unexplained terms.
 - Cluster related material: options, tradeoffs and recommendation in one table.
 - Define a term in a parenthetical where first used. No shorthand. When two words compete for one concept, pick one and list the losers: `Order` (avoid: purchase, transaction). When the user's word contradicts the code, say so and ask which is right.
 - Collapse supporting detail.
-- Diagrams over prose in every section, not just the opening: lifecycle as a state diagram, error cases as a flow, open items as left-versus-right cards. Plain words, no em dashes.
+- Diagrams over prose in every section, not just the opening: lifecycle as a state diagram, error cases as a flow, open items as left-versus-right cards.
 - No dense paragraphs, including in table cells. Use bullets, lists or small tables.
 - On every revision, fold the change into its section. Never append.
 - Before publishing, run a verification pass over every claim, and read it once for placeholders, sections that contradict each other, and any requirement that could be read two ways. Cut anything not needed.
-- **Simplicity pass, before publishing and after every review round.** For each mechanism, ask: what is the most direct way to get exactly this? Name the simplest alternative and why it loses; if it doesn't lose, switch. Reuse a general API only when it is also the simplest. When fixes keep stacking on one mechanism (settings, a degraded path, limits, paging), the base choice is wrong: replace it, don't patch it. Example: a learner read earlier notes through a general sessions API, which grew two settings, transcript exposure, a refused-read path, a row limit and paging over five rounds; one narrow read on the learner's own route removed all of it.
+- **Simplicity pass, before publishing and after every review round.** For each mechanism, name the simplest alternative and why it loses. If it doesn't lose, switch. When fixes keep stacking on one mechanism, replace it ("Question the mechanism" in `references/engineering-principles.md`).
 - Real diagrams (Mermaid) and real tables, not monospace text blocks.
 - **Preview before every publish.** Apply `references/preview.md`: parse every diagram, render a local preview, inspect it in Chrome, fix, repeat. Not optional.
-- Plain words in full sentences. Cut fluff, not the words that make a sentence readable. Titles name the thing in plain terms ("How we read Slack", not "reading code").
+- Apply `references/writing-voice.md`. Titles name the thing in plain terms ("How we read Slack", not "reading code").
 - For review: the artifact is the document; the team's doc tool holds the links and the open items for comments.
 
 ## Done when
 
-The preview in `references/preview.md` passes. Every error case names an exact behaviour, every invariant is falsifiable, every decision shows its discarded options, and the user has confirmed the spec back. Next: `write-plan`.
+The preview in `references/preview.md` passes. Every error case names an exact behaviour, every invariant is falsifiable, every decision shows its discarded options, and the user has confirmed the spec back. Then end the turn: share the link, list the open questions and ask for approval. The plan and the code start in a later turn. Next: `write-plan`.

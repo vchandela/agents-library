@@ -1,12 +1,10 @@
 # Visual explanations
 
-Applied by the spec, plan, plan-review and explain-simply skills.
-
 ## The rule
 
 Prefer diagrams and concrete examples over explanatory prose. The goal is not to minimise words or draw the smallest possible diagram. The goal is that a tired reader understands the idea without decoding the surrounding text. Teach the mechanism first. Name it second.
 
-Every spec, plan and plan review includes:
+Every spec, plan and plan review includes (each skill names what its diagram shows):
 
 - at least one diagram showing the core flow;
 - at least one real-looking worked example with concrete values.

@@ -1,7 +1,5 @@
 # Stacked PRs
 
-Applied when a stack of PRs is pushed, rebuilt or merged.
-
 ## Pushing
 
 - **Never a plain `--force`, and never amend or rewrite a pushed commit.** Fix with a new commit on the branch the fix belongs to.

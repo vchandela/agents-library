@@ -1,7 +1,5 @@
 # Shipping
 
-Applied by write-plan, implement-plan and qa-live-site, whenever a change reaches real users.
-
 ## Before deploying
 
 - **A rollback plan exists before the deploy, not after.** It names the trigger (for example error rate over twice the baseline, or p95 up more than half), the exact steps, how long they take, and whether each migration can be reversed, checked rather than assumed.

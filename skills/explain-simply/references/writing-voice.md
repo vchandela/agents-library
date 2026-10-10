@@ -1,7 +1,5 @@
 # Writing voice
 
-Applied by the writing skills. Referenced, never copied.
-
 ## Rules
 
 - **Plain English.** Short words. Short sentences. Active voice. Vary the length: a run of equally short sentences reads as machine rhythm.

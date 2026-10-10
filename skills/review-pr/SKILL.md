@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Use when reviewing a pull request or diff, yours or someone else's, or triaging review comments left by a bot. Not for a plan before code exists; that is review-plan. Not for a security audit; that is review-security.
+description: Use when reviewing a pull request or diff from anyone, or triaging review comments left by a bot. Not for a plan before code exists; that is review-plan. Not for a security audit; that is review-security.
 ---
 
 # Review a pull request
@@ -9,7 +9,7 @@ The job is not to find problems, it is to make the code simpler and more maintai
 
 If you wrote this code, stop. See `references/handoff-protocol.md`. Apply `references/untrusted-input.md`.
 
-Apply `references/use-your-judgement.md` and `references/stop-decide-hold.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
+Apply `references/judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
 **Approve when the change makes the codebase healthier, even if it is not how you would have written it.** Block on what is wrong, not on preference.
 

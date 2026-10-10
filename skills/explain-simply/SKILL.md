@@ -9,7 +9,7 @@ Explain from first principles, with examples grounded in reality.
 
 **The bar is hard: easy to digest without losing technical depth.** Simplifying by removing the difficult part is not this. Keep the depth, change the delivery.
 
-Apply `references/use-your-judgement.md`, `references/stop-decide-hold.md`, `references/writing-voice.md`, `references/explaining.md` and `references/visual-explanations.md`. For a page, also apply `references/preview.md`.
+Apply `references/judgement.md`, `references/writing-voice.md`, `references/explaining.md` and `references/visual-explanations.md`. For a page, also apply `references/preview.md`.
 
 ## Read before you explain
 
@@ -41,7 +41,7 @@ The default shape for anything new to the reader, done for the first time, or re
 - **Each step has the same parts:** plain words with no system names, one small picture, one real example (a quoted line, a real date, a real row), and a one-line takeaway.
 - **Names come last.** Close a step with an "in the system's words" box that maps each idea to its real name (topic = area, bookmark = watermark). Never use a name before its idea has landed.
 - **In chat, one step per message**, and let the reader say "next" or ask. Fold each step into the page as it is agreed, rather than publishing the whole page first.
-- **A diagram supports a step. It never replaces the steps.** Use an overview picture only after the steps, as a recap, or inside a step to show that step's flow.
+- **A diagram supports a step. It never replaces the steps.** For a reader new to the subject, use an overview picture only after the steps, as a recap, or inside a step to show that step's flow. A reader judging a design gets the map first (`references/visual-explanations.md`).
 
 Failure this prevents: a page about a background sync system led with a six-box pipeline, a glossary of internal names and a sequence diagram. The reader said it was "too technical with a bunch of boxes that I can't make sense of. The definitions and names are all alien." The same content as five plain steps landed at once: "I love the step-by-step explanations over what you posted in the original artifact."
 
@@ -63,7 +63,7 @@ For a page, apply `references/explainer-pages.md`.
 |---|---|
 | "They said it was too verbose, so I cut it" | Explain it more simply. Too verbose means simplify, never drop. |
 | "The diagram speaks for itself" | Annotate every arrow and box. It does not. |
-| "One overview picture covers it faster than steps" | Walk it step by step. Boxes joined by arrows are a recap, not the explanation. |
+| "One overview picture covers it faster than steps" | For a reader new to it, walk it step by step. Boxes joined by arrows are a recap, not the explanation. |
 | "A summary at the top helps them orient" | Only if every word in it is already defined. Otherwise it goes at the end. |
 | "The docs say so" | Check the code. Cite what you checked. |
 | "An example would make it longer" | The example is the explanation. Cut prose instead. |

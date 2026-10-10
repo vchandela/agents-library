@@ -1,7 +1,5 @@
 # Machine tells
 
-Applied with `references/writing-voice.md` before anything is published or sent. Referenced, never copied.
-
 A model picks the choice that fits the widest range of readers. A person picks for one reader. Every tell below is that default choice. Word habits change with each model release; the structural tells persist.
 
 - Every sentence must add something the reader does not already have, from earlier in the text or from the conversation.

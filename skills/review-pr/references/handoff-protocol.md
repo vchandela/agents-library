@@ -1,6 +1,6 @@
 # Handoff protocol
 
-Who proposes, and who judges. The pipeline skills reference this.
+Who proposes, and who judges.
 
 ## The rule
 

@@ -1,7 +1,5 @@
 # Testing
 
-Applied by any skill that writes, plans or judges tests. Referenced, never copied.
-
 ## The loop
 
 - **Red.** Write the failing test first. Run it and watch it fail for the reason you expect: the feature is missing, not a typo or a bad import. A test that passes on its first run proves nothing, so fix the test.
