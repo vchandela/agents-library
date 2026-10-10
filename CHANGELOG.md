@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- `design-ui`: the order of work for a new screen (the job, the repo's tokens, a state grid, build, a look at every width and theme), judged against `references/ui-quality.md`.
 - `diagnose-bug`: a red-capable loop before any theory, ranked hypotheses, one variable at a time, the fix at the shared point, and a stop after three failed fixes.
 - `review-security`: a six-part bar for a finding, three verdicts, severity capped by shown impact, and a full audit with a ledger and refuting verifiers.
 - `references/machine-tells.md`, `references/ui-quality.md`, `references/shipping.md` and `references/security-attack-classes.md`.

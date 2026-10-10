@@ -19,6 +19,8 @@ When unsure, take the heavier one. Complexity found later moves the work up a le
 
 ## Read before you ask
 
+**Follow the latest content.** Projects keep older docs around (an RFC, then a newer design page). Check each source's date or last edit, and where they differ the newest wins. Name the source you followed, and never mix an older doc's design into the spec. Example: an RFC from 2 Oct described a `reference/queries/` folder and an update engine; the 7 Oct design page replaced both.
+
 Before the first question, read what already exists: the owner's handover and design notes, the code being replaced, and the repo it is moving into. A good handover answers most interview questions. Spend the interview on what it leaves open.
 
 Look for precedent in the target repo. A design that copies a pattern the team already runs is cheaper to build and much cheaper to review. Say which pattern, with the file and line.
@@ -28,6 +30,8 @@ Verify every claim against the source and cite `file:line`. When something does 
 ## Shape before spec
 
 If the fundamental shape is undecided (where it runs, what owns state, one long process or many short ones), settle that first. A spec written for the wrong shape gets written twice.
+
+Ask the user before writing, not after: once your judgement is checked against the code, the live systems and a web search, put the key design choices and blockers to them in one numbered message, each with your recommendation. Example: the runbook learner turned out to write Notion pages, not files, so where it writes, its scope, one PR per ticket and how to get real output were asked first; a reviewer never saw a spec built on the wrong guess.
 
 For any real decision, decide first, then present it. Two or three options side by side, one marked recommended with its reasons, each other one with the reason it was discarded. Make the reviewer's job a yes or a no.
 
@@ -91,6 +95,7 @@ Apply `references/respect-human-attention.md`: the user's overview (boxed "Writt
 - No dense paragraphs, including in table cells. Use bullets, lists or small tables.
 - On every revision, fold the change into its section. Never append.
 - Before publishing, run a verification pass over every claim, and read it once for placeholders, sections that contradict each other, and any requirement that could be read two ways. Cut anything not needed.
+- **Simplicity pass, before publishing and after every review round.** For each mechanism, ask: what is the most direct way to get exactly this? Name the simplest alternative and why it loses; if it doesn't lose, switch. Reuse a general API only when it is also the simplest. When fixes keep stacking on one mechanism (settings, a degraded path, limits, paging), the base choice is wrong: replace it, don't patch it. Example: a learner read earlier notes through a general sessions API, which grew two settings, transcript exposure, a refused-read path, a row limit and paging over five rounds; one narrow read on the learner's own route removed all of it.
 - Real diagrams (Mermaid) and real tables, not monospace text blocks.
 - **Preview before every publish.** Apply `references/preview.md`: parse every diagram, render a local preview, inspect it in Chrome, fix, repeat. Not optional.
 - Plain words in full sentences. Cut fluff, not the words that make a sentence readable. Titles name the thing in plain terms ("How we read Slack", not "reading code").

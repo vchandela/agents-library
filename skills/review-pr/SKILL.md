@@ -71,6 +71,7 @@ The shared rules (tag by origin, hold severities, honest trend, brief helpers th
 - **One verdict per old finding:** addressed or not addressed, with `file:line`. Attempted is not addressed: the defect has to be gone. Problems outside the fix go in a separate list and do not reopen the round.
 - **Pin each round to exact commits.** Fetch without hiding errors, list the head of every PR, and name those SHAs in the report. A first round once reported bugs that were already fixed, because it read an hours-old fetch. A later "nothing changed" came from a fetch whose error had been sent to `/dev/null`. If the heads have not moved, say so instead of reviewing again.
 - **Reproduce what matters on the real system.** Anything medium or above gets a scratch test. Transaction, lock and cancel behaviour gets tested on a throwaway instance of the same database engine, never a shared or production one: a lost record after a failed commit showed up only on the production engine, while the lighter test database passed.
+- **Check each test input against the environment.** Read the code that builds that input where the change runs (runner, wrapper, transport), not the producer's comment. A fake the environment never produces passes while production fails: tests fed a step bare JSON while the runner fenced it, and the first production run failed.
 
 ## When the PRs come as a set
 

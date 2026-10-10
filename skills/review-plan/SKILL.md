@@ -19,6 +19,7 @@ The person who wrote this will not grow if you go easy on them.
 
 - **Who else writes this at the same moment?** For every fixed path, key or row the plan writes, find what runs in parallel on the same machine or store. Search the repo's own notes on concurrency. Example: a plan saved Slack images to `/tmp/slack-images/<id>.png`, and four workflow steps ran at once in one microVM. One step could read a file while another was rewriting it. Round 1 missed this.
 - **Every caller of a shared entry point.** A change to a shared CLI, prompt banner or helper reaches every caller, including ones that loop over many items. Grep for all of them. Example: "open every image" was right for one thread and wrong for a step reading 20 incident threads.
+- **Is each mechanism the simplest direct one?** For each, name a simpler alternative. If a mechanism needed fixes in an earlier round, ask whether it should exist at all, not only whether the fix is right. Example: five rounds patched a general sessions API (settings, limits, paging) that one narrow endpoint replaced.
 - **Every planned test names its break.** Revert the fix in your head. If the planned test still passes, that is a finding. Example: a write-then-rename test that checked "file complete, no `.part` left" also passed with a direct write. Checking that the inode changed fixed it. See `references/testing.md`.
 
 **3. Fix it.** Every issue gets a concrete fix. Not "consider handling errors". Show what handling that error looks like.

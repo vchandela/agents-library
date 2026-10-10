@@ -100,3 +100,13 @@ Keep the main visual and example visible. Collapse or move supporting proof, cod
 ## Check
 
 Could a tired reader explain the mechanism back without borrowing the document's jargon? If not, the visual or example has not done its job.
+
+## Notion pages and docs others read
+
+The same rule applies hardest to a Notion page or a doc for the team, whether a skill or a person writes it: diagrams over text.
+
+- **Draw the flow, don't narrate it.** A process that crosses repos, people or systems (who opens which PR, what approves it, what applies it) is an Excalidraw diagram, or a Mermaid flow or sequence diagram where the page renders one. Draw it with the Excalidraw tool and hand over the file; the author exports it into Notion.
+- **Visible text is one-line points.** Supporting detail goes in a toggle whose summary is the one-line point, for example a toggle "However, this is for alerts only." that hides which folders and workflows that covers.
+- **Keep everything, show less.** Collapsing is not cutting: every fact stays, under the toggle that owns it.
+
+Failure this prevents: a one-pager on syncing dashboards through another team's repo explained the PR flow in five numbered paragraphs. The reader asked for the flow as an Excalidraw diagram and the details collapsed into toggles, "so we cut down on text", and for every doc and skill to work that way.

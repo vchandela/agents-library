@@ -9,7 +9,7 @@ One commit does one thing. A reviewer should be able to read each one on its own
 
 ## How to split
 
-Before rewriting, save a backup branch. Split only commits that are not pushed yet; for pushed work, add new commits, never force-push.
+Before rewriting, save a backup branch. Split only commits that are not pushed yet; for pushed work, add new commits. Never a plain `--force` push; the only force push allowed is `--force-with-lease`, for a rebuilt stack, as `implement-plan` says.
 
 Group by intent, not by file. A rename, a behaviour change and a test usually belong in different commits even when they touch one file. A change and its test usually belong in the same one.
 

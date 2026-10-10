@@ -12,6 +12,8 @@ The person who sends a document is accountable for all of it, whatever produced 
 | Detailed sections (behaviour, errors, data, steps, tests) | Written with the agent, then edited down for density. |
 | Raw output kept for reference (logs, full analyses) | Allowed, inside a clearly labelled block, never passed off as the user's words. |
 
+**Anything the user will send to other people** (a chat message, meeting notes, a tracker sheet, a doc) gets two things from you before it leaves. First, your own consolidation pass: merge items that say the same thing, cut what nobody acts on, and lead with the actions. Second, an explicit closing line telling the user to rewrite it in their own words before sending. People forget under time pressure, and agent-written text sent as is costs them credibility. Example: a meeting backlog went out with three rows that were one request and the meeting summary pasted unedited; the reviewer replied "noise to signal ratio is high... human pass is needed".
+
 ## Systems you design respect attention too
 
 The same rule covers what a design asks of people once it runs, not only what a document asks of its readers. People care about outcomes and want few touchpoints.

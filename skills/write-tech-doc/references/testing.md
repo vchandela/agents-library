@@ -11,6 +11,21 @@ Applied by any skill that writes, plans or judges tests. Referenced, never copie
 - Bug fix: reproduce it in a failing test before touching the fix.
 - One slice at a time: one test, then its code. Not every test up front.
 
+## Pick the kinds of test the change needs
+
+Choose per change, name the choice in the plan step, and say why a kind is left out. Each kind catches what the others miss:
+
+- **Unit:** one module through its public entry point, with only the network, clock and randomness faked. For logic with many branches (a token refresher, a parser).
+- **Integration:** the real parts wired together over the real protocol, with only the far end faked (a real MCP client against the real server with a local fake upstream). It catches wiring the unit tests cannot see.
+- **Contract:** where one part writes a shape another part reads and they ship separately (a config file, a status trailer a monitor parses, a step's output the next step reads), pin the shape on both sides with typed-out values.
+- **Live, read-only:** one call against the real external system, when the fake might not match it (an auth flow, a token endpoint's error body).
+- **Mutation:** put each fixed bug back, and flip each important branch; a test must fail each time.
+- **Static checks:** the repo's linter and type checker on every changed file, plus the checker for each other language touched (`terraform fmt` and `validate`, `shellcheck`, `node --check`, a container build). Run them even where CI does not block on them, and a secret scan on the diff.
+- **Failure and concurrency:** inject each failure the spec names (timeout, 5xx, a write that fails, a restart mid-flow) and run the racy path concurrently, asserting the outcome, not just that nothing crashed.
+- **Security:** for anything with an auth or allowlist, the refusal paths are tests too: no token, a wrong token, a forbidden tool called directly, and no secret in any log line or response.
+- **Unchanged behaviour:** when a change wraps something that already works, the old tests pass unchanged and one test shows the old path still answers through the new wiring.
+- **Real-world:** the original ask, on the deployed system (below).
+
 ## Fat tests
 
 - One test per scenario a user would recognise, not one per function. Name it as the scenario: `test_after_the_rename_every_reply_uses_the_new_handle`, not `test_mention_for`.
@@ -27,6 +42,7 @@ Applied by any skill that writes, plans or judges tests. Referenced, never copie
 - **Expected values are typed out, never recomputed.** `assert slugify("Hello World") == "hello-world"`, not `== "Hello World".lower().replace(" ", "-")`. A bug in the shared logic sits on both sides and passes.
 - **Assert outcomes, not calls.** Check the output, the state, the side effect. A mock earns no assertion of its own.
 - **Fakes have the real shape**, with every documented field. A partial fake hides the field production needs.
+- **Know the environment before you fake its input.** Read the code that produces the input in this repo (the runner, wrapper or transport between the producer and your code), not the producer's own comment, and follow the repo's existing test helpers for it. Example: a workflow step's script printed JSON and its tests fed the next step bare JSON, but the step runner wraps every script's output in a ``` fence. 24 tests passed and the first production run failed on character 0. Build each fake from the producer's code, or from a real captured value.
 - **No test-only methods on production code.** A `reset_cache_for_tests()` ships to prod and someone calls it. Build a fresh object, or keep the helper in the tests.
 - **A "not None" or "still there" assert usually proves nothing.** Something else often sets the same value earlier. Compare against the value from just before the step (`!= before`), and revert the fix once to watch the test fail.
 - **Mutation check before done.** Flip a constant, drop a branch, return empty. At least one test fails each time. If none does, either a test is missing or that code is not needed. In Python, run mutations with `PYTHONDONTWRITEBYTECODE=1` and no `__pycache__`: a same-size edit within the same second reuses the stale `.pyc`, so a mutation looks killed (or a restore looks broken) when it never ran. Run the suite green first: a mutation "caught" by a test that was already failing proves nothing.
