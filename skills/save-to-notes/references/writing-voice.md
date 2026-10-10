@@ -15,7 +15,7 @@
 - **No semicolons.** Join clauses with a comma or split them with a full stop.
 - **In the user's own docs** (Notion cells, bullets, captions), start cells and bullets in lowercase, like the rest of the doc, and keep proper nouns capitalised.
 - **Drafts someone will paste** (Slack, email, a comment) go in a plain code block, one long line per paragraph with no hard wraps and no `>` quote lines. End with "Rewrite this in your own words before sending."
-- **PR descriptions use this voice too.** Say what the PR does now, in full sentences. List each design decision with a short before and after example. Avoid dense tables of fragments, private plan numbers ("plan 2.4") and review history.
+- **PR descriptions use this voice too.** Say what the PR does now, in full sentences. List each design decision with a short before and after example. Avoid dense tables of fragments, private plan numbers ("plan 2.4"), review history, and the names of the skills or agent tools behind the work.
 
 ## Structure
 
