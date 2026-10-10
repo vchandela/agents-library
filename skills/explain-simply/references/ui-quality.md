@@ -12,6 +12,7 @@ Look at the screen and write down what is wrong before running any detector, lin
 
 - A DOM test is not a look. Interactive overlays (tours, popovers, menus) are checked in a real browser with the real library: jsdom passed every tour test while two steps highlighted elements taller than the screen and their popovers landed in a corner.
 - A screenshot is evidence only if it is not blank, shows what its name claims, and exists for every required width and theme. A width nobody captured is a width nobody inspected.
+- Capture after `document.fonts.ready`, with entrance animations finished or disabled, from the top of the document. A capture taken mid-animation or before the font swap is not evidence.
 - Say what produced each finding: emulated viewport, synthesized touch, real device, which browser. Say what stayed untested.
 
 ## Layout
@@ -25,11 +26,16 @@ Look at the screen and write down what is wrong before running any detector, lin
 - A fixed size inside a flex row says `flex:none` (or `flex-shrink:0`). Items shrink by default, so a swipe row of 150px cards renders at 68px each on a phone while every "does the page scroll sideways" check passes. Measure the narrowest item, not just the page.
 - A row of items that wraps strands the last one alone, and a step diagram then reads as ending early. Balance wrapped rows (the narrowest width that needs no more rows), and switch to an even grid when an item would still be alone.
 - Text with inline parts (a superscript, a link, a code span) inside a flex or grid item goes in one inline wrapper, or each part becomes its own spaced item: "e  2x" for e².
+- Long unbroken text (a URL, an ID, a 60-character token) stays inside its box at 320px: text children carry `min-width: 0` and `overflow-wrap: anywhere`, and grid tracks use `minmax(0, 1fr)`. Every user or CMS string has a decided wrap, truncate or clamp.
+- No button, tab or nav label wraps onto two lines at any width.
+- Sticky and full-height layouts: a sticky header sets `scroll-padding-block-start` to its height, so in-page links and the focused control land below it. Use `overflow: clip` where nothing scrolls, because `overflow: hidden` silently breaks `position: sticky` inside it. Full-height sections use `svh` or `dvh`, never `vh`. Fixed bars pad by `env(safe-area-inset-*, 0px)` on phones.
+- Menus, tooltips and popovers opened at the bottom and right edges of the viewport are never cut by an `overflow` ancestor. Prefer `<details>`, `<dialog>` with `showModal()` and the `popover` attribute to scripted ones, unless the reason for a library is written down.
 - Keyboard and screen-reader order match the visual order.
 
 ## Typography
 
-- Body text at least 16px on the web. Functional UI text (labels, table cells, buttons) never under 11px.
+- Body text at least 16px on the web. Functional UI text (labels, table cells, buttons) never under 11px. Every `input`, `textarea` and `select` computes 16px or more, because iOS Safari zooms in on a smaller field. The viewport meta never sets `maximum-scale=1` or `user-scalable=no`.
+- Headings use `text-wrap: balance`. Numbers in tables, timers and counters use `font-variant-numeric: tabular-nums`.
 - Line length 65 to 75 characters for prose. Over about 80 is a finding.
 - Body line height 1.5 to 1.7. Under 1.3 is a finding.
 - Headings do not skip levels. One h1.
@@ -41,6 +47,8 @@ Look at the screen and write down what is wrong before running any detector, lin
 - Text at least 4.5:1, large text at least 3:1, controls and focus rings at least 3:1, in every theme.
 - Colour is never the only signal. Grey text on a coloured surface is a finding.
 - Colours come from tokens, not literals.
+- The root sets `color-scheme` to match the theme, with `<meta name="color-scheme" content="light dark">`, so scrollbars and native controls turn dark too.
+- Each foreground token passes its ratio on every surface token it sits on, in every theme. Check the token pairs, not only the rendered page.
 
 ## States
 
@@ -64,8 +72,13 @@ Every screen and control answers each of these, or says why it cannot happen: de
 
 - Touch targets at least 44 by 44px. **Measure the hit area by tapping, not by reading the width**: a control drawn at 38px with a centred 44px `::after` passes, and a curl-and-CSS audit reports it as failing. Probe `elementFromPoint` 2px outside each edge.
 - Every action works by keyboard, with a visible focus ring. Esc closes what it opened.
+- The focus ring is an `outline` on `:focus-visible`, never `outline: none`, so it survives Windows high contrast (`forced-colors: active`).
+- Every overlay, opened by keyboard: focus moves in, Tab stays inside, Esc closes it, and focus returns to the trigger. One live region announces status changes. A failed submit moves focus to an error summary that links each field.
+- `:hover` styles sit inside `@media (hover: hover) and (pointer: fine)`, so a tap leaves no stuck hover.
+- Fields and buttons keep their size through hover, focus, active, error and disabled (compare `getBoundingClientRect` before and after). The error text has a reserved slot. No field shows an error on first load (`:user-invalid`, or after submit).
+- Anything that moves on its own for more than 5 seconds has a pause control and stops on hover, focus and reduced motion.
 - Drag and swipe surfaces work under real touch, not only at a narrow viewport.
-- Reduced motion keeps the state change and drops the movement. A global zero-duration kill that removes feedback is a finding.
+- Reduced motion keeps the state change and drops the movement. Fades of opacity and colour are not motion and may stay. A global zero-duration kill that removes feedback is a finding.
 
 ## Stress inputs
 
@@ -75,7 +88,8 @@ Very long and very short text, emoji and right-to-left text, numbers in the mill
 
 - Zero console errors and warnings on load and through the main flow.
 - No failed requests, no broken images.
-- Animations move transform and opacity, not width, height or margins.
+- Animations move transform and opacity, not width, height or margins. The one exception is a disclosure animating its own height.
+- axe-core reports no serious or critical issue on any state, and every control's accessible name (read from the accessibility tree) contains its visible label.
 
 ## Performance budgets (web)
 
@@ -88,7 +102,7 @@ Measured, never estimated from code. Label each number lab or field.
 | CLS | 0.1 or less | over 0.25 |
 | TTFB | under 800ms | |
 
-The LCP image is not lazy-loaded. Every image declares width and height.
+The LCP image is not lazy-loaded. Every image declares width and height, with `height: auto` in the CSS so it keeps its ratio when narrowed.
 
 Measure on a throttled phone (390px, slow 4G, 4x CPU), not a laptop. Lighthouse in the lab ranks Apple, Stripe, Linear and Vercel's own homepages at 29 to 45 for performance (October 2026): a famous site is not a performance reference, so compare against the budget, not against them.
 

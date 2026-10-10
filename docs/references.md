@@ -46,7 +46,7 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | [obra/superpowers](https://github.com/obra/superpowers) | A spec or plan skill ends the turn, and rationalisation rows keep their reasons (8 of 10 against 5 of 10). |
 | [SkillsBench](https://arxiv.org/abs/2602.12670) | Focused skills help, comprehensive ones barely do, and four or more loaded at once hurt. |
 | [good-css.com](https://good-css.com) | Inputs at 16px, hover only on hover devices, outline focus rings, `color-scheme`, `scroll-padding`, `overflow: clip`, native disclosure, dialog and popover. |
-| [pbakaus/impeccable](https://github.com/pbakaus/impeccable), ui-ux-pro-max, taste-skill, hallmark | A fresh reviewer for the finished screen; keyboard and overlay mechanics; axe and the accessibility tree; long unbroken text; settled captures. |
+| [pbakaus/impeccable](https://github.com/pbakaus/impeccable), ui-ux-pro-max, taste-skill, hallmark | A fresh reviewer for the finished screen, keyboard and overlay mechanics, axe and the accessibility tree, long unbroken text, and settled captures. |
 | openai/codex, anthropics/claude-code, Anthropic memory docs | Instruction file budget: under 200 lines (Anthropic), under 32 KiB (Codex truncates silently); none of the surveyed lab repos tests the size, so add the test. |
 
 ## Refused

@@ -10,6 +10,7 @@
 - `references/research-sources.md`: the eight source types, engineering blogs to target, access workarounds, the sub-agent and fact-check prompts, the authority score, and the report shape.
 
 ### Changed
+- `ui-quality` and `design-ui` add what good-css.com and seven public design skills check that ours did not: 16px inputs and no zoom lock, long unbroken text, sticky and full-height layouts, unclipped overlays and native dialog and popover, `color-scheme`, token-pair contrast, outline focus rings, keyboard overlays and live regions, hover only on hover devices, fields that keep their size, a pause control for motion, axe-core, settled captures, and a fresh reviewer for the finished screen.
 - Trigger tests are measured with `claude plugin eval`: seven cases in `evals/` pit neighbouring skills against each other (design-ui, qa-live-site, review-product-page, review-pr, review-plan, explain-simply, write-tech-doc). Baseline on 2.1.286 with Opus 5.5: 21 of 21 runs right.
 - README: name the case the model would do alone, end the turn where a spec or plan ends, keep the reason in every rationalisation row, put the must-survive rule first, and isolate eval runs outside any git repo.
 - `use-your-judgement` and `stop-decide-hold` merge into `references/judgement.md`. Reference headers lose their "Applied by" lines, which kept going stale.

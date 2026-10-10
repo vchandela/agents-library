@@ -20,8 +20,10 @@ Check: the three lines exist and the user has seen them.
 ## 2. Start from what exists
 
 - Use the repo's components, tokens and page patterns. Name the file each one comes from. Anything new to the repo needs a reason and the user's yes.
-- No system yet: write the tokens first, before any component. One spacing scale, one type ratio in whole pixels, 3 or 4 neutral text colours, one accent, 2 or 3 radii, light and dark. Take the ranges from the Taste table in `references/ui-quality.md`.
+- No system yet: write the tokens first, before any component, in one file the app already loads, with a one-line comment per role. One spacing scale, one type ratio in whole pixels, 3 or 4 neutral text colours, one accent, 2 or 3 radii, light and dark. Take the ranges from the Taste table in `references/ui-quality.md`.
+- A redesign lists the routes, nav labels, form field names, ids that scripts or analytics read, and legal copy before the first edit, and diffs them after. Any change to one needs the user's yes.
 - Look at two or three products that do this same task well. Note what each does for the task, not for its brand.
+- Sketch the first screen as a text wireframe, and ask whether the same request for a different product would produce it. Change the parts that would repeat.
 
 Check: every colour, size and radius in the diff is a token.
 
@@ -42,9 +44,11 @@ Check: the page reads in order with CSS and script switched off.
 ## 5. Look, in a real browser, every round
 
 - Screenshot at 390px, 768px and 1280px, light and dark, and 200% zoom. Every screenshot passes the Evidence rules in `references/ui-quality.md`.
-- Judge the screenshots and write down what is wrong first. Then run the probes: the Taste table from computed styles, contrast, hit areas by `elementFromPoint`, console errors, a throttled Lighthouse run.
+- Judge the screenshots and write down what is wrong first. Then run the probes: the Taste table from computed styles, contrast, hit areas by `elementFromPoint`, axe-core on every state, console errors, a throttled Lighthouse run.
+- Work every overlay and form by keyboard alone, as `references/ui-quality.md` Input says.
 - Walk the one task as two or three of the readers from step 1.
 - Bounded rounds: inspect everything, fix in one batch, confirm in one more round.
+- Then hand the screenshots, the three lines from step 1 and the state grid to a subagent with no build history. It returns ship or fix with at most 8 findings, and you fix only from that list.
 
 Check: every width and theme has a screenshot you looked at.
 
@@ -54,4 +58,4 @@ Before and after screenshots for each change, the probe numbers, and what stayed
 
 ## Done when
 
-Every cell of the state grid was seen in a browser. Every Taste probe is in range or has a stated reason. Nothing at P0 or P1 from `references/ui-quality.md` remains. Screenshots exist for every width and theme.
+Every cell of the state grid was seen in a browser. Every Taste probe is in range or has a stated reason. axe-core shows nothing serious, and the fresh reviewer said ship. Nothing at P0 or P1 from `references/ui-quality.md` remains. Screenshots exist for every width and theme.
