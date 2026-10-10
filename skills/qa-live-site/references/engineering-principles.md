@@ -25,6 +25,15 @@ When two options are the same size, take the one that is correct on edge cases. 
 
 Less code never means less of these: validation at trust boundaries, error handling that prevents data loss, security checks, accessibility basics, and anything the user asked for by name.
 
+## Errors never go silent
+
+1. **A key error** loses or corrupts something a person or a later step relies on: data not stored, a check skipped, a guard turned off. **A non-key error** costs only convenience, like a missing short link or a chart that did not render.
+2. **Every key error does three things.** It records the failure where the data would have been (a status on the row, never just a missing row). It logs with context. And it reaches a human through the repo's existing alert route, never a new one.
+3. **Non-key errors** are logged with context and nothing more.
+4. **Before building, read how the repo alerts today** (a monitor probe, a chat thread, an error tracker, a metric with an alarm, a status page) and use that route.
+
+Failure this prevents: a background job that was "best effort" stalled for days with nothing alarmed, because its failure was only a log line. "Fail open" and "logged and swallowed" are fine for convenience, never for something a later step trusts.
+
 ## Every complexity earns its place
 
 Before adding anything, say what it buys. If the answer is "it might be useful", cut it.
