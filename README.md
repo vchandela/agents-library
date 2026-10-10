@@ -12,7 +12,7 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 
 ## What is in here
 
-**The pipeline.** Six skills, one workflow, run in order.
+**The pipeline.** Six skills, one workflow, run in order, and `ship` to drive them.
 
 | Skill | Does |
 |---|---|
@@ -22,6 +22,7 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 | `implement-plan` | Executes an approved plan, stops when unsure |
 | `split-commits` | One change becomes logical commits |
 | `review-pr` | Reviews a diff, design first, line level last |
+| `ship` | Runs spec, plan and PRs end to end: a second session reviews each stage until it approves, then you approve |
 
 **Understanding.**
 
