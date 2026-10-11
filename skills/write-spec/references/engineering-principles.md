@@ -40,7 +40,7 @@ Before adding anything, say what it buys. If the answer is "it might be useful",
 
 Specifically, remove:
 
-- **Retries and fallbacks nobody measured.** A retry hides a failure you have not diagnosed. A three-deep fallback chain is three untested paths.
+- **Retries and fallbacks nobody measured.** A retry hides a failure you have not diagnosed. A three-deep fallback chain is three untested paths. Before adding one, read the code that would fail and cite the line that shows the failure can happen. Example: a "fetch the branch if the fresh clone lacks the commit" fallback went into four steps and a new field went through the workflow; a plain `git clone` carries every branch, so the commit was always there, and the PR had to be rebuilt.
 - **Backward compatibility nobody asked for.** Supporting an old shape doubles the surface. Delete the old shape instead.
 - **Config for things that never vary.** A flag with one value is a constant plus a branch.
 - **Abstraction with one implementation.** Wait for the second.
