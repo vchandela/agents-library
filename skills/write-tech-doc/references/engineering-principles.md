@@ -1,14 +1,20 @@
 # Engineering principles
 
-## First: KISS, DRY, YAGNI, Law of Demeter, separation of concerns
+## First principles
 
-Check every design and every diff against these five before anything else in this file.
+Check every design and every diff against these before anything else in this file.
 
-- **KISS.** Prefer boring and obvious. Clever code is a cost somebody pays later. Pass the least that works: a commit, not a commit plus the branch it came from.
-- **DRY.** One fact has one home. A second copy is right the day it is written and wrong from the moment either changes. A table declared in code and again in hand-written DDL is two homes.
-- **YAGNI.** Build what is needed now. No speculative abstraction, no fallback, retry or backstop for a failure nobody has shown can happen.
-- **Law of Demeter.** A unit talks to its direct collaborators, not to their insides. If a caller reaches through two objects to get something, give the first one a method.
-- **Separation of concerns.** One module, one job. When a module starts doing two, split it. SOLID is the longer form of the same idea.
+- **KISS.** Boring and obvious beats clever. Pass the least that works: a commit, not a commit plus its branch.
+- **DRY.** One fact, one home. A table declared in code and again in hand-written DDL is two homes.
+- **YAGNI.** Build what is needed now. No abstraction, fallback, retry or backstop for a failure nobody has shown can happen.
+- **Law of Demeter.** Talk to direct collaborators, not their insides. A caller reaching through two objects means the first one needs a method.
+- **Separation of concerns.** One module, one job. SOLID is the longer form.
+- **High cohesion, low coupling.** What changes together lives together, and modules know as little as possible about each other.
+- **Deep modules.** A small interface over a lot of hidden work. A pass-through adds names, not value (see the deletion test below).
+- **Fewest moving parts.** Every component, setting, lock or background job is something that can fail. Each earns its place, and you remove one when you can.
+- **Fail fast.** Stop at the first broken assumption, with a message that says what broke.
+- **No risky automation.** When an automatic decision could hurt availability, data or debuggability, report it and let a person decide.
+- **Least privilege.** Each part gets only the access it needs.
 
 ## Before writing code: the ladder
 
