@@ -1,11 +1,14 @@
 # Engineering principles
 
-## The four
+## First: KISS, DRY, YAGNI, Law of Demeter, separation of concerns
 
-- **DRY.** One fact has one home. A second copy is right the day it is written and wrong from the moment either changes.
-- **YAGNI.** Build what is needed now. No speculative abstraction for a use case nobody has.
-- **KISS.** Prefer boring and obvious. Clever code is a cost somebody pays later.
-- **SOLID**, plus separation of concerns and the Law of Demeter. Reach for these when a module starts doing two jobs.
+Check every design and every diff against these five before anything else in this file.
+
+- **KISS.** Prefer boring and obvious. Clever code is a cost somebody pays later. Pass the least that works: a commit, not a commit plus the branch it came from.
+- **DRY.** One fact has one home. A second copy is right the day it is written and wrong from the moment either changes. A table declared in code and again in hand-written DDL is two homes.
+- **YAGNI.** Build what is needed now. No speculative abstraction, no fallback, retry or backstop for a failure nobody has shown can happen.
+- **Law of Demeter.** A unit talks to its direct collaborators, not to their insides. If a caller reaches through two objects to get something, give the first one a method.
+- **Separation of concerns.** One module, one job. When a module starts doing two, split it. SOLID is the longer form of the same idea.
 
 ## Before writing code: the ladder
 
