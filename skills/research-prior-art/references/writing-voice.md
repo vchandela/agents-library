@@ -29,6 +29,17 @@
 
 `references/machine-tells.md` lists the patterns that make text read as generated, with a last pass to run before anything is published.
 
+## Shape and rhythm
+
+Detectors and readers catch the shape of a page before its words. Taken from [human-voice](https://github.com/stephenoffer/human-voice) and [plain-writing](https://github.com/docwriter-org/plain-writing-skill).
+
+- **Prose for an argument, a list only for parallel items.** A doc where every section is bullets with a bold lead-in reads as generated, even when each sentence is clean. Keep bold lead-ins for at most one list in a doc, and put a sentence between a heading and any list under it.
+- **Vary the length.** At least one sentence in eight has eight words or fewer, and a paragraph can be one sentence when the point needs only one. Then write the rest as the long, connected sentences people use when they explain something out loud.
+- **Name the subject.** Don't open a sentence with a bare "This", "That" or "These", and never open a paragraph that way. Don't open with a count ("Two risks."). Don't give a system a person's verb ("the data tells us").
+- **Don't stack the clean-model constructions.** One cleft ("What takes the time is…"), one trailing ", making it easier to…", or one "X lives in Y" is fine. Several on a page is a cadence.
+- **Don't put on the costume.** Forced lowercase, staccato fragments, slang or contorted sentences that dodge a dash are their own tell. Make a real choice of words instead.
+- **Check it.** Run the human-voice linter on the text (`python3 skills/human-voice/scripts/detect_ai_prose.py --register business --no-config <file>` from a clone of the repo), and fix every flagged shape. A clean score is only a floor. Statistical detectors such as Pangram still flag model-written text, so the overview, goals and asks of a doc the author sends must be in the author's own words (`references/respect-human-attention.md`).
+
 ## Before sending
 
 Delete the first sentence if it announces what comes next. Delete the last if it recaps or asks "anything else?". Delete any "by the way" aside. Delete any hedge that adds no information, but keep one that carries real uncertainty: deleting it fakes confidence. Replace any idiom ("circle back", "on the same page") with the literal action. Then read only the first and last lines. If they do not say what happened and what to do next, rewrite them.

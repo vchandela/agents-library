@@ -9,7 +9,7 @@ Explain from first principles, with examples grounded in reality.
 
 **The bar is hard: easy to digest without losing technical depth.** Simplifying by removing the difficult part is not this. Keep the depth, change the delivery.
 
-Apply `references/judgement.md`, `references/writing-voice.md`, `references/explaining.md` and `references/visual-explanations.md`. For a page, also apply `references/preview.md`.
+Apply `references/judgement.md`, `references/writing-voice.md`, `references/explaining.md` and `references/visual-explanations.md`. For a page, also apply `references/preview.md`. For a doc someone else will send or read critically, run the "Shape and rhythm" check in `references/writing-voice.md` before you hand it over.
 
 ## Read before you explain
 
