@@ -60,6 +60,8 @@ Failure this prevents: a page about a background sync system led with a six-box 
 
 For a page, apply `references/explainer-pages.md`.
 
+Keep it to about 1,100 visible words with diagrams carrying the explanation (`references/visual-explanations.md`, "Length: diagrams carry the page"). Put each point's plain-words version in a collapsed "Explain simply" dropdown under it, so the page stays short and anyone can open the explanation they need. Review each item before it earns a place (merge, demote or drop the low-value ones), and count the visible words before publishing.
+
 ## Rationalisations to refuse
 
 | The excuse | What to do |

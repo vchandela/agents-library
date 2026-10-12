@@ -50,6 +50,8 @@ Delete the first sentence if it announces what comes next. Delete the last if it
 
 One or two pages. A third only if the material genuinely needs it. Being exhaustive and being long are different things: exhaustive means nothing important is missing, not that everything is included.
 
+A page (an artifact or hosted explainer) has its own budget of about 1,100 visible words, set in `references/visual-explanations.md` under "Length: diagrams carry the page".
+
 ## The bar
 
 A tired engineer reads it once and understands it. No sentence should need decoding, and no cleverness should slow them down.

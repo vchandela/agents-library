@@ -2,6 +2,9 @@
 
 A page follows everything in the skill, plus:
 
+A page follows everything in the skill, plus:
+
+- **Stay inside the length budget.** About 1,100 visible words, diagrams first, at most two sentences under each diagram, no lede and no recap (`references/visual-explanations.md`, "Length: diagrams carry the page"). Where this file's layers and sections would push a page past that, collapse the detail into `<details>` or cut it. Every point gets an "Explain simply" dropdown with its plain-words version (about 50 to 120 words, one real example, no analogy), which does not count toward the budget.
 - **Problem, big-box map, then layers** (one shape among several: it suits a design or system with a handful of parts; a walkthrough, a comparison or a reference page needs its own). For a design or a system, open with the problem in a few lines, then one diagram of the solution as four to seven big boxes, each a link to its section. Each section shows a one-line summary, a small diagram and the running example; how it works, details, evidence and open questions sit in nested `<details>` layers the reader opens as deep as they want. Give the page "open every layer" and "close every layer" buttons. A reader called this shape "slick, punchy and modern" after a twelve-step page had grown too long to hold in one head.
 - **One real case through every section.** Find a real ticket, incident or PR and show what each part does with it. Mark anything that did not happen as illustrative (a dashed border, "would"). A real case also exposes real gaps: the chosen ticket could not be graded because the thread never recorded what fixed it.
 - **Lifecycles as state diagrams.** When something moves through states with loops (reopened, asked again), draw the states and the loops. A row of boxes with arrows reads as a straight line and hides the loops.

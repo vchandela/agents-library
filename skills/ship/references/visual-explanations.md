@@ -22,6 +22,19 @@ Do not use all of them for every point. Prefer a diagram plus a real example. Ad
 
 No decorative pictures. An image, icon or stock photo that carries no part of the explanation lowers understanding, which Mayer's coherence studies measured across many experiments. Decoration never counts as the visual.
 
+## Length: diagrams carry the page
+
+A page is for scanning, and a long one puts the reader off before they start. Keep the visible text of a page (an artifact, a hosted explainer, a doc for colleagues) to about 1,100 words, not counting collapsed evidence, and let diagrams, timelines and Now versus Fix panels carry the explanation. Go longer only when the user asks for a long reference document.
+
+- Open with the title and a one-line diagram key, or the first diagram. A lede, an "in short" box or a verdict paragraph that restates the page is cut.
+- One item is a heading, one diagram (or a Now and Fix pair), and at most two sentences under it. A sentence that only describes what the diagram already shows is cut.
+- No section intro that announces what follows, no closing recap, and no history of the conversation (corrections go in chat).
+- Put the plain-words version of each point in a collapsed "Explain simply" dropdown (`<details>`) under it, for a reader who has never met the term: say what each thing is, give one real example, use no analogy, and keep it to about 50 to 120 words. Collapsed dropdowns and evidence do not count toward the budget, so a reader who knows the topic sees a short page and a reader who does not can open the explanation they need.
+- Review each item before it earns a place. Merge items that one fix covers. Turn a test into a rollout line instead of a "gap". Rate each item's severity against the real stakes and demote the low ones. Drop an interim fix that saves little once you have measured it.
+- Count before publishing: extract the visible text (without the dropdowns) and count the words. Over 1,200 words, cut text and keep the diagrams.
+
+The model page is the "GitHub Without Polling" artifact: about 860 visible words, a quota bar, Now and Fix diagram pairs with one or two sentences under each, and an "Explain simply" dropdown on every point. A reader called the short version "so easy on the eyes", said lengthy artifacts make the mood off, and asked for the plain explanations to live in dropdowns (12 Oct 2026).
+
 ## Pick the form by what the reader must understand
 
 Decide what the reader must understand first, then the picture. If a three-column table says the same thing, use the table. A one-box diagram is a sentence.
