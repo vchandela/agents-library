@@ -20,6 +20,8 @@
 ## Structure
 
 - Problem first, solution second. State precisely what is wrong before proposing anything.
+- Open on the situation every reader already agrees is fair, then say what changed, then give the answer.
+- A proposal says what doing nothing costs, with a number, and why it should happen now.
 - One idea per section.
 - Facts with links. Numbers with their source and the window they cover.
 - Tables and diagrams instead of paragraphs, wherever they carry the same content.

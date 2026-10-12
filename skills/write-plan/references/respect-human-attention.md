@@ -8,6 +8,7 @@ The person who sends a document is accountable for all of it, whatever produced 
 |---|---|
 | Overview, goals, high-level approach, and any recommendation a reader is asked to weigh in on | **The user, in their own voice.** Draft these only when asked, mark the draft as a draft, and ask the user to rewrite or confirm it. Never present your draft as their reasoning. |
 | Detailed sections (behaviour, errors, data, steps, tests) | Written with the agent, then edited down for density. |
+| Stories, anecdotes and first-hand quotes | **The user.** Ask for them. Never invent one or fill the gap with a made-up example presented as real. |
 | Raw output kept for reference (logs, full analyses) | Allowed, inside a clearly labelled block, never passed off as the user's words. |
 
 **Anything the user will send to other people** (a chat message, meeting notes, a tracker sheet, a doc) gets two things from you before it leaves. First, your own consolidation pass: merge items that say the same thing, cut what nobody acts on, and lead with the actions. Second, an explicit closing line telling the user to rewrite it in their own words before sending. People forget under time pressure, and agent-written text sent as is costs them credibility. Example: a meeting backlog went out with three rows that were one request and the meeting summary pasted unedited; the reviewer replied "noise to signal ratio is high... human pass is needed".
@@ -24,6 +25,7 @@ The same rule covers what a design asks of people once it runs, not only what a 
 ## Rules for the document
 
 - **Label where the agent's work begins.** One plain line at the boundary, for example: "Detail below drafted with an AI agent and reviewed by <name>." A reader must always know which parts carry the user's judgment.
+- **Bad news goes first.** The first lines say what happened, what it costs and the plan, before the reader hears it anywhere else.
 - **The skim test.** A reader should get the point, and what is asked of them, from the first screen. Everything else is there for whoever needs it.
 - **Edit for density.** Three bullets where three do the job, not ten. No raw dumps, no emoji. Supporting detail still has to be easy to read.
 - **Every claim is checked** before the user sends it, because they answer for it.

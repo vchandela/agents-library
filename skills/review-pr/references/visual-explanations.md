@@ -20,6 +20,8 @@ When introducing a new mechanism or term, choose the clearest visual form:
 
 Do not use all of them for every point. Prefer a diagram plus a real example. Add prose only for the facts the visual cannot carry. Plain text is enough when the idea is already obvious.
 
+No decorative pictures. An image, icon or stock photo that carries no part of the explanation lowers understanding, which Mayer's coherence studies measured across many experiments. Decoration never counts as the visual.
+
 ## Pick the form by what the reader must understand
 
 Decide what the reader must understand first, then the picture. If a three-column table says the same thing, use the table. A one-box diagram is a sentence.
@@ -79,6 +81,12 @@ Never leave a noun such as version, intent, generation, reconciliation, admissio
 - The legend is a strip below the diagram, never inside it.
 - Boxes differ by kind (store, service, person, external). Identical boxes for everything erase the hierarchy.
 - The diagram's title and description say what it shows ("Requests from three teams queue at one reviewer"), not its geometry ("a box with three boxes above it").
+
+## Charts and screenshots
+
+- A chart's title says the finding ("Triage time halved after the page merged"), not what the axes are.
+- Label the values on the chart itself. A single series has no legend, gridlines are quiet, and the colours come from the page's own tokens.
+- Crop a screenshot to the part that matters and mark that part with one callout. Cut any caption that only names what the reader can already see.
 
 ## Grammar
 

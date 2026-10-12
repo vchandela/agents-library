@@ -19,6 +19,8 @@ A model picks the choice that fits the widest range of readers. A person picks f
 | Arguing with no one | "To be clear", "I'm not saying", "A tempting approach would be" for an option nobody raised | Cut the defence. Keep an option a reader would really weigh. |
 | Forced three | "speed, safety, and simplicity" for two ideas; three parallel examples and a lesson | As many items as there are ideas. |
 | Same opener | "It reads. It writes. It retries." | Merge, or start with the action. |
+| Same frame every line | Three or more lines built on one sentence frame: "If it fails, we retry. If it stalls, we alert. If it drifts, we page." | Vary the frames, or make it one sentence or a table. |
+| Brief leaking into the output | "Option A", "audience: execs", a template's name or a note from the brief left on the finished page or slide | Cut it. The brief is for you, not the reader. |
 | Stacked hedges (weak) | "could potentially possibly" | One qualifier, only where the doubt is real. |
 | Inflated weight | "a pivotal moment", "plays a key role", "the future looks bright" | Keep the fact, drop the weight. End on the last concrete fact. |
 | Stock model words | delve, crucial, pivotal, robust (not technical), showcase, underscore, testament, landscape, intricate, meticulous, vibrant, additionally | Plain words. |

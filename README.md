@@ -50,6 +50,7 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 | `write-tech-doc` | A proposal for colleagues who read critically |
 | `write-blog` | A shipped system becomes a published post |
 | `explain-simply` | First principles, no hand waving; also explainer pages |
+| `make-slides` | A deck whose titles alone tell the story, each slide a claim and its evidence, checked on every thumbnail |
 | `honest-feedback` | What you actually think |
 
 **Meta.**

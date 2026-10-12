@@ -39,12 +39,12 @@ Look at the screen and write down what is wrong before running any detector, lin
 - Line length 65 to 75 characters for prose. Over about 80 is a finding.
 - Body line height 1.5 to 1.7. Under 1.3 is a finding.
 - Headings do not skip levels. One h1.
-- No justified body text, no all-caps paragraphs, no wide letter spacing on body text.
+- No justified body text, no centred paragraphs or lists (centre only a short title), no all-caps paragraphs, no wide letter spacing on body text.
 - Run the real copy, the longest name and the longest translation at every width, plus 200% zoom.
 
 ## Colour and contrast
 
-- Text at least 4.5:1, large text at least 3:1, controls and focus rings at least 3:1, in every theme.
+- Text at least 4.5:1, large text at least 3:1, controls, focus rings and meaningful graphics (icons, chart lines, diagram strokes) at least 3:1, in every theme.
 - Colour is never the only signal. Grey text on a coloured surface is a finding.
 - Colours come from tokens, not literals.
 - The root sets `color-scheme` to match the theme, with `<meta name="color-scheme" content="light dark">`, so scrollbars and native controls turn dark too.

@@ -50,6 +50,8 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | [good-css.com](https://good-css.com) | Inputs at 16px, hover only on hover devices, outline focus rings, `color-scheme`, `scroll-padding`, `overflow: clip`, native disclosure, dialog and popover. |
 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable), ui-ux-pro-max, taste-skill, hallmark | A fresh reviewer for the finished screen, keyboard and overlay mechanics, axe and the accessibility tree, long unbroken text, and settled captures. |
 | openai/codex, anthropics/claude-code, Anthropic memory docs | Instruction file budget: under 200 lines (Anthropic), under 32 KiB (Codex truncates silently); none of the surveyed lab repos tests the size, so add the test. |
+| [Alley and Garner, Penn State](https://writing.engr.psu.edu/research.html), Mayer's multimedia studies | Measured: a sentence claim as the title with visual evidence as the body beats topic titles with bullets, and printed narration and decoration both lower learning. The floor of `make-slides`. |
+| [anthropics/skills pptx](https://github.com/anthropics/skills), [zarazhangrui/frontend-slides](https://github.com/zarazhangrui/frontend-slides), coreyhaines31/marketingskills deck-frameworks, RefoundAI/lenny-skills, minorun365 slide-story, [dexhorthy/slopfiles](https://github.com/dexhorthy/slopfiles) | Reading or speaking deck as the first fork, split rather than shrink, the answer first for an exec, end on the ask, build a diagram over slides, the deck as a text spec, no accent lines or edge stripes, and a visual check of every slide. All 295 rules are sorted in [`ledgers/make-slides.md`](ledgers/make-slides.md). |
 
 ## Refused
 
@@ -77,6 +79,8 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | cloudflare/security-audit-skill | Artifact promotion, JSON validators, budget arithmetic | One-organisation scale. The ideas behind them are kept. |
 | pbakaus/impeccable | Aesthetic bans (fonts, palettes, eyebrows) | Taste for marketing pages, not a generic floor. |
 | addyosmani/agent-skills | Error-budget gates and fixed canary percentages | Assume an SLO and a flag service most repos do not have. |
+| anthropics/skills pptx | "Every slide needs a visual element", the palette table and "don't default to blue" | Decoration lowered learning in Mayer's tests, so the floor is evidence, not a picture. Colour comes from the company template. |
+| minorun365 slide-story | "Don't give the answer first" | Right for a teaching talk, wrong for an exec deck. Decided by deck type. |
 | mattpocock/skills, humanizer | A retro skill and a prose detector script | Delete before adding: the checks they would run are already in testing and machine tells. |
 
 ## Own

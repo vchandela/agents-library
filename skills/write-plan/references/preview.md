@@ -19,6 +19,8 @@ A document that parses is not a document that reads well. Look at it the way the
    - no horizontal page scroll at phone width, and no script errors in the console;
    - on a phone, wide diagrams scroll sideways at a readable size instead of shrinking to fit: the SVG has a `min-width` equal to its drawn width, inside its own `overflow-x: auto` wrapper. An `overflow: hidden` ancestor clips it with no scrollbar, and a page-overflow check still passes, so look;
    - every screenshot shows what its name claims, with nothing blank; a missing width or theme is a failed check, not a skipped one;
+   - the preview uses the reader's renderer and fonts; when it substitutes a font, its fit checks are only approximate, so leave slack (a Google Slides API thumbnail is Google's own render, so it can be trusted);
+   - every link opens, and every file, path or name the page mentions exists;
    - no line or label crosses a box or another label;
    - tooltips appear and are not clipped;
    - every diagram rendered (no raw source left on the page);

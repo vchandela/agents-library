@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- `make-slides`: reading or speaking deck first, an agreed outline of title claims and evidence, the answer first for an exec deck, one point per slide, split rather than shrink, Google Slides API traps, and a thumbnail check of every slide. It runs explain-simply for the content. Every rule from the eleven source files is sorted in `docs/ledgers/make-slides.md` as covered, taken or refused, with the reason.
 - `ship`: one command runs spec, plan and stacked PRs, with a separate reviewer session on each stage and the user approving every stage. Rounds continue until the reviewer approves, and it stops for the user only on a disagreement about requirements. It moved here from a local copy.
 - `design-ui`: the order of work for a new screen (the job, the repo's tokens, a state grid, build, a look at every width and theme), judged against `references/ui-quality.md`.
 - `diagnose-bug`: a red-capable loop before any theory, ranked hypotheses, one variable at a time, the fix at the shared point, and a stop after three failed fixes.
@@ -11,6 +12,7 @@
 - `references/research-sources.md`: the eight source types, engineering blogs to target, access workarounds, the sub-agent and fact-check prompts, the authority score, and the report shape.
 
 ### Changed
+- From the make-slides ledger, shared rules go where they belong: no decorative pictures and a charts and screenshots section (`visual-explanations`), same-renderer previews and working links (`preview`), no centred paragraphs and 3:1 for meaningful graphics (`ui-quality`), two new tells (`machine-tells`), situation then change then answer, and the cost of doing nothing (`writing-voice`), bad news first and stories only from the user (`respect-human-attention`), and yardsticks and verbatim quotes (`explaining`).
 - `engineering-principles`: errors never go silent. A key error records its failure where the data would have been, logs, and reaches a human through the repo's existing alert route. A non-key error only logs.
 - `explain-simply`: end a step-by-step walk with what the facts mean for the decision, and draw the boundary when the question is who can reach what.
 - `ui-quality` and `design-ui` add what good-css.com and seven public design skills check that ours did not: 16px inputs and no zoom lock, long unbroken text, sticky and full-height layouts, unclipped overlays and native dialog and popover, `color-scheme`, token-pair contrast, outline focus rings, keyboard overlays and live regions, hover only on hover devices, fields that keep their size, a pause control for motion, axe-core, settled captures, and a fresh reviewer for the finished screen.
