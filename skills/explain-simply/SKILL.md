@@ -31,6 +31,7 @@ Find out what they already know and start there. If you cannot tell, ask one que
 - Assume an intelligent reader who is new to *this* thing. Define its terms of art. Do not define general engineering terms they already use.
 - Bridge from what they know, in a table. Someone who knows Kubernetes learns ECS fastest as: task definition is roughly a pod spec, a service is roughly a Deployment. Say where the analogy breaks.
 - When they mention their background ("I ran Temporal on EC2"), use it: put their setup and this one side by side.
+- **Never write a terse sentence, even a grammatically full one.** A sentence is terse when it leans on a term the reader has not met, or skips the step that links its cause to its conclusion. Say what the thing is and what it lets the reader do. Example: "We already have a baseline, because the learner grades Artemis on every ticket it studies" drew "what does this mean?". The fix spelled out the step: "We can start measuring today, because the learner already checks whether Artemis's first answer was right on every closed ticket it studies." This applies to slides and short lines most of all, because they tempt compression.
 - For devices that landed with real readers (a "who does what" table, one item walked end to end, a named scenario table, a job by its inputs), see `references/explaining.md`.
 
 ## Walk it step by step
