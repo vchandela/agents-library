@@ -6,6 +6,7 @@ Check every design and every diff against these before anything else in this fil
 
 - **KISS.** Boring and obvious beats clever. Pass the least that works: a commit, not a commit plus its branch.
 - **DRY.** One fact, one home. A table declared in code and again in hand-written DDL is two homes.
+  A value whose home is another repo or file (a config key, a host, a heading, a rule id) is read from that home at run time, or guarded by a drift test against it. A test fixture never repeats the value the code would hardcode, or the test agrees with the bug. Example: the runbook learner hard-coded the Grafana keys "central" and "admin-zone", and the fixture used the same names. When the runbook repo renamed them, every query proof dropped silently, and neither the tests nor two reviews caught it.
 - **YAGNI.** Build what is needed now. No abstraction, fallback, retry or backstop for a failure nobody has shown can happen.
 - **Law of Demeter.** Talk to direct collaborators, not their insides. A caller reaching through two objects means the first one needs a method.
 - **Separation of concerns.** One module, one job. SOLID is the longer form.

@@ -78,6 +78,7 @@ The shared rules (tag by origin, hold severities, honest trend, brief helpers th
 Review related PRs, often spread across repos, as one change. Two checks catch what a per-PR review misses:
 
 - **Follow each change into the code that reads it in the other repos.** Example: a product PR stopped honouring an environment pin on GitHub-started builds. A CI bot in another repo still read that pin from the build message to decide which builds were its own, so it would reattach to the wrong build or cancel a real PR's CI. Each PR was correct alone; the pair was not.
+- **Sweep for hardcoded copies of facts that live elsewhere.** For every literal in the diff (keys, hosts, paths, headings, ids, limits), find its home. If it is another repo or file, require a run-time read or a drift test, and check that the fixtures do not repeat the same literal. Do this sweep yourself; do not take the author's list.
 - **A fix to a doc or a claim: grep for every copy**, including UI labels and code comments. A wrong "6 h" claim was fixed in CLAUDE.md and a docstring, while the operator-facing form label still said it.
 
 Say which order the set should merge in, and which PRs depend on each other.
