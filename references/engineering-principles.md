@@ -13,6 +13,8 @@ Check every design and every diff against these before anything else in this fil
 - **Deep modules.** A small interface over a lot of hidden work. A pass-through adds names, not value (see the deletion test below).
 - **Fewest moving parts.** Every component, setting, lock or background job is something that can fail. Each earns its place, and you remove one when you can.
 - **Fail fast.** Stop at the first broken assumption, with a message that says what broke.
+- **Optimistic over pessimistic.** Prefer the design that keeps latency low and throughput high: work in parallel, detect a conflict early and fix or retry only the piece that conflicts. Take a lock, a queue or serial execution only when no reasonable optimistic option exists, and state its cost in time. Example: a write lock that queued every runbook-learner run for 13 to 16 minutes was replaced by checking each draft against the newest base and turning a known-safe conflict (an identical page that already exists) into an add, the way merge queues and stacked-PR tools replay changes onto the newest tip.
+- **Fewest workflow steps.** Before adding a step to a workflow, ask whether it needs a model at all and whether an existing step already has the inputs and tools to do the job. Add a step only when none can. Example: a separate agent step to run a draft's queries became one rule in the investigation step, which already had the query tools.
 - **No risky automation.** When an automatic decision could hurt availability, data or debuggability, report it and let a person decide.
 - **Least privilege.** Each part gets only the access it needs.
 
