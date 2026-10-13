@@ -77,13 +77,13 @@ Keep going until no branch is unvisited, nothing is silently assumed, and you ca
 
 **How we test it for real** (when repo tests can't show it working). The real-world test from `references/testing.md`: action, exact input, expected result, what failure looks like. Prefer replaying the ask that started the work.
 
-**Open items.** One numbered list: item, the options with their costs, and the user's preference where they have one. Your recommendation goes to the user in chat, not into the doc as the team's answer. Every assumption goes here, including ones the plan depends on. Access to external systems follows the team's existing route. Reviewers reply per number.
+**Open items.** One numbered list: item, the options with their costs, and the user's preference where they have one. Mark your pick on its option card and put one line under the cards, "My pick is B, because ...", so the reviewer can answer yes or no (Vivek, 13 Oct 2026: "I want your recommended option and why in the artifact"). The team's answer is still the reviewer's reply, not your pick. Every assumption goes here, including ones the plan depends on. Access to external systems follows the team's existing route. Reviewers reply per number.
 
 Split what is not being decided now in two. **Not yet specified:** in scope, but you cannot phrase the question sharply yet; revisit as decisions land. **Out of scope:** ruled beyond this spec, with one line of why; it does not come back unless the goal changes. The test is whether you can state the question precisely now, not whether you can answer it.
 
 ## The document
 
-Apply `references/respect-human-attention.md`: the user's overview (boxed "Written by <name>"), one "AI-assisted · human-reviewed" box where agent-drafted sections begin, what stays visible versus collapsed, and open questions numbered first with options, not your picks.
+Apply `references/respect-human-attention.md`: the user's overview (boxed "Written by <name>"), one "AI-assisted · human-reviewed" box where agent-drafted sections begin, what stays visible versus collapsed, and open questions numbered first with options, your pick marked on one of them with its reason.
 
 Up to 3 pages for the working spec, tight and complete. The short page the team reviews is 1 to 2 (`references/respect-human-attention.md`).
 
