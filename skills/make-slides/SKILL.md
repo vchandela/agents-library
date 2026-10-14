@@ -30,7 +30,7 @@ With mixed needs, pick the closer type and never invent a middle one: live persu
 
 Ask in one round, each question with your guess: who is in the room, the one decision or takeaway, the deck type, the time slot, which real stories and numbers exist, and which template to use. Stories and quotes come from the user (`references/respect-human-attention.md`). One deck serves one audience and one decision.
 
-Gather the evidence (numbers, screenshots, a real ticket, a real quote) before writing anything. Check every number at its source and every claim about what a system does in its code: a deck said "Artemis reads these pages during triage" when no triage workflow did, and a cost cell showed $0 because the API's cost field was unset for that workflow while a measured $7 to $13 sat in the design doc. Then, then write the deck's message as one sentence a listener could repeat from memory. The outline is one line per slide, its title claim plus the evidence that proves it, and the user agrees to the outline before anything is built.
+Gather the evidence (numbers, screenshots, a real ticket, a real quote) before writing anything. Check every number at its source and every claim about what a system does in its code: a deck said "Artemis reads these pages during triage" when no triage workflow did, and a cost cell showed zero dollars because the API's cost field was unset for that workflow while a measured 7 to 13 dollars a run sat in the design doc. Then, then write the deck's message as one sentence a listener could repeat from memory. The outline is one line per slide, its title claim plus the evidence that proves it, and the user agrees to the outline before anything is built.
 
 ## 3. The story
 
