@@ -30,7 +30,7 @@ With mixed needs, pick the closer type and never invent a middle one: live persu
 
 Ask in one round, each question with your guess: who is in the room, the one decision or takeaway, the deck type, the time slot, which real stories and numbers exist, and which template to use. Stories and quotes come from the user (`references/respect-human-attention.md`). One deck serves one audience and one decision.
 
-Gather the evidence (numbers, screenshots, a real ticket, a real quote) before writing anything, then write the deck's message as one sentence a listener could repeat from memory. The outline is one line per slide, its title claim plus the evidence that proves it, and the user agrees to the outline before anything is built.
+Gather the evidence (numbers, screenshots, a real ticket, a real quote) before writing anything. Check every number at its source and every claim about what a system does in its code: a deck said "Artemis reads these pages during triage" when no triage workflow did, and a cost cell showed $0 because the API's cost field was unset for that workflow while a measured $7 to $13 sat in the design doc. Then, then write the deck's message as one sentence a listener could repeat from memory. The outline is one line per slide, its title claim plus the evidence that proves it, and the user agrees to the outline before anything is built.
 
 ## 3. The story
 
@@ -39,6 +39,8 @@ Gather the evidence (numbers, screenshots, a real ticket, a real quote) before w
 - **Read the titles alone, in order.** They tell the whole story, and each slide's body proves its own title.
 - **Build a complex diagram over several slides**, adding a part each time, and never move anything already shown. Use separate slides rather than click animations, because the PDF export and a reader on their own lose whatever lives only in an animation.
 - **End on the ask**, with an owner and a date, or on the leave-behind link. No recap slide and no "Thank you, questions?" slide.
+- **A status or proposal deck runs in an order the room finds obvious**: the problem with its number, what we built, how it works, how quality is kept, how it scales and is evaluated, how success is measured, today's numbers against those measures, what is not proven yet, the ask. Measures come before the numbers they judge.
+- **Honest without self-flagellation.** Each gap sits next to its next step, and one box says what already holds, so the team can stand behind every slide. Leave low-level bug detail for the notes.
 
 ## 4. One slide
 
@@ -46,6 +48,7 @@ Gather the evidence (numbers, screenshots, a real ticket, a real quote) before w
 - **The body is the evidence**: a diagram, a chart, a table, a screenshot, a real example or a real quote. Decoration never counts. A divider or an ask slide may be text only.
 - **One level of bullets**, because deeper levels chop the reasoning into fragments. Tables have two or three columns.
 - **At most three numbers on a slide.** Each number changes the audience's judgement or it goes, and each carries its unit, its window and its yardstick (`references/explaining.md`).
+- **A screenshot proves the title only if the reader can find the proof in it.** Crop to the part that proves it, and mark the proof with a thin outline in the colour of the box or label that names it. Colour-matched outlines link text to evidence without arrows crossing the image.
 - **Make the main item the biggest thing on the slide.** Items of unequal weight never sit in a grid of equal boxes. Emphasis appears at most once per slide.
 - **One visual system for the whole deck.** The company template sets the fonts, colours and page size; take those and never its sample text. Each slide's layout follows its role (claim and diagram, comparison, number, ask).
 - **Keep 0.5 in from every edge** and the same gap between blocks throughout. Body text is left aligned.
@@ -60,7 +63,10 @@ No accent line under a title, no coloured bars or stripes along an edge or a car
 - **Keep the deck as a text spec** (one entry per slide: title, evidence, notes), and turn it into API requests with a script, so a change is an edit and a re-run rather than hand-patching shapes.
 - **Start each slide from the template's layouts**, then fill in the content. When a layout has more slots than items, delete the whole unused group, not only its text.
 - **Guard every write** with `writeControl.requiredRevisionId`, read fresh just before the call, so a change someone made in the browser is never overwritten.
-- **Slides stores an element's size as a fixed base with a scale.** Read the element's transform before moving it and keep its scale, or the box shrinks: a text box moved with `scaleX: 1` collapsed to a third of its width.
+- **Slides stores an element's size as a fixed base with a scale.** Read the element's transform before moving it and keep its scale, or the box shrinks: a text box moved with `scaleX: 1` collapsed to a third of its width. A new shape is stored as a 3,000,000 EMU base, so resetting its scale to 1 blew a small outline up to cover the slide.
+- **Putting a local screenshot in:** `createImage` needs a URL Google can fetch. In the deck's browser tab, add a file input with script, load the file into it with the browser tool's file upload, draw it to a canvas and write the PNG to the clipboard, switch slides by setting `location.hash` (a full navigation reloads the editor and drops the input), click inside the slide, paste, then place the image through the API by its new object id. Save screenshots inside the working directory, because the upload refuses other paths.
+- **`replaceAllText` gives the new text the style of the text it replaced.** After replacing a heading and its subtitle together, restyle the subtitle.
+- **A speaking title fits one line**, about 50 characters at 22 pt on a 10 in slide. A title that wraps pushes into the evidence below it.
 - **An empty table cell has no text**, so styling it fails the whole batch. Skip empty cells.
 - **A link takes the default link colour.** Set the text colour again after adding the link.
 - **The API accepts shapes placed off the page**, so check that every element sits inside it. Use real bullets (`createParagraphBullets`), never a typed "•".
