@@ -4,8 +4,10 @@
 
 Check every design and every diff against these before anything else in this file.
 
+- **Correct by construction, never by hope.** A design is right for every input, not only the ones we expect. When correctness rests on "nobody will hit this" (a cap of 9 tries, a name that probably won't clash, output that probably fits, a race that is probably rare), change the mechanism so the bad case cannot happen: a name unique by construction, a database constraint, an atomic operation, a lock that already exists. Follow the zero, one or infinity rule: allow none, one, or any number, never an arbitrary count. A limit is allowed only as a budget on time, cost or passes, and hitting it is a defined, loud outcome that a test covers. Example: learner branches named `runbooks/ticket-<N>-2` to `-9` after closed drafts rested on no ticket reaching nine; a name unique to each run needs no count at all.
 - **KISS.** Boring and obvious beats clever. Pass the least that works: a commit, not a commit plus its branch.
 - **DRY.** One fact, one home. A table declared in code and again in hand-written DDL is two homes.
+  A value whose home is another repo or file (a config key, a host, a heading, a rule id) is read from that home at run time, or guarded by a drift test against it. A test fixture never repeats the value the code would hardcode, or the test agrees with the bug. Example: the runbook learner hard-coded the Grafana keys "central" and "admin-zone", and the fixture used the same names. When the runbook repo renamed them, every query proof dropped silently, and neither the tests nor two reviews caught it.
 - **YAGNI.** Build what is needed now. No abstraction, fallback, retry or backstop for a failure nobody has shown can happen.
 - **Law of Demeter.** Talk to direct collaborators, not their insides. A caller reaching through two objects means the first one needs a method.
 - **Separation of concerns.** One module, one job. SOLID is the longer form.
