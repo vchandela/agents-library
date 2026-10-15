@@ -13,6 +13,8 @@ Apply `references/writing-voice.md` and `references/visual-explanations.md`. The
 
 - Read the user's own material before searching the web: their notes, the docs and threads they pasted, their seed lists, the internal repos and tickets. It says what the team already tried and what words they use. Read it fully, in the main context.
 - Ask at most one round of questions, then write a five-line brief: the question, what the answer is for, known constraints, the dimensions to cover, the date cutoff, and the stop line (the decision it feeds, the number of slices, and the budget per slice). The user confirms it.
+- **Map the whole topic as one question tree, once, before any agent starts.** The user's questions are the trunk, never the boundary. Add the branches an expert would add, each with one line on why it matters, and mark each one "researching now" or "offered". The stop line applies to the whole tree. Failure this prevents: on the Artemis evals research, agents were launched one per question as the user asked them, so code review evals, decision models, A/B tests and staleness each arrived only when the user thought to ask. The user said: "your research depends on the quality of my prompt."
+- **Check every later question against the tree.** If it was on the tree, the answer should already exist. If it wasn't, the tree missed a branch: say so, add it, and look for its siblings, instead of answering only that one question.
 - Say the depth out loud. **Quick** is one agent and a handful of searches. **Comparison** is one agent per option. **Landscape** is the full fan-out below.
 - Start from the problem, not the current design. If the team already assumes an architecture, list it as one option to test, not the frame.
 
@@ -84,4 +86,4 @@ Discuss in chat before rewriting a page the user is reading. Answer each questio
 
 ## Done when
 
-The brief was confirmed. Every source type was searched, or skipped with a reason. Every claim has a link that the fact-check agent re-opened, and every correction is applied. Every idea has a badge and an evidence tag. The report opens with one picture, walks the steps with real examples, and ends with what was not found.
+The brief and its question tree were confirmed. The report ends with the branches not explored, each with what it would change, so the user picks the next one instead of having to think of it. Every source type was searched, or skipped with a reason. Every claim has a link that the fact-check agent re-opened, and every correction is applied. Every idea has a badge and an evidence tag. The report opens with one picture, walks the steps with real examples, and ends with what was not found.
