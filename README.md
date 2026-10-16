@@ -23,6 +23,7 @@ Project scope or global, symlink or copy. Or clone it and symlink `skills/` into
 | `split-commits` | One change becomes logical commits |
 | `review-pr` | Reviews a diff, design first, line level last |
 | `ship` | Runs spec, plan and PRs end to end: a second session reviews each stage until it approves, then you approve |
+| `chief-of-staff` | Coordinates your other agent sessions: one registry, claims checked in GitHub and Jira, pairs converge before you are asked |
 
 **Understanding.**
 
