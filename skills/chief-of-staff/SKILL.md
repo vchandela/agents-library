@@ -39,6 +39,7 @@ Stages: `spec`, `plan`, `pr`, `merged`, `blocked`, `idle`, `parked`. A thread th
 
 ## Taking over (first run)
 
+1. Write your own address (from ListAgents or `/status`) to `~/.claude/cos/coordinator`. Every `/ship` flow reads it and reports to you in one fixed line (ship's "With a coordinator"); remove the file when you stop coordinating.
 1. ListAgents. Match every session to the list the user gave. A session the user did not name is reported, not contacted.
 2. Send each work thread and each reviewer one status request in a fixed shape: goal, stage with links and flow file, review pair and last verdict, waiting on whom, numbered decisions for the user with a recommendation, Jira tickets, next step. Ask them to send one line whenever their stage changes, they get blocked, or they need the user.
 3. Cross-check every answer read only: the flow file, the PR and its CI, the Jira ticket's status and sprint. Where a thread's claim and the source disagree, the source wins and the board says so.
@@ -62,7 +63,7 @@ Failure this prevents: a coordinator laid out three options to the user on wheth
 
 ## Cadence
 
-- **Default to silence.** Record and verify every notice, but don't relay it; the user asks when they want the board. A user who sees every re-approval and CI update stops reading. Speak up unasked only to stop an irreversible step (an approval withdrawn on a PR they may merge), in one line.
+- **Default to silence.** Record and verify every notice, but don't relay it; the user asks when they want the board. A user who sees every re-approval and CI update stops reading. Speak up unasked only to stop an irreversible step (an approval withdrawn on a PR they may merge), in one line, or to bring a thread's request for more sessions (see "Starting new sessions").
 - Threads tell you when their stage changes. When you hand something to a thread, subscribe to its idle notice (`notify_when_idle`) instead of polling.
 - Work the incoming notices in a batch, not as interruptions: update the registry, verify the claim, then decide whether the user needs to know now.
 - **Interrupt the user now** only when they have asked for live updates. Otherwise the silence rule above holds, and approvals, blocks and stuck threads wait until the user asks for the board.
@@ -89,9 +90,9 @@ This is a matter of the user's taste, so it is always a suggestion with a reason
 
 When a thread has more work than one session can move quickly (a plan with several independent items), you can start more sessions for it, but only through the user. The user decides how many sessions run at once, because the laptop's memory and CPU are the limit.
 
-1. **The busy thread proposes the split, not you.** It knows which items depend on each other and which touch the same files. Ask it for: each new thread's name, what it owns, the repo and files it touches, and a one-paragraph brief. Split by where the work lands (repo, files), so two threads never rebase over each other.
+1. **The busy thread proposes the split, not you.** It asks you when it sees work that could run in parallel (ship's "With a coordinator"), or you ask it. It knows which items depend on each other and which touch the same files. Ask it for: each new thread's name, what it owns, the repo and files it touches, and a one-paragraph brief. Split by where the work lands (repo, files), so two threads never rebase over each other.
 2. **Wait until the work's plan is approved.** A split made while the plan is still changing leaves threads working from different versions.
-3. **The user approves the split and the session count**, including one reviewer session per new work thread.
+3. **The user approves the split and the session count.** A split request is one of the few things you bring to the user unasked, in one message: who asked, the new threads, and the session count after launch, including one reviewer session per new work thread.
 4. **You launch them** with `scripts/warp-claude "<name>" [directory]` (directory defaults to `~/anyscale`). It writes a Warp tab config to `~/.warp/tab_configs/` and opens it via `warp://tab_config/<name>`. The tab runs `claude --name "<name>" --remote-control "<name>"`, so the tab, the prompt box and the user's phone all show the same name. Agree each name with the user first. Warp's older launch configurations (`warp://launch/...`) open nothing in current Warp; don't use them.
 5. **Wire them up**: find each new session in ListAgents, send each worker its brief and its reviewer's name, send each reviewer the ship reviewer opener, and add both to the registry.
 
