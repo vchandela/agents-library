@@ -33,6 +33,18 @@ TEST_RUNNERS = {
 
 INSTRUCTION_FILES = ("CLAUDE.md", "AGENTS.md", ".cursorrules", "GEMINI.md")
 
+# Codex stops reading instruction files past this many bytes (project_doc_max_bytes).
+CODEX_LIMIT = 32 * 1024
+
+AGENT_MARKERS = {
+    "claude code": ("CLAUDE.md", ".claude"),
+    "codex": ("AGENTS.md", ".codex", ".agents"),
+    "cursor": (".cursor", ".cursorrules"),
+    "gemini": ("GEMINI.md", ".gemini"),
+}
+
+SKIP_DIRS = {".git", "node_modules", ".venv", "venv", "dist", "build", "__pycache__"}
+
 
 def exists(*names: str) -> list[str]:
     return [n for n in names if (ROOT / n).exists()]
@@ -56,6 +68,27 @@ def git_facts() -> dict:
         "hooks_path": run("config", "core.hooksPath") or "(default)",
         "has_githooks_dir": (ROOT / ".githooks").is_dir(),
     }
+
+
+def nested_instruction_files() -> list[str]:
+    found = []
+    for name in ("AGENTS.md", "CLAUDE.md"):
+        for p in ROOT.rglob(name):
+            rel = p.relative_to(ROOT)
+            if len(rel.parts) > 1 and not SKIP_DIRS & set(rel.parts):
+                found.append(str(rel))
+    return sorted(found)[:20]
+
+
+def path_scoped_rules() -> list[tuple[str, bool]]:
+    rules_dir = ROOT / ".claude" / "rules"
+    if not rules_dir.is_dir():
+        return []
+    out = []
+    for p in sorted(rules_dir.rglob("*.md")):
+        inside = ROOT in p.resolve().parents
+        out.append((str(p.relative_to(ROOT)), inside))
+    return out
 
 
 def has_tests() -> bool:
@@ -84,11 +117,42 @@ def main() -> int:
     instr = exists(*INSTRUCTION_FILES)
     print(f"  instructions    {', '.join(instr) or 'none'}")
     for f in instr:
-        lines = len((ROOT / f).read_text(errors="replace").splitlines())
-        flag = "  <-- long, likely a router job" if lines > 300 else ""
-        print(f"                    {f}: {lines} lines{flag}")
+        path = ROOT / f
+        text = path.read_text(errors="replace")
+        lines = len(text.splitlines())
+        size = len(text.encode())
+        kind = ""
+        if path.is_symlink():
+            kind = f"  symlink -> {path.readlink()}"
+        elif f == "CLAUDE.md" and text.strip() == "@AGENTS.md":
+            kind = "  one-line import of AGENTS.md"
+        flag = "  <-- long, likely a router job" if lines > 200 else ""
+        print(f"                    {f}: {lines} lines, {size} bytes{kind}{flag}")
 
-    print(f"  claude code     {'yes' if (ROOT / '.claude').is_dir() else 'no .claude/'}")
+    agents_bytes = len((ROOT / "AGENTS.md").read_bytes()) if exists("AGENTS.md") else 0
+    if agents_bytes > CODEX_LIMIT:
+        print(f"                    AGENTS.md is over {CODEX_LIMIT} bytes: Codex drops the rest")
+    if exists("AGENTS.md") and exists("CLAUDE.md"):
+        claude = (ROOT / "CLAUDE.md").read_text(errors="replace").strip()
+        if claude != "@AGENTS.md" and not (ROOT / "CLAUDE.md").is_symlink():
+            print("                    CLAUDE.md and AGENTS.md both hold text: they can disagree,")
+            print("                    and Claude reads only CLAUDE.md")
+
+    nested = nested_instruction_files()
+    print(f"  nested instr.   {', '.join(nested) or 'none'}")
+
+    rules = path_scoped_rules()
+    if rules:
+        outside = [r for r, inside in rules if not inside]
+        print(f"  claude rules    {len(rules)} in .claude/rules/"
+              + (f", {len(outside)} linked from outside the repo (paths: ignored)" if outside else ""))
+    else:
+        print("  claude rules    none")
+
+    skills = [d for d in (".claude/skills", ".agents/skills") if (ROOT / d).is_dir()]
+    print(f"  skill folders   {', '.join(skills) or 'none'}")
+    agents = [name for name, marker in AGENT_MARKERS.items() if any((ROOT / m).exists() for m in marker)]
+    print(f"  agents          {', '.join(agents) or 'not detected'}")
     print(f"  changelog       {'yes' if exists('CHANGELOG.md') else 'no'}")
     print(f"  incident log    {'yes' if exists('docs/incidents.md', 'INCIDENTS.md') else 'no'}")
 
@@ -100,9 +164,11 @@ def main() -> int:
         print("  2  test runner present")
     else:
         print("  4  no test runner, substitute verification")
-    if (ROOT / ".claude").is_dir():
-        print("  3  claude code in use")
+    if (ROOT / ".claude").is_dir() or (ROOT / ".codex").is_dir():
+        print("  3  an agent harness is in use, hooks possible")
 
+    if len(agents) > 1:
+        print("  5  several agents, one source for every rule")
     print("\nNothing was written. Propose a diff before changing anything.")
     return 0
 
