@@ -62,9 +62,10 @@ Failure this prevents: a coordinator laid out three options to the user on wheth
 
 ## Cadence
 
+- **Default to silence.** Record and verify every notice, but don't relay it; the user asks when they want the board. A user who sees every re-approval and CI update stops reading. Speak up unasked only to stop an irreversible step (an approval withdrawn on a PR they may merge), in one line.
 - Threads tell you when their stage changes. When you hand something to a thread, subscribe to its idle notice (`notify_when_idle`) instead of polling.
 - Work the incoming notices in a batch, not as interruptions: update the registry, verify the claim, then decide whether the user needs to know now.
-- **Interrupt the user now** (PushNotification) only for: a reviewer approved and the user's approval is the next step, a thread is blocked on the user, something irreversible is about to happen, or a thread is stuck after two attempts at the same failure. Everything else waits for the next board.
+- **Interrupt the user now** only when they have asked for live updates. Otherwise the silence rule above holds, and approvals, blocks and stuck threads wait until the user asks for the board.
 - When the user asks, refresh read only first (flows, PRs, CI, Jira), then answer. Never answer from a stale registry without saying how old it is.
 
 ## Verify, never relay
