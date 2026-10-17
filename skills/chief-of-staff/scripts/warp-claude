@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+"""Open a new Warp tab running Claude Code under a given name.
+
+Usage: warp-claude "<session name>" [directory]   (directory defaults to ~/anyscale)
+
+Writes a Warp tab config (~/.warp/tab_configs/claude_<name>.toml) and opens it
+with warp://tab_config/<stem>. The name is set twice: --name labels the prompt
+box, /resume picker and tab title; --remote-control <name> is the name the
+phone and claude.ai show.
+"""
+import json, os, re, shlex, subprocess, sys
+
+if len(sys.argv) not in (2, 3) or not sys.argv[1].strip():
+    sys.exit('usage: warp-claude "<session name>" [directory]')
+name = sys.argv[1].strip()
+directory = sys.argv[2] if len(sys.argv) == 3 else "~/anyscale"
+if not os.path.isdir(os.path.expanduser(directory)):
+    sys.exit(f"no such directory: {directory}")
+stem = "claude_" + (re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_") or "session")
+cmd = f"claude --name {shlex.quote(name)} --remote-control {shlex.quote(name)}"
+path = os.path.expanduser(f"~/.warp/tab_configs/{stem}.toml")
+os.makedirs(os.path.dirname(path), exist_ok=True)
+# json.dumps gives double-quoted strings with escapes TOML basic strings accept.
+toml = (
+    f"name = {json.dumps(name)}\n"
+    "[[panes]]\n"
+    'id = "main"\n'
+    'type = "terminal"\n'
+    f"directory = {json.dumps(directory)}\n"
+    f"commands = [{json.dumps(cmd)}]\n"
+)
+with open(path, "w") as f:
+    f.write(toml)
+subprocess.run(["open", f"warp://tab_config/{stem}"], check=True)
+print(f"opened Warp tab '{name}' via {path}")
