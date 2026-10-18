@@ -51,6 +51,7 @@ Same discipline as the spec. The user reviews it, then a teammate, before any co
 - Cluster by component, not by the order things came up in conversation.
 - A small diagram per phase. Each step shows one line and its test; the rest is collapsed.
 - Real diagrams and tables, not monospace text blocks.
+- No dense paragraphs: bullets, as "Bullets, not walls" in `references/respect-human-attention.md` says.
 - **Preview before every publish.** Apply `references/preview.md`.
 - Apply `references/writing-voice.md`.
 - On every revision, fold the change into the step it affects. Never append.
