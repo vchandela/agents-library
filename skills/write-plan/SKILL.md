@@ -18,7 +18,7 @@ Apply `references/engineering-principles.md`: DRY, YAGNI, KISS, SOLID, cut prema
 - **Every assumption goes in the spec's open items**, not here. A step that changes under another pick says how.
 - Verify every `file:line` and claim before publishing. Cut steps for work the platform already does.
 - No shorthand.
-- **Global constraints first.** A short section near the top lists every project wide requirement from the spec with its exact value (versions, limits, names, formats). Every step and every reviewer inherits it.
+- **Global constraints first.** A short section near the top lists every project wide requirement from the spec with its exact value (versions, limits, names, formats). Every number there and in the steps says where it comes from ("No magic numbers" in `references/engineering-principles.md`). Every step and every reviewer inherits it.
 - **Each step is a vertical slice** that can be checked on its own, sized to fit one fresh session, with acceptance criteria, what is out of scope for it, and the steps that block it. A step with no open blockers can start now.
 - **Each step names what it produces and consumes**: exact function names, signatures and paths a later step relies on. A later step calling `clear_layers()` when an earlier one defined `clear_full_layers()` is a bug in the plan.
 - **Every command says what passing looks like.** `Run: pytest tests/test_x.py::test_y` then `Expected: FAIL, name 'y' is not defined`. The implementer compares, rather than judges.
