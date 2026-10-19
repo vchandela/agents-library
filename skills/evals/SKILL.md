@@ -24,7 +24,6 @@ Then pick the depth: a **smoke check** (10 to 20 real cases, one arm, read every
 No grader, metric or synthetic case before a person has read real outputs.
 
 - Pull 30 to 100 real traces, sampled at random plus the known failures. Read each one whole: the input, every tool call and result, the answer.
-- **When failures are rare, random traces alone find almost none.** At a 1% failure rate, 100 random traces show about one failure. Add traces picked where failures are likely (a user complaint, a low-confidence answer, two versions that disagree) and read them as extra, but estimate any rate from the random part only, unless you reweight each picked trace by how likely it was to be picked.
 - **The human writes the notes; the agent organises them.** One line per failure, in the human's words. The agent may group notes into failure modes and search for more examples of a mode only after about five human notes on it. Agents left to label on their own paraphrase instead of analysing and cover a fraction of the data (Shankar, 2026); they reuse labels well only against a fixed category list.
 - Stop when new traces stop adding failure modes. The modes, with counts, are the eval's scope: each gets a check in step 3, or a stated reason it doesn't.
 - Expect the criteria to move while you read ("criteria drift"). That is the point of reading first.
