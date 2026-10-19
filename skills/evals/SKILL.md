@@ -24,6 +24,7 @@ Then pick the depth: a **smoke check** (10 to 20 real cases, one arm, read every
 No grader, metric or synthetic case before a person has read real outputs.
 
 - Pull 30 to 100 real traces, sampled at random plus the known failures. Read each one whole: the input, every tool call and result, the answer.
+- **When failures are rare, random traces alone find almost none.** At a 1% failure rate, 100 random traces show about one failure. Add traces picked where failures are likely (a user complaint, a low-confidence answer, two versions that disagree) and read them as extra, but estimate any rate from the random part only, unless you reweight each picked trace by how likely it was to be picked.
 - **The human writes the notes; the agent organises them.** One line per failure, in the human's words. The agent may group notes into failure modes and search for more examples of a mode only after about five human notes on it. Agents left to label on their own paraphrase instead of analysing and cover a fraction of the data (Shankar, 2026); they reuse labels well only against a fixed category list.
 - Stop when new traces stop adding failure modes. The modes, with counts, are the eval's scope: each gets a check in step 3, or a stated reason it doesn't.
 - Expect the criteria to move while you read ("criteria drift"). That is the point of reading first.
@@ -73,6 +74,7 @@ A model judge is a classifier, and an unchecked one makes every score fiction. S
 - **Always two arms on the same items**: the change and the baseline (the old version, or no skill, no page, no prompt change). A score without a baseline answers nothing.
 - **Repeat each item**, 3 runs by default. Temperature 0 is not deterministic. Report reliability as pass^k (all k runs pass), not only one-run accuracy.
 - **Know the noise before reading the result.** The ±1/√n rule in `references/evals.md` is a floor; measure the real noise by rerunning the unchanged baseline, which once showed a 7-point spread where the formula said under 2. A difference inside the noise is "no change", and the advice is not to ship.
+- **Check the baseline has room to move.** If the baseline already passes nearly every item, the set cannot show a gain, because almost nothing is left to fix. Add fresh hard items from recent failures before comparing. A set where everything fails usually means a broken harness, so check one item by hand.
 - **Paired, by item**: count what the new arm fixed and what it broke, not two averages. Cluster the interval by source when items share one.
 - **Report what got worse**, every metric, not only the one that improved. Accuracy, cost per task and p95 latency travel together.
 - Drop items that pass in both arms from the comparison; they carry no signal about the change.

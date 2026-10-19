@@ -41,6 +41,8 @@ Apply `references/judgement.md`: propose requirements the user did not mention b
 
 Apply `references/engineering-principles.md`. Every choice is a tradeoff: each piece of complexity says what it buys, or moves to a "later" list. Pragmatic, not perfect.
 
+When the open question is which mechanism fits (a store, a cache, a queue, a lock, a search index), find the problem in `references/system-design/index.md` and read what the entry says about when not to use it and how it fails before proposing it.
+
 Be honest where a rejected option wins on some dimension. Name it, then say why it still loses overall.
 
 Explain tradeoffs with one concrete worked example: a real-looking timeline showing where each blocker bites.

@@ -54,7 +54,7 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
         fail(skill, f"body is {len(parts[2].split())} words; keep it under {MAX_WORDS}")
     if re.search(r"(?<!\\)\$(ARGUMENTS|[0-9]|\{CLAUDE_)", parts[2]):
         fail(skill, "$ARGUMENTS, $N or ${CLAUDE_...} in the body is replaced when the skill is invoked with arguments; escape it")
-    for ref in sorted(set(re.findall(r"references/([\w.-]+\.md)", text))):
+    for ref in sorted(set(re.findall(r"references/([\w./-]+\.md)", text))):
         if not (skill.parent / "references" / ref).exists():
             fail(skill, f"mentions references/{ref} but the skill folder does not ship it")
 
