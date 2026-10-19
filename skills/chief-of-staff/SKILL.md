@@ -57,7 +57,7 @@ What the user sees, every time they ask "where are we" and at each batch. Lists,
 
 ## Let the pair converge first
 
-The user's attention is the scarce part. When a work thread has unreviewed commits, or a design question its reviewer can settle, do not bring it to the user. Send the reviewer a re-review request (the `ship` format: range, head, contract, the open questions), tell the author to work with the reviewer directly, and wait. The user gets one hand-off per PR, after the reviewer approves: the link, what was checked, findings rejected and why, and only the choices nobody else can make. A disagreement the pair could not settle in the ship skill's round limit is the other reason to come.
+The user's attention is the scarce part. When a work thread has unreviewed commits, or a design question its reviewer can settle, do not bring it to the user. Send the reviewer a re-review request (the `ship` format: range, head, contract, the open questions), tell the author to work with the reviewer directly, and wait. The user gets one hand-off per PR, after the reviewer approves: the link, what was checked, findings rejected and why, and only the choices nobody else can make. A disagreement about a requirement (what to build, not whether it works) that the pair cannot settle is the other reason to come. Ship has no round limit, so a high round count alone is not a reason to step in; check the current ship skill before citing it.
 
 Failure this prevents: a coordinator laid out three options to the user on whether a reviewer should re-review 150 new lines. The user's answer was "let them talk to each other ... don't come to me prematurely."
 
