@@ -73,7 +73,6 @@ A model judge is a classifier, and an unchecked one makes every score fiction. S
 - **Always two arms on the same items**: the change and the baseline (the old version, or no skill, no page, no prompt change). A score without a baseline answers nothing.
 - **Repeat each item**, 3 runs by default. Temperature 0 is not deterministic. Report reliability as pass^k (all k runs pass), not only one-run accuracy.
 - **Know the noise before reading the result.** The ±1/√n rule in `references/evals.md` is a floor; measure the real noise by rerunning the unchanged baseline, which once showed a 7-point spread where the formula said under 2. A difference inside the noise is "no change", and the advice is not to ship.
-- **Check the baseline has room to move.** If the baseline already passes nearly every item, the set cannot show a gain, because almost nothing is left to fix. Add fresh hard items from recent failures before comparing. A set where everything fails usually means a broken harness, so check one item by hand.
 - **Paired, by item**: count what the new arm fixed and what it broke, not two averages. Cluster the interval by source when items share one.
 - **Report what got worse**, every metric, not only the one that improved. Accuracy, cost per task and p95 latency travel together.
 - Drop items that pass in both arms from the comparison; they carry no signal about the change.
