@@ -95,6 +95,7 @@ Up to 3 pages for the working spec, tight and complete. The short page the team 
 - No dense paragraphs, including in table cells. Use bullets, lists or small tables, as "Bullets, not walls" in `references/respect-human-attention.md` says. Before publishing, find every paragraph over three sentences and split it.
 - On every revision, fold the change into its section. Never append.
 - Every number (limit, timeout, cap, wait, rate) carries its source or reason beside it, or goes ("No magic numbers" in `references/engineering-principles.md`).
+- Every new field, function or setting name reads right the first time, with nothing a newcomer must decode ("Names a newcomer reads right the first time" in the same file).
 - Before publishing, run a verification pass over every claim, and read it once for placeholders, sections that contradict each other, and any requirement that could be read two ways. Cut anything not needed.
 - **Simplicity pass, before publishing and after every review round.** For each mechanism, name the simplest alternative and why it loses. If it doesn't lose, switch. When fixes keep stacking on one mechanism, replace it ("Question the mechanism" in `references/engineering-principles.md`).
 - Real diagrams (Mermaid) and real tables, not monospace text blocks.
