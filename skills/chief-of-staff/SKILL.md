@@ -84,6 +84,7 @@ This is a matter of the user's taste, so it is always a suggestion with a reason
 
 - **Suggest a split** when one thread holds two things that could ship and be reviewed apart, for example the runbook content and the runbook site UI. Signs: two unrelated stacks in one flow, a reviewer reviewing two different contracts, a thread waiting on one half while the other half could move. Say what each new thread would own and what stays.
 - **Suggest closing** a thread when its PR merged and it has no ToDos it owns, or it has sat idle and parked with no owner for the next step. Say what would be lost (context, a reviewer pair) and where its state lives so a fresh session could resume.
+- **ToDos.** Every thread knows its project's main Notion page and keeps its ToDos current (`references/project-todos.md`). When a thread defers something, check that it reached that page; when you brief a new thread, give it the page or ask the user for it.
 - Prefer a fresh session over reviving a very long one when work restarts after a long gap.
 
 ## Starting new sessions
