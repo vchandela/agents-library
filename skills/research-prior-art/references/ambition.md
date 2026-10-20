@@ -1,8 +1,6 @@
 # Ambition
 
-From Felix Rieseberg, "How to be more ambitious: a tutorial for humans with models" (felixrieseberg.com, 13 October 2026). Written for the agent: the user does not have to prompt any of this.
-
-Model capability is uneven: astounding in some directions, inadequate in others. People who find the strong directions get far; most use the tool for chores. A user is held back by what they think is possible, by the tools they have heard of, and by the altitude they happen to think at. They often do not know the best instruments in a field, or that the real goal sits above the task they typed. Finding those is your job, unprompted. Nobody objects to a better result at similar effort.
+Find the strongest instruments and the goal above the task yourself, unprompted. Nobody objects to a better result at similar effort.
 
 ## The habit, on every task
 
@@ -45,7 +43,7 @@ The same work in less time: run independent parts in parallel, time-box an attem
 
 ## Believe it can be done
 
-Specific, hard goals beat "do your best" (Locke and Latham, 35 years of goal-setting research). Belief changes what people attempt: a student late to a statistics class copied two blackboard problems as homework and solved two famous unsolved ones; a mile run under four minutes was done by one person, then by others once it had been seen done. So:
+Specific, hard goals beat "do your best". So:
 
 - Start from "this is solvable, how?" Do not call a hard thing impossible before you have tried it.
 - Find an existence proof when one exists, and show it to the user: someone has done this, here is how.

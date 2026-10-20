@@ -24,7 +24,7 @@ Then pick the depth: a **smoke check** (10 to 20 real cases, one arm, read every
 No grader, metric or synthetic case before a person has read real outputs.
 
 - Pull 30 to 100 real traces, sampled at random plus the known failures. Read each one whole: the input, every tool call and result, the answer.
-- **The human writes the notes; the agent organises them.** One line per failure, in the human's words. The agent may group notes into failure modes and search for more examples of a mode only after about five human notes on it. Agents left to label on their own paraphrase instead of analysing and cover a fraction of the data (Shankar, 2026); they reuse labels well only against a fixed category list.
+- **The human writes the notes; the agent organises them.** One line per failure, in the human's words. The agent may group notes into failure modes and search for more examples of a mode only after about five human notes on it. Agents left to label on their own paraphrase instead of analysing and cover a fraction of the data; they reuse labels well only against a fixed category list.
 - Stop when new traces stop adding failure modes. The modes, with counts, are the eval's scope: each gets a check in step 3, or a stated reason it doesn't.
 - Expect the criteria to move while you read ("criteria drift"). That is the point of reading first.
 
@@ -39,7 +39,7 @@ One item is one input, its answer key, and everything frozen with it. The full f
   2. *Seed items are open-book.* A page or prompt written from an item already holds its answer. Mark each item that seeded a change, and report results on items after the change separately.
   3. *No negatives.* Include items where nothing fits (no known cause, a clean PR), and check the agent says so instead of forcing a match.
 - Report ordinary and hard items separately, and a split by source (customer, repo, team) when one source dominates.
-- **A failing item is often a broken item.** Before blaming the agent, check the item: OpenAI dropped SWE-bench Verified in 2026 after finding flawed tests in most of the problems models failed.
+- **A failing item is often a broken item.** Before blaming the agent, check the item.
 
 ## 3. Grade
 
@@ -55,15 +55,12 @@ Grader hygiene for model judges is in `references/evals.md`.
 
 ## 4. Trust the judge
 
-A model judge is a classifier, and an unchecked one makes every score fiction. Shopify's first judge agreed with experts at kappa 0.02, no better than chance.
+A model judge is a classifier, and an unchecked one makes every score fiction.
 
-- **Label first, then build the judge.** Start with 30 to 50 human-labelled items, at least 10 of each verdict in the dev set. A judge that gates CI needs about 50 passes and 50 fails per failure mode.
-- Split the labels into train, dev and test. Tune the judge prompt on train and dev; run test once.
-- **Report two rates, in plain words**, each with a Wilson interval: how often the judge catches a real failure, and how often it passes a good answer. Never raw percent agreement.
-- **The bar**: 0.8 on both rates to gate a change. Below that the judge is advisory: it reports, it never blocks.
+- **Label first, then build the judge, and check it as `references/evals.md`, "Checking a judge", says.** Report the two rates in plain words, never raw percent agreement. Below 0.8 on either, the judge is advisory: it reports, it never blocks.
 - Freeze the judge's prompt, model and parser together. A change to any of them is a new judge, rechecked.
 - **Measure the judge's own noise**: grade the same outputs several times. Identical text has scored 0.40, 1.00, 0.60 and 1.00 from one judge; temperature 0 does not make it stable.
-- **Watch its biases**: it favours longer answers, the first of a pair, and its own model's style. Keep answers in comparable shapes, swap pair order, and use a different model family.
+- **Watch its biases**: it favours longer answers, the first of a pair, and its own model's style. Keep answers in comparable shapes and use a different model family.
 - **Name the labellers and the tie rule.** Say who labels, how many per item, and what happens when they disagree; human agreement is the ceiling for any judge.
 - **Health check before every new pipeline**: push a known-right answer and an empty answer through the whole thing. The right one must pass, the empty one must fail. If more than one in ten failures turn out to be grader errors, fix the grader first.
 - **Two sign-offs from a person before any paid run**: the items (after reading about five pilot transcripts) and the grading method.
@@ -73,7 +70,7 @@ A model judge is a classifier, and an unchecked one makes every score fiction. S
 - **Always two arms on the same items**: the change and the baseline (the old version, or no skill, no page, no prompt change). A score without a baseline answers nothing.
 - **Repeat each item**, 3 runs by default. Temperature 0 is not deterministic. Report reliability as pass^k (all k runs pass), not only one-run accuracy.
 - **Know the noise before reading the result.** The ±1/√n rule in `references/evals.md` is a floor; measure the real noise by rerunning the unchanged baseline, which once showed a 7-point spread where the formula said under 2. A difference inside the noise is "no change", and the advice is not to ship.
-- **Paired, by item**: count what the new arm fixed and what it broke, not two averages. Cluster the interval by source when items share one.
+- **Paired, by item**: count what the new arm fixed and what it broke, not two averages.
 - **Report what got worse**, every metric, not only the one that improved. Accuracy, cost per task and p95 latency travel together.
 - Drop items that pass in both arms from the comparison; they carry no signal about the change.
 
@@ -85,13 +82,12 @@ A model judge is a classifier, and an unchecked one makes every score fiction. S
 - **The holdout is sacred.** Whatever optimises (a person, a hillclimbing agent, a learner) sees the training items only, never the holdout, and never edits the evaluator, the items or the thresholds. Pick the winning version on a separate selection set; run the holdout once to report it.
 - **Split by time when the world moves**: the newest items are the holdout, and the window rolls forward.
 - **Every production failure becomes an item**, with its answer key from the world.
-- Pin model versions for the agent and the judge, and record them with every result.
 
 ## 7. When it applies
 
 - **Safety, for an agent that reads untrusted text**: plant fake secrets (canary strings) and injected instructions inside tool outputs, check none leak or get obeyed, and report usefulness under attack beside attack success. A fixed attack set catches regressions only, not a determined attacker.
 - **Cost**: choose models from the accuracy-for-cost frontier. Cache agent outputs only when changing the grader, never when measuring the agent.
-- **Simulated users make their own errors** (16% to 40% in tau2-bench). When a real conversation exists, replay its prefix and test only the next turn.
+- **Simulated users make their own errors**. When a real conversation exists, replay its prefix and test only the next turn.
 - **Evaluating a skill**: test triggering apart from behaviour, with near-miss prompts a neighbouring skill owns, and watch whether it actually loads. Then compare with no skill, and run a guidance-deletion test (the skill loaded, its guidance removed) to show the gain comes from what it says, not from loading it. A "don't do X" rule helps when the agent knows a rule and skips it under pressure; it backfires when the problem is the shape of the output, where a positive example works better.
 
 ## Rationalisations to refuse
@@ -99,7 +95,7 @@ A model judge is a classifier, and an unchecked one makes every score fiction. S
 | The excuse | What to do |
 |---|---|
 | "The model can write the expected answers" | The answer key comes from the world. A model's answer grades the model against itself. |
-| "The judge looks right on a few examples" | Measure both rates on held-out labels. Shopify's started at chance. |
+| "The judge looks right on a few examples" | Measure both rates on held-out labels. |
 | "It's 3 points better" | Compute the noise. Inside it, it's no change. |
 | "Rerun the failure, it was flaky" | Unscored or a flake to fix. Never a pass. |
 | "Tune on the whole set, we have so few items" | Then there's no test. Keep a holdout, however small, and say how small. |

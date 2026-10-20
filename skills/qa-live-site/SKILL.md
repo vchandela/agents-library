@@ -27,7 +27,7 @@ Before phases 4 and 5, confirm in writing that the user owns the target, authori
 
 **4. Volume and races.** Act fast, fire parallel requests at one resource, race a write against a close. Locks that hold at one request often do not hold at twenty.
 
-**5. Security.** Token with the subject swapped, `alg:none`, garbage. Access something belonging to another user: **it must answer 404, not 403**, because 403 confirms the thing exists. Injection in every query parameter. Stored and reflected XSS. Path traversal. Method tampering. An extra field in a write, to test mass assignment. Use only accounts and data you created for the pass. Stop at the smallest proof (one record from the wrong account, one 200 where a 404 belonged), and never load a shared service to prove a limit is missing.
+**5. Security.** Token with the subject swapped, `alg:none`, garbage. Access something belonging to another user: **it must answer 404, not 403**, because 403 confirms the thing exists. Injection in every query parameter. Stored and reflected XSS. Path traversal. Method tampering. An extra field in a write, to test mass assignment. Use only accounts and data you created for the pass. Stop at the smallest proof (one record from the wrong account, one 200 where a 404 belonged).
 
 **6. Mobile.** Phone widths. Tap targets, rows that scroll sideways, anything clipped.
 
@@ -43,11 +43,11 @@ Before phases 4 and 5, confirm in writing that the user owns the target, authori
 - **Verify against the deployed build, not the repo.** A pass once reported a critical bug that production had already fixed, because the deployment was ahead of the commit being read. Check the behaviour first, the code second.
 - **Use resource timing, not wall clock.** Wall clock through a browser measures your own machine and connection. One pass read a total collapse under load that turned out to be the test client saturating its own uplink.
 - **Measure a surprise twice, a different way,** before reporting it.
-- **Check the evidence before judging it.** A screenshot that is blank, shows the wrong section, or is missing a required width is not evidence. Retake it before writing any finding from it.
+- **Check the evidence before judging it**, by ui-quality's Evidence rules. Retake a failed screenshot before writing any finding from it.
 
 ## Bounded rounds
 
-Inspect every width and theme in one batched round. Fix everything it shows in one batch. Confirm with one more round. A new defect in the confirming round came from the fix batch; name it as such. When re-checking a fix, mark each finding resolved, partial or unresolved from what the screen now shows. **A description of the fix is not evidence that it worked.**
+Rounds follow ui-quality's Order. When re-checking a fix, mark each finding resolved, partial or unresolved from what the screen now shows. **A description of the fix is not evidence that it worked.**
 
 ## Reporting
 

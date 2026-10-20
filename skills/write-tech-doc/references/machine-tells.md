@@ -34,7 +34,7 @@ A model picks the choice that fits the widest range of readers. A person picks f
 | Gap filled with a guess | "Details are limited, but it likely..." | Say what the source does not show, or cut. |
 | Heading echoed | "## Performance" then "Speed matters." | Cut the echo. |
 | Writing about the document | "The table below compares", "compiled from", "was added to replace" | Write about the subject. Keep a caveat only if it changes what the reader does. |
-| Wrong reader | A reply that walks through the diagnosis before the decision | The decision first, plus the one fact they lack. Proof goes in the ticket. |
+| Wrong reader | A reply that walks through the diagnosis before the decision | The decision first (`respect-human-attention.md`). |
 | Curly quotes (weak) | curly quotes in plain text | Straight quotes. |
 
 ## Last pass

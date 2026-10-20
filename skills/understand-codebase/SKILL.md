@@ -46,25 +46,13 @@ Tag every relationship you state: **read** (`file:line`), **inferred** (and from
 
 ## Output
 
-Start with a **sequence diagram** tracing one real request end to end, through every
-process it touches. This is the single most useful picture for a system of
-cooperating services, and it is the one readers ask for after being shown a
-box-and-arrow architecture diagram instead. It answers, in one image, what most
-of their questions turn out to be: who calls whom, in what order, which component
-does the work, and where the loops are. Label every arrow, and put a short
-plain-English note under each one saying what that message actually does.
-
-Reach for a box-and-arrow diagram only when the question is genuinely about
-structure rather than flow. Then the decisions as a list. Crisp but complete: a
-reader should be able to zoom in on any one and find it explained.
+Start with a **sequence diagram** of one real request end to end, through every process it touches. Label every arrow, with a short plain note under each saying what that message does. Use a box-and-arrow diagram only when the question is about structure, not flow. Then the decisions as a list, each one explained.
 
 Answer the two kinds of question in their own shape. "What is X connected to?" is a list of neighbours, each with its relation and evidence. "How does X reach Y?" is one path, hop by hop, each hop with its `file:line`.
 
 End with three to five questions this map can now answer, each with why it is worth asking: an unclear link, a module that bridges two areas, a hub you have not explained. Offer to trace the one that crosses the most areas. List the searches that found nothing, so the next reader does not repeat them.
 
-Apply `references/judgement.md`, `references/untrusted-input.md`, `references/writing-voice.md` and `references/explaining.md`. Define jargon the first time it appears.
-Analogies and concrete examples for anything abstract. Assume the reader is
-competent but new to this system.
+Apply `references/judgement.md`, `references/untrusted-input.md`, `references/writing-voice.md` and `references/explaining.md`. Assume a competent engineer new to *this* system: define the repo's terms of art on first use, never general engineering terms. If you cannot tell who the reader is, say so.
 
 ## Honesty
 
@@ -74,8 +62,3 @@ Say which parts you could not work out. A confident account with silent gaps is 
 
 Each decision names the alternative rejected and the cost accepted, the diagram matches what the code does rather than what the docs claim, and the unknowns are listed. Every identifier and path you cite was grepped once more before you finished.
 
-## Voice and level
-
-Apply `references/explaining.md` (ground up, an example per claim, decisions side by side, questions answered where they arise).
-
-Assume a competent engineer who is new to *this* system: fluent in queues, databases, distributed systems and LLM agents, and unfamiliar with this repo's own vocabulary. Define the repo's terms of art on first use, never general engineering terms. If you cannot tell who the reader is, say so.

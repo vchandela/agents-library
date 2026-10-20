@@ -47,7 +47,7 @@ Check: the page reads in order with CSS and script switched off.
 - Judge the screenshots and write down what is wrong first. Then run the probes: the Taste table from computed styles, contrast, hit areas by `elementFromPoint`, axe-core on every state, console errors, a throttled Lighthouse run.
 - Work every overlay and form by keyboard alone, as `references/ui-quality.md` Input says.
 - Walk the one task as two or three of the readers from step 1.
-- Bounded rounds: inspect everything, fix in one batch, confirm in one more round.
+- Rounds follow the Order section of `references/ui-quality.md`.
 - Then hand the screenshots, the three lines from step 1 and the state grid to a subagent with no build history. It returns ship or fix with at most 8 findings, and you fix only from that list.
 
 Check: every width and theme has a screenshot you looked at.

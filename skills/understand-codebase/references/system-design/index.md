@@ -1,6 +1,6 @@
 # System design toolbox
 
-Find your problem as a plain question below, then open the entry it links. An entry for a tool says, in a few sentences of prose, when to use it, when not to, what it makes you decide and how it fails. An entry for a rule that always applies says so and says how it fails. Every entry links the lessons it came from. Read what it says about when not to use the tool and how it fails before you put the tool in a spec or a plan.
+Find your problem as a plain question below, then open the entry it links. An entry for a tool says, in a few sentences of prose, when to use it, when not to, what it makes you decide and how it fails. An entry for a rule that always applies says so and says how it fails. Read what it says about when not to use the tool and how it fails before you put the tool in a spec or a plan.
 
 General rules (measure first, optimistic over pessimistic, errors never go silent, design the cleanup) live in [engineering-principles](../engineering-principles.md). The files here link to them rather than repeat them.
 
@@ -131,7 +131,3 @@ General rules (measure first, optimistic over pessimistic, errors never go silen
 | Jobs with prerequisites on a fixed pool of workers. | [Dependency order and critical path](code-structure.md#dependency-order-and-critical-path) |
 | Place items onto capacity-limited servers. | [Bin packing](code-structure.md#bin-packing) |
 | Big-O looks right but the code is still slow. | [Containers that keep big-O honest](code-structure.md#containers-that-keep-big-o-honest) |
-
-## Sources
-
-Distilled in our own words from the [Hello Interview](https://www.hellointerview.com/learn) System Design, Low Level Design, ML System Design and AI Coding lessons. Each entry links the lessons it draws on. The lessons are worth reading in full for the reasoning behind each choice.

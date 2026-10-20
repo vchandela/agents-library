@@ -19,10 +19,10 @@ Read the source before the first sentence: the code, the config, the Terraform, 
 - When the docs and the code disagree, say so and trust the code. Example: "The README says CI deploys on every push. The live path is a scheduled workflow that deploys every two hours."
 - When the source cannot settle a fact, say so, in a list of unknowns at the end. A confident account with silent gaps is worse than an incomplete one with the gaps marked.
 - A correction to something you said earlier goes in a visible box where the topic comes up. Never bury it.
-- **Test an inference against live data before presenting it as a finding.** When the claim can be checked (a build log, an API, a cluster, an audit log), check it first, with read-only calls (get, describe, list, logs). Never change a live system to test a claim. In one session three confident claims fell to a single lookup: a ticket's stated cause of a 404 (the code showed the user is created at deploy time), "cleanup fires after every build" (the builds had no cleanup step), and "teardowns all fail" (a few hundred logs showed most of them succeed). A claim you could not check is labelled as an inference in the text, not only in the unknowns list. Label it once, at the claim; do not hedge the sentences around it.
+- **Test an inference against live data before presenting it as a finding.** When the claim can be checked (a build log, an API, a cluster, an audit log), check it first, with read-only calls (get, describe, list, logs). Never change a live system to test a claim. Example: "teardowns all fail" fell to a few hundred logs showing most of them succeed. A claim you could not check is labelled as an inference in the text, not only in the unknowns list. Label it once, at the claim; do not hedge the sentences around it.
 - **Cite something that breaks when the fact changes.** A Jira, Slack or BuildKite link keeps opening after the claim behind it goes stale, so it proves nothing later. Cite the code path, config key, flag or query the claim rests on, which a check can re-run. Example: "capped at 50 nodes (JIRA-123)" silently goes wrong when someone raises the cap; "capped at 50 nodes (`config/autoscaler.yaml: max_nodes`)" is flagged by the PR that changes it.
 - **Check what merged recently before proposing a fix.** Fetch the default branch and read the last few days of commits in the area. A fix designed from an old checkout may already exist (a pool backoff proposed in the morning had been merged that day).
-- **Before listing issues or items, sweep every earlier page and doc on the topic.** A list built from memory of the conversation misses what earlier work already found. Read each earlier artifact's judgement boxes and "what it costs" notes, and each doc's open items, then say which were added, which folded into existing items, and which were left out because they were judged healthy. Failure this prevents: a 19-item issue list was about to be walked one by one when the reader asked whether it included everything from the earlier decisions page; a pass found six more.
+- **Before listing issues or items, sweep every earlier page and doc on the topic.** A list built from memory of the conversation misses what earlier work already found. Read each earlier artifact's judgement boxes and "what it costs" notes, and each doc's open items, then say which were added, which folded into existing items, and which were left out because they were judged healthy.
 
 ## Match the reader
 
@@ -44,23 +44,19 @@ The default shape for anything new to the reader, done for the first time, or re
 - **In chat, one step per message**, and let the reader say "next" or ask. Fold each step into the page as it is agreed, rather than publishing the whole page first.
 - **End the walk with "what this means".** After the factual steps, one last step says what those facts change for the decision in front of the reader. Facts without it leave the reader to draw the conclusion alone.
 - **When the question is who can reach what, draw the boundary.** For a sandbox, a VM, a network or any trust line, draw two boxes, put every piece on its side, and say in a caption what everything inside can touch. Failure this prevents: a design drew a helper process apart from the agent it served. Both ran as root in the same VM, so every check placed in the helper could be bypassed by the agent. A two-box picture made that obvious at once, and the reader said the explanation landed.
-- **A diagram supports a step. It never replaces the steps.** For a reader new to the subject, use an overview picture only after the steps, as a recap, or inside a step to show that step's flow. A reader judging a design gets the map first (`references/visual-explanations.md`).
+- **A diagram supports a step. It never replaces the steps.** For a reader new to the subject, an overview picture comes after the steps or inside one step. A reader judging a design gets the map first (`references/visual-explanations.md`).
 
-Failure this prevents: a page about a background sync system led with a six-box pipeline, a glossary of internal names and a sequence diagram. The reader said it was "too technical with a bunch of boxes that I can't make sense of. The definitions and names are all alien." The same content as five plain steps landed at once: "I love the step-by-step explanations over what you posted in the original artifact."
+Failure this prevents: a page that led with a six-box pipeline and a glossary lost the reader; five plain steps landed.
 
 ## Diagrams
 
 - **Sequence diagram first** when several components talk over time. It answers who calls whom, in what order, and where the loops are. Use a box-and-arrow picture only when the question is about structure, not flow.
 - **Annotate every element.** Under each arrow's technical label, a short plain note in brackets saying what the step does, with an example: `3 · start-build (AWS via OIDC)`, then `(no stored AWS keys)`. Every box says what it is for, not only its name.
-- Every box is a real actor, store or state. Every arrow is a real call or write.
 - A caption says what each colour means.
-- Diagrams work in dark mode and at phone width.
 
 ## Pages (artifacts)
 
 For a page, apply `references/explainer-pages.md`.
-
-Keep it to about 1,100 visible words with diagrams carrying the explanation (`references/visual-explanations.md`, "Length: diagrams carry the page"). Put each point's plain-words version in a collapsed "Explain simply" dropdown under it, so the page stays short and anyone can open the explanation they need. Review each item before it earns a place (merge, demote or drop the low-value ones), and count the visible words before publishing.
 
 ## Rationalisations to refuse
 

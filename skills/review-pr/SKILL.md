@@ -29,8 +29,6 @@ Write each simplification as one numbered line, `N. file:line: <tag> <what to cu
 
 **4. Line level, last.** Real bugs, misused APIs, missing error handling, unhandled edge cases.
 
-Most reviews start at step 4 and never climb out. That is why the order is written down.
-
 ## Before writing any finding
 
 Resolve the base ref and confirm the diff is not empty before starting. A bad ref fails here, not inside a sub-agent.
@@ -59,12 +57,10 @@ The spec says what must work; it does not list every input. For behaviour it is 
 ## Dependencies and performance in the diff
 
 - A version bump is a behaviour change you did not write. Read its changelog. One dependency per change. Review the lockfile diff.
-- Flag: a list endpoint without a limit, one query per row, an index added without a query plan before and after, a cache key missing an input the response varies on, a performance claim with no before and after number.
-- If the diff has a screen, apply `references/ui-quality.md`. Judge the screen before running any linter or detector, so the tool does not anchor the review.
+- Flag the backend traps in `references/engineering-principles.md` ("Performance"), an index added without a query plan before and after, and a performance claim with no before and after number.
+- If the diff has a screen, apply `references/ui-quality.md`, judging the screen before any tool.
 
 ## Re-review rounds
-
-When the same change is reviewed again after fixes, the reader needs to see what the fixes did, not a fresh list that looks like churn.
 
 The shared rules (tag by origin, hold severities, honest trend, brief helpers the same way) are `references/handoff-protocol.md`, "Re-review rounds". For a diff, also:
 
@@ -72,7 +68,7 @@ The shared rules (tag by origin, hold severities, honest trend, brief helpers th
 - **Pin each round to exact commits.** Fetch without hiding errors, list the head of every PR, and name those SHAs in the report. A first round once reported bugs that were already fixed, because it read an hours-old fetch. A later "nothing changed" came from a fetch whose error had been sent to `/dev/null`. If the heads have not moved, say so instead of reviewing again.
 - **Reproduce what matters on the real system.** Anything medium or above gets a scratch test. Transaction, lock and cancel behaviour gets tested on a throwaway instance of the same database engine, never a shared or production one: a lost record after a failed commit showed up only on the production engine, while the lighter test database passed.
 - **A change that makes failures loud: read the real runs first.** Before approving code that turns swallowed errors into a red job, read the logs of the last 10 to 20 real runs of that path, master included, and list every error that is printed and passed today. Each one turns red on merge. Stubbed tests cannot show them: a premerge teardown passed 18 stubbed tests over three rounds, then failed on every real run because of an AccessDenied, a missing kube context and a 503 that master had been printing and ignoring.
-- **Check each test input against the environment.** Read the code that builds that input where the change runs (runner, wrapper, transport), not the producer's comment. A fake the environment never produces passes while production fails: tests fed a step bare JSON while the runner fenced it, and the first production run failed.
+- **Check each test input against the environment**, as `references/testing.md`, "Know the environment before you fake its input", says.
 
 ## When the PRs come as a set
 
@@ -86,8 +82,6 @@ Say which order the set should merge in, and which PRs depend on each other.
 
 ## Principles
 
-- Favour deleting code over adding it.
-- No speculative abstraction.
 - If something confused you on first read, say so. Clarity is a feature.
 
 ## Triaging bot comments

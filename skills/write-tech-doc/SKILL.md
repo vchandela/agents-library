@@ -13,15 +13,15 @@ Ask questions until you are clear on what exists today, what is being built, and
 
 ## Shape
 
-One page, two at most, three only if the material truly needs it. Assume a reader with no patience and real expertise.
+Assume a reader with no patience and real expertise.
 
-- **Problem first.** State precisely what is wrong before proposing anything. Most weak docs start solutioning in paragraph two.
+- **Problem first.** State precisely what is wrong before proposing anything.
 - **Then first principles.** What is fundamentally true here, what are we actually dealing with.
 - **Then the solution**, concise: when it has a handful of parts, one picture of four to seven big boxes, each box a section that goes deeper layer by layer, with one real example running through every section (`references/visual-explanations.md`, "Steps first, or the map first"). A single decision or a comparison needs another shape.
 - Suggest phases where the work splits into phases.
 - Sections worth having: overview, design decisions, diagrams, tradeoffs, and what is knowingly left undone.
 
-Apply `references/judgement.md` and `references/writing-voice.md`. Tables and diagrams instead of paragraphs wherever they carry the same content. Every word earns its place.
+Apply `references/judgement.md` and `references/writing-voice.md`.
 
 ## Diagrams
 

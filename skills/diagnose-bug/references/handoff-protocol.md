@@ -25,7 +25,7 @@ A fresh session is the minimum. A different model family is better, because two 
 ## Gates
 
 - **Implementation does not start until the plan review approves it.** Not "mostly fine". Approved.
-- Review rounds are bounded. Up to five passes of back and forth, then a human decides. If five rounds have not converged, the disagreement is about the requirements, not the plan.
+- Rounds continue while each round finds a real defect. When author and reviewer disagree about a requirement, a human decides.
 - A human reads the plan before implementation begins. The agents check each other; they do not replace the person who knows what is wanted.
 
 ## What the reviewer receives
@@ -42,7 +42,7 @@ A fresh session is the minimum. A different model family is better, because two 
 
 Sort each finding, first match wins: the contract was unclear (fix the contract), real and must change, real but accepted as a trade-off (write it down), or noise from missing context (ask what context would have prevented it). Zero actionable findings across two rounds that each raised real issues means the author is validating, not reviewing. Stop and ask the human.
 
-After three rounds where the same implementer fails to close a finding, hand the task to a fresh session on a stronger model, with the findings and what was tried. The five-round bound still holds.
+After three rounds where the same implementer fails to close a finding, hand the task to a fresh session on a stronger model, with the findings and what was tried.
 
 ## Ending a session
 
@@ -57,10 +57,6 @@ Decide at the end of a phase, never in the middle of one. Take the first that fi
 | Otherwise | Compact, saying what the next phase needs |
 
 A handoff file goes in the OS temp directory, not the repo. It points at the spec, plan, commits and issues by path rather than restating them, names the skills the next session should load, and holds no secrets.
-
-## Why bounded
-
-Unbounded review finds infinite issues, because any plan can be criticised forever. Five rounds is enough to catch what matters and short enough to finish.
 
 ## Several agents, one branch
 

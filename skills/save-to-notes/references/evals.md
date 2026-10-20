@@ -39,7 +39,7 @@ The same shape for other agents: a code review item is a merged PR, its answer k
 
 Treat the judge as a classifier against human labels.
 
-1. Label items by hand. At least 10 of each verdict in the dev set to start; about 50 of each per failure mode before the judge gates anything.
+1. Label items by hand, 30 to 50 to start. At least 10 of each verdict in the dev set to start; about 50 of each per failure mode before the judge gates anything.
 2. Split train, dev and test. Iterate the judge prompt on train and dev. Run test once, and report from test only.
 3. Report two rates, each with a Wilson interval:
    - **catches failures**: of the items people marked fail, the share the judge marks fail
@@ -54,14 +54,6 @@ Treat the judge as a classifier against human labels.
 - **Paired comparison**: count `fixed` (fails in the old arm, passes in the new) and `broke` (the reverse). Ignore items where both agree. Test `fixed` against `broke` with an exact binomial test at 0.5 (McNemar). Example: 29 fixed and 11 broke is a real change; 23 and 17 is not.
 - **How many items for a given change**, paired, 80% power, 5% significance, with about 20% of items flipping between versions: about 155 for a 10-point change, about 625 for 5 points, around 1,000 or more for 2 to 3 points. These are this library's own calculation, not a cited figure. The detectable change shrinks with the square root of the item count: four times the items halves it.
 - **Clustered intervals**: when items share a source (a customer, a repo, a conversation), compute the interval over sources, not items. Anthropic found clustered errors can be more than three times the naive ones.
-- **Reliability**: pass^k is the chance all k runs pass. At 90% per run, pass^3 is about 73% and pass^8 about 43%. In tau-bench, gpt-4o's pass^8 was under 25% in retail.
+- **Reliability**: pass^k is the chance all k runs pass. At 90% per run, pass^3 is about 73% and pass^8 about 43%.
 - **Duplicates**: items that share both a source and a root cause teach one lesson. Count them as one between them, so one source can't decide the score.
 
-## Sources
-
-- Hamel Husain and Shreya Shankar, evals course material and the `ai-evals-course/evals-skills` plugin (v0.3.1); Shankar's 2026 study of agents doing qualitative coding.
-- Anthropic, "Demystifying evals for AI agents" (Jan 2026), "A statistical approach to model evals" (Nov 2024), the claude-api `build-eval` and `hillclimb` guides (anthropics/skills PR #1930, Sep 2026), `claude plugin eval`.
-- Shopify, "Building production-ready agentic systems" (Aug 2025): judge kappa 0.02 to 0.61 against 0.69 between experts.
-- trailofbits/skills eval READMEs; obra/superpowers writing-skills; Datadog agent-observability skills; agentscope OpenJudge (TPR and TNR at least 0.8); n8n eval skill.
-- UK AISI Inspect AI (unscored results, rescoring logs, epochs); tau-bench (pass^k); OpenAI, "Why we no longer evaluate SWE-bench Verified" (Feb 2026); Bowyer et al. (ICML 2025) on Wilson and Bayesian intervals; Thinking Machines (Sep 2025) on nondeterminism at temperature 0.
-- The full rule-by-rule ledger, with what was taken and refused and why, is in `docs/ledgers/evals.md`.

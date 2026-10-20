@@ -10,7 +10,7 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | obra/superpowers | Rationalisation tables: write down the excuse, then the rebuttal. |
 | obra/superpowers | Match the form to the failure. A rule broken under pressure needs a prohibition, not guidance. |
 | obra/superpowers | No skill without a failing baseline first. |
-| [Felix Rieseberg, How to be more ambitious](https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/) (13 Oct 2026) | The four levers (speed, altitude, depth, range), a stated target as a floor, an outside judge, a hard specific goal, cheap failure and self-efficacy. Now `references/ambition.md`, summarised in `references/judgement.md`. Not yet measured with and without the text. |
+| [Felix Rieseberg, How to be more ambitious](https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/) (13 Oct 2026) | The four levers (speed, altitude, depth, range), a stated target as a floor, an outside judge, a hard specific goal, cheap failure and self-efficacy. Now `references/ambition.md`, summarised in `references/judgement.md`. Not yet measured with and without the text. Locke and Latham's goal-setting research for "specific, hard goals beat do your best". |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | User invoked against model invoked, stated per skill. |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | Process, not prose. Steps, checkpoints, exit criteria. |
 | addyosmani/agent-skills | Evidence requirements. "Seems right" is never sufficient. |
@@ -90,4 +90,4 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 Not found in any of the repos read.
 
 - **Authority badges counted by organisation.** No research skill or deep-research tool read scores how widely an idea is adopted; GPT Researcher only de-duplicates URLs.
-- **Separation of proposer and critic.** All five assume one agent plans, implements and reviews. The pipeline here hands off instead, with bounded rounds and a gate before implementation.
+- **Separation of proposer and critic.** All five assume one agent plans, implements and reviews. The pipeline here hands off instead, with review rounds that continue while they find real defects, and a gate before implementation.

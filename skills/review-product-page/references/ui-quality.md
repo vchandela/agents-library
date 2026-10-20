@@ -6,6 +6,8 @@ Every item is checked on the rendered page, at the widths the product supports, 
 
 Look at the screen and write down what is wrong before running any detector, linter or Lighthouse. A tool's output anchors judgement. Then run the tools and note what each pass caught alone.
 
+Inspect every width and theme in one round, fix in one batch, confirm in one more round; a defect in the confirming round came from the fix batch.
+
 ## Evidence
 
 - A link checker's 403, 404 or certificate error is fetched again from a real browser before it is reported. Bot walls and a missing local certificate store produced 41 false dead links in one pass; three survived the second check.
@@ -56,7 +58,6 @@ Every screen and control answers each of these, or says why it cannot happen: de
 
 - An empty state says which empty it is: first use, no results, filtered out, no permission, or failure. Each gives the next action, and suggestions match the filter the reader chose.
 - Loading names the real operation. Never invent progress.
-- Content is visible without JavaScript having run. Nothing sits at opacity 0 waiting for a reveal.
 
 ## Copy
 
@@ -108,13 +109,13 @@ Measure on a throttled phone (390px, slow 4G, 4x CPU), not a laptop. Lighthouse 
 
 ## Loading (what the fastest sites do, and what each saved when measured)
 
-- Every image below the fold has `loading="lazy"`; the LCP image has `fetchpriority="high"`. Off-screen eager images cost one site 32% of its LCP on slow 4G. Lazy loading appears on 4 of 5 top reference homepages.
+- Every image below the fold has `loading="lazy"`; the LCP image has `fetchpriority="high"`. Off-screen eager images cost one site 32% of its LCP on slow 4G.
 - Serve images at the size they are shown, in AVIF or WebP, with `srcset`. A 168px JPEG shown at 48px is a finding.
-- Fingerprinted file names cached a year as `immutable`; HTML short. With `max-age=0` on CSS and JS, every navigation waits on a revalidation before it paints. Stripe, Linear, Vercel and GOV.UK all do it.
+- Fingerprinted file names cached a year as `immutable`; HTML short. With `max-age=0` on CSS and JS, every navigation waits on a revalidation before it paints.
 - Scripts are `defer` or `type=module`, never plain tags that block parsing. The only inline script in the head is the one that must run before paint (a theme flash guard).
 - Preload only what paints above the fold: usually the font of the LCP text. Preloading a font nothing above the fold uses delays the one that matters.
 - No chained requests to draw one screen. If a screen needs A then B, the server returns both in A. A late second response that inserts content above what the reader is looking at is a layout shift even when CLS reads 0.
-- Count bytes and time in CI: a byte ceiling per page, plus a throttled LCP check. Real-user numbers when the platform allows (GOV.UK runs RUM and synthetic budgets with alerts).
+- Count bytes and time in CI: a byte ceiling per page, plus a throttled LCP check. Real-user numbers when the platform allows.
 
 ## Resilience
 

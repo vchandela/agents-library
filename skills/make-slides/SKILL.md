@@ -7,8 +7,6 @@ description: Use when someone wants a slide deck, a few slides for a meeting, or
 
 A deck is an explanation with a speaker in front of it, so run explain-simply for the content: its read-before-you-explain, match-the-reader and no-terse-sentence rules apply to every line on a slide. Words follow `references/writing-voice.md` and `references/machine-tells.md`, pictures follow `references/visual-explanations.md`, and the render check is `references/preview.md`. This skill adds only what is particular to slides.
 
-The rules rest on two measured findings. Slides with a full-sentence claim as the title and visual evidence as the body were understood and remembered better than topic titles with bullets (Alley and Garner, Penn State, 2013). On-screen text that repeats what the speaker says, and decoration that carries no part of the point, both lowered learning in every one of Mayer's tests. In a speaking deck the speaker says the claim out loud, so the slide keeps only a short heading and the evidence (section 5); a reading deck, read without a speaker, keeps the full-sentence title.
-
 ## 1. Is a deck the right thing?
 
 A decision that needs real argument goes in a written doc read at the start of the meeting, through write-tech-doc, with at most a few slides to frame it. A deck is for showing a story to people in a room.
@@ -39,7 +37,7 @@ Gather the evidence (numbers, screenshots, a real ticket, a real quote) before w
 - **Read the titles alone, in order.** They tell the whole story, and each slide's body proves its own title.
 - **Build a complex diagram over several slides**, adding a part each time, and never move anything already shown. Use separate slides rather than click animations, because the PDF export and a reader on their own lose whatever lives only in an animation.
 - **Fewest slides possible.** Every slide must earn its place; cut or merge until removing one more would lose a point. A 17-slide deck lost the room after the fourth slide past the demo. Aim for 5 to 7 content slides in a 15 to 20 minute slot.
-- **Core first, end-user view after.** In a review, open on the core mechanism (the algorithm, the loop, the data) and put any UI or how-users-see-it slides after it. A review deck that opened on a UI the executive didn't want spent the meeting on that detour.
+- **Core first, end-user view after.** In a review, open on the core mechanism (the algorithm, the loop, the data) and put any UI or how-users-see-it slides after it.
 - **Mark the skippable slides in the notes.** A review is a discussion, not a talk: once the room rules a topic out, skip its slides and go to the next important one.
 - **Lead with the arsenal.** Attention is highest in the first minutes, so the strongest evidence goes first, slide after slide (the live demo, the real result, the hardest number), and the supporting detail comes after or goes to the notes. Never warm up with background.
 - **End on the ask**, with an owner and a date, or on the leave-behind link. No recap slide and no "Thank you, questions?" slide.
@@ -48,7 +46,7 @@ Gather the evidence (numbers, screenshots, a real ticket, a real quote) before w
 
 ## 4. One slide
 
-- **Title by deck type.** In a speaking deck the title is 1 to 3 words naming the point ("Eval loop", "Small diffs"), and the full-sentence claim is the first line of the speaker notes. In a reading deck the title is the claim as a full sentence. No exclamation marks either way.
+- **Title by deck type**, as the table in section 1 sets. No exclamation marks.
 - **The body is the evidence**: a diagram, a chart, a table, a screenshot, a real example or a real quote. Decoration never counts. A divider or an ask slide may be text only.
 - **One level of bullets**, because deeper levels chop the reasoning into fragments. Tables have two or three columns.
 - **At most three numbers on a slide.** Each number changes the audience's judgement or it goes, and each carries its unit, its window and its yardstick (`references/explaining.md`).
@@ -62,17 +60,17 @@ Gather the evidence (numbers, screenshots, a real ticket, a real quote) before w
 
 The reference is the user's house deck, linked in their notes or memory. Copy its look; read a slide from it with the API when in doubt.
 
-- **Nothing on the slide that the speaker will say.** No subtitles, no sentences, no bullet lists. The slide holds a 1 to 3 word heading, a diagram or a real screenshot, and labels of four words or fewer. Everything else goes in the notes.
+- **Nothing on the slide that the speaker will say.** No subtitles, no sentences, no bullet lists. Everything else goes in the notes.
 - **Numbered steps.** A flow is boxes with a number on each step, in reading order, so the speaker can say "step 3" and the room finds it.
 - **Type:** Archivo throughout. Heading 24 pt white, box text 14 pt bold white, side labels 12 pt grey (RGB 0.604).
 - **Colour carries status, the same on every slide:** green for done or live (fill 0.05, 0.2, 0.12; line 0.2, 0.75, 0.45), blue for planned (fill 0.063, 0.149, 0.29; line 0.2, 0.522, 1), amber for not proven or a miss (fill 0.27, 0.19, 0.04; line 0.95, 0.7, 0.2), dark grey for neutral (fill 0.106, 0.106, 0.114; line 0.227, 0.227, 0.239). Rounded rectangles, outline 12,700 EMU (1 pt).
-- **Real screenshots as evidence**, cropped, with no cursor, the proof marked by a thin outline in the status colour of the box that names it.
+- **Real screenshots as evidence**, cropped, with no cursor, the proof outlined as section 4 says, in the status colour.
 - **No divider slides.** A section starts on its first content slide, titled with the section's name.
 - **Speaker notes per explain-simply:** crisp, plain sentences, limited to that slide. The claim first, then what to point at, then any research with one line on how it connects to this slide. Never repeat another slide's notes.
 
 ## 6. Slide tells
 
-No accent line under a title, no coloured bars or stripes along an edge or a card, no icon-plus-heading-plus-one-line cards repeated on every slide, and no three equal boxes for things of unequal weight. The copy tells in `references/machine-tells.md` apply on slides too, and "Brief leaking into the output" is the slide-specific one: no "Option A", template name or brief note left on a slide.
+No accent line under a title, no coloured bars or stripes along an edge or a card, no icon-plus-heading-plus-one-line cards repeated on every slide. The copy tells in `references/machine-tells.md` apply on slides too, and "Brief leaking into the output" is the slide-specific one: no "Option A", template name or brief note left on a slide.
 
 ## 7. Build it in Google Slides
 
@@ -102,14 +100,12 @@ Run `references/preview.md` with the slide thumbnails as the render (`pages.getT
 
 ## Rationalisations to refuse
 
-Each row is a mistake made on a real deck before this skill existed.
-
 | The excuse | What to do |
 |---|---|
 | "Shrink the font a little and it fits" | Split the slide. A slide that needs smaller text holds two points, and it fails the glance test at the back of the room. |
 | "Three equal boxes look tidy" | Size each item by its weight. Equal boxes tell the audience the items matter equally, and the grid is a known generated-slide tell. |
-| "It is only a short line at the bottom" | Short lines are where terse sentences hide. "We already have a baseline, because the learner grades Artemis" drew "what does this mean?". |
-| "I only changed one slide, so I only need to look at that one" | Look at every slide. A box moved without its scale collapsed to a third of its width, and only the thumbnail showed it. |
+| "It is only a short line at the bottom" | Short lines are where terse sentences hide (explain-simply, "Never write a terse sentence"). |
+| "I only changed one slide, so I only need to look at that one" | Look at every slide. One layout edit moves things nobody touched, and only the thumbnail shows it. |
 | "Every slide needs a picture" | Every content slide needs evidence. A picture that proves nothing lowers understanding. |
 
 ## Done when

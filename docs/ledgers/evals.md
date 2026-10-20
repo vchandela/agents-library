@@ -1124,3 +1124,11 @@ These are the rules our skill lacks where at least one source published numbers.
 10. **H74, labellers disagree.** Shopify's experts agreed at kappa 0.69, and Nova Escola's labellers below chance. Our §4 never says who labels or what to do when labellers disagree.
 11. **M4, production monitoring.** Anthropic's own offline evals missed the September 2025 degradations. This is a scope decision rather than a missing line.
 
+
+## Sources
+
+- Hamel Husain and Shreya Shankar, evals course material and the `ai-evals-course/evals-skills` plugin (v0.3.1); Shankar's 2026 study of agents doing qualitative coding.
+- Anthropic, "Demystifying evals for AI agents" (Jan 2026), "A statistical approach to model evals" (Nov 2024), the claude-api `build-eval` and `hillclimb` guides (anthropics/skills PR #1930, Sep 2026), `claude plugin eval`.
+- Shopify, "Building production-ready agentic systems" (Aug 2025): judge kappa 0.02 to 0.61 against 0.69 between experts.
+- trailofbits/skills eval READMEs; obra/superpowers writing-skills; Datadog agent-observability skills; agentscope OpenJudge (TPR and TNR at least 0.8); n8n eval skill.
+- UK AISI Inspect AI (unscored results, rescoring logs, epochs); tau-bench (pass^k); OpenAI, "Why we no longer evaluate SWE-bench Verified" (Feb 2026); Bowyer et al. (ICML 2025) on Wilson and Bayesian intervals; Thinking Machines (Sep 2025) on nondeterminism at temperature 0.

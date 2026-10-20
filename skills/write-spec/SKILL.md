@@ -31,13 +31,11 @@ Verify every claim against the source and cite `file:line`. When something does 
 
 If the fundamental shape is undecided (where it runs, what owns state, one long process or many short ones), settle that first. A spec written for the wrong shape gets written twice.
 
-Ask the user before writing, not after: once your judgement is checked against the code, the live systems and a web search, put the key design choices and blockers to them in one numbered message, each with your recommendation. Example: the runbook learner turned out to write Notion pages, not files, so where it writes, its scope, one PR per ticket and how to get real output were asked first; a reviewer never saw a spec built on the wrong guess.
+Ask the user before writing, not after: once your judgement is checked against the code, the live systems and a web search, put the key design choices and blockers to them in one numbered message, each with your recommendation.
 
-For any real decision, decide first, then present it. Two or three options side by side, one marked recommended with its reasons, each other one with the reason it was discarded. Make the reviewer's job a yes or a no.
+For any real decision, decide first, then present it as `references/judgement.md` says ("At a crossroads"). Make the reviewer's job a yes or a no.
 
-Follow the repo's conventions. Use first principles to check that a convention fits and to weigh the user's suggestions, not to invent new patterns. Anything new to the repo must be necessary, and the user confirms it before it goes in the spec.
-
-Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals. `references/ambition.md` is a required slot in the spec: one line for the goal beyond the goal, the job as a verb before the artifact as a noun, and one ambitious option beside the plain one.
+Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals. `references/ambition.md` is a required slot in the spec: the round 1 lines below, kept in it.
 
 Apply `references/engineering-principles.md`. Every choice is a tradeoff: each piece of complexity says what it buys, or moves to a "later" list. Pragmatic, not perfect.
 
@@ -79,7 +77,7 @@ Keep going until no branch is unvisited, nothing is silently assumed, and you ca
 
 **How we test it for real** (when repo tests can't show it working). The real-world test from `references/testing.md`: action, exact input, expected result, what failure looks like. Prefer replaying the ask that started the work.
 
-**Open items.** One numbered list: item, the options with their costs, and the user's preference where they have one. Mark your pick on its option card and put one line under the cards, "My pick is B, because ...", so the reviewer can answer yes or no (Vivek, 13 Oct 2026: "I want your recommended option and why in the artifact"). The team's answer is still the reviewer's reply, not your pick. Every assumption goes here, including ones the plan depends on. Access to external systems follows the team's existing route. Reviewers reply per number.
+**Open items.** One numbered list: item, the options with their costs, and the user's preference where they have one. Mark your pick on its option card and put one line under the cards, "My pick is B, because ...", so the reviewer can answer yes or no. The team's answer is still the reviewer's reply, not your pick. Every assumption goes here, including ones the plan depends on. Access to external systems follows the team's existing route. Reviewers reply per number.
 
 Split what is not being decided now in two. **Not yet specified:** in scope, but you cannot phrase the question sharply yet; revisit as decisions land. **Out of scope:** ruled beyond this spec, with one line of why; it does not come back unless the goal changes. The test is whether you can state the question precisely now, not whether you can answer it.
 

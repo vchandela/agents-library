@@ -19,7 +19,7 @@ The person who wrote this will not grow if you go easy on them.
 
 - **Who else writes this at the same moment?** For every fixed path, key or row the plan writes, find what runs in parallel on the same machine or store. Search the repo's own notes on concurrency. Example: a plan saved Slack images to `/tmp/slack-images/<id>.png`, and four workflow steps ran at once in one microVM. One step could read a file while another was rewriting it. Round 1 missed this.
 - **Every caller of a shared entry point.** A change to a shared CLI, prompt banner or helper reaches every caller, including ones that loop over many items. Grep for all of them. Example: "open every image" was right for one thread and wrong for a step reading 20 incident threads.
-- **Is each mechanism the simplest direct one?** For each, name a simpler alternative. If a mechanism needed fixes in an earlier round, ask whether it should exist at all, not only whether the fix is right. Example: five rounds patched a general sessions API (settings, limits, paging) that one narrow endpoint replaced. Check each mechanism against its entry in `references/system-design/index.md`: one used where the entry says not to use it, or with no answer to the way the entry says it fails, is a finding.
+- **Is each mechanism the simplest direct one?** For each, name a simpler alternative. If a mechanism needed fixes in an earlier round, ask whether it should exist at all, not only whether the fix is right. Check each mechanism against its entry in `references/system-design/index.md`: one used where the entry says not to use it, or with no answer to the way the entry says it fails, is a finding.
 - **Every planned test names its break.** Revert the fix in your head. If the planned test still passes, that is a finding. Example: a write-then-rename test that checked "file complete, no `.part` left" also passed with a direct write. Checking that the inode changed fixed it. See `references/testing.md`.
 
 **3. Fix it.** Every issue gets a concrete fix. Not "consider handling errors". Show what handling that error looks like.
@@ -36,7 +36,7 @@ Apply `references/visual-explanations.md`. The review's diagram shows the main f
 
 Open with the verdict and the first concrete example. A "whole review in one picture" summary is optional. Omit it when compressing the findings would turn them into labels that only make sense after the reader understands the review. Never open with unexplained phrases such as "stale-work rejection" or "delivery semantics."
 
-Use a concrete, real-looking example for anything abstract. One example should teach one failure. If two failures interact, split them into two short examples unless their interaction is the point being reviewed. Show only the state changes needed to understand that failure, then state the visible outcome and the fix. A worked example is better than another paragraph of abstraction.
+Use a concrete, real-looking example for anything abstract. Show only the state changes needed to understand that failure, then state the visible outcome and the fix. A worked example is better than another paragraph of abstraction.
 
 For every finding, show the current and required design. Use a left-versus-right diagram when timing, actors or state matter. Use a compact comparison when the mapping is simple. Prose supports the visual; it is not the default explanation.
 
@@ -78,10 +78,6 @@ End with one of:
 ## Re-review rounds
 
 When the plan comes back after fixes, show what the revision did: `references/handoff-protocol.md`, "Re-review rounds".
-
-## Bounded
-
-Up to five rounds of back and forth. If five rounds have not converged, the disagreement is about requirements, not the plan, and a human decides.
 
 ## Done when
 

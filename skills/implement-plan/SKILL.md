@@ -68,7 +68,7 @@ Implementation rarely ends at the first push. Rounds of review feedback follow, 
 - **Be pragmatic.** Fix what matters, and leave each minor you skip with a one-line reason. Do not chase every nit.
 - **Never cut verification to save time.** Run the tests, the per-PR checks and a real-database run where the fix depends on it, however long it takes. Example: a savepoint fix that passed on SQLite was only proven by reproducing the bug on a throwaway Postgres container.
 - **Stacks: apply `references/stacked-prs.md`.** Never a plain `--force` and never amend a pushed commit. The lease is only for a stack rebuilt onto a moved main, and every merge passes `references/stack-merge-check.sh` first.
-- **A PR description says what the PR does now,** in the voice of `references/writing-voice.md`: full plain sentences, the reader's words, each design decision with a short before and after example. Run the last pass from `references/machine-tells.md` on it and keep only the final text. Fold a fix into the sentence it changes. Never append "review fixes" logs or fixed-in tables: review rounds keep coming, and the description stays for the reader who arrives later.
+- **A PR description** follows `references/engineering-principles.md`, "Pull requests". Run the last pass from `references/machine-tells.md` on it and keep only the final text.
 
 ## Done when
 

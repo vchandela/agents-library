@@ -15,7 +15,6 @@
 - **No semicolons.** Join clauses with a comma or split them with a full stop.
 - **In the user's own docs** (Notion cells, bullets, captions), start cells and bullets in lowercase, like the rest of the doc, and keep proper nouns capitalised.
 - **Drafts someone will paste** (Slack, email, a comment) go in a plain code block, one long line per paragraph with no hard wraps and no `>` quote lines. End with "Rewrite this in your own words before sending."
-- **PR descriptions use this voice too.** Say what the PR does now, in full sentences. List each design decision with a short before and after example. Avoid dense tables of fragments, private plan numbers ("plan 2.4"), review history, and the names of the skills or agent tools behind the work.
 
 ## Structure
 
@@ -25,7 +24,6 @@
 - One idea per section.
 - Facts with links. Numbers with their source and the window they cover.
 - Tables and diagrams instead of paragraphs, wherever they carry the same content.
-- End a section with the portable version of its point only when it says something the section did not. A last line that restates the section is a closer, so cut it.
 
 ## Machine tells
 
@@ -33,7 +31,7 @@
 
 ## Shape and rhythm
 
-Detectors and readers catch the shape of a page before its words. Taken from [human-voice](https://github.com/stephenoffer/human-voice) and [plain-writing](https://github.com/docwriter-org/plain-writing-skill).
+Detectors and readers catch the shape of a page before its words.
 
 - **Prose for an argument, a list only for parallel items.** A doc where every section is bullets with a bold lead-in reads as generated, even when each sentence is clean. Keep bold lead-ins for at most one list in a doc, and put a sentence between a heading and any list under it.
 - **Vary the length.** At least one sentence in eight has eight words or fewer, and a paragraph can be one sentence when the point needs only one. Then write the rest as the long, connected sentences people use when they explain something out loud.
@@ -44,7 +42,7 @@ Detectors and readers catch the shape of a page before its words. Taken from [hu
 
 ## Before sending
 
-Delete the first sentence if it announces what comes next. Delete the last if it recaps or asks "anything else?". Delete any "by the way" aside. Delete any hedge that adds no information, but keep one that carries real uncertainty: deleting it fakes confidence. Replace any idiom ("circle back", "on the same page") with the literal action. Then read only the first and last lines. If they do not say what happened and what to do next, rewrite them.
+Delete a closing "anything else?". Delete any "by the way" aside. Delete any hedge that adds no information, but keep one that carries real uncertainty: deleting it fakes confidence. Replace any idiom ("circle back", "on the same page") with the literal action. Then read only the first and last lines. If they do not say what happened and what to do next, rewrite them.
 
 ## Length
 

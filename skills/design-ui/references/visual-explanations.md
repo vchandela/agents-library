@@ -20,7 +20,7 @@ When introducing a new mechanism or term, choose the clearest visual form:
 
 Do not use all of them for every point. Prefer a diagram plus a real example. Add prose only for the facts the visual cannot carry. Plain text is enough when the idea is already obvious.
 
-No decorative pictures. An image, icon or stock photo that carries no part of the explanation lowers understanding, which Mayer's coherence studies measured across many experiments. Decoration never counts as the visual.
+No decorative pictures. An image, icon or stock photo that carries no part of the explanation lowers understanding. Decoration never counts as the visual.
 
 ## Length: diagrams carry the page
 
@@ -32,8 +32,6 @@ A page is for scanning, and a long one puts the reader off before they start. Ke
 - Put the plain-words version of each point in a collapsed "Explain simply" dropdown (`<details>`) under it, for a reader who has never met the term: say what each thing is, give one real example, use no analogy, and keep it to about 50 to 120 words. Collapsed dropdowns and evidence do not count toward the budget, so a reader who knows the topic sees a short page and a reader who does not can open the explanation they need.
 - Review each item before it earns a place. Merge items that one fix covers. Turn a test into a rollout line instead of a "gap". Rate each item's severity against the real stakes and demote the low ones. Drop an interim fix that saves little once you have measured it.
 - Count before publishing: extract the visible text (without the dropdowns) and count the words. Over 1,200 words, cut text and keep the diagrams.
-
-The model page is the "GitHub Without Polling" artifact: about 860 visible words, a quota bar, Now and Fix diagram pairs with one or two sentences under each, and an "Explain simply" dropdown on every point. A reader called the short version "so easy on the eyes", said lengthy artifacts make the mood off, and asked for the plain explanations to live in dropdowns (12 Oct 2026).
 
 ## Pick the form by what the reader must understand
 
@@ -68,8 +66,6 @@ Before publishing, ask of every box: can it go, or merge with one it always trav
 - **A reader who knows the domain and is judging a design** (a spec, a plan, a tech doc, a system page): the problem in a few lines, then one map of four to seven big boxes, then a section per box, layer by layer.
 
 ## Before using a term
-
-First say what the thing is and show one instance. Then give it a name.
 
 Bad:
 
@@ -128,4 +124,4 @@ The same rule applies hardest to a Notion page or a doc for the team, whether a 
 - **Visible text is one-line points.** Supporting detail goes in a toggle whose summary is the one-line point, for example a toggle "However, this is for alerts only." that hides which folders and workflows that covers.
 - **Keep everything, show less.** Collapsing is not cutting: every fact stays, under the toggle that owns it.
 
-Failure this prevents: a one-pager on syncing dashboards through another team's repo explained the PR flow in five numbered paragraphs. The reader asked for the flow as an Excalidraw diagram and the details collapsed into toggles, "so we cut down on text", and for every doc and skill to work that way.
+Failure this prevents: a PR flow told in five numbered paragraphs, which the reader asked to see as a diagram with toggles.
