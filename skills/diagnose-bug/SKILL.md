@@ -9,6 +9,8 @@ A loop first, a theory second, a fix last. A fix for a symptom is a guess that h
 
 Apply `references/testing.md`, `references/engineering-principles.md`, `references/judgement.md` and `references/untrusted-input.md`.
 
+Before the loop, name the outcome: this class of bug cannot come back unseen. List what that needs and ask for what is missing: the logs or crash reports, a map from a running version to its commit, a machine to reproduce on. A fix with no way to detect a repeat ends at one bug.
+
 ## 1. Build the loop
 
 Read the whole error and stack trace first, and check what changed: recent commits, dependencies, config, environment. Then take the first loop that reaches the bug:
