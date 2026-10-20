@@ -57,7 +57,7 @@ Apply `references/visual-explanations.md`. The spec's diagram shows the core beh
 
 Before the first question, write one line: your best guess of what the user wants, how confident you are, and what is missing.
 
-Interview in rounds. Map the decisions as a tree: each one opens the ones that hang off it. Each round, ask every question whose prerequisites are already settled, numbered, each with your guess or recommended answer, so every reply can be a yes or a no. A question that depends on one still open waits for a later round. Look up facts yourself; ask the user only for decisions. Cover implementation, interfaces, failure behaviour, tradeoffs, and what the user is actually optimising for.
+Interview in rounds. Map the decisions as a tree: each one opens the ones that hang off it. Each round, ask every question whose prerequisites are already settled, numbered, each with your guess or recommended answer, so every reply can be a yes or a no. A question that depends on one still open waits for a later round. Look up facts yourself; ask the user only for decisions. Cover implementation, interfaces, failure behaviour, tradeoffs, and what the user is actually optimising for. Round 1 always opens with four lines from `references/ambition.md`: the goal beyond the goal, the job as a verb, one ambitious option beside the plain one, each with its cost, and your pick, and the one belief the request rests on with how to test it against raw data.
 
 When an answer sounds like what a good answer should sound like ("scalable", "clean", "the standard way"), ask: "If you did not have to justify this to anyone, what would you actually want?"
 

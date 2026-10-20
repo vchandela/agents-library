@@ -63,6 +63,8 @@ Count your fixes. After the third that did not hold, stop changing code. Each fi
 
 ## Report
 
+When the ask names a number ("under 5 seconds", "fewer than 1% errors"), the number is a floor: state the better target the same effort can reach, say that it beats the ask, and name a measurement you can run that does not rely on your own judgement. Open the report with two lines: the outcome from before the loop (this class of bug cannot come back unseen) with what you still need access to for it, and, when the ask named a number, that target.
+
 State a cause only when the loop proves it. Otherwise write "cause not yet proven" and name the next check. When the cause is outside the code (timing, environment, a third party), list what you checked and add the logging that would catch it next time.
 
 ## Signals that you are guessing
