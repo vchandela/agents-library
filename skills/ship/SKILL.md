@@ -100,4 +100,4 @@ When a `[ship` review request arrives, read the state file, then run `review-pla
 
 ## Done when
 
-The PR is merged, CI on main is green, the state file says `merged`, and the user and the reviewer have the merge commit. Then one line: the outcome the spec named, what would show it moved, and when to look. A merge is not the goal.
+The PR is merged, CI on main is green, the state file says `merged`, and the user and the reviewer have the merge commit. Then one line: the outcome the spec named, what would show it moved, and when to look. A merge is not the goal (`references/ambition.md`, Altitude).

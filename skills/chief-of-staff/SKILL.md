@@ -53,7 +53,7 @@ What the user sees, every time they ask "where are we" and at each batch. Lists,
 2. **Moving**: one line per thread, stage and next step.
 3. **Waiting on others**: who (Ankur, CI, an access request) and since when.
 4. **Parked and idle**, with the reason.
-5. **Suggestions**: splits and closures (below), each marked as a suggestion, and any thread whose goal looks too small for the outcome the user wants, with the bigger goal named (`references/judgement.md`, Reach).
+5. **Suggestions**: splits and closures (below), each marked as a suggestion, and any thread whose goal looks too small for the outcome the user wants, with the bigger goal named (`references/ambition.md`).
 
 ## Let the pair converge first
 

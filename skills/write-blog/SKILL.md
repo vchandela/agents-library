@@ -7,7 +7,7 @@ description: Use when turning a system you built into a published engineering po
 
 Clear, practical, no fluff. Readers range from junior to staff: the mechanics teach the juniors, the generalisable lessons teach the seniors.
 
-Apply `references/writing-voice.md` and `references/judgement.md`. Before sending the draft, have a reader who was not in the work, and who is hunting for the weakest claim, read it, and fix what they find. Your own re-read does not count.
+Apply `references/writing-voice.md`, `references/judgement.md` and `references/ambition.md`. Before sending the draft, have a reader who was not in the work, and who is hunting for the weakest claim, read it, and fix what they find. Your own re-read does not count.
 
 ## Ground truth first
 
