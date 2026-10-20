@@ -37,7 +37,7 @@ For any real decision, decide first, then present it. Two or three options side 
 
 Follow the repo's conventions. Use first principles to check that a convention fits and to weigh the user's suggestions, not to invent new patterns. Anything new to the repo must be necessary, and the user confirms it before it goes in the spec.
 
-Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals.
+Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals. Its Reach section is a required slot in the spec: one line for the goal beyond the goal, the job as a verb before the artifact as a noun, and one ambitious option beside the plain one.
 
 Apply `references/engineering-principles.md`. Every choice is a tradeoff: each piece of complexity says what it buys, or moves to a "later" list. Pragmatic, not perfect.
 

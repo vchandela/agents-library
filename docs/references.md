@@ -10,6 +10,7 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | obra/superpowers | Rationalisation tables: write down the excuse, then the rebuttal. |
 | obra/superpowers | Match the form to the failure. A rule broken under pressure needs a prohibition, not guidance. |
 | obra/superpowers | No skill without a failing baseline first. |
+| [Felix Rieseberg, How to be more ambitious](https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/) (13 Oct 2026) | The four levers (speed, altitude, depth, range), a stated target as a floor, an outside judge, a hard specific goal, cheap failure and self-efficacy. Now `references/judgement.md`, section Reach. Not yet measured with and without the text. |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | User invoked against model invoked, stated per skill. |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | Process, not prose. Steps, checkpoints, exit criteria. |
 | addyosmani/agent-skills | Evidence requirements. "Seems right" is never sufficient. |
