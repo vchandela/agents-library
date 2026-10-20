@@ -23,7 +23,7 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 
 | Layer | Applies when | What it adds |
 |---|---|---|
-| 0 | always | An instruction file shaped as a router, not an encyclopedia, with a test on its size and its pointers. An incident log. One always-true line, "bring an ambitious option next to the plain one and open the discussion", and a router row to a copy of `references/judgement.md` (its Reach section), so ambition is on by default. |
+| 0 | always | An instruction file shaped as a router, not an encyclopedia, with a test on its size and its pointers. An incident log. One always-true line, "bring an ambitious option next to the plain one and open the discussion", and a router row to a copy of `references/ambition.md`, so ambition is on by default. |
 | 1 | it is a git repo | Commit conventions. A version and changelog gate on push. |
 | 2 | a test runner exists | Red, green, then break it and watch it fail again. A coverage floor if wanted. |
 | 3 | hooks are wanted | Lifecycle hooks through one dispatcher that every agent's hook config calls, and one switch to turn them off. A check reads the working tree, never the tool name. |

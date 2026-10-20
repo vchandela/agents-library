@@ -7,7 +7,7 @@ description: Use when you are about to design something, or are new to a technic
 
 Designing from first principles is good. Designing from scratch, when five companies have already published how they did it, is waste. A wrong research finding costs more than a wrong line of code, because the design and the code are built on it.
 
-Apply `references/writing-voice.md` and `references/visual-explanations.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/judgement.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why. For the one claim the decision rests on, reproduce it on the user's own data or a small run instead of only citing it.
+Apply `references/writing-voice.md` and `references/visual-explanations.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/judgement.md` and `references/ambition.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why. For the one claim the decision rests on, reproduce it on the user's own data or a small run instead of only citing it.
 
 ## 1. Brief first
 
