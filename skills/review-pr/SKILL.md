@@ -23,7 +23,7 @@ Read the spec or issue the change came from. Report three things on their own, q
 
 **3. Simplicity.** Flag anything over engineered, optimised without a measured need, or complex without a clear payoff. Prefer boring and obvious.
 
-A refactor counts only if it removes concepts a reader must hold. Count them before and after; if the count did not drop, the complexity moved. Apply the deletion test from `references/engineering-principles.md` to anything that looks like a pass-through. Check the diff for the four smells in "Self-review before anyone sees a design" in the same file.
+A refactor counts only if it removes concepts a reader must hold. Count them before and after; if the count did not drop, the complexity moved. Apply the deletion test from `references/engineering-principles.md` to anything that looks like a pass-through. Run the seven-smell sweep in "Self-review before anyone sees a design" in the same file on every function the diff touches, and put its list (each instance and its verdict) in the review. An approve without that list is not a review.
 
 Write each simplification as one numbered line, `N. file:line: <tag> <what to cut>. <what replaces it>.`, so the author can reply "fix 2 and 5". Tags: `delete` (nothing replaces it), `stdlib`, `native` (the platform does it), `reuse` (an existing helper, with its path), `yagni` (one implementation, one caller, config nobody sets), `shrink` (same logic, fewer lines, shown). Before any `delete`, grep the whole tree for the symbol, including tests, fixtures and string or dynamic references. End with `net: -N lines possible`, or "Nothing to cut."
 

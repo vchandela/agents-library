@@ -72,14 +72,19 @@ Specifically, remove:
 
 **Question the mechanism when fixes pile onto it.** When each fix to a design adds another setting, special case, limit or degraded path, the fixes are telling you the base choice is wrong. Stop patching and ask: what is the most direct way to do exactly this? Then replace the mechanism. Example: a learner read its earlier notes through a general sessions API; five review rounds added two settings, transcript exposure, a refused-read path, a row limit and paging. One narrow read on the learner's own route removed all of it.
 
-**Self-review before anyone sees a design.** Before a spec, plan or PR reaches a person, sweep it for four smells and fix them in the draft, without waiting for the reviewer or the user to ask:
+**Self-review before anyone sees a design.** Before a spec, plan or PR reaches a person, sweep it for these seven smells and fix them in the draft, without waiting for the reviewer or the user to ask. In a PR the sweep covers every function the diff touches, not only the added lines: "it was already there" does not excuse a smell in code you edited.
 
 1. **A fact with two homes, or a fallback copy.** Give it one home and fail loudly when it is missing. Example: an agent's callback address was sent on every call and also baked into the runtime by a deploy script whose own comment said "keep these in sync". The fix sent it on every call and deleted the baked copy, so a missing value now fails with "not set" instead of silently using a blocked port.
 2. **One name with two meanings.** Rename until each name means one thing. Example: `ORCHESTRATOR_INTERNAL_URL` was both the address handed to the agent and the UI server's `/api` target; renaming the first to `AGENT_ORCHESTRATOR_URL` removed a trap where setting it would break the UI.
 3. **A comment or docstring the code contradicts.** Trust the code, and fix or drop the stale text in the change that touches it. Example: a module docstring said a route "waits for the build"; the handler returned at once, and an argument built on the docstring had to be withdrawn.
 4. **A temporary piece with no removal step.** Every temporary rule, route copy or flag names the step that removes it and the gate for that step.
+5. **A fallback, default or retry with no cited failure.** Look for `|| ""` that skips work, an empty `catch`, "return null on 404", "best effort", "keep polling". Cite the line that shows the failure can happen, or remove it and fail loudly. Example: a CLI returned an empty log on any error and polled on through a 404 for a job; the builder stores the job before dispatch returns its id, so both paths only hid real failures.
+6. **An error path with no class.** Each error the change touches is key or non-key ("Errors never go silent" above). A key error records, logs and alerts through the repo's existing route; a non-key one logs with context. A silent `return ""` is neither. Example: a failed token push wrote a warning and a summary field that nothing read, so the next session broke and nobody was told.
+7. **The same snippet in several files.** Code repeated across the files the change touches gets one home in the repo's shared module, under one name. Example: five files built the same two auth headers, under two different helper names.
 
-The user said it plainly after catching two of these: "please think of things like these instead of waiting for my comments."
+Run the sweep as a list: for each smell, every instance found and its verdict (fixed, or kept with the cited line that justifies it). A smell with no instances says what was searched (for example a grep for `|| ""`, `catch` and `return null` in the touched files). A review verdict without this list is not finished.
+
+The user said it plainly after catching two of these: "please think of things like these instead of waiting for my comments." Smells 5 to 7 were added after the user had to ask a third time in one day for fallbacks to be removed and code simplified.
 
 **Direct beats general.** Reuse a shared, general API only when it is also the simplest way to get exactly what you need. A narrow call in the feature's own code usually wins over a general one plus settings to fence it in.
 

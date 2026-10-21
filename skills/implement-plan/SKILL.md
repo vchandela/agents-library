@@ -7,7 +7,7 @@ description: Use when an approved plan exists and implementation is starting. No
 
 Execute it precisely, completely, and in order. No shortcuts, no skipped steps.
 
-Apply `references/engineering-principles.md` and `references/testing.md`. Before opening each PR, run its "Self-review before anyone sees a design" sweep on the diff. When a step builds a screen, follow the design-ui skill for that step, judged against `references/ui-quality.md`. When it reaches users, `references/shipping.md`.
+Apply `references/engineering-principles.md` and `references/testing.md`. Before opening each PR, and again before each review round, run the "Self-review before anyone sees a design" sweep on every function the diff touches, and put its list in the review request. When a step builds a screen, follow the design-ui skill for that step, judged against `references/ui-quality.md`. When it reaches users, `references/shipping.md`.
 
 ## Before writing any code
 
