@@ -24,7 +24,7 @@ The person who wrote this will not grow if you go easy on them.
 
 **3. Fix it.** Every issue gets a concrete fix. Not "consider handling errors". Show what handling that error looks like.
 
-**4. Cut it.** Apply `references/engineering-principles.md`. Remove retries and fallbacks nobody measured, backward compatibility nobody asked for, and abstraction with one implementation. Flag every number with no stated source or reason ("No magic numbers"), and every new name a first-time reader could misread ("Names a newcomer reads right the first time").
+**4. Cut it.** Apply `references/engineering-principles.md`. Remove retries and fallbacks nobody measured, backward compatibility nobody asked for, and abstraction with one implementation. Flag every number with no stated source or reason ("No magic numbers"), and every new name a first-time reader could misread ("Names a newcomer reads right the first time"). Check for the four smells in "Self-review before anyone sees a design": a fact with two homes, one name with two meanings, a comment the code contradicts, a temporary piece with no removal step.
 
 **Fixes use the repo's conventions.** A required fix must use a pattern the repo already has, cited `file:line`. If only something new would work, say so, explain why from first principles, and mark it for the user to confirm.
 

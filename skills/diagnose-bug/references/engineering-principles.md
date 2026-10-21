@@ -72,6 +72,15 @@ Specifically, remove:
 
 **Question the mechanism when fixes pile onto it.** When each fix to a design adds another setting, special case, limit or degraded path, the fixes are telling you the base choice is wrong. Stop patching and ask: what is the most direct way to do exactly this? Then replace the mechanism. Example: a learner read its earlier notes through a general sessions API; five review rounds added two settings, transcript exposure, a refused-read path, a row limit and paging. One narrow read on the learner's own route removed all of it.
 
+**Self-review before anyone sees a design.** Before a spec, plan or PR reaches a person, sweep it for four smells and fix them in the draft, without waiting for the reviewer or the user to ask:
+
+1. **A fact with two homes, or a fallback copy.** Give it one home and fail loudly when it is missing. Example: an agent's callback address was sent on every call and also baked into the runtime by a deploy script whose own comment said "keep these in sync". The fix sent it on every call and deleted the baked copy, so a missing value now fails with "not set" instead of silently using a blocked port.
+2. **One name with two meanings.** Rename until each name means one thing. Example: `ORCHESTRATOR_INTERNAL_URL` was both the address handed to the agent and the UI server's `/api` target; renaming the first to `AGENT_ORCHESTRATOR_URL` removed a trap where setting it would break the UI.
+3. **A comment or docstring the code contradicts.** Trust the code, and fix or drop the stale text in the change that touches it. Example: a module docstring said a route "waits for the build"; the handler returned at once, and an argument built on the docstring had to be withdrawn.
+4. **A temporary piece with no removal step.** Every temporary rule, route copy or flag names the step that removes it and the gate for that step.
+
+The user said it plainly after catching two of these: "please think of things like these instead of waiting for my comments."
+
 **Direct beats general.** Reuse a shared, general API only when it is also the simplest way to get exactly what you need. A narrow call in the feature's own code usually wins over a general one plus settings to fence it in.
 
 **No citation, no claim.** Every statement about code (what it does, what exists, what something can or cannot do, what a change would cost) carries a `file:line` citation to the code that shows it, the way Wikipedia needs a source for every claim. This holds in chat as much as in documents. Trace the actual code flow and cite the lines along it.

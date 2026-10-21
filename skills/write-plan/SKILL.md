@@ -19,6 +19,7 @@ For each mechanism the plan builds (a cache, a queue, a lock, a shard key), chec
 - Do not add steps that were not discussed. Do not drop ones that were.
 - **Every assumption goes in the spec's open items**, not here. A step that changes under another pick says how.
 - Verify every `file:line` and claim before publishing. Cut steps for work the platform already does.
+- Before publishing, run the "Self-review before anyone sees a design" sweep in `references/engineering-principles.md`.
 - No shorthand.
 - **Global constraints first.** A short section near the top lists every project wide requirement from the spec with its exact value (versions, limits, names, formats). Every number there and in the steps says where it comes from ("No magic numbers" in `references/engineering-principles.md`). Every step and every reviewer inherits it.
 - **Each step is a vertical slice** that can be checked on its own, sized to fit one fresh session, with acceptance criteria, what is out of scope for it, and the steps that block it. A step with no open blockers can start now.

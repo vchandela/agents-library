@@ -97,7 +97,7 @@ Up to 3 pages for the working spec, tight and complete. The short page the team 
 - Every number (limit, timeout, cap, wait, rate) carries its source or reason beside it, or goes ("No magic numbers" in `references/engineering-principles.md`).
 - Every new field, function or setting name reads right the first time, with nothing a newcomer must decode ("Names a newcomer reads right the first time" in the same file).
 - Before publishing, run a verification pass over every claim, and read it once for placeholders, sections that contradict each other, and any requirement that could be read two ways. Cut anything not needed.
-- **Simplicity pass, before publishing and after every review round.** For each mechanism, name the simplest alternative and why it loses. If it doesn't lose, switch. When fixes keep stacking on one mechanism, replace it ("Question the mechanism" in `references/engineering-principles.md`).
+- **Simplicity pass, before publishing and after every review round.** For each mechanism, name the simplest alternative and why it loses. If it doesn't lose, switch. When fixes keep stacking on one mechanism, replace it ("Question the mechanism" in `references/engineering-principles.md`). Then run the "Self-review before anyone sees a design" sweep in the same file.
 - Real diagrams (Mermaid) and real tables, not monospace text blocks.
 - **Preview before every publish.** Apply `references/preview.md`: parse every diagram, render a local preview, inspect it in Chrome, fix, repeat. Not optional.
 - Apply `references/writing-voice.md`. Titles name the thing in plain terms ("How we read Slack", not "reading code").
