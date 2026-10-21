@@ -35,6 +35,8 @@ A page is for scanning, and a long one puts the reader off before they start. Ke
 
 ## Pick the form by what the reader must understand
 
+The full list of forms (charts, flows, comparisons, 50 in all), the rule that numbers and structure get a picture, and the chart libraries that make trying two or three forms cheap are in `references/visual-catalog.md`. Read it before drawing.
+
 Decide what the reader must understand first, then the picture. If a three-column table says the same thing, use the table. A one-box diagram is a sentence.
 
 | The reader must understand | Draw |
