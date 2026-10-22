@@ -65,6 +65,7 @@ Failure this prevents: a coordinator laid out three options to the user on wheth
 - Threads tell you when their stage changes. When you hand something to a thread, subscribe to its idle notice (`notify_when_idle`) instead of polling.
 - Work the incoming notices in a batch, not as interruptions: update the registry, verify the claim, then decide whether the user needs to know now.
 - When the user asks, refresh read only first (flows, PRs, CI, Jira), then answer. Never answer from a stale registry without saying how old it is.
+- A summary or brief of the user's work ("since yesterday's sync") follows `daily-brief.md`: every source read first, unreadable ones named.
 
 ## Verify, never relay
 
