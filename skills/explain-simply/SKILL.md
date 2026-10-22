@@ -49,6 +49,20 @@ The default shape for anything new to the reader, done for the first time, or re
 
 Failure this prevents: a page that led with a six-box pipeline and a glossary lost the reader; five plain steps landed.
 
+## From research to the doc others read
+
+A design that will be presented runs through three pages, and the second one is where it gets clear. Plan for all three from the start, so the final doc arrives in hours, not days.
+
+1. **The research page is the author's.** Every claim with its source, every decision with its options. Nobody else reads it in full.
+2. **The walkthrough page crystallises it with the reader,** one section at a time in a live artifact, in this order: how each side runs today (with real counts on the arrows), the domain's nouns defined on one real customer, one fine-grained table of what each side can reach, then 3 to 5 broad problems on one diagram, the fixes on the same grid, the order of work with what each phase does and when it is done, and the asks. Fold many issues into a few broad problems so readers do not get fatigue: nine issues became four (hand-off, runbooks, tools, measuring).
+3. **The doc for the team is short and in the reader's words.** It reuses the walkthrough's diagrams and tables, and the reader writes the prose.
+
+- **When a stakeholder names a priority, reorder; don't redraw.** The whole picture stays, and their blocker becomes the first phase. A meeting moved platform status from "last, only if needed" to phase 1 without changing any of the four problems.
+- **Count the whole population when it is reachable.** A sample says 8%; reading all 422 tickets said 8.5%, and the breakdown (7% workload failures, half with an id) is what explained it.
+- **Use the reader's words for people and roles:** "human engineer", not "expert".
+
+Failure this prevents: a 30-section research page went to review first; only the step-by-step walkthrough built afterwards produced a doc the team could read.
+
 ## Diagrams
 
 - **Sequence diagram first** when several components talk over time. It answers who calls whom, in what order, and where the loops are. Use a box-and-arrow picture only when the question is about structure, not flow.

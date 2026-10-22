@@ -29,7 +29,7 @@ A page is for scanning, and a long one puts the reader off before they start. Ke
 - Open with the title and a one-line diagram key, or the first diagram. A lede, an "in short" box or a verdict paragraph that restates the page is cut.
 - One item is a heading, one diagram (or a Now and Fix pair), and at most two sentences under it. A sentence that only describes what the diagram already shows is cut.
 - No section intro that announces what follows, no closing recap, and no history of the conversation (corrections go in chat).
-- Put the plain-words version of each point in a collapsed "Explain simply" dropdown (`<details>`) under it, for a reader who has never met the term: say what each thing is, give one real example, use no analogy, and keep it to about 50 to 120 words. Collapsed dropdowns and evidence do not count toward the budget, so a reader who knows the topic sees a short page and a reader who does not can open the explanation they need.
+- Put the plain-words version of each point in a collapsed "Explain simply" dropdown (`<details>`) under it, for a reader who has never met the term: say what each thing is, give one real example, use no analogy, and keep it to about 50 to 120 words. Skip the dropdown when the visible sentences already use only plain words: a reader removed every dropdown on a page whose text already read clearly, because each one repeated its paragraph. Collapsed dropdowns and evidence do not count toward the budget, so a reader who knows the topic sees a short page and a reader who does not can open the explanation they need.
 - Review each item before it earns a place. Merge items that one fix covers. Turn a test into a rollout line instead of a "gap". Rate each item's severity against the real stakes and demote the low ones. Drop an interim fix that saves little once you have measured it.
 - Count before publishing: extract the visible text (without the dropdowns) and count the words. Over 1,200 words, cut text and keep the diagrams.
 
@@ -91,6 +91,10 @@ Never leave a noun such as version, intent, generation, reconciliation, admissio
 - An arrow's label sits beside the line with a visible gap, never on top of it.
 - The legend is a strip below the diagram, never inside it.
 - Boxes differ by kind (store, service, person, external). Identical boxes for everything erase the hierarchy.
+- **Diagrams in a doc others read are as plain as possible:** box names, a few numbers on the arrows (each with its unit, "1,588 runs" or "142 tickets"), and nothing else. Subtitles, field lists and explanations go in the text or one caption under the diagram. Failure this prevents: a solution diagram with field lists inside boxes and three lines in a "tool layer" box; the reader asked to "make the diagrams as dumb as possible".
+- **Draw the problem and the fix on the same grid.** The same boxes in the same places, gaps in red and fixes in green, so the reader compares them at a glance. Put the columns the reader will compare (tools, runbooks) in labelled frames, so membership comes from the frame, not from repeated markers.
+- **A numbered marker marks one thing.** Number N appears only where problem N lives. Failure this prevents: a "3" placed on two runbook arrows when 3 was the tools problem, so the reader could not tell what each number meant.
+- **Draw a flow vertically when its actors form a chain** (agent, ticket, agent), and let each one branch out sideways to what it uses. A horizontal row of actors with arrows above and below crowded the page.
 - The diagram's title and description say what it shows ("Requests from three teams queue at one reviewer"), not its geometry ("a box with three boxes above it").
 
 ## Charts and screenshots
@@ -127,3 +131,6 @@ The same rule applies hardest to a Notion page or a doc for the team, whether a 
 - **Keep everything, show less.** Collapsing is not cutting: every fact stays, under the toggle that owns it.
 
 Failure this prevents: a PR flow told in five numbered paragraphs, which the reader asked to see as a diagram with toggles.
+- **Build on a live page, ship to Notion at the end.** Iterate the diagrams on a published artifact (one step per section, checked in the browser after every change), because round trips on Excalidraw files are slow. When the reader is happy, convert every diagram to Excalidraw in one file they copy from, and put tables straight into Notion as styled tables (colour the yes, no and partial cells, grey group rows). Collapse a long reference table into a toggle heading; keep the table the reader acts on (the order of work) open.
+- **Replace an SVG by its section, never by a shared attribute.** Two diagrams can share a size, so an edit anchored on `viewBox="0 0 900 400"` overwrote the wrong one. Anchor on the section id, then confirm the other diagrams are unchanged.
+
