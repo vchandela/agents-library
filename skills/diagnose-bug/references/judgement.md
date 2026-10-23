@@ -34,6 +34,7 @@ Ambition lives in the proposal, never in scope creep.
 
 - Write a stop line: the decision this work feeds, a budget (sources, passes or tool calls) sized to it, and what you will do with the answer. Going past the budget needs the user's yes.
 - Look at real examples of the thing first (requests, tickets, logs, outputs) before designing or researching around it.
+- **Missing access is a question for the user, asked at once, never a dead end.** When a task needs something you cannot reach (a disconnected connector, a login, a denied permission, or data a standing rule keeps you out of, such as a production database or a secret), say what is missing and ask for it in the same message, with the exact fix: the command to run, the setting to change, or the read-only query for the user to run and paste back. Never skip the check, fall back to a weaker source, or report "I can't" and move on. Example: a 7-day count of one preflight check lived only in the monitor's database, which agents do not read; the answer stopped at "stored in the database, which I don't read" when it should have handed the user the query. The user has had to ask for this more than once.
 
 ## Stop gathering
 
