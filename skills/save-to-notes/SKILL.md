@@ -33,6 +33,8 @@ Run `extract-insights` on the source.
 
 Apply `references/writing-voice.md`.
 
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist).
+
 ## 4. Stop
 
 **Present the full draft and wait for an explicit go-ahead.** No exceptions, however confident the extraction. Only bookkeeping files (trackers, preferences) update without asking.

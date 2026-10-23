@@ -5,7 +5,9 @@ description: Use when you are about to design something, or are new to a technic
 
 # Research prior art
 
-Apply `references/writing-voice.md` and `references/visual-explanations.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/judgement.md` and `references/ambition.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why. For the one claim the decision rests on, reproduce it on the user's own data or a small run instead of only citing it.
+Apply `references/writing-voice.md` and `references/visuals.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/judgement.md` and `references/ambition.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why. For the one claim the decision rests on, reproduce it on the user's own data or a small run instead of only citing it.
+
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text).
 
 ## 1. Brief first
 
@@ -68,4 +70,4 @@ Discuss in chat before rewriting a page the user is reading. Answer each questio
 
 ## Done when
 
-The brief and its question tree were confirmed. The report ends with the branches not explored, each with what it would change, so the user picks the next one instead of having to think of it. Every source type was searched, or skipped with a reason. Every claim has a link that the fact-check agent re-opened, and every correction is applied. Every idea has a badge and an evidence tag. The report opens with one picture, walks the steps with real examples, and ends with what was not found.
+The brief and its question tree were confirmed. The report ends with the branches not explored, each with what it would change, so the user picks the next one instead of having to think of it. Every source type was searched, or skipped with a reason. Every claim has a link that the fact-check agent re-opened, and every correction is applied. Every idea has a badge and an evidence tag. The visuals checklist in `references/visuals.md` passes. The report opens with one picture, walks the steps with real examples, and ends with what was not found.

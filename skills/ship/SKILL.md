@@ -28,6 +28,8 @@ One command runs the whole pipeline. You (the author) write each stage, and a se
 
 Apply `references/handoff-protocol.md`. The stage skills do the work: `write-spec`, `write-plan`, `implement-plan` for you, `review-plan` (spec and plan) and `review-pr` for the reviewer.
 
+The references this skill names rely on these, so read them in full too: `references/shipping.md` (deploying and checking a change live), `references/judgement.md` (what to add beyond the request, and when to stop).
+
 ## Starting
 
 **`/ship <number> <text>`**. The user opens a fresh session for the reviewer, runs `/status` there and gives the number in its **Peer address** (`uds:/tmp/cc-socks/62540.sock` → `/ship 62540 ...`). It is that session's process ID, unique among running sessions. Send to `uds:/tmp/cc-socks/<number>.sock`. A full address or a name ListAgents shows in place of the number works too. Session IDs and the `/status` session name do not: SendMessage refuses them. `<text>` plus this conversation is the brief. When the project's docs disagree, the newest one wins: check each source's date.

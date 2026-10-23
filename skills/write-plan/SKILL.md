@@ -9,7 +9,11 @@ The agent implementing this has no background. Everything it needs goes in the p
 
 Apply `references/engineering-principles.md`: DRY, YAGNI, KISS, SOLID, cut premature optimisation.
 
+The references this skill names rely on these, so read them in full too: `references/machine-tells.md` (the last pass for machine-sounding text).
+
 For each mechanism the plan builds (a cache, a queue, a lock, a shard key), check its entry in `references/system-design/index.md` and give the way it fails a step or a test.
+
+The toolbox's entries, each read in full when its problem comes up: `references/system-design/api-and-edge.md`, `references/system-design/caching.md`, `references/system-design/code-structure.md`, `references/system-design/consistency-and-concurrency.md`, `references/system-design/counting-and-aggregation.md`, `references/system-design/large-files.md`, `references/system-design/long-running-work.md`, `references/system-design/ml-systems.md`, `references/system-design/numbers.md`, `references/system-design/queues-and-streams.md`, `references/system-design/real-time-updates.md`, `references/system-design/scaling-and-partitioning.md`, `references/system-design/search.md`, `references/system-design/storage.md`.
 
 ## Rules
 
@@ -30,7 +34,7 @@ For each mechanism the plan builds (a cache, a queue, a lock, a shard key), chec
 
 ## Teach the implementation
 
-Apply `references/visual-explanations.md`. The plan's diagram shows the order of components or phases. Pseudocode, when the implementer still needs an exact check or ordering, is marked as pseudocode and names the files that will hold the real code.
+Apply `references/visuals.md`. The plan's diagram shows the order of components or phases. Pseudocode, when the implementer still needs an exact check or ordering, is marked as pseudocode and names the files that will hold the real code.
 
 ## Testing
 
@@ -69,4 +73,4 @@ Be pragmatic about review feedback. Treat each finding as a claim to check, not 
 
 ## Done when
 
-The preview in `references/preview.md` passes. Every spec invariant maps to a step, every assumption is flagged, and the testing approach matches what the repo can actually do. No step decides nothing (TBD, TODO, "handle edge cases"). Names and types match across steps. The plan is not longer than the code it describes: a plan full of finished function bodies has written the code instead of deciding it. Then end the turn with the link and the questions for the user. No code is written in this turn. Next: `review-plan`, on a different agent. See `references/handoff-protocol.md`.
+The preview in `references/preview.md` and the visuals checklist in `references/visuals.md` pass. Every spec invariant maps to a step, every assumption is flagged, and the testing approach matches what the repo can actually do. No step decides nothing (TBD, TODO, "handle edge cases"). Names and types match across steps. The plan is not longer than the code it describes: a plan full of finished function bodies has written the code instead of deciding it. Then end the turn with the link and the questions for the user. No code is written in this turn. Next: `review-plan`, on a different agent. See `references/handoff-protocol.md`.

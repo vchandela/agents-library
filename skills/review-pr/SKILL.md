@@ -9,6 +9,8 @@ The job is not to find problems, it is to make the code simpler and more maintai
 
 If you wrote this code, stop. See `references/handoff-protocol.md`. Apply `references/untrusted-input.md`.
 
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/shipping.md` (deploying and checking a change live).
+
 Apply `references/judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
 **Approve when the change makes the codebase healthier, even if it is not how you would have written it.** Block on what is wrong, not on preference.

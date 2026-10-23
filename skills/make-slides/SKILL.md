@@ -5,7 +5,7 @@ description: Use when someone wants a slide deck, a few slides for a meeting, or
 
 # Make slides
 
-A deck is an explanation with a speaker in front of it, so run explain-simply for the content: its read-before-you-explain, match-the-reader and no-terse-sentence rules apply to every line on a slide. Words follow `references/writing-voice.md` and `references/machine-tells.md`, pictures follow `references/visual-explanations.md`, and the render check is `references/preview.md`. This skill adds only what is particular to slides.
+A deck is an explanation with a speaker in front of it, so run explain-simply for the content: its read-before-you-explain, match-the-reader and no-terse-sentence rules apply to every line on a slide. Words follow `references/writing-voice.md` and `references/machine-tells.md`, pictures follow `references/visuals.md`, and the render check is `references/preview.md`. This skill adds only what is particular to slides.
 
 ## 1. Is a deck the right thing?
 
@@ -110,4 +110,4 @@ Run `references/preview.md` with the slide thumbnails as the render (`pages.getT
 
 ## Done when
 
-The outline was agreed, the deck is as short as it can be with the strongest evidence first, every content slide has a title in its deck type's format and real evidence, the titles alone tell the story, every slide's thumbnail was looked at after the last change, and the user has the link plus a reminder to put the words in their own voice before presenting.
+The outline was agreed, the deck is as short as it can be with the strongest evidence first, every content slide has a title in its deck type's format and real evidence, the titles alone tell the story, every slide's thumbnail was looked at after the last change, the visuals checklist in `references/visuals.md` passes, and the user has the link plus a reminder to put the words in their own voice before presenting.

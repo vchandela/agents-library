@@ -42,6 +42,8 @@ Expect ten to fifteen real decisions. If you have three, look harder.
 
 State the decision, the alternative they rejected, and the cost they accepted. A decision with no cost was not a decision, it was a default, and defaults are worth noticing too. Apply the deletion test from `references/engineering-principles.md` to anything that looks like a pass-through.
 
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one).
+
 Tag every relationship you state: **read** (`file:line`), **inferred** (and from what: a shared type, naming, sitting side by side), or **unclear**. Do not invent a percentage. An arrow you did not read never goes in the diagram as solid: draw it dashed and labelled inferred, or move it to the unknowns.
 
 ## Output

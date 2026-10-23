@@ -2,6 +2,25 @@
 
 Every item is checked on the rendered page, at the widths the product supports, in every theme it ships. A clean linter or detector run is a floor, not proof.
 
+## Contents
+
+- Order: judge first, then run the tools
+- Evidence
+- Layout
+- Typography
+- Colour and contrast
+- States
+- Copy
+- Input
+- Stress inputs
+- Health
+- Performance budgets (web)
+- Loading (what the fastest sites do, and what each saved when measured)
+- Resilience
+- Sharing
+- Taste: what separates a crafted page from a template
+- Severity
+
 ## Order: judge first, then run the tools
 
 Look at the screen and write down what is wrong before running any detector, linter or Lighthouse. A tool's output anchors judgement. Then run the tools and note what each pass caught alone.

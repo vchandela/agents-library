@@ -9,7 +9,9 @@ Explain from first principles, with examples grounded in reality.
 
 **The bar is hard: easy to digest without losing technical depth.** Simplifying by removing the difficult part is not this. Keep the depth, change the delivery.
 
-Apply `references/judgement.md`, `references/writing-voice.md`, `references/explaining.md` and `references/visual-explanations.md`. For a page, also apply `references/preview.md`. For a doc someone else will send or read critically, run the "Shape and rhythm" check in `references/writing-voice.md` before you hand it over.
+Apply `references/judgement.md`, `references/writing-voice.md`, `references/explaining.md` and `references/visuals.md`. For a page, also apply `references/preview.md`. For a doc someone else will send or read critically, run the "Shape and rhythm" check in `references/writing-voice.md` before you hand it over.
+
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/ambition.md` (the ambitious option next to the obvious one).
 
 ## Read before you explain
 
@@ -45,7 +47,7 @@ The default shape for anything new to the reader, done for the first time, or re
 - **In chat, one step per message**, and let the reader say "next" or ask. Fold each step into the page as it is agreed, rather than publishing the whole page first.
 - **End the walk with "what this means".** After the factual steps, one last step says what those facts change for the decision in front of the reader. Facts without it leave the reader to draw the conclusion alone.
 - **When the question is who can reach what, draw the boundary.** For a sandbox, a VM, a network or any trust line, draw two boxes, put every piece on its side, and say in a caption what everything inside can touch. Failure this prevents: a design drew a helper process apart from the agent it served. Both ran as root in the same VM, so every check placed in the helper could be bypassed by the agent. A two-box picture made that obvious at once, and the reader said the explanation landed.
-- **A diagram supports a step. It never replaces the steps.** For a reader new to the subject, an overview picture comes after the steps or inside one step. A reader judging a design gets the map first (`references/visual-explanations.md`).
+- **A diagram supports a step. It never replaces the steps.** For a reader new to the subject, an overview picture comes after the steps or inside one step. A reader judging a design gets the map first (`references/visuals.md`).
 
 Failure this prevents: a page that led with a six-box pipeline and a glossary lost the reader; five plain steps landed.
 
@@ -63,15 +65,9 @@ A design that will be presented runs through three pages, and the second one is 
 
 Failure this prevents: a 30-section research page went to review first; only the step-by-step walkthrough built afterwards produced a doc the team could read.
 
-## Diagrams
+## Visuals and pages
 
-- **Sequence diagram first** when several components talk over time. It answers who calls whom, in what order, and where the loops are. Use a box-and-arrow picture only when the question is about structure, not flow.
-- **Annotate every element.** Under each arrow's technical label, a short plain note in brackets saying what the step does, with an example: `3 · start-build (AWS via OIDC)`, then `(no stored AWS keys)`. Every box says what it is for, not only its name.
-- A caption says what each colour means.
-
-## Pages (artifacts)
-
-For a page, apply `references/explainer-pages.md`.
+Every picture follows `references/visuals.md`: the form for each question, the 50-form catalog with the chart tools, the diagram rules, and the checklist that runs before anything goes out. For a page, also apply `references/explainer-pages.md` (layout) and `references/preview.md` (render and look).
 
 ## Rationalisations to refuse
 
@@ -79,6 +75,7 @@ For a page, apply `references/explainer-pages.md`.
 |---|---|
 | "They said it was too verbose, so I cut it" | Explain it more simply. Too verbose means simplify, never drop. |
 | "The diagram speaks for itself" | Annotate every arrow and box. It does not. |
+| "These numbers read fine as a sentence" | Three or more numbers that compare or make a whole are a chart. Render two or three forms and keep the clearest. |
 | "One overview picture covers it faster than steps" | For a reader new to it, walk it step by step. Boxes joined by arrows are a recap, not the explanation. |
 | "A summary at the top helps them orient" | Only if every word in it is already defined. Otherwise it goes at the end. |
 | "The docs say so" | Check the code. Cite what you checked. |
@@ -87,4 +84,4 @@ For a page, apply `references/explainer-pages.md`.
 
 ## Done when
 
-Somebody who did not already know this understands it on one read. Every term is defined before it is used, every claim has its example or its `file:line`, every decision is shown side by side with a verdict, every diagram element is annotated, every question the reader asked is answered where it arises, and the unknowns are listed. For a page, the preview passes.
+Somebody who did not already know this understands it on one read. Every term is defined before it is used, every claim has its example or its `file:line`, every decision is shown side by side with a verdict, every diagram element is annotated, every question the reader asked is answered where it arises, and the unknowns are listed. The visuals checklist in `references/visuals.md` passes, and for a page, so does the preview.

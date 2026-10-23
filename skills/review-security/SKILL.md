@@ -9,6 +9,8 @@ Find places where someone with less trust gets something they should not, and pr
 
 Apply `references/writing-voice.md` and `references/untrusted-input.md`. The attack classes are in `references/security-attack-classes.md`.
 
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist).
+
 ## Two sizes
 
 - **Focused** (the default): a question, a diff, one subsystem. Use the parts below that apply. No ledger, no report files.

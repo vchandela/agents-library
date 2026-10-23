@@ -4,6 +4,20 @@ Find your problem as a plain question below, then open the entry it links. An en
 
 General rules (measure first, optimistic over pessimistic, errors never go silent, design the cleanup) live in [engineering-principles](../engineering-principles.md). The files here link to them rather than repeat them.
 
+## Contents
+
+- Families
+- Data and storage
+- Reads and load
+- Background and long-running work
+- Events and data flow
+- Correctness under concurrency
+- Pushing updates to clients
+- Search, files and counting
+- The edge and outside systems
+- ML systems
+- Code inside one process
+
 ## Families
 
 | File | Covers |

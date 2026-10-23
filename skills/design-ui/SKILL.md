@@ -7,6 +7,8 @@ description: Use when a screen is being designed or built (a page, a component, 
 
 `references/ui-quality.md` is the bar every screen is judged against. This skill is the order of work that reaches it. Words on the screen follow `references/writing-voice.md`.
 
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist).
+
 ## 1. The job before the look
 
 Write three lines before any markup:

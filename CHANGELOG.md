@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Changed
+- One home for visuals, following Anthropic's skill authoring guide. `references/visual-explanations.md` and `references/visual-catalog.md` merge into `references/visuals.md`: the rules, the 50-form catalog with its chart tools, explain-simply's diagram rules, and a checklist to copy and tick before anything goes out. `explain-simply`, `make-slides`, `write-spec`, `write-plan`, `write-tech-doc` and `research-prior-art` require that checklist in "Done when". The catalog had been named by no skill, only reachable two hops away, which is why pages shipped without charts.
+- References stay one level deep from SKILL.md: every skill names each reference its references rely on, and `write-spec`, `write-plan` and `review-plan` list every system-design entry. A pointer for optional depth names the topic in words; a file path means "read this".
+- Reference files over 100 lines open with a "## Contents" list (`engineering-principles`, `research-sources`, `ui-quality`, `system-design/index`, `visuals`).
+- `scripts/lint-skills.py` fails a skill that relies on a reference it does not name, and a reference over 100 lines without "## Contents".
+
 ### Added
 - `analyze-agent-transcripts`: reads a batch of your own Claude Code or Cowork session transcripts whole (including tool calls, results and anything the harness saved out to a file) and turns human-written one-line notes into a failure-mode report, with counts and traceable examples. Specializes `evals`'s "look at real data first" step, stops before item-building, judges or gating, and proposes no fixes.
 - `references/ambition.md`: Rieseberg's "How to be more ambitious" as one reference the agent applies unprompted (altitude, depth, range, speed, believing it can be done, guards), with a short form in `references/judgement.md` and slots in `write-spec`, `diagnose-bug`, `ship`, `chief-of-staff`, `write-blog`, `research-prior-art` and `setup-repo`. Measured with `evals/ambition-*` (sonnet, 5 runs per case, judge sonnet): 11 of 15 pass against 0 of 15 on main across three tasks, and a small-question case stays 5 of 5 on both. Measured on Opus 5.5 (Opus judge, 30 runs per arm, skills before and after): target floor 0 to 30 of 30, spec reach 0 to 29, outcome altitude 0 to 27, and a small question stays short (26 and 24 of 30, within noise).

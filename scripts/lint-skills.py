@@ -7,6 +7,10 @@ Checks, standard library only:
   - `name` matches the folder and the spec's pattern; description is 1 to 1,024 characters;
   - the body stays under about 5,000 tokens (3,500 words);
   - every `references/X.md` a skill mentions exists in that skill's own folder;
+  - references stay one level deep: a skill names every reference file that its references point to,
+    so the agent reads each one from SKILL.md instead of skimming it two hops away
+    (a file path means "read this"; a pointer for optional depth names the topic in words, not as a path);
+  - a reference file over 100 lines opens with a "## Contents" section, so a partial read still shows its scope;
   - no unescaped $ARGUMENTS, $N or ${CLAUDE_...} in a body;
   - no hidden Unicode (zero-width or bidirectional controls) and no HTML comments.
 
@@ -57,6 +61,47 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
     for ref in sorted(set(re.findall(r"references/([\w./-]+\.md)", text))):
         if not (skill.parent / "references" / ref).exists():
             fail(skill, f"mentions references/{ref} but the skill folder does not ship it")
+
+
+REF_LINK = re.compile(r"references/([\w./-]+\.(?:md|sh))")
+MD_LINK = re.compile(r"\]\(([\w./-]+\.md)(?:#[\w-]*)?\)")
+BACKTICK = re.compile(r"`([\w-]+\.md)`")
+
+
+def links(path):
+    """Reference files (relative to references/) that a file points to."""
+    text = path.read_text(encoding="utf-8")
+    refs = ROOT / "references"
+    found = set(REF_LINK.findall(text))
+    for name in BACKTICK.findall(text):
+        if (refs / name).exists():
+            found.add(name)
+    for rel in MD_LINK.findall(text):
+        target = (path.parent / rel).resolve()
+        if refs in target.parents and target.exists():
+            found.add(str(target.relative_to(refs)))
+    return found
+
+
+for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
+    named = links(skill)
+    missing, seen, todo = set(), set(), list(named)
+    while todo:
+        ref = todo.pop()
+        if ref in seen or not (ROOT / "references" / ref).exists() or not ref.endswith(".md"):
+            continue
+        seen.add(ref)
+        for nxt in links(ROOT / "references" / ref):
+            if nxt not in named:
+                missing.add((nxt, ref))
+            todo.append(nxt)
+    for nxt, via in sorted(missing):
+        fail(skill, f"references/{via} points to references/{nxt}; name it in SKILL.md so it is one level deep")
+
+for ref in sorted((ROOT / "references").rglob("*.md")):
+    lines = ref.read_text(encoding="utf-8").splitlines()
+    if len(lines) > 100 and "## Contents" not in lines[:20]:
+        fail(ref, f"{len(lines)} lines with no '## Contents' in the first 20 lines")
 
 for md in sorted(list((ROOT / "skills").rglob("*.md")) + list((ROOT / "references").glob("*.md"))):
     text = md.read_text(encoding="utf-8")

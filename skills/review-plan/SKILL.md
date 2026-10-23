@@ -7,6 +7,8 @@ description: Use when a plan needs adversarial review before implementation star
 
 You did not write this plan. Read `references/handoff-protocol.md` before starting: if you wrote it, stop and hand it to a different agent.
 
+The references this skill names rely on these, so read them in full too: `references/machine-tells.md` (the last pass for machine-sounding text), `references/ambition.md` (the ambitious option next to the obvious one), `references/shipping.md` (deploying and checking a change live).
+
 Apply `references/judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
 The person who wrote this will not grow if you go easy on them.
@@ -22,6 +24,8 @@ The person who wrote this will not grow if you go easy on them.
 - **Is each mechanism the simplest direct one?** For each, name a simpler alternative. If a mechanism needed fixes in an earlier round, ask whether it should exist at all, not only whether the fix is right. Check each mechanism against its entry in `references/system-design/index.md`: one used where the entry says not to use it, or with no answer to the way the entry says it fails, is a finding.
 - **Every planned test names its break.** Revert the fix in your head. If the planned test still passes, that is a finding. Example: a write-then-rename test that checked "file complete, no `.part` left" also passed with a direct write. Checking that the inode changed fixed it. See `references/testing.md`.
 
+The toolbox's entries, each read in full when its problem comes up: `references/system-design/api-and-edge.md`, `references/system-design/caching.md`, `references/system-design/code-structure.md`, `references/system-design/consistency-and-concurrency.md`, `references/system-design/counting-and-aggregation.md`, `references/system-design/large-files.md`, `references/system-design/long-running-work.md`, `references/system-design/ml-systems.md`, `references/system-design/numbers.md`, `references/system-design/queues-and-streams.md`, `references/system-design/real-time-updates.md`, `references/system-design/scaling-and-partitioning.md`, `references/system-design/search.md`, `references/system-design/storage.md`.
+
 **3. Fix it.** Every issue gets a concrete fix. Not "consider handling errors". Show what handling that error looks like.
 
 **4. Cut it.** Apply `references/engineering-principles.md`. Remove retries and fallbacks nobody measured, backward compatibility nobody asked for, and abstraction with one implementation. Flag every number with no stated source or reason ("No magic numbers"), and every new name a first-time reader could misread ("Names a newcomer reads right the first time"). Run the seven-smell sweep in "Self-review before anyone sees a design" and put its list (each instance and its verdict) in the review. An approve without that list is not a review.
@@ -32,7 +36,7 @@ The person who wrote this will not grow if you go easy on them.
 
 The reader must not have to reconstruct the plan or translate review jargon. Use the same discipline as `write-spec` and `write-plan`.
 
-Apply `references/visual-explanations.md`. The review's diagram shows the main failing flow and the corrected one. A fix that adds a mechanism shows it working before naming it.
+Apply `references/visuals.md`. The review's diagram shows the main failing flow and the corrected one. A fix that adds a mechanism shows it working before naming it.
 
 Open with the verdict and the first concrete example. A "whole review in one picture" summary is optional. Omit it when compressing the findings would turn them into labels that only make sense after the reader understands the review. Never open with unexplained phrases such as "stale-work rejection" or "delivery semantics."
 

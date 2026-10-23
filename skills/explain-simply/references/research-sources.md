@@ -1,5 +1,23 @@
 # Research sources, prompts and scoring
 
+## Contents
+
+- The eight source types
+- Engineering blogs to target
+- Access notes
+- The sub-agent prompt
+- Why (context)
+- Your slice
+- Rules
+- The per-company sweep prompt
+- Why (context)
+- Steps
+- Output
+- The fact-check prompt
+- Authority score
+- Source authority
+- Report shape
+
 ## The eight source types
 
 Each type proves something different. An idea found in three places of one type is weaker than the same idea found in three types.

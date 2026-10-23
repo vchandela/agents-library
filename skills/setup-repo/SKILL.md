@@ -30,6 +30,8 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 | 4 | no test runner exists | Say so plainly, then substitute the closest real verification and map every rule to one. |
 | 5 | more than one agent works in the repo | One source for every rule, read the same way by every agent (section 3). |
 
+The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop).
+
 ## 3. One source, read the same way by every agent
 
 Every agent reads plain files with its own tools. That is the one mechanism they all share, so it is the one to build on. Harness features (Claude's `paths:` rules and `@` imports, Codex's nested-file discovery) differ per agent, so they may speed an agent up but never carry a rule alone.

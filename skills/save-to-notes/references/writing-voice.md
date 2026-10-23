@@ -48,7 +48,7 @@ Delete a closing "anything else?". Delete any "by the way" aside. Delete any hed
 
 One or two pages. A third only if the material genuinely needs it. Being exhaustive and being long are different things: exhaustive means nothing important is missing, not that everything is included.
 
-A page (an artifact or hosted explainer) has its own budget of about 1,100 visible words, set in `references/visual-explanations.md` under "Length: diagrams carry the page".
+A page (an artifact or hosted explainer) has its own budget of about 1,100 visible words, set in `references/visuals.md` under "Length: diagrams carry the page".
 
 ## The bar
 
