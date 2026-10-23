@@ -181,6 +181,7 @@ A page is for scanning, and a long one puts the reader off before they start. Ke
 ## Diagram quality
 
 - Every box is a real actor, store or state, and says what it is for, not only its name.
+- **Stay true to the code.** Read the workflow or code before drawing: one box per real step, in the real order, with its real name. Label each box as a script or an agent step, and an agent step with its model and effort ("agent: Claude Opus 5.5, effort xhigh"); mark anything not built as proposed. Draw the real retry and loop-back paths. An overview may group steps only if each group names the steps it stands for. Failure this prevents: a reviewer asked which boxes were scripts and which model ran the agent steps, and a seven-step workflow drawn as four could not answer.
 - Every arrow is a real call, write or state change, labelled with what moves. **Annotate every element:** under each arrow's technical label, a short plain note in brackets says what the step does, with an example: `3 · start-build (AWS via OIDC)`, then `(no stored AWS keys)`.
 - Show failure at the exact step where it happens.
 - Show the corrected path beside or directly after the failing path.
