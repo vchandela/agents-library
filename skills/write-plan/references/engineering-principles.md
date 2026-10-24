@@ -58,6 +58,10 @@ Read the code the change touches and trace the real flow first. Then stop at the
 
 When two options are the same size, take the one that is correct on edge cases. A parser is not a validator: `email.utils.parseaddr` accepts `@missing-local.com`.
 
+**Every new resource earns its place against what already exists.** Before adding a database table, column, queue, bucket, secret, setting, environment variable, service, alert route, channel or file, list what already exists for a similar job and check each candidate. Reuse one when it already means the same thing. Create a new one only when each candidate would break something or take on a second meaning, and say which, with a `file:line` for each. A resource whose purpose has to be stretched to fit ("this table also holds X") is two things under one name, and that is worse than one small new resource.
+
+Example: recording which PagerDuty incidents the monitor had open. The probe results table would have shown each record as a failing check on the status page, and its 30-day prune would have dropped the record of a long incident. The budget alerts table and the settings table were each documented for one other job. So a new 9-line table with a one-line purpose comment was the right call, and the PR said why for each candidate.
+
 ## Never cut
 
 Less code never means less of these: validation at trust boundaries, error handling that prevents data loss, security checks, accessibility basics, and anything the user asked for by name.
