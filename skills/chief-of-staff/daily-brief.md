@@ -18,6 +18,17 @@ The registry and the threads' notices are only one source. Before the first line
 6. Docs: new comments on the user's design pages.
 7. Mail and calendar: only work items that need the user, and the next 7 days of meetings that need preparation.
 
+## Everything waiting on the user
+
+Every brief carries a full inventory of what waits on the user, swept fresh from each source, never only from the threads' notices. Threads report what they work on; a PR or ticket no thread owns still waits on the user. Failure this prevents: open PRs and review requests went unseen because the brief was built from the registry.
+
+1. GitHub, in every repo the config names: open PRs the user authored (with review state, CI, draft, and whether it is approved and waiting only on their merge); PRs requesting the user's review, directly or through a team; PRs where someone asked the user a question in a comment. Sessions push under the user's account, so "authored by the user" includes every thread's PRs.
+2. The tracker: tickets assigned to the user and not done, in or out of the sprint; tickets where the user is mentioned or asked something since the last brief; tickets whose status no longer matches the PR state.
+3. Chat: unanswered DMs and mentions, and questions the user asked that got a reply.
+4. The registry: every thread's needs-user items, checked against GitHub so a merged PR does not stay listed.
+
+List each item once, with its link, how long it has waited and the one action needed. Give the exact queries in the config so every brief runs the same sweep.
+
 A source that cannot be read (disconnected, expired, refused) is named at the top and the user is asked to reconnect it. Never present a brief as complete when a source was skipped.
 
 Check each claim against its source before it goes in. Where two sources disagree (a thread's state file says "approved", the chat thread shows no approval), show both and say which one is newer.
