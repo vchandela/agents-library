@@ -1,6 +1,6 @@
 # Evals reference
 
-The detail behind the evals skill: what one item holds, how to keep a model judge honest, and the arithmetic for comparing two versions.
+The detail behind the evals skill: what one item holds, how to keep a model judge honest, what to grade, and the arithmetic for comparing two versions.
 
 ## One item
 
@@ -34,6 +34,17 @@ The same shape for other agents: a code review item is a merged PR, its answer k
 - A judge call that errors, times out or returns no verdict is unscored, never a pass.
 - In a side-by-side comparison, randomise which output comes first, and grade each pair in both orders when the result is close.
 - A panel of several judges with a majority vote is worth it only when one judge's rates miss the bar; log every vote.
+
+## Grading what matters
+
+From Anthropic's "Demystifying evals for AI agents".
+
+- **Grade the outcome, not the path.** Agents find valid routes you did not plan for. A grader that checks for the expected tool sequence fails a correct answer reached another way.
+- **Partial credit for tasks with several parts.** A triage that finds the cause but misses the scope scores better than one that finds neither, and a pass/fail score hides the difference.
+- **Two suites.** A capability suite holds hard items with a low pass rate, where progress shows. A regression suite holds items that pass near 100% and guards against breaking them. Move a capability item to regression once it passes reliably.
+- **A grader that rejects correct answers over format is a broken grader.** One public benchmark went from 42% to 95% after its graders were fixed, with no change to the agent.
+- **Make graders hard to game.** Check the result itself (the file, the reply, the database row), not the agent's statement that it is done.
+- **Track cost next to accuracy:** tokens, latency, tool calls and tool errors per item. A change that holds accuracy but doubles the tool calls is a regression.
 
 ## Checking a judge
 

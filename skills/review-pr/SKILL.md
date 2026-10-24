@@ -61,6 +61,7 @@ The spec says what must work; it does not list every input. For behaviour it is 
 - A version bump is a behaviour change you did not write. Read its changelog. One dependency per change. Review the lockfile diff.
 - Flag the backend traps in `references/engineering-principles.md` ("Performance"), an index added without a query plan before and after, and a performance claim with no before and after number.
 - If the diff has a screen, apply `references/ui-quality.md`, judging the screen before any tool.
+- If the diff edits text a model runs as instructions (a workflow prompt, a system prompt, a skill, a tool description), run the checklist in `references/agent-prompts.md` on each changed file, and check the model each one runs on.
 
 ## Re-review rounds
 

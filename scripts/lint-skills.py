@@ -4,7 +4,8 @@
 Checks, standard library only:
   - frontmatter has only `name`, `description`, `license` and `disable-model-invocation`, and parses as strict YAML would
     (a value containing ": " must be quoted);
-  - `name` matches the folder and the spec's pattern; description is 1 to 1,024 characters;
+  - `name` matches the folder and the spec's pattern, is at most 64 characters and avoids the reserved
+    words "anthropic" and "claude"; description is 1 to 1,024 characters with nothing shaped like an XML tag;
   - the body stays under about 5,000 tokens (3,500 words);
   - every `references/X.md` a skill mentions exists in that skill's own folder;
   - references stay one level deep: a skill names every reference file that its references point to,
@@ -52,8 +53,12 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
         fail(skill, f"frontmatter keys outside name, description, license and disable-model-invocation: {sorted(extra)}")
     if fields.get("name") != folder or not NAME.match(folder):
         fail(skill, f"name {fields.get('name')!r} must equal the folder {folder!r} and match {NAME.pattern}")
+    if len(folder) > 64 or "anthropic" in folder or "claude" in folder:
+        fail(skill, "name must be at most 64 characters and contain neither 'anthropic' nor 'claude' (Agent Skills spec)")
     if not 1 <= len(fields.get("description", "")) <= 1024:
         fail(skill, "description must be 1 to 1,024 characters")
+    if re.search(r"<[^>]*>", fields.get("description", "")):
+        fail(skill, "description must not contain anything shaped like an XML tag, such as <name> (Agent Skills spec)")
     if len(parts[2].split()) > MAX_WORDS:
         fail(skill, f"body is {len(parts[2].split())} words; keep it under {MAX_WORDS}")
     if re.search(r"(?<!\\)\$(ARGUMENTS|[0-9]|\{CLAUDE_)", parts[2]):

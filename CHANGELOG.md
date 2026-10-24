@@ -2,7 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+- `references/agent-prompts.md`: how to write text a model runs (workflow and system prompts, sub-agent briefs, tool descriptions, skill bodies), from Anthropic's engineering posts, the Opus 5 and 5.5 prompting guides, the skill authoring guide and OpenAI's gpt-5.5 and 5.6 guidance. The reason goes in the same sentence, firm words are kept for real limits, generic self-checks are dropped on Opus 5 (they cause over-verification) and written-out reasoning is not requested (Opus 5.5 can refuse it), absence of evidence is not a no, sub-agent briefs carry objective, format, tools, boundaries and a return size, and review prompts find everything and filter afterwards. Ends with an 11-item checklist. `review-pr` runs it on any diff that edits a prompt, `setup-repo` adds it as layer 6, `evals` applies it when a prompt is under test. Every rule read is sorted in `docs/ledgers/anthropic-prompting.md`.
+
 ### Changed
+- `references/untrusted-input.md`: wrap untrusted text handed to a model in a tag with a random id, plus one line saying its instructions are not the user's.
+- `references/evals.md`: "Grading what matters": grade the outcome not the path, partial credit, capability and regression suites, graders that do not reject correct answers over format or accept a claim of done, and cost next to accuracy.
+- README "Writing a skill": a description may name what a skill covers in a phrase but never its steps; a skill body follows `agent-prompts.md`; say whether a script is run or read; watch how an agent moves through a skill; test on every model and again after each release, retiring capability skills the bare model no longer needs.
+- `scripts/lint-skills.py` fails a name over 64 characters or containing "anthropic" or "claude", and a description containing anything shaped like an XML tag. `ship`'s description no longer does.
+
 - One home for visuals, following Anthropic's skill authoring guide. `references/visual-explanations.md` and `references/visual-catalog.md` merge into `references/visuals.md`: the rules, the 50-form catalog with its chart tools, explain-simply's diagram rules, and a checklist to copy and tick before anything goes out. `explain-simply`, `make-slides`, `write-spec`, `write-plan`, `write-tech-doc` and `research-prior-art` require that checklist in "Done when". The catalog had been named by no skill, only reachable two hops away, which is why pages shipped without charts.
 - References stay one level deep from SKILL.md: every skill names each reference its references rely on, and `write-spec`, `write-plan` and `review-plan` list every system-design entry. A pointer for optional depth names the topic in words; a file path means "read this".
 - Reference files over 100 lines open with a "## Contents" list (`engineering-principles`, `research-sources`, `ui-quality`, `system-design/index`, `visuals`).

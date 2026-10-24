@@ -71,7 +71,7 @@ Every public skills repo I read assumes one agent plans, builds and reviews. Tha
 
 ## Principles
 
-1. A description says **when to read**, never what the skill does. A description containing steps gets followed instead of the skill.
+1. A description says **when to read**. It may name what the skill covers in a phrase, as Anthropic's guide asks, but never its steps: a description containing steps gets followed instead of the skill.
 2. Skills are probabilistic. They fire most of the time, not every time. Anything that must always hold is a hook or a test.
 3. **A rule with no check is a rule you break yourself.**
 4. Red, green, then **break the code and watch it fail again**. The third step finds tests that assert nothing.
@@ -95,7 +95,9 @@ Each skill that uses `references/` carries its own copy, so a single skill folde
 
 ## Writing a skill
 
-Two frontmatter fields, `name` and `description`. The description is the whole trigger: write it as "Use when ...", and add what it is **not** for, or it fires on neighbouring work.
+Two frontmatter fields, `name` and `description`. The description is the whole trigger: write it as "Use when ...", and add what it is **not** for, or it fires on neighbouring work. The linter holds the spec's limits: a name of at most 64 characters without "anthropic" or "claude", and nothing shaped like an XML tag in the description.
+
+A skill's body is a prompt, so the wording rules in `references/agent-prompts.md` apply to it: the reason in the same sentence, firm words only for real limits, and no generic "double-check your work" lines, which make Opus 5 over-verify.
 
 Keep the body short, and count what it loads: every rule in the skill and in the references it applies competes for attention, and models follow each rule less as the count grows. Under 500 lines is the ceiling; move a rule a script can check into the script. Put long material in `references/` and point at it.
 
@@ -130,6 +132,9 @@ While writing:
 - **End the turn where the skill's output ends.** A spec or plan skill says to stop and ask for approval. Without it, Opus 5.5 sometimes went on to build the project.
 - **A rationalisation row keeps its reason.** Rows cut down to labels held 5 of 10 runs under pressure, against 8 of 10 with the reasons.
 - **The rule that must survive a long session goes in the first screen.** After compaction only the start of a skill comes back.
+- **Say whether a bundled script is run or read.** "Run `scripts/check.py`" and "see `scripts/check.py` for the algorithm" lead to different behaviour. A script handles its own errors and prints the valid options when it refuses, so the model does not guess.
+- **Watch how an agent moves through the skill.** A file it reads on every run belongs in SKILL.md. A file it never opens is dead weight or badly pointed to.
+- **Test on every model that runs the skill, and again after each model release.** Note whether a skill adds a capability or encodes a preference. Rerun a capability skill's baseline without it after each release, and retire it once the bare model passes.
 
 ## Licence
 

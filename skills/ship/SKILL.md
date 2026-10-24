@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Use when the user says /ship <reviewer process ID> <what to build>, to run spec, plan and PR through a separate reviewer session and the user's approval at each stage, until the PR merges. Also used by the reviewer session when a "[ship" review request arrives.
+description: Use when the user says /ship followed by the reviewer session's process ID and what to build, to run spec, plan and PR through a separate reviewer session and the user's approval at each stage, until the PR merges. Also used by the reviewer session when a "[ship" review request arrives.
 ---
 
 # Ship

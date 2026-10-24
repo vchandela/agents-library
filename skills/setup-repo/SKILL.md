@@ -29,6 +29,7 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 | 3 | hooks are wanted | Lifecycle hooks through one dispatcher that every agent's hook config calls, and one switch to turn them off. A check reads the working tree, never the tool name. |
 | 4 | no test runner exists | Say so plainly, then substitute the closest real verification and map every rule to one. |
 | 5 | more than one agent works in the repo | One source for every rule, read the same way by every agent (section 3). |
+| 6 | the repo holds text a model runs (workflow or system prompts, skills, tool descriptions) | A router row that sends anyone changing those files to a copy of `references/agent-prompts.md`, and its checklist in the review rules. |
 
 The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop).
 

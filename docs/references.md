@@ -19,6 +19,7 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | [vercel-labs/skills](https://github.com/vercel-labs/skills) | Distribution. `npx skills add` already handles 80+ agents. |
 | [anthropics/skills](https://github.com/anthropics/skills) | Minimal frontmatter. Two fields. |
 | [Anthropic, multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system) | Scale effort to the question; sub-agents with clear, non-overlapping boundaries; a separate citation pass. |
+| Anthropic engineering posts and model guides (Opus 5, Opus 5.5, skill authoring), OpenAI prompt guidance for gpt-5.5 and 5.6 | How to write prompts an agent runs: the reason in the sentence, firm words only for limits, no generic self-checks on Opus 5, absence of evidence is not a no, sub-agent briefs, find-all-then-filter reviews, tagged untrusted text, outcome grading. Now `references/agent-prompts.md`; rule by rule in `docs/ledgers/anthropic-prompting.md`. |
 | [humanlayer/humanlayer](https://github.com/humanlayer/humanlayer) | Read the user's own material first, fully, before searching. |
 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | One round of clarifying questions, a written brief, stop when searches repeat. |
 | [stanford-oval/storm](https://github.com/stanford-oval/storm) | Research by perspective; ask "what did we find and not use?" before writing. |
