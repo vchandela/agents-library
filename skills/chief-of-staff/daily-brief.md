@@ -22,7 +22,7 @@ The registry and the threads' notices are only one source. Before the first line
 
 Every brief carries a full inventory of what waits on the user, swept fresh from each source, never only from the threads' notices. Threads report what they work on; a PR or ticket no thread owns still waits on the user. Failure this prevents: open PRs and review requests went unseen because the brief was built from the registry.
 
-1. GitHub, in every repo the config names: open PRs the user authored (with review state, CI, draft, and whether it is approved and waiting only on their merge); PRs requesting the user's review, directly or through a team; PRs where someone asked the user a question in a comment. Sessions push under the user's account, so "authored by the user" includes every thread's PRs.
+1. GitHub, in every repo the config names: open PRs the user authored (with review state, CI, draft, and whether it is approved and waiting only on their merge); PRs requesting the user's review by name (team requests are left out: the user is not the reviewer there); PRs where someone asked the user a question in a comment. Sessions push under the user's account, so "authored by the user" includes every thread's PRs.
 2. The tracker: tickets assigned to the user and not done, in or out of the sprint; tickets where the user is mentioned or asked something since the last brief; tickets whose status no longer matches the PR state.
 3. Chat: unanswered DMs and mentions, and questions the user asked that got a reply.
 4. The registry: every thread's needs-user items, checked against GitHub so a merged PR does not stay listed.
@@ -39,13 +39,15 @@ Only the work the user names in the config. Skip personal projects, personal mee
 
 ## Shape
 
-Group by epic or project, the most blocked first. For each one, in full sentences:
+The reader has a few minutes and one question: what do I have to do, and what could hurt my projects? So the brief is grouped by what the reader does with an item, not by project, and each item names its project in a short tag. Sections in this order, each left out when empty:
 
-- what moved (merged, approved, decided), with links;
-- what is blocked, on whom, since when, with the thread or PR link;
-- what is waiting on the user, each with the option you recommend.
+1. **Needs you.** Only actions the user alone can take: a merge, an apply, a review asked of them by name, a decision, a message to send. Order by what each one unblocks. One line each: the action, the link, what it unblocks, and how long it has waited.
+2. **At risk.** Anything that can quietly break or stall a project, even when every PR looks done. Merged but not live is the main case: Terraform not applied, an image not rebuilt or rolled, a deploy not run since the merge, a pin bumped in the repo while the running service is on the old one. Also drift someone else left in a shared Terraform root, failing CI on the default branch, an access or token about to expire, and a ticket whose status contradicts its PRs. For merged-not-live, check the deploy runs and, when credentials allow, the live system; say which it was.
+3. **Blocked on others.** Who, since when, and the link. Flag anything waiting more than two working days.
+4. **Done since the last brief.** Merged, applied, decided. One line each with its link, grouped under its project. Other people's work is left out.
+5. **Meetings ahead** that need preparation, and open questions in both directions.
 
-Then the meetings ahead that need preparation, and the open questions in both directions (asked of the user, asked by the user and unanswered). Low-signal items get at most a few one-liners at the end, or are left out.
+Rules for every item: every PR, ticket, doc or thread gets its own link, never a range like "#45564 to #45594"; an item appears once, in the first section it fits; a full sentence per item, no more. Status that changes nothing for the reader (a thread still working, a draft still in review) is left out. Put the window line and any unread source at the top.
 
 ## What you never do
 
