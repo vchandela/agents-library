@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Apply (or --check) the Amphetamine settings that keep coordinated sessions running
+with the lid closed. Each key matches a setting in amphetamine.md. Amphetamine must
+be installed from the Mac App Store first; this quits it, writes the settings and
+relaunches it, because a running Amphetamine overwrites its own preferences.
+Usage: amphetamine-settings [--check]
+"""
+import subprocess, sys, time
+
+DOMAIN = "com.if.Amphetamine"
+# key: (type, value)
+SETTINGS = {
+    # Session Defaults
+    "Default Duration": ("int", 0),                   # Indefinitely
+    "Session End Time Calcuation": ("int", 0),        # Use timer (Amphetamine's own spelling)
+    "End Sessions On Forced Sleep": ("bool", False),
+    "Allow Display Sleep": ("bool", True),
+    "Allow Closed-Display Sleep": ("bool", False),    # the one that keeps work running with the lid closed
+    "Allow Screen Saver": ("bool", False),
+    "Screen Saver Delay": ("int", 5),
+    "End Session On Low Battery": ("bool", True),
+    "Low Battery Percent": ("int", 30),
+    "Always Ask to End For Low Battery": ("bool", False),
+    "Ignore Battery on AC": ("bool", True),
+    "Restart DD Session on AC Reconnect": ("bool", True),
+    # General
+    "Status Item Click": ("int", 0),                  # right click quick-starts, left click shows menu
+    "Start Session At Launch": ("bool", False),
+    "Start Session On Wake": ("bool", False),
+    "Hide Dock Icon": ("bool", True),
+    "Reduce Motion": ("bool", False),
+    # System Control
+    "Lock Screen After Inactivity": ("bool", False),
+    "Lock Screen Inactivity Delay": ("int", 60),
+    "Screen Lock Uses Mouse Activity": ("bool", False),
+    "Lock Screen For CDM": ("bool", True),             # lock immediately after the lid closes
+    "Allow Display Sleep When Screen Is Locked": ("bool", False),
+    "Enable Mouse Movement": ("bool", False),
+    "Mouse Movement Interval": ("int", 60),
+    "Mouse Movement Inactivity Delay": ("int", 300),
+    "Stop Mouse Movement": ("bool", False),
+    "Stop Mouse Movement Inactivity Delay": ("int", 1800),
+    "End Sessions when FUS": ("bool", False),
+    # Triggers, Drive Alive
+    "Enable Triggers": ("bool", False),
+    "Enable Drive Alive": ("bool", False),
+    "Drive Wake Interval": ("int", 10),
+    # Hot Keys
+    "DefaultHotkeyAction": ("int", 0),                # end the session and start a new one
+    "StartNewSessionHotkeyDuration": ("int", 0),      # Indefinitely
+    # Notifications
+    "Enable Session Notifications": ("bool", False),  # session reminders
+    "Session Notification Interval": ("int", 60),
+    "Enable Session Auto Start Notifications": ("bool", True),
+    "Enable Session Auto End Notifications": ("bool", True),
+    "Enable Notification Sound": ("bool", True),
+    "Enable Session State Sound": ("bool", True),
+    "Enable Session Extend Sound": ("bool", True),
+    "Enable CDM Warning": ("bool", False),
+    "Repeat CDM Warning": ("bool", False),
+    "Adjust Volume For CDM Warning": ("bool", False),
+    "Auto Remove Notifications": ("bool", True),
+    # Appearance
+    "Icon Style": ("int", 0),                         # Pill
+    "Lower Icon Opacity": ("bool", False),
+    "Manage Status Item Image Padding": ("bool", False),
+    "Show Session Time In Status Bar": ("bool", False),
+    "Show Session Details In Menu": ("bool", True),
+    "Show Woke Drives In Menu": ("bool", False),
+    # Statistics
+    "Enable Statistics": ("bool", True),
+}
+
+def read(key):
+    r = subprocess.run(["defaults", "read", DOMAIN, key], capture_output=True, text=True)
+    return r.stdout.strip() if r.returncode == 0 else None
+
+def want(t, v):
+    return ("1" if v else "0") if t == "bool" else str(v)
+
+diffs = [(k, read(k), want(t, v)) for k, (t, v) in SETTINGS.items() if read(k) != want(t, v)]
+if "--check" in sys.argv:
+    for k, have, need in diffs:
+        print(f"DIFFERS  {k}: have {have}, want {need}")
+    print("all match" if not diffs else f"{len(diffs)} differ")
+    sys.exit(1 if diffs else 0)
+
+if not diffs:
+    print("Amphetamine settings already match"); sys.exit(0)
+subprocess.run(["osascript", "-e", 'quit app "Amphetamine"'], capture_output=True)
+time.sleep(2)
+for k, (t, v) in SETTINGS.items():
+    subprocess.run(["defaults", "write", DOMAIN, k, f"-{t}", want(t, v) if t == "int" else ("true" if v else "false")], check=True)
+subprocess.run(["open", "-a", "Amphetamine"])
+print(f"wrote {len(SETTINGS)} settings ({len(diffs)} changed); Amphetamine relaunched")

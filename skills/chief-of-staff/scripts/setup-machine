@@ -17,4 +17,7 @@ add "set -g allow-passthrough on"               # lets the Warp plugin's status 
 tmux source-file "$conf" 2>/dev/null || true    # apply to a running server, if any
 
 "$here/warp-plugin-tmux-patch"
+
+# Keep the Mac awake with the lid closed (amphetamine.md).
+if [ -d /Applications/Amphetamine.app ]; then "$here/amphetamine-settings"; else echo "install Amphetamine from the Mac App Store, then rerun"; fi
 echo "machine ready"
