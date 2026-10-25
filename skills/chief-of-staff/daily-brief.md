@@ -8,7 +8,7 @@ A brief covers everything since the last brief, never a fixed number of hours. K
 
 ## Reconnect sessions first
 
-Run `scripts/rc-reconnect` before reading anything (SKILL.md, "Keep every session reachable"). Sessions it reconnects are not mentioned; any it lists as FAILED or NOT IN TMUX go under "Needs you" with the line to type.
+Read the tail of `~/.claude/state/rc-reconnect.log` before anything else (SKILL.md, "Keep every session reachable"): the daily timer runs the reconnect, so you do not. Sessions it reconnected are not mentioned; any FAILED or NOT IN TMUX line in the latest run goes under "Needs you" with the line to type. Run `scripts/rc-reconnect` yourself only after an account switch or when a session shows disconnected.
 
 ## Read every source before writing
 

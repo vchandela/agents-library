@@ -15,7 +15,8 @@
    "Launch Amphetamine at login" is a login item: turn it on in the app.
 4. A daily timer (launchd, 07:00 on the laptop's own clock) that runs rc-reconnect, so
    Remote Control comes back for every tmux session without anyone running it. It
-   logs to ~/.claude/state/rc-reconnect.log and prints only FAILED or NOT IN TMUX.
+   logs to ~/.claude/state/rc-reconnect.log: one dated line per run, plus FAILED or NOT IN TMUX
+   for a session that needs a person, and CONNECTED for one it fixed.
 
 Usage: setup-machine [--check | --patch-only]
 """
@@ -178,11 +179,12 @@ def setup_timer():
 </plist>
 """
     have = open(plist).read() if os.path.exists(plist) else ""
-    if have == body: return []
-    if CHECK: return [f"daily reconnect timer missing or different: {plist}"]
+    domain = f"gui/{os.getuid()}"
+    loaded = subprocess.run(["launchctl", "print", f"{domain}/{TIMER_LABEL}"], capture_output=True).returncode == 0
+    if have == body and loaded: return []
+    if CHECK: return [f"daily reconnect timer {'not loaded' if have == body else 'missing or different'}: {plist}"]
     os.makedirs(os.path.dirname(plist), exist_ok=True)
     os.makedirs(os.path.dirname(log), exist_ok=True)
-    domain = f"gui/{os.getuid()}"
     subprocess.run(["launchctl", "bootout", f"{domain}/{TIMER_LABEL}"], capture_output=True)
     with open(plist, "w") as f: f.write(body)
     r = subprocess.run(["launchctl", "bootstrap", domain, plist], capture_output=True, text=True)

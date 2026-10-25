@@ -13,9 +13,14 @@ def alive(pid):
     try: os.kill(pid, 0); return True
     except OSError: return False
 todo = []
+live = connected = 0
 for f in glob.glob(os.path.expanduser('~/.claude/sessions/*.json')):
     j = json.load(open(f))
-    if not j.get('cwd', '').startswith(prefix) or not alive(j['pid']) or j.get('bridgeSessionId'):
+    if not j.get('cwd', '').startswith(prefix) or not alive(j['pid']):
+        continue
+    live += 1
+    if j.get('bridgeSessionId'):
+        connected += 1
         continue
     target = pane_of.get(str(j['pid']))
     if not target:
@@ -29,4 +34,6 @@ time.sleep(10)
 for f, name in todo:
     j = json.load(open(f))
     print(('CONNECTED   ' if j.get('bridgeSessionId') else 'FAILED      ') + name)
+# One dated line per run, so a log shows that the run happened even when nothing needed fixing.
+print(f"{time.strftime('%Y-%m-%d %H:%M')} rc-reconnect: {live} live sessions, {connected} already connected, {len(todo)} reconnect attempted")
 PY
