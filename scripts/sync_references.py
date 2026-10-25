@@ -8,7 +8,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from refgraph import ROOT, REF_LINK, needed
+from refgraph import ROOT, needed
 
 REFS = ROOT / "references"
 check = "--check" in sys.argv[1:]
@@ -16,12 +16,12 @@ problems = []
 
 for skill in sorted(p for p in (ROOT / "skills").iterdir() if (p / "SKILL.md").exists()):
     dest = skill / "references"
-    if not (dest.exists() or dest.is_symlink()):
-        # A skill that points at references/ but has no folder works here and breaks when installed alone.
-        if REF_LINK.search((skill / "SKILL.md").read_text(encoding="utf-8")):
-            problems.append(f"missing: {dest.relative_to(ROOT)} (mkdir it and run scripts/sync-references.sh)")
-        continue
     want = needed(skill)
+    if not (dest.exists() or dest.is_symlink()):
+        # A skill that points at a reference but has no folder works here and breaks when installed alone.
+        if want:
+            problems.append(f"missing: {dest.relative_to(ROOT)} (it needs {len(want)} reference files; mkdir it and run scripts/sync-references.sh)")
+        continue
     if check:
         have = set()
         if dest.is_dir() and not dest.is_symlink():
@@ -42,5 +42,6 @@ for skill in sorted(p for p in (ROOT / "skills").iterdir() if (p / "SKILL.md").e
             (dest / name).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(REFS / name, dest / name)
 
-print("\n".join(problems) + ("\nrun scripts/sync-references.sh" if problems else ""))
+if problems:
+    print("\n".join(problems) + "\nrun scripts/sync-references.sh")
 sys.exit(1 if problems else 0)
