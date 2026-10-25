@@ -3,7 +3,7 @@
 # A session with no bridgeSessionId in ~/.claude/sessions/<pid>.json is disconnected; its tmux pane pid equals that pid.
 # Usage: rc-reconnect [cwd-prefix]   (prefix limits it to sessions under that folder, for tests)
 prefix="${1:-/}"
-"$(dirname "$(realpath "$0")")/warp-plugin-tmux-patch" >/dev/null
+"$(dirname "$(realpath "$0")")/setup-machine" --patch-only >/dev/null
 panes=$(tmux list-panes -a -F '#{pane_pid} #{session_name}:#{window_index}.#{pane_index}' 2>/dev/null)
 python3 - "$prefix" "$panes" <<'PY'
 import json, glob, os, subprocess, sys, time

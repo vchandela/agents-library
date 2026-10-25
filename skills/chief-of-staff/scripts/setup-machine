@@ -1,23 +1,160 @@
-#!/bin/bash
-# One-time (and safe to rerun) laptop setup for coordinated Claude Code sessions:
-# tmux installed, ~/.tmux.conf carrying the lines the sessions need, those lines
-# live in a running tmux server, and the Warp plugin patched for tmux.
-set -euo pipefail
-here="$(dirname "$(realpath "$0")")"
+#!/usr/bin/env python3
+"""Laptop setup for coordinated Claude Code sessions. Safe to rerun.
 
-command -v tmux >/dev/null || brew install tmux
+1. tmux, and the ~/.tmux.conf lines the sessions need, applied to a running server.
+2. The Warp plugin patched so its status icon works inside tmux. Inside tmux,
+   Claude Code does not pass the plugin's terminalSequence to the pane and tmux
+   drops unwrapped codes, so the patch writes the code, wrapped for tmux, straight
+   to the plugin's own pane. A plugin update installs a fresh copy; the launcher
+   (warp-claude) and rc-reconnect rerun this with --patch-only to repatch it.
+3. Amphetamine settings that keep the Mac awake with the lid closed, because tmux
+   does not survive sleep. Tested 25 Oct 2026: lid closed, no sleep logged.
+   After setup: menu bar icon, Start New Session, Indefinitely. Keep the charger in
+   for long runs (the session ends at 30% battery and restarts when the charger is
+   plugged back in), and never run it closed inside a bag (no airflow).
+   "Launch Amphetamine at login" is a login item: turn it on in the app.
 
-conf=~/.tmux.conf
-touch "$conf"
-add() { grep -qxF "$1" "$conf" || { printf '%s\n' "$1" >> "$conf"; echo "added to ~/.tmux.conf: $1"; }; }
-add "set -g set-titles on"                      # Warp shows the tab by its pane title
-add "set -g set-titles-string '#{pane_title}'"  # which is Claude's thread name
-add "set -g focus-events on"                    # Claude Code asks for it
-add "set -g allow-passthrough on"               # lets the Warp plugin's status codes reach Warp
-tmux source-file "$conf" 2>/dev/null || true    # apply to a running server, if any
+Usage: setup-machine [--check | --patch-only]
+"""
+import glob, os, shutil, subprocess, sys, time
 
-"$here/warp-plugin-tmux-patch"
+CHECK = "--check" in sys.argv
+PATCH_ONLY = "--patch-only" in sys.argv
 
-# Keep the Mac awake with the lid closed (amphetamine.md).
-if [ -d /Applications/Amphetamine.app ]; then "$here/amphetamine-settings"; else echo "install Amphetamine from the Mac App Store, then rerun"; fi
-echo "machine ready"
+# ---- 1. tmux ------------------------------------------------------------------
+TMUX_LINES = [
+    "set -g set-titles on",                      # Warp shows the tab by its pane title,
+    "set -g set-titles-string '#{pane_title}'",  # which is Claude's thread name
+    "set -g focus-events on",                    # Claude Code asks for it
+    "set -g allow-passthrough on",               # lets the Warp plugin's status codes reach Warp
+]
+
+def setup_tmux():
+    if not shutil.which("tmux"):
+        if CHECK: return ["tmux not installed"]
+        subprocess.run(["brew", "install", "tmux"], check=True)
+    conf = os.path.expanduser("~/.tmux.conf")
+    have = open(conf).read().splitlines() if os.path.exists(conf) else []
+    missing = [l for l in TMUX_LINES if l not in have]
+    if CHECK: return [f"~/.tmux.conf lacks: {l}" for l in missing]
+    with open(conf, "a") as f:
+        for l in missing: f.write(l + "\n"); print(f"added to ~/.tmux.conf: {l}")
+    subprocess.run(["tmux", "source-file", conf], capture_output=True)
+    return []
+
+# ---- 2. Warp plugin patch -------------------------------------------------------
+MARK = "# tmux passthrough (chief-of-staff setup-machine)"
+OLD_MARK = "# tmux passthrough (warp-plugin-tmux-patch)"  # copies patched before 25 Oct 2026
+OLD = '    local seq="$1"\n    [ -z "$seq" ] && return 0\n'
+NEW = OLD + r'''
+    MARK
+    if [ -n "${TMUX:-}" ] && [ -n "${TMUX_PANE:-}" ]; then
+        local tty
+        tty=$(tmux display-message -p -t "$TMUX_PANE" '#{pane_tty}' 2>/dev/null)
+        if [ -n "$tty" ] && [ -w "$tty" ]; then
+            printf '\033Ptmux;%s\033\\' "$(printf '%s' "$seq" | perl -pe 's/\e/\e\e/g')" > "$tty"
+            return 0
+        fi
+    fi
+'''.replace("MARK", MARK)
+
+
+def patch_warp():
+    out = []
+    for p in glob.glob(os.path.expanduser("~/.claude/plugins/cache/claude-code-warp/warp/*/scripts/emit-terminal-sequence.sh")):
+        s = open(p).read()
+        if MARK in s or OLD_MARK in s: continue
+        if OLD not in s: out.append(f"Warp plugin changed shape, NOT PATCHED: {p}"); continue
+        if CHECK: out.append(f"Warp plugin not patched: {p}"); continue
+        open(p, "w").write(s.replace(OLD, NEW, 1)); print(f"patched {p}")
+    return out
+
+# ---- 3. Amphetamine -------------------------------------------------------------
+# Every setting in Amphetamine's Settings tabs, as set on 25 Oct 2026 (True = ticked).
+DOMAIN = "com.if.Amphetamine"
+SETTINGS = {
+    # Session Defaults
+    "Default Duration": ("int", 0),                   # Indefinitely
+    "Session End Time Calcuation": ("int", 0),        # Use timer (Amphetamine's own spelling)
+    "End Sessions On Forced Sleep": ("bool", False),
+    "Allow Display Sleep": ("bool", True),
+    "Allow Closed-Display Sleep": ("bool", False),    # the one that keeps work running with the lid closed
+    "Allow Screen Saver": ("bool", False),
+    "Screen Saver Delay": ("int", 5),
+    "End Session On Low Battery": ("bool", True),
+    "Low Battery Percent": ("int", 30),
+    "Always Ask to End For Low Battery": ("bool", False),
+    "Ignore Battery on AC": ("bool", True),
+    "Restart DD Session on AC Reconnect": ("bool", True),
+    # General
+    "Status Item Click": ("int", 0),                  # right click quick-starts, left click shows menu
+    "Start Session At Launch": ("bool", False),
+    "Start Session On Wake": ("bool", False),
+    "Hide Dock Icon": ("bool", True),
+    "Reduce Motion": ("bool", False),
+    # System Control
+    "Lock Screen After Inactivity": ("bool", False),
+    "Lock Screen Inactivity Delay": ("int", 60),
+    "Screen Lock Uses Mouse Activity": ("bool", False),
+    "Lock Screen For CDM": ("bool", True),             # lock immediately after the lid closes
+    "Allow Display Sleep When Screen Is Locked": ("bool", False),
+    "Enable Mouse Movement": ("bool", False),
+    "Mouse Movement Interval": ("int", 60),
+    "Mouse Movement Inactivity Delay": ("int", 300),
+    "Stop Mouse Movement": ("bool", False),
+    "Stop Mouse Movement Inactivity Delay": ("int", 1800),
+    "End Sessions when FUS": ("bool", False),
+    # Triggers, Drive Alive
+    "Enable Triggers": ("bool", False),
+    "Enable Drive Alive": ("bool", False),
+    "Drive Wake Interval": ("int", 10),
+    # Hot Keys
+    "DefaultHotkeyAction": ("int", 0),                # end the session and start a new one
+    "StartNewSessionHotkeyDuration": ("int", 0),      # Indefinitely
+    # Notifications
+    "Enable Session Notifications": ("bool", False),  # session reminders
+    "Session Notification Interval": ("int", 60),
+    "Enable Session Auto Start Notifications": ("bool", True),
+    "Enable Session Auto End Notifications": ("bool", True),
+    "Enable Notification Sound": ("bool", True),
+    "Enable Session State Sound": ("bool", True),
+    "Enable Session Extend Sound": ("bool", True),
+    "Enable CDM Warning": ("bool", False),
+    "Repeat CDM Warning": ("bool", False),
+    "Adjust Volume For CDM Warning": ("bool", False),
+    "Auto Remove Notifications": ("bool", True),
+    # Appearance
+    "Icon Style": ("int", 0),                         # Pill
+    "Lower Icon Opacity": ("bool", False),
+    "Manage Status Item Image Padding": ("bool", False),
+    "Show Session Time In Status Bar": ("bool", False),
+    "Show Session Details In Menu": ("bool", True),
+    "Show Woke Drives In Menu": ("bool", False),
+    # Statistics
+    "Enable Statistics": ("bool", True),
+}
+
+def defaults_value(t, v): return ("1" if v else "0") if t == "bool" else str(v)
+
+def setup_amphetamine():
+    if not os.path.isdir("/Applications/Amphetamine.app"):
+        return ["Amphetamine not installed: get it from the Mac App Store, then rerun"]
+    def read(k):
+        r = subprocess.run(["defaults", "read", DOMAIN, k], capture_output=True, text=True)
+        return r.stdout.strip() if r.returncode == 0 else None
+    diffs = [k for k, (t, v) in SETTINGS.items() if read(k) != defaults_value(t, v)]
+    if CHECK: return [f"Amphetamine differs: {k}" for k in diffs]
+    if not diffs: return []
+    subprocess.run(["osascript", "-e", 'quit app "Amphetamine"'], capture_output=True)
+    time.sleep(2)  # a running Amphetamine overwrites its own preferences
+    for k, (t, v) in SETTINGS.items():
+        subprocess.run(["defaults", "write", DOMAIN, k, f"-{t}",
+                        defaults_value(t, v) if t == "int" else ("true" if v else "false")], check=True)
+    subprocess.run(["open", "-a", "Amphetamine"])
+    print(f"Amphetamine: {len(diffs)} settings changed, relaunched")
+    return []
+
+problems = patch_warp() if PATCH_ONLY else setup_tmux() + patch_warp() + setup_amphetamine()
+for p in problems: print(p)
+if not PATCH_ONLY: print("machine ready" if not problems else f"{len(problems)} to fix")
+sys.exit(1 if problems and CHECK else 0)

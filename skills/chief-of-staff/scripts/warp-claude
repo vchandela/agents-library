@@ -48,6 +48,6 @@ toml = (
 with open(path, "w") as f:
     f.write(toml)
 # Keep the Warp plugin's status icon working inside tmux (repatches after plugin updates).
-subprocess.run([os.path.join(os.path.dirname(os.path.realpath(__file__)), "warp-plugin-tmux-patch")], stdout=subprocess.DEVNULL)
+subprocess.run([os.path.join(os.path.dirname(os.path.realpath(__file__)), "setup-machine"), "--patch-only"], stdout=subprocess.DEVNULL)
 subprocess.run(["open", f"warp://tab_config/{stem}"], check=True)
 print(f"opened Warp tab '{name}' via {path}")
