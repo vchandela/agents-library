@@ -43,6 +43,8 @@ Verify it works before moving on. State what you did, what you checked, what com
 
 Run the fast tier as you go and the full suite once, on the final head (`references/testing.md`, "The loop").
 
+Start a long job once in the background, check that it started, then end the turn and let the completion notice wake you (`references/testing.md`, "Anti-patterns").
+
 Read the real exit status. In `uv run ruff check . | tail -1 && git commit`, the `&&` tests `tail`, so a lint failure committed anyway; `grep -v` exits 1 when it prints nothing, so a push that worked looked like a failure. Check each command on its own line, or test its output, before chaining the next step.
 
 ## The standard
