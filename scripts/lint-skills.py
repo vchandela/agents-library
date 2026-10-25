@@ -19,9 +19,9 @@ Checks, standard library only:
 """
 import re
 import sys
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+from refgraph import ROOT, links
+
 NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 HIDDEN = re.compile("[​-‏‪-‮⁠-⁤﻿]")
 MAX_WORDS = 3500
@@ -66,26 +66,6 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
     for ref in sorted(set(re.findall(r"references/([\w./-]+\.md)", text))):
         if not (skill.parent / "references" / ref).exists():
             fail(skill, f"mentions references/{ref} but the skill folder does not ship it")
-
-
-REF_LINK = re.compile(r"references/([\w./-]+\.(?:md|sh))")
-MD_LINK = re.compile(r"\]\(([\w./-]+\.md)(?:#[\w-]*)?\)")
-BACKTICK = re.compile(r"`([\w-]+\.md)`")
-
-
-def links(path):
-    """Reference files (relative to references/) that a file points to."""
-    text = path.read_text(encoding="utf-8")
-    refs = ROOT / "references"
-    found = set(REF_LINK.findall(text))
-    for name in BACKTICK.findall(text):
-        if (refs / name).exists():
-            found.add(name)
-    for rel in MD_LINK.findall(text):
-        target = (path.parent / rel).resolve()
-        if refs in target.parents and target.exists():
-            found.add(str(target.relative_to(refs)))
-    return found
 
 
 for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
