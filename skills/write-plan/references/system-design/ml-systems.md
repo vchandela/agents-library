@@ -48,7 +48,7 @@ Against evaders, a feature is worth how long it survives. Prefer signals hard to
 
 ## Evaluation
 
-Chain the business goal to a product metric and an offline test, then check the chain on live traffic (the general method is in the evals reference). With rare positives, accuracy flatters a useless model, so use PR-AUC and recall at your threshold. Keep a golden set the model never influenced. Online, run shadow mode before an A/B test that tracks a long-term metric too.
+Chain the business goal to a product metric and an offline test, then check the chain on live traffic (the general method is in the evals skill). With rare positives, accuracy flatters a useless model, so use PR-AUC and recall at your threshold. Keep a golden set the model never influenced. Online, run shadow mode before an A/B test that tracks a long-term metric too.
 
 ## LLM serving
 
