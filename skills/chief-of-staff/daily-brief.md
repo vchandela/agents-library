@@ -6,6 +6,10 @@ When the user asks for a summary or brief of their work ("since yesterday's sync
 
 A brief covers everything since the last brief, never a fixed number of hours. Keep the last-run time, cursors and open commitments in `~/.claude/cos/brief-state.md`. When the user names a start point ("since yesterday's morning sync"), find that meeting in the meeting notes and start right after it. Open with one line: "Covers <start> to <now>". If the gap is more than a day, say so. Update the state file only after the brief is given, so a failed run does not move the cursor.
 
+## Reconnect sessions first
+
+Run `scripts/rc-reconnect` before reading anything (SKILL.md, "Keep every session reachable"). Sessions it reconnects are not mentioned; any it lists as FAILED or NOT IN TMUX go under "Needs you" with the line to type.
+
 ## Read every source before writing
 
 The registry and the threads' notices are only one source. Before the first line of the brief, read:

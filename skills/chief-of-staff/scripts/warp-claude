@@ -1,23 +1,39 @@
 #!/usr/bin/env python3
 """Open a new Warp tab running Claude Code under a given name.
 
-Usage: warp-claude "<session name>" [directory]   (directory defaults to ~/anyscale)
+Usage: warp-claude "<session name>" [directory] [--resume <session id>]
+       (directory defaults to ~/anyscale)
 
 Writes a Warp tab config (~/.warp/tab_configs/claude_<name>.toml) and opens it
 with warp://tab_config/<stem>. The name is set twice: --name labels the prompt
 box, /resume picker and tab title; --remote-control <name> is the name the
-phone and claude.ai show.
+phone and claude.ai show. Claude runs inside a tmux session of the same stem,
+so the coordinator can type /remote-control into it after an account switch
+(scripts/rc-reconnect), and closing the tab does not stop the session.
+--resume moves an existing conversation into a tab this way.
 """
 import json, os, re, shlex, subprocess, sys
 
-if len(sys.argv) not in (2, 3) or not sys.argv[1].strip():
-    sys.exit('usage: warp-claude "<session name>" [directory]')
-name = sys.argv[1].strip()
-directory = sys.argv[2] if len(sys.argv) == 3 else "~/anyscale"
+args = sys.argv[1:]
+resume = None
+if "--resume" in args:
+    i = args.index("--resume")
+    if i + 1 >= len(args):
+        sys.exit("--resume needs a session id")
+    resume = args[i + 1]
+    del args[i:i + 2]
+if len(args) not in (1, 2) or not args[0].strip():
+    sys.exit('usage: warp-claude "<session name>" [directory] [--resume <session id>]')
+name = args[0].strip()
+directory = args[1] if len(args) == 2 else "~/anyscale"
 if not os.path.isdir(os.path.expanduser(directory)):
     sys.exit(f"no such directory: {directory}")
 stem = "claude_" + (re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_") or "session")
-cmd = f"claude --name {shlex.quote(name)} --remote-control {shlex.quote(name)}"
+claude = f"claude --name {shlex.quote(name)} --remote-control {shlex.quote(name)}"
+if resume:
+    claude += f" --resume {shlex.quote(resume)}"
+# new -A attaches when the tmux session already exists, so reopening the tab returns to it.
+cmd = f"tmux new -A -s {stem} {shlex.quote(claude)}"
 path = os.path.expanduser(f"~/.warp/tab_configs/{stem}.toml")
 os.makedirs(os.path.dirname(path), exist_ok=True)
 # json.dumps gives double-quoted strings with escapes TOML basic strings accept.

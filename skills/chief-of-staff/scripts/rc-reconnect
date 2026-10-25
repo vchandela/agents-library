@@ -1,0 +1,31 @@
+#!/bin/bash
+# Reconnect Remote Control in every live Claude session that runs in tmux and has none.
+# A session with no bridgeSessionId in ~/.claude/sessions/<pid>.json is disconnected; its tmux pane pid equals that pid.
+# Usage: rc-reconnect [cwd-prefix]   (prefix limits it to sessions under that folder, for tests)
+prefix="${1:-/}"
+panes=$(tmux list-panes -a -F '#{pane_pid} #{session_name}:#{window_index}.#{pane_index}' 2>/dev/null)
+python3 - "$prefix" "$panes" <<'PY'
+import json, glob, os, subprocess, sys, time
+prefix, panes = sys.argv[1], sys.argv[2]
+pane_of = dict(l.split(' ', 1) for l in panes.splitlines() if l)
+def alive(pid):
+    try: os.kill(pid, 0); return True
+    except OSError: return False
+todo = []
+for f in glob.glob(os.path.expanduser('~/.claude/sessions/*.json')):
+    j = json.load(open(f))
+    if not j.get('cwd', '').startswith(prefix) or not alive(j['pid']) or j.get('bridgeSessionId'):
+        continue
+    target = pane_of.get(str(j['pid']))
+    if not target:
+        print(f"NOT IN TMUX  {j.get('name')} (pid {j['pid']})"); continue
+    name = j.get('name') or ''
+    subprocess.run(['tmux', 'send-keys', '-t', target, '-l', f'/remote-control {name}'.strip()])
+    time.sleep(0.5)
+    subprocess.run(['tmux', 'send-keys', '-t', target, 'Enter'])
+    todo.append((f, name))
+time.sleep(10)
+for f, name in todo:
+    j = json.load(open(f))
+    print(('CONNECTED   ' if j.get('bridgeSessionId') else 'FAILED      ') + name)
+PY
