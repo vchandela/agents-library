@@ -11,7 +11,9 @@ You are reading real Claude Code or Cowork sessions, run against your own work, 
 
 Claude Code sessions are JSONL files, one per session, under `~/.claude/projects/<slug>/<session-id>.jsonl`, where `<slug>` is the working directory path with `/` replaced by `-`. If more than one project slug could match, or the user hasn't said which sessions, ask rather than guess: "your last 10 sessions in this project" and "every session since Monday across all projects" are different batches with different reports.
 
-With no count or date range given, default to the most recent 10 to 15 sessions and say so at the top of the report.
+Before choosing, read `ledgers/transcripts.md` in this library. Ask which laptop section this machine is (offer the existing ones; a new laptop gets a new section). Skip every session whose id is already in that section, unless the file now has more lines than the ledger says were read: then read only the lines after that number. Skip a session written to in the last hour, since it is probably still live. If nothing is new, say so and stop.
+
+With no count or date range given, take the newest unread sessions, at most 15 per run, and say so at the top of the report. The rest wait for the next run.
 
 For a Cowork session, ask the user for the transcript (export, link or file) rather than guessing a local path; Cowork sessions often don't run on this machine.
 
@@ -54,6 +56,10 @@ Close with what the report does not cover: sessions you didn't get to, anything 
 - Not a severity score you invented. A count and real examples let the reader judge severity.
 - Not an eval suite. "Can we measure whether this gets better or worse" is `evals`.
 
+## 6. Update the ledger
+
+Only after the report is written, add or update one line per session read in your laptop's section of `ledgers/transcripts.md`, in the format at the top of that file, with the library's short git sha. Then commit the ledger. If the run failed halfway, the ledger stays as it was and the next run reads those sessions again. The ledger is in a public repo: ids, dates and counts only.
+
 ## Rationalisations to refuse
 
 - "The closing summary already says what happened": the agent under review wrote it; read the turns.
@@ -69,3 +75,4 @@ Close with what the report does not cover: sessions you didn't get to, anything 
 - [ ] Each mode shows its count and at least one example a reader could find in the source session.
 - [ ] Nothing in the report is a proposed fix, a patch or a hand-off to another skill.
 - [ ] Anything skipped, unread or redacted is stated.
+- [ ] The ledger lists every session read, under the right laptop, and holds no content.
