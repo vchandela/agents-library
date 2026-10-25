@@ -11,13 +11,14 @@ You are reading real Claude Code or Cowork sessions, run against your own work, 
 
 Check both of these at the start of every run (two file reads) and say nothing when they are fine. If one is missing, tell the user and change a file only with their yes. Merge into existing content and keep it valid.
 
-**Retention.** Read `cleanupPeriodDays` in `~/.claude/settings.json`. Claude Code deletes transcripts older than that, and the default is 30 days when it is unset (https://code.claude.com/docs/en/settings-reference.md#cleanupperioddays). The user's chosen value is 120, which covers a run every few months. If it is unset or lower, add `"cleanupPeriodDays": 120`.
+**Retention.** Read `cleanupPeriodDays` in `~/.claude/settings.json` (a project or managed settings file overrides it, so check any higher settings file too). Claude Code deletes transcripts older than that, and the default is 30 days when it is unset (https://code.claude.com/docs/en/settings-reference.md#cleanupperioddays). The user's chosen value is 120, which covers a run every few months. If it is unset or lower, add `"cleanupPeriodDays": 120`.
 
 **Usage meter.** Claude Code gives the status line the account's five-hour usage. The pacing below reads it from `~/.claude/state/usage.json`, which the status line script must write. If the user's status line script (the `statusLine` command in `~/.claude/settings.json`) lacks it, add these lines after its `jq` check, where `$input` is the JSON the script reads from stdin:
 
     mkdir -p "$HOME/.claude/state"
     echo "$input" | jq -c 'select(.rate_limits != null) | {at: (now | floor), rate_limits}' > "$HOME/.claude/state/usage.json.tmp.$$" 2>/dev/null \
-      && [ -s "$HOME/.claude/state/usage.json.tmp.$$" ] && mv "$HOME/.claude/state/usage.json.tmp.$$" "$HOME/.claude/state/usage.json"
+      && [ -s "$HOME/.claude/state/usage.json.tmp.$$" ] && mv "$HOME/.claude/state/usage.json.tmp.$$" "$HOME/.claude/state/usage.json" \
+      || rm -f "$HOME/.claude/state/usage.json.tmp.$$"
 
 If the user has no status line, the meter file is simply never there, and the pacing asks for the number instead.
 
@@ -27,7 +28,7 @@ The run may use 30% of what is left in the five-hour window when it starts, and 
 
 a. **Read the meter.** Take `rate_limits.five_hour.used_percentage` from `~/.claude/state/usage.json` as the current use. If the file is missing, older than 10 minutes (`at`), lacks `five_hour`, or its `resets_at` is in the past, ask the user for the number from `/usage` instead. Read it before the run (call it `start`) and again before each batch, only after the previous batch's results are back in the main session, because the status line updates on a main session response.
 b. **Stop line:** `start + 0.30 × (100 − start)`, and never above 80. Example: 70 used, stop at 79. 10 used, stop at 37. A start above 80 means no run.
-c. **Batches** of about 4 sessions. After the first batch, take its cost as the rise in the meter; start another only if the current reading plus that cost is at or under the stop line.
+c. **Batches:** make the first one small (1 or 2 sessions) to measure what a session costs, then about 4. Take the cost as the largest rise in the meter seen so far; start another batch only if the current reading plus that cost is at or under the stop line.
 d. **Save after each batch:** its candidate moments go to a notes file (`~/.claude/state/transcript-run-notes.md` unless the user names another), with secrets redacted as they are written, and the ledger is updated as section 6 says. The notes are the durable record, so stopping loses nothing.
 e. **When the run stops,** say how many sessions are done and how many remain, and when the window resets (`resets_at` if the meter has it, else "within five hours"). The user says "continue" later; the ledger and the notes make the next run pick up where this one stopped.
 f. **Subagents:** no cap is needed, because the meter is checked between batches. Launch one batch at a time and wait for it. Readers use Sonnet 5.5 and never Haiku. Synthesis stays in the main session, on whatever model it runs.
@@ -36,7 +37,7 @@ f. **Subagents:** no cap is needed, because the meter is checked between batches
 
 Claude Code sessions are JSONL files, one per session, under `~/.claude/projects/<slug>/<session-id>.jsonl`, where `<slug>` is the working directory path with `/` replaced by `-`. If more than one project slug could match, or the user hasn't said which sessions, ask rather than guess: "your last 10 sessions in this project" and "every session since Monday across all projects" are different batches with different reports.
 
-Read the ledger of sessions already read: `ledgers/transcripts.md` when this skill sits inside a clone of the agents library, otherwise `~/.claude/state/transcript-ledger.md` in the same format (an installed copy has no library, so no short sha and no commit). Ask which laptop section this machine is (offer the existing ones; a new laptop gets a new section). Skip every session whose id is already in that section, unless the file now has more lines than the ledger says were read: then read it in full from the line after that number. Skip a session written to in the last hour, since it is probably still live. If nothing is new, say so and stop.
+Read the ledger of sessions already read: `ledgers/transcripts.md` when the skill folder's real path (follow symlinks) has that file two levels up, which means it is in a clone of the agents library, otherwise `~/.claude/state/transcript-ledger.md` in the same format (an installed copy has no library, so no short sha and no commit). Ask which laptop section this machine is (offer the existing ones; a new laptop gets a new section). Skip every session whose id is already in that section, unless the file now has more lines than the ledger says were read: then read it in full from the line after that number. Skip a session written to in the last hour, since it is probably still live. If nothing is new, say so and stop.
 
 With no count or date range given, take the newest unread sessions first and go as far as the pacing budget allows, and say so at the top of the report. The rest wait for the next run.
 
