@@ -157,14 +157,14 @@ This is not a "minimum viable diagram" rule. A tiny diagram that still requires 
 
 ## Length: diagrams carry the page
 
-A page is for scanning, and a long one puts the reader off before they start. Keep the visible text of a page (an artifact, a hosted explainer, a doc for colleagues) to about 1,100 words, not counting collapsed evidence, and let diagrams, timelines and Now versus Fix panels carry the explanation. Go longer only when the user asks for a long reference document.
+A page is for scanning, and a long one puts the reader off before they start. Keep the visible text of a page (an artifact, a hosted explainer, a doc for colleagues) as short as it can be, not counting collapsed evidence, and let diagrams, timelines and Now versus Fix panels carry the explanation. There is no word budget, but every sentence stays complete and the explanation reads coherently from one step to the next: cut words, never the verb or the link between two steps.
 
 - Open with the title and a one-line diagram key, or the first diagram. A lede, an "in short" box or a verdict paragraph that restates the page is cut.
 - One item is a heading, one diagram (or a Now and Fix pair), and at most two sentences under it. A sentence that only describes what the diagram already shows is cut.
 - No section intro that announces what follows, no closing recap, and no history of the conversation (corrections go in chat).
 - Put the plain-words version of each point in a collapsed "Explain simply" dropdown (`<details>`) under it, for a reader who has never met the term: say what each thing is, give one real example, use no analogy, and keep it to about 50 to 120 words. Skip the dropdown when the visible sentences already use only plain words: a reader removed every dropdown on a page whose text already read clearly, because each one repeated its paragraph. Collapsed dropdowns and evidence do not count toward the budget, so a reader who knows the topic sees a short page and a reader who does not can open the explanation they need.
 - Review each item before it earns a place. Merge items that one fix covers. Turn a test into a rollout line instead of a "gap". Rate each item's severity against the real stakes and demote the low ones. Drop an interim fix that saves little once you have measured it.
-- Count before publishing: extract the visible text (without the dropdowns) and count the words. Over 1,200 words, cut text and keep the diagrams.
+- Read the visible text once before publishing, without the dropdowns. Cut any sentence a diagram already shows, then check that no sentence is a fragment and that each step follows from the one before.
 
 ## Steps first, or the map first
 
@@ -254,7 +254,7 @@ Visuals checklist
 - [ ] Every flow, boundary or ownership question is a diagram, chosen with "Pick the form".
 - [ ] Each diagram is within the budget, and every box and arrow carries its plain-words note.
 - [ ] A table is used only where the reader looks values up.
-- [ ] A page's visible text is counted and is about 1,100 words or fewer.
+- [ ] A page's visible text is as short as it can be, every sentence is complete, and each step follows from the last.
 - [ ] For a page or deck, the preview the skill names passed for this version.
 - [ ] A tired reader could explain the mechanism back without borrowing the document's jargon.
 ```
