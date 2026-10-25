@@ -11,7 +11,9 @@ You are reading real Claude Code or Cowork sessions, run against your own work, 
 
 Claude Code sessions are JSONL files, one per session, under `~/.claude/projects/<slug>/<session-id>.jsonl`, where `<slug>` is the working directory path with `/` replaced by `-`. If more than one project slug could match, or the user hasn't said which sessions, ask rather than guess: "your last 10 sessions in this project" and "every session since Monday across all projects" are different batches with different reports.
 
-Before choosing, read `ledgers/transcripts.md` in this library. Ask which laptop section this machine is (offer the existing ones; a new laptop gets a new section). Skip every session whose id is already in that section, unless the file now has more lines than the ledger says were read: then read only the lines after that number. Skip a session written to in the last hour, since it is probably still live. If nothing is new, say so and stop.
+Before choosing, check how long this laptop keeps transcripts: read `cleanupPeriodDays` in `~/.claude/settings.json`. Claude Code deletes transcripts older than that, and the default is 30 days when it is unset (https://code.claude.com/docs/en/settings-reference.md#cleanupperioddays). The user's chosen value is 120, which covers a run every few months. If it is unset or lower on this laptop, tell the user and, with their yes, add `"cleanupPeriodDays": 120` to that file, merging into the existing settings and keeping the JSON valid. Every laptop needs it, so do this on each one the first time the skill runs there.
+
+Then read `ledgers/transcripts.md` in this library. Ask which laptop section this machine is (offer the existing ones; a new laptop gets a new section). Skip every session whose id is already in that section, unless the file now has more lines than the ledger says were read: then read only the lines after that number. Skip a session written to in the last hour, since it is probably still live. If nothing is new, say so and stop.
 
 With no count or date range given, take the newest unread sessions, at most 15 per run, and say so at the top of the report. The rest wait for the next run.
 
