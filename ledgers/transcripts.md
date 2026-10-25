@@ -8,7 +8,7 @@ Line format, one per session:
 
     <session-id> | <first date>..<last date> | lines <n read> | analysed <date> | library <short sha>
 
-A session that has grown since is read again from the line after `lines <n read>` only, and its line is updated.
+A line is deleted once its transcript file is gone from that laptop, so the ledger stays about as long as the transcripts on disk. A session that has grown since is read again from the line after `lines <n read>` only, and its line is updated.
 
 ## Laptop: personal
 

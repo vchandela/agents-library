@@ -58,7 +58,7 @@ Close with what the report does not cover: sessions you didn't get to, anything 
 
 ## 6. Update the ledger
 
-Only after the report is written, add or update one line per session read in your laptop's section of `ledgers/transcripts.md`, in the format at the top of that file, with the library's short git sha. Then commit the ledger. If the run failed halfway, the ledger stays as it was and the next run reads those sessions again. The ledger is in a public repo: ids, dates and counts only.
+Only after the report is written, add or update one line per session read in your laptop's section of `ledgers/transcripts.md`, in the format at the top of that file, with the library's short git sha. Then prune your laptop's section: delete every line whose session file no longer exists on this machine (no `~/.claude/projects/*/<session-id>.jsonl`), since nothing can match it again. Keep every line whose file exists, active or not, or that session would be read twice. Never touch the other laptops' sections. Then commit the ledger. If the run failed halfway, the ledger stays as it was and the next run reads those sessions again. The ledger is in a public repo: ids, dates and counts only.
 
 ## Rationalisations to refuse
 
@@ -75,4 +75,4 @@ Only after the report is written, add or update one line per session read in you
 - [ ] Each mode shows its count and at least one example a reader could find in the source session.
 - [ ] Nothing in the report is a proposed fix, a patch or a hand-off to another skill.
 - [ ] Anything skipped, unread or redacted is stated.
-- [ ] The ledger lists every session read, under the right laptop, and holds no content.
+- [ ] The ledger lists every session read, under the right laptop, holds no content, and has no line for a transcript that is gone.

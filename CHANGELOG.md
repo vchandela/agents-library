@@ -3,7 +3,7 @@
 ## [Unreleased]
 
 ### Added
-- `ledgers/transcripts.md`: which sessions `analyze-agent-transcripts` has already read, one section per laptop (ids, dates and line counts only, since the repo is public). The skill reads it first, skips what is listed, reads a grown session from its last line, and updates the ledger after the report is written.
+- `ledgers/transcripts.md`: which sessions `analyze-agent-transcripts` has already read, one section per laptop (ids, dates and line counts only, since the repo is public). The skill reads it first, skips what is listed, reads a grown session from its last line, updates the ledger after the report is written, and drops lines whose transcript file is gone from that laptop.
 - `references/agent-prompts.md`: how to write text a model runs (workflow and system prompts, sub-agent briefs, tool descriptions, skill bodies), from Anthropic's engineering posts, the Opus 5 and 5.5 prompting guides, the skill authoring guide and OpenAI's gpt-5.5 and 5.6 guidance. The reason goes in the same sentence, firm words are kept for real limits, generic self-checks are dropped on Opus 5 (they cause over-verification) and written-out reasoning is not requested (Opus 5.5 can refuse it), absence of evidence is not a no, sub-agent briefs carry objective, format, tools, boundaries and a return size, and review prompts find everything and filter afterwards. Ends with an 11-item checklist. `review-pr` runs it on any diff that edits a prompt, `setup-repo` adds it as layer 6, `evals` applies it when a prompt is under test. Every rule read is sorted in `docs/ledgers/anthropic-prompting.md`.
 
 ### Changed
