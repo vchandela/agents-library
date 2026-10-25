@@ -29,4 +29,4 @@ Run the last pass from `references/machine-tells.md` on the message and keep onl
 
 Each commit does one thing, each leaves the repo working, and each message would still make sense to someone reading it in a year.
 
-Before handing it over, run the full suite on the exact tree being pushed; a green run earlier proves only that earlier tree. Confirm the base branch rather than assuming main. Never delete a branch, worktree or uncommitted file the user did not ask to delete.
+Before handing it over, run the full suite once on the exact tree being pushed (the fast tier while building, `references/testing.md`); a green run earlier proves only that earlier tree. Confirm the base branch rather than assuming main. Never delete a branch, worktree or uncommitted file the user did not ask to delete.

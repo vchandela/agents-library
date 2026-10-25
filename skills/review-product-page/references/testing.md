@@ -8,6 +8,7 @@
 - Code written before its test: stash it, confirm the test fails without it, restore it. Never skip the red.
 - Bug fix: reproduce it in a failing test before touching the fix.
 - One slice at a time: one test, then its code. Not every test up front.
+- **Fast tier while building, heavy tier once.** While building, run the fast tier: the tests that read what you changed (search the tests for the file, route, selector or symbol), the cheap whole-repo guards (wiring, links, copy, schema), and a parse or collect of every file a script edited. Run the heavy full tier once, on the final head. A long run started first answers in 20 minutes what the fast tier answers in seconds: one full run of 27 minutes was spent on a test database behind main, and a docs-only change merged without the fast checks that read documents and turned main red.
 
 ## Pick the kinds of test the change needs
 
