@@ -101,9 +101,9 @@ When a thread has more work than one session can move quickly (a plan with sever
 
 Remote Control drops every running session when the CLI's claude.ai login changes (switching accounts when one hits its usage limit) or its token becomes unreadable, and it does not reconnect by itself: each session needs `/remote-control` typed into it. A message from you arrives as text and cannot run a command, so sessions run inside tmux and you type the command into them.
 
-- **Machine setup, once per laptop:** `brew install tmux`, and a `~/.tmux.conf` with `set -g set-titles on` and `set -g set-titles-string '#{pane_title}'`, so each Warp tab shows the thread's name. Launch every session with `scripts/warp-claude`. The cost: Warp shows a plain terminal icon for these tabs instead of Claude's status icon.
+- **Machine setup, once per laptop:** `brew install tmux`, and a `~/.tmux.conf` with `set -g set-titles on` , `set -g set-titles-string '#{pane_title}'` and `set -g focus-events on` (Claude Code asks for it), so each Warp tab shows the thread's name. Launch every session with `scripts/warp-claude`. The cost: Warp shows a plain terminal icon for these tabs instead of Claude's status icon.
 - **Reconnect:** `scripts/rc-reconnect` finds every live session whose record in `~/.claude/sessions/` has no `bridgeSessionId`, types `/remote-control <name>` into its tmux pane (the pane's process ID is the session's), and checks the result. It works on a busy session without disturbing its turn. Run it before every brief and whenever the user says they switched accounts; report only the sessions it lists as FAILED or NOT IN TMUX.
-- **Moving a session into tmux** changes its process ID, so update its address in the registry from `~/.claude/sessions/`.
+- **Moving a session into tmux**: only while it is idle, stop it (SIGTERM; a background session started with `--bg` is stopped with `claude stop <id>`), then `scripts/warp-claude "<name>" <dir> --resume <session id>`. Its process ID changes, so update its address in the registry from `~/.claude/sessions/` and send each worker and reviewer its partner's new address.
 
 ## New sessions
 
