@@ -96,7 +96,7 @@ When a `[ship` review request arrives, read the state file, then run `review-pla
 
 ## When something breaks
 
-- **A send is held or refused** (a delivery notice says so): the two sessions are in different permission modes. Tell the user; do not retry.
+- **A send is held, dropped or refused** (a delivery notice says so): the two sessions are in different permission modes, or a relay loop was cut. Tell the user; do not retry. A dropped or held send is carried in your next message and something wakes you to send it (`references/shipping.md`).
 - **The reviewer is gone** from ListAgents: tell the user. A new session can take over from the state file; send it the latest request.
 - **The user asks something mid-flow**: answer it, then continue the loop where the state file says.
 
