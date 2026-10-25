@@ -10,6 +10,7 @@
 ## Several sessions, one main branch
 
 - **Claim main before a push-bound full test run, and release it after the push.** The others hold until "released". Two full runs were lost in one day to a session landing first and forcing a rebase and rerun.
+- **What sessions share on one machine (a test lock, a database, a connection pool) has an owner and an end.** The lock records who holds it and since when; the holder enforces a maximum hold; a waiter checks that the holder is making progress (CPU time, log growth), not only that its process exists; the lock is released on exit. A tool that only prints "ask the owner" turns one stuck run into an unbounded queue: one lock was held for about 87 hours by a hung script, and two test slots held 638 and 629 minutes against a 60 minute cap (clock time; the laptop may have slept). Keep the machine awake for a long run, and check for sleep before calling a stalled run hung.
 - A version number follows push order, not the order work was claimed. A lower number landing after a higher one sends the version backwards.
 - After anyone else lands, rebase and run the whole suite again before pushing. A green run on the old base proves nothing about the new one.
 - Never edit, rebase or rebuild a working tree while a test run is reading it; the result then describes no tree at all. Work on the next change in a second worktree.
