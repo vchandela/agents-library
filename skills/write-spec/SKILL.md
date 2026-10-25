@@ -25,7 +25,7 @@ Before the first question, read what already exists: the owner's handover and de
 
 Look for precedent in the target repo. A design that copies a pattern the team already runs is cheaper to build and much cheaper to review. Say which pattern, with the file and line.
 
-Verify every claim against the source and cite `file:line`. When something does not exist in the repo, say so plainly. It is new work, not a port.
+Verify every claim against the source and cite `file:line`. When something does not exist in the repo, say so plainly. It is new work, not a port. A fetch result is a lead, never a quote (`references/research-sources.md`, Access notes).
 
 ## Shape before spec
 

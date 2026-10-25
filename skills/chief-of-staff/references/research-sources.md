@@ -55,6 +55,7 @@ Some sites refuse a plain fetch. Try once, record the failure in the file, then 
 - Reddit is often blocked for search tools and curl. Say so in the gaps rather than skip it silently.
 - Medium sometimes returns 403. Try the author's own site or a cached copy.
 - A 403 or 406 from curl often only means a bot block (openai.com, Medium, CJR). Treat the link as valid if a reader proxy or a browser opens it.
+- A fetch tool that runs the page through a model returns that model's answer, not the page. The Claude Code tools reference (https://code.claude.com/docs/en/tools-reference, "WebFetch tool behavior") says WebFetch converts the page to Markdown, runs your prompt against it in a separate model call, is "lossy by design", reads up to 100,000 characters per call, and that a result saying a page doesn't mention something "may only mean the prompt didn't ask about it". A fetch result is a lead, never a quote or a "read in full" source. Get the raw text with curl through Bash, and read a PDF with the file read tool in page ranges (long PDFs need poppler installed).
 - Sub-agents share limits: about 20 run at once, and web search has a per-session budget. Queue agents and point late ones at sitemaps and feeds.
 
 ## The sub-agent prompt

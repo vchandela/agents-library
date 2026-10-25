@@ -17,7 +17,7 @@ The references this skill names rely on these, so read them in full too: `refere
 
 Read the source before the first sentence: the code, the config, the Terraform, the thread. An explanation built from docs alone repeats whatever the docs got wrong.
 
-- Verify every claim and cite `file:line` so the reader can open it.
+- Verify every claim and cite `file:line` so the reader can open it. A fetch result is a lead, never a quote (`references/research-sources.md`, Access notes).
 - When the docs and the code disagree, say so and trust the code. Example: "The README says CI deploys on every push. The live path is a scheduled workflow that deploys every two hours."
 - When the source cannot settle a fact, say so, in a list of unknowns at the end. A confident account with silent gaps is worse than an incomplete one with the gaps marked.
 - A correction to something you said earlier goes in a visible box where the topic comes up. Never bury it.
