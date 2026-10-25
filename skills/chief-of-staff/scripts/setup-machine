@@ -1,0 +1,20 @@
+#!/bin/bash
+# One-time (and safe to rerun) laptop setup for coordinated Claude Code sessions:
+# tmux installed, ~/.tmux.conf carrying the lines the sessions need, those lines
+# live in a running tmux server, and the Warp plugin patched for tmux.
+set -euo pipefail
+here="$(dirname "$(realpath "$0")")"
+
+command -v tmux >/dev/null || brew install tmux
+
+conf=~/.tmux.conf
+touch "$conf"
+add() { grep -qxF "$1" "$conf" || { printf '%s\n' "$1" >> "$conf"; echo "added to ~/.tmux.conf: $1"; }; }
+add "set -g set-titles on"                      # Warp shows the tab by its pane title
+add "set -g set-titles-string '#{pane_title}'"  # which is Claude's thread name
+add "set -g focus-events on"                    # Claude Code asks for it
+add "set -g allow-passthrough on"               # lets the Warp plugin's status codes reach Warp
+tmux source-file "$conf" 2>/dev/null || true    # apply to a running server, if any
+
+"$here/warp-plugin-tmux-patch"
+echo "machine ready"
