@@ -14,7 +14,7 @@ Read the tail of `~/.claude/state/rc-reconnect.log` before anything else (SKILL.
 
 The registry and the threads' notices are only one source. Before the first line of the brief, read:
 
-1. The registry and the log (what the threads did).
+1. The registry and the log (what the threads did). Then ask every open thread for its pending items, each with what it is, who it waits on (the user, a teammate or the thread) and since when, and wait for the replies. This is on top of your own sweep of the sources below, never in place of it, so nothing waits for days without the user seeing it.
 2. GitHub: PRs the user authored or reviewed, and CI on the default branch.
 3. The tracker (Jira or similar): the user's tickets in the active sprint, grouped by epic, and what closed.
 4. Chat (Slack or similar): mentions, DMs, replies to the user's questions, threads about their tickets and PRs.
