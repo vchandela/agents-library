@@ -141,7 +141,12 @@ While writing:
 - **The rule that must survive a long session goes in the first screen.** After compaction only the start of a skill comes back.
 - **Say whether a bundled script is run or read.** "Run `scripts/check.py`" and "see `scripts/check.py` for the algorithm" lead to different behaviour. A script handles its own errors and prints the valid options when it refuses, so the model does not guess.
 - **Watch how an agent moves through the skill.** A file it reads on every run belongs in SKILL.md. A file it never opens is dead weight or badly pointed to.
-- **Test on every model that runs the skill, and again after each model release.** Note whether a skill adds a capability or encodes a preference. Rerun a capability skill's baseline without it after each release, and retire it once the bare model passes.
+- **Test on every model that runs the skill, and again after each model release.** Note whether a skill adds a capability or encodes a preference. Rerun a capability skill's baseline without it after each release, and retire it once the bare model passes. Do the same for rules: at each release, take the rules with the oldest CHANGELOG sources, remove each one, and rerun its case on every model the user runs (today Sonnet 5.5 and Opus 5.5). Leave it out only if it helps none of them. A rule stays while it helps any one. Tell the user when a new model is released, since they decide when to switch.
+- **Change a skill by small additions and deletions, never by asking a model to rewrite the whole file.** In one measured case, a full rewrite shrank a playbook from 18,282 to 122 tokens and accuracy fell below having no playbook at all (arXiv 2510.04618).
+
+### When the user corrects you mid-session
+
+When the user says "add this to the skill", first search the library for the rule. Most corrections are already written somewhere, and then the fix is where and how it is written, not more words. Write it as an action with a check. Add one eval case from the real moment, with its session id and line, and run it red without the change and green with it. If the control does not fail, there is nothing to fix. Put the session id and line in the CHANGELOG entry, so a later review can test whether the rule still earns its place.
 
 ### The core actions
 
