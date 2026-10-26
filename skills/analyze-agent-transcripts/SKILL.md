@@ -31,7 +31,7 @@ b. **Stop line:** `start + 0.30 × (100 − start)`, and never above 80. Example
 c. **Batches:** make the first one small (1 or 2 sessions) to measure what a session costs, then about 4. Take the cost as the largest rise in the meter seen so far; start another batch only if the current reading plus that cost is at or under the stop line.
 d. **Save after each batch:** its candidate moments go to a notes file (`~/.claude/state/transcript-run-notes.md` unless the user names another), with secrets redacted as they are written, and the ledger is updated as section 6 says. The notes are the durable record, so stopping loses nothing.
 e. **When the run stops,** say how many sessions are done and how many remain, and when the window resets (`resets_at` if the meter has it, else "within five hours"). The user says "continue" later; the ledger and the notes make the next run pick up where this one stopped.
-f. **Subagents:** no cap is needed, because the meter is checked between batches. Launch one batch at a time and wait for it. Readers use Sonnet 5.5 and never Haiku. Synthesis stays in the main session, on whatever model it runs.
+f. **Subagents:** no cap is needed, because the meter is checked between batches. Launch one batch at a time and wait for it. Give each helper (reader, tagger) its own working folder, because helpers running at once overwrote each other's scratch files in a shared one. Readers use Sonnet 5.5 and never Haiku. Synthesis stays in the main session, on whatever model it runs.
 
 ## 1. Gather the batch
 
@@ -49,7 +49,7 @@ A transcript is not the chat text. Parse every line (user turns, assistant turns
 
 When a tool result was too large to inline, the harness saves it to a file and leaves an "output saved to..." pointer. Open that file too; it holds the long, messy steps most likely to matter.
 
-A script may shorten a session into a digest before a reader sees it. It keeps every user and assistant sentence, each tool call with its input shortened (the path or command), errors, timestamps and "output saved to" pointers, and replaces bulky tool results (file dumps, long logs) with `[dropped, N lines]`. The reader asks for the raw spot from that marker when it matters.
+Run `scripts/digest.py <session.jsonl> [from_line] > digest.txt` on each session before a reader sees it (from_line is the ledger's line count plus one for a session that grew). The digest keeps every user and assistant sentence, each tool call with its input shortened (the path or command), errors, timestamps and "output saved to" pointers, and replaces bulky tool results (file dumps, long logs) with `[dropped, N lines]`. The reader asks for the raw spot from that marker when it matters. Every digest line starts with its raw line number, so a quote can be checked at its exact line. On one laptop the largest session went from 360 MB raw to 7.6 MB as a digest, and a digest chunk of about 115k tokens cost about 1.3 points of the five-hour meter with Sonnet 5.5 readers.
 
 Never substitute the session's own closing summary (a compaction summary, a final "here's what I did") for the turns. The agent under review wrote it, and it smooths over exactly the moments this report exists to surface.
 
@@ -58,6 +58,8 @@ Never substitute the session's own closing summary (a compaction summary, a fina
 The human writes the notes; the agent organises them. Read a transcript (or let the agent surface candidate moments) and write one line per moment that felt wrong, in your own words: a wrong assumption, a step repeated for no reason, a tool call that shouldn't have happened, a question that should have been asked, output you had to push back on. Your read of "that was wrong" is the ground truth, not a match on words like "error" or "sorry".
 
 When readers work in batches, they return candidate moments, saved as candidates, never as the human's notes. The human adds their one-line reads when they review the candidates. A session counts as read in the ledger once its candidates are saved.
+
+When an author session and its reviewer session both show the same event, count it once.
 
 Only after roughly five human notes point at the same kind of thing does it become a named failure mode worth searching the rest of the batch for. Before that, it is one data point; naming a mode too early locks in a guess.
 
@@ -78,11 +80,15 @@ One section per failure mode:
 
 Redact anything that looks like a secret, token, password, API key or personal data pulled from a tool result before it goes in the report.
 
+### Did the last changes work?
+
+For each rule that landed since the last run (the CHANGELOG entries, with their dates), compare its failure mode's share of the candidates before and after that date, and say whether it moved. A share of candidates is not a rate per hour of work, so say that too. Example: an "evidence before every claim" rule went into CLAUDE.md on 16 Oct, and unchecked claims stayed at 31% of candidates before and 30% after, which suggested the rule needed a different form.
+
 Close with what the report does not cover: sessions you didn't get to, anything unreadable, anything the human didn't have time to note.
 
 ### What this report is not
 
-- Not a list of fixes, prompt patches or skill edits. If a fix is obvious, say so in one clause inside the mode's section, but do not build it, draft it or hand it to `diagnose-bug`.
+- Not a list of fixes, prompt patches or skill edits. If a fix is obvious, say so in one clause inside the mode's section, but do not build it, draft it or hand it to `diagnose-bug`. When the user later turns a confirmed mode into a rule, that is a separate step: the rule is written as an action with a check, and it gets one eval case built from the real moment (session id and line) that fails without it.
 - Not a severity score you invented. A count and real examples let the reader judge severity.
 - Not an eval suite. "Can we measure whether this gets better or worse" is `evals`.
 
