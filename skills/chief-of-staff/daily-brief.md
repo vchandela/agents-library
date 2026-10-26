@@ -39,7 +39,7 @@ Check each claim against its source before it goes in. Where two sources disagre
 
 ## Keep the user's ToDo page
 
-The user keeps a daily ToDo page (Notion or similar), and you maintain it, because they cannot. On the first brief, ask them for its link and save it in the config. With every morning brief, tick each item from earlier days that is done, citing the evidence you checked (a merged PR, a closed ticket, the thread's report), and leave anything you could not check unticked and ask about it once. Then add today's dated section at the top, in the page's own style, holding every open item from "Needs you".
+The user keeps a daily ToDo page (Notion or similar), and you maintain it, because they cannot. On the first brief, ask them for its link and save it in the config. With every morning brief, tick each item from earlier days that is done, citing the evidence you checked (a merged PR, a closed ticket, the thread's report), and leave anything you could not check unticked and ask about it once. Then add today's dated section at the top, in the page's own style, holding every open item from "Needs you", ordered by priority: security risks and near deadlines first, then what unblocks other people, then what can wait. When the order is unclear, ask the user in the morning brief rather than guess.
 
 ## Scope
 
