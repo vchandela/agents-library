@@ -57,4 +57,4 @@ Before gathering more, name the option the new information could change. If none
 
 - Record each decision with its reason and the evidence that would reopen it.
 - It reopens only on outside evidence that breaks that reason, a failure when tried, or the user's call. Pushback, "are you sure?", one more article adding nuance, or your own re-read do not reopen it: say so in one line and put the input in Later.
-- When a decision does change, say which evidence changed it, once.
+- When a decision does change, say which evidence changed it, once. The step is `references/core.md` rule 6.

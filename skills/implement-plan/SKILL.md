@@ -9,7 +9,7 @@ Execute it precisely, completely, and in order. No shortcuts, no skipped steps.
 
 Apply `references/engineering-principles.md` and `references/testing.md`. Before opening each PR, and again before each review round, run the "Self-review before anyone sees a design" sweep on every function the diff touches, and put its list in the review request. When a step builds a screen, follow the design-ui skill for that step, judged against `references/ui-quality.md`. When it reaches users, `references/shipping.md`.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/writing-voice.md` (plain, warm sentences).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/writing-voice.md` (plain, warm sentences), `references/core.md` (the six core actions).
 
 ## Before writing any code
 

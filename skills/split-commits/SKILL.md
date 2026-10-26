@@ -11,7 +11,7 @@ One commit does one thing. A reviewer should be able to read each one on its own
 
 Before rewriting, save a backup branch. Split only commits that are not pushed yet; for pushed work, add new commits. Never a plain `--force` push. The only force push allowed is `--force-with-lease` for a rebuilt stack (`references/stacked-prs.md`).
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/stack-merge-check.sh` (run it before merging a stack).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/stack-merge-check.sh` (run it before merging a stack), `references/core.md` (the six core actions).
 
 Group by intent, not by file. A rename, a behaviour change and a test usually belong in different commits even when they touch one file. A change and its test usually belong in the same one.
 

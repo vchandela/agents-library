@@ -10,7 +10,7 @@
 - **Say each thing once.** If two sections make the same point, merge them or cut one.
 - **Short paragraphs**, two to four sentences. Lists for anything that is a list.
 - **Refer to issues and tickets by title, not number.** "#42, #43, #44" is unreadable. Put the title in the text and let the link carry the id.
-- **Use the reader's words.** Before naming something, check the word the user and the team already use, and use theirs: a support ticket is a "ticket" or an "issue", not a "case record", and one Grafana query is a "query", not a "check". A new term gets one plain sentence the first time, saying how it differs from their nearest word.
+- **Use the reader's words.** Before naming something, check the word the user and the team already use, and use theirs: a support ticket is a "ticket" or an "issue", not a "case record", and one Grafana query is a "query", not a "check". A new term gets one plain sentence the first time, saying how it differs from their nearest word. The step is `references/core.md` rule 3.
 - **Concise, not clipped.** Cut ideas, not words. Keep fewer points, but write each as a full sentence that says who does what and when. Dot-separated fragments, dropped verbs and numbers without their reason are eaten words. Example: "reviewer ticks each claim · all PRs reviewed at first, then 10 to 20% samples" drew "what does this mean? you love eating words". A number keeps its reason: "6 links a cycle, because a busy incident pastes up to 12 in 15 minutes", not "links 3 → 6".
 - **No semicolons.** Join clauses with a comma or split them with a full stop.
 - **In the user's own docs** (Notion cells, bullets, captions), start cells and bullets in lowercase, like the rest of the doc, and keep proper nouns capitalised.

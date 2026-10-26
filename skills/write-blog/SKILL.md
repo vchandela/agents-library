@@ -9,7 +9,7 @@ Clear, practical, no fluff. Readers range from junior to staff: the mechanics te
 
 Apply `references/writing-voice.md`, `references/judgement.md` and `references/ambition.md`. Before sending the draft, have a reader who was not in the work, and who is hunting for the weakest claim, read it, and fix what they find. Your own re-read does not count.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
 
 ## Ground truth first
 

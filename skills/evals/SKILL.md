@@ -9,7 +9,7 @@ An eval is a measurement, so it can lie in all the ways a measurement can: the w
 
 Apply `references/evals.md` (item format, grader hygiene, what to grade, judge checking, statistics), `references/agent-prompts.md` when the thing under test is a prompt or a skill, `references/engineering-principles.md`, `references/judgement.md`, `references/testing.md` and `references/untrusted-input.md`. Build the simplest eval that answers the question, with seams for the next one.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/writing-voice.md` (plain, warm sentences).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/writing-voice.md` (plain, warm sentences), `references/core.md` (the six core actions).
 
 ## 0. Size it
 

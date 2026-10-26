@@ -54,7 +54,7 @@ What the user sees, every time they ask "where are we" and at each batch. Lists,
 4. **Parked and idle**, with the reason.
 5. **Suggestions**: splits and closures (below), each marked as a suggestion, and any thread whose goal looks too small for the outcome the user wants, with the bigger goal named (`references/ambition.md`).
 
-The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop).
+The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the six core actions).
 
 ## Let the pair converge first
 

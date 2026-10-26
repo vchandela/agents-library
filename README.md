@@ -10,6 +10,12 @@ Engineering skills for coding agents. Portable across Claude Code, Claude Deskto
 
 Project scope or global, symlink or copy. Or clone it and symlink `skills/` into `~/.claude/skills/`.
 
+Then keep the six core actions in view in every session, including after a compaction, by linking `references/core.md` into your user-level rules, which Claude Code re-injects from disk after every compaction:
+
+    mkdir -p ~/.claude/rules && ln -s <clone>/references/core.md ~/.claude/rules/core.md
+
+Cowork on the desktop skips symlinked rules, so there use a copy and refresh it whenever `core.md` changes. If the rule does not come back after a compaction, a `SessionStart` hook with the `compact` matcher that prints the file does the same job.
+
 ## What is in here
 
 **The pipeline.** Six skills, one workflow, run in order, and `ship` to drive them.
@@ -136,6 +142,10 @@ While writing:
 - **Say whether a bundled script is run or read.** "Run `scripts/check.py`" and "see `scripts/check.py` for the algorithm" lead to different behaviour. A script handles its own errors and prints the valid options when it refuses, so the model does not guess.
 - **Watch how an agent moves through the skill.** A file it reads on every run belongs in SKILL.md. A file it never opens is dead weight or badly pointed to.
 - **Test on every model that runs the skill, and again after each model release.** Note whether a skill adds a capability or encodes a preference. Rerun a capability skill's baseline without it after each release, and retire it once the bare model passes.
+
+### The core actions
+
+`references/core.md` holds the few actions that must hold in every session, and it is the only place their words live: the reference that holds each principle points to it with "The step is `references/core.md` rule N". A rule enters core.md only when a transcript review counts it failing across many sessions, it is an action with a check, and its case fails without it. A rule that fails once or twice goes in the skill or reference it belongs to. Keep core.md small, because every coding agent caps its always-on tier (Windsurf at 6,000 characters, Codex at 32 KiB, Claude Code advises under 200 lines) and longer files are followed less. When a new rule wants in and the file is getting long, move the weakest one back to its reference. The user approves every change to it.
 
 ## Licence
 

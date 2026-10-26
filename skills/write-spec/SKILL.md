@@ -35,7 +35,7 @@ Ask the user before writing, not after: once your judgement is checked against t
 
 For any real decision, decide first, then present it as `references/judgement.md` says ("At a crossroads"). Make the reviewer's job a yes or a no.
 
-The references this skill names rely on these, so read them in full too: `references/machine-tells.md` (the last pass for machine-sounding text).
+The references this skill names rely on these, so read them in full too: `references/machine-tells.md` (the last pass for machine-sounding text), `references/core.md` (the six core actions).
 
 Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals. `references/ambition.md` is a required slot in the spec: the round 1 lines below, kept in it.
 

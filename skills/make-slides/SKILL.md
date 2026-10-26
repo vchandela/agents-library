@@ -5,7 +5,7 @@ description: Use when someone wants a slide deck, a few slides for a meeting, or
 
 # Make slides
 
-A deck is an explanation with a speaker in front of it, so run explain-simply for the content: its read-before-you-explain, match-the-reader and no-terse-sentence rules apply to every line on a slide. Words follow `references/writing-voice.md` and `references/machine-tells.md`, pictures follow `references/visuals.md`, and the render check is `references/preview.md`. This skill adds only what is particular to slides.
+A deck is an explanation with a speaker in front of it, so run explain-simply for the content: its read-before-you-explain, match-the-reader and no-terse-sentence rules apply to every line on a slide. Words follow `references/writing-voice.md` and `references/machine-tells.md`, pictures follow `references/visuals.md`, and the render check is `references/preview.md`. This skill adds only what is particular to slides. The six core actions are in `references/core.md`.
 
 ## 1. Is a deck the right thing?
 

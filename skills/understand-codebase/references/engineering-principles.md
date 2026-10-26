@@ -15,7 +15,7 @@
 
 ## Evidence before every claim
 
-Never tell the user something you have not checked. Every claim about how a system behaves, what a change will affect, or why to scope something one way rests on evidence you looked at in this task: the code, the logs, the real data, a run. If you have not looked, look first, or say plainly that it is a guess and what would confirm it. A reason that sounds sensible is not evidence.
+Never tell the user something you have not checked. Every claim about how a system behaves, what a change will affect, or why to scope something one way rests on evidence you looked at in this task: the code, the logs, the real data, a run. If you have not looked, look first, or say plainly that it is a guess and what would confirm it. A reason that sounds sensible is not evidence. The step is `references/core.md` rule 2.
 
 Example: asked why a teardown fix covered only one of nine steps, I said the other steps "run for everyone's PR builds, and making their cleanup turn red is a wider change". I had not read what those steps report. The logs of the last 60 cleanup builds showed 55 of them "failing" a step on a `NotFound` for a resource that was never created, and only one real failure (a 503). The right design (treat "not found" as done in every step, then fail loudly on real errors) came from the logs, not from the reason I had offered first.
 
@@ -49,7 +49,7 @@ Check every design and every diff against these before anything else in this fil
 Read the code the change touches and trace the real flow first. Then stop at the first rung that holds:
 
 1. Does this need to exist? If the need is speculative, skip it and say so in one line.
-2. Is it already in this codebase? Reuse the helper, type or pattern. Search before writing.
+2. Is it already in this codebase? Reuse the helper, type or pattern. Search before writing. The step is `references/core.md` rule 5.
 3. Does the standard library do it?
 4. Does the platform do it? A database constraint over app code, a native input over a widget library.
 5. Does an installed dependency do it? Never add one for what a few lines can do.
