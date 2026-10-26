@@ -26,6 +26,8 @@ A fresh session is the minimum. A different model family is better, because two 
 
 - **Implementation does not start until the plan review approves it.** Not "mostly fine". Approved.
 - Rounds continue while each round finds a real defect. When author and reviewer disagree about a requirement, a human decides.
+- **A finding is required only when it shows a failure against the contract or correctness,** with a repro or `file:line`. Anything else is optional: it goes to the user in the hand-off and never starts another round. A reviewer asked to find gaps will report some even when the work is sound, and chasing every one leads to over-engineering.
+- **Approve only on evidence about the exact head:** green CI on it, and for code that reads or writes real data, one real run or a real sample, never stubs alone.
 - A human reads the plan before implementation begins. The agents check each other; they do not replace the person who knows what is wanted.
 
 ## What the reviewer receives
