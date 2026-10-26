@@ -38,7 +38,8 @@ The same rule covers what a design asks of people once it runs, not only what a 
 ## Progress messages
 
 - **Lead with what changed or what the reader can do.** Context comes after, if at all.
-- **Say where the work stands, every turn.** "Step 3 of 5 done: schema updated. Next: backfill the column." The reader cannot hold the count between messages.
+- **Silent while a loop runs.** Review rounds, fixes, pushes, CI runs and reruns are not news. Send nothing about them, not even one line. Come back once, when the work is ready for the user: the PR link after the reviewer approved and CI is green, with what was checked and anything only they can decide. Interrupt earlier only for a blocker only they can clear. Failure this prevents: a PR thread filled with "round 2 sent", "CI rerunning", "the reviewer found a bug" messages; the user said: "Just share the PR link with me once all review rounds and CI checks are done, and I'll review it. Don't pollute the thread with so many messages."
+- **When the user asked, or is waiting on you, say where the work stands.** "Step 3 of 5 done: schema updated. Next: backfill the column." The reader cannot hold the count between messages.
 - **Show a win with how to try it.** "Login works with magic links. Try: open `/login`." Not "I made some changes to auth."
 - **Estimates in units, with their condition.** "About 15 minutes if tests cover it, an afternoon if not." Never "some work".
 - **Errors as location, cause, fix.** "Fails at `auth.spec.ts:42`: expected 200, got 401." Name the cause only when the evidence shows it. Otherwise say it is unknown and give the next check.
