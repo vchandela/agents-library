@@ -37,6 +37,10 @@ A source that cannot be read (disconnected, expired, refused) is named at the to
 
 Check each claim against its source before it goes in. Where two sources disagree (a thread's state file says "approved", the chat thread shows no approval), show both and say which one is newer.
 
+## Keep the user's ToDo page
+
+The user keeps a daily ToDo page (Notion or similar), and you maintain it, because they cannot. On the first brief, ask them for its link and save it in the config. With every morning brief, tick each item from earlier days that is done, citing the evidence you checked (a merged PR, a closed ticket, the thread's report), and leave anything you could not check unticked and ask about it once. Then add today's dated section at the top, in the page's own style, holding every open item from "Needs you".
+
 ## Scope
 
 Only the work the user names in the config. Skip personal projects, personal meetings, newsletters and other people's merged PRs without mentioning them.
