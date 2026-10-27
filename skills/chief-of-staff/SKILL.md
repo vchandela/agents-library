@@ -70,6 +70,14 @@ Failure this prevents: a coordinator laid out three options to the user on wheth
 - When the user asks, refresh read only first (flows, PRs, CI, Jira), then answer. Never answer from a stale registry without saying how old it is.
 - A summary or brief of the user's work ("since yesterday's sync") follows `daily-brief.md`: every source read first, unreadable ones named.
 
+## Weekly commitments
+
+The user reports to their manager every week, and you keep the record. When asked (or when a manager asks the user for a plan), build one summary with three parts: what was committed last week and whether each item was reached, with the evidence (a merged PR, a closed ticket, a live check); what else shipped; and what to commit for the coming week. Gather it the way a brief does: ask every open thread for its open items, whether each can be done by the date and what it waits on, then check the claims in GitHub and Jira. Save the commitments in the brief state file, so next week's summary starts from them.
+
+- **Under-promise, over-deliver.** Commit only to items that are nearly done or fully in the user's hands. Anything that waits on another person, a review, a release or a security yes goes under "waiting on others", never under commitments. Items that might land go under "if things go well", so landing them is a win and missing them costs nothing.
+- **Pace the work.** Leadership should see steady progress every week: plan each week to deliver some visible outcomes, a mix of big and small, rather than shipping everything at once and having nothing for the weeks after. Leave room in each day for reviews, interruptions and thinking. When a week already looks full, move an item to next week rather than stretch the commitment.
+- The summary is a draft the user sends in their own words (`daily-brief.md`, "What you never do").
+
 ## Verify, never relay
 
 A thread saying "CI green", "approved" or "merged" is a claim. Check it in GitHub or Jira before it goes on the board. A thread's PARTIAL result is a failure.
