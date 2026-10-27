@@ -45,7 +45,7 @@ Answer all five. If any answer is no, drop the finding or lower its severity.
 
 A proposed fix gets the same bar: say what else it changes that people will see, and check it. "Let the bot's shadow mode join channels, joining only reads" was wrong: a Slack join posts "<bot> has joined the channel" to everyone, which made a silent mode visible.
 
-First list every candidate finding. Then mark each one confirmed, plausible or refuted, quoting the line that decides it, and report the confirmed and plausible ones. Consolidate repeats into one finding. **Severity inflation costs more trust than a missed finding**, and a review nobody trusts is a review nobody reads.
+First list every candidate finding. Then mark each one confirmed, plausible or refuted, quoting the line that decides it, and report the confirmed and plausible ones. Before anything is posted, turn each plausible finding into confirmed or refuted with a run: a local repro on the same version, a merge with the base, a mutation. A comment that says "not checked" wastes the author's time, so check the claim another way or drop it. Example: a timeout finding said "not checked whether Grafana cancels the query"; a local Grafana of the live version showed it does, which shrank the finding from 5 minutes to 15 seconds. Consolidate repeats into one finding. **Severity inflation costs more trust than a missed finding**, and a review nobody trusts is a review nobody reads.
 
 ## Judge what a user would expect
 
@@ -96,6 +96,8 @@ Same bar. Fix what is real. For the rest, **leave a one line reason before resol
 Write it in the voice of `references/writing-voice.md`. For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome. End with a recap table: PR, verdict, blocking or not.
 
 Say what you checked and found sound, as well as what you did not. A review listing only failures reads as though nothing else was examined.
+
+**Posting on GitHub.** The review is the place to fix everything, small or big. Every finding goes in as an inline comment on its line: bugs, test gaps, smells, simplifications and stale comments, each tagged by weight (blocks the merge, worth fixing here, small). Items that have no line (the PR description, merge order) go in the review body. Run every suggested test or code snippet before posting it: a suggested test must pass today and fail without the code it protects. Leave out what the author needs no action on (what was checked and found sound, merge urgency); that stays in chat.
 
 ## Done when
 
