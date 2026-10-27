@@ -9,7 +9,7 @@ Execute it precisely, completely, and in order. No shortcuts, no skipped steps.
 
 Apply `references/engineering-principles.md` and `references/testing.md`. Before opening each PR, and again before each review round, run the "Self-review before anyone sees a design" sweep on every function the diff touches, and put its list in the review request. When a step builds a screen, follow the design-ui skill for that step, judged against `references/ui-quality.md`. When it reaches users, `references/shipping.md`.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/writing-voice.md` (plain, warm sentences), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
 
 ## Before writing any code
 
@@ -74,7 +74,7 @@ Implementation rarely ends at the first push. Rounds of review feedback follow, 
 - **Be pragmatic.** Fix what matters, and leave each minor you skip with a one-line reason. Do not chase every nit.
 - **Never cut verification to save time.** Run the tests, the per-PR checks and a real-database run where the fix depends on it, however long it takes. Example: a savepoint fix that passed on SQLite was only proven by reproducing the bug on a throwaway Postgres container.
 - **Stacks: apply `references/stacked-prs.md`.** Never a plain `--force` and never amend a pushed commit. The lease is only for a stack rebuilt onto a moved main, and every merge passes `references/stack-merge-check.sh` first.
-- **A PR description** follows `references/engineering-principles.md`, "Pull requests". Run the last pass from `references/machine-tells.md` on it and keep only the final text.
+- **A PR description** follows `references/engineering-principles.md`, "Pull requests". Write it with the `explain-simply` skill and keep only the final text.
 
 ## Done when
 

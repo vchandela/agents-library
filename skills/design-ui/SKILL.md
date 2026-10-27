@@ -5,9 +5,9 @@ description: Use when a screen is being designed or built (a page, a component, 
 
 # Design a UI
 
-`references/ui-quality.md` is the bar every screen is judged against. This skill is the order of work that reaches it. Words on the screen follow `references/writing-voice.md`.
+`references/ui-quality.md` is the bar every screen is judged against. This skill is the order of work that reaches it. Words on the screen are written with the `explain-simply` skill.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
 
 ## 1. The job before the look
 

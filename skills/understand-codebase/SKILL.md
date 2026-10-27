@@ -42,7 +42,7 @@ Expect ten to fifteen real decisions. If you have three, look harder.
 
 State the decision, the alternative they rejected, and the cost they accepted. A decision with no cost was not a decision, it was a default, and defaults are worth noticing too. Apply the deletion test from `references/engineering-principles.md` to anything that looks like a pass-through.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the six core actions).
 
 Tag every relationship you state: **read** (`file:line`), **inferred** (and from what: a shared type, naming, sitting side by side), or **unclear**. Do not invent a percentage. An arrow you did not read never goes in the diagram as solid: draw it dashed and labelled inferred, or move it to the unknowns.
 
@@ -54,7 +54,7 @@ Answer the two kinds of question in their own shape. "What is X connected to?" i
 
 End with three to five questions this map can now answer, each with why it is worth asking: an unclear link, a module that bridges two areas, a hub you have not explained. Offer to trace the one that crosses the most areas. List the searches that found nothing, so the next reader does not repeat them.
 
-Apply `references/judgement.md`, `references/untrusted-input.md`, `references/writing-voice.md` and `references/explaining.md`. Assume a competent engineer new to *this* system: define the repo's terms of art on first use, never general engineering terms. If you cannot tell who the reader is, say so.
+Apply `references/judgement.md` and `references/untrusted-input.md`, and write with the `explain-simply` skill. Assume a competent engineer new to *this* system: define the repo's terms of art on first use, never general engineering terms. If you cannot tell who the reader is, say so.
 
 ## Honesty
 

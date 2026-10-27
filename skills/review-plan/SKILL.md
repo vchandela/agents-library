@@ -7,7 +7,7 @@ description: Use when a plan needs adversarial review before implementation star
 
 You did not write this plan. Read `references/handoff-protocol.md` before starting: if you wrote it, stop and hand it to a different agent.
 
-The references this skill names rely on these, so read them in full too: `references/machine-tells.md` (the last pass for machine-sounding text), `references/ambition.md` (the ambitious option next to the obvious one), `references/shipping.md` (deploying and checking a change live), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/ambition.md` (the ambitious option next to the obvious one), `references/shipping.md` (deploying and checking a change live), `references/core.md` (the six core actions).
 
 Apply `references/judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
@@ -63,7 +63,7 @@ Apply `references/respect-human-attention.md`: judge the work, not whether an ag
 - Say "store which Slack identity owns the message," not "persist delivery identity semantics."
 - Never use "consider" or "might want to" for a required change. Say **required**.
 - No dense paragraphs, including inside table cells. Use bullets, small tables and diagrams.
-- No shorthand that makes the reader infer the missing link. The rest of the voice is `references/writing-voice.md`.
+- No shorthand that makes the reader infer the missing link. The rest of the voice comes from the `explain-simply` skill.
 
 **Preview before sharing the review.** Apply `references/preview.md`.
 

@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- One voice for everything a person reads: every skill now writes with the `explain-simply` skill instead of applying `references/writing-voice.md`, `references/machine-tells.md` or `references/explaining.md` directly, and those three are kept only under explain-simply. `write-spec` and `write-plan` invoke it before each draft and revision. `write-spec` no longer has a required Ambition section (ambition stays in the interview), and each spec section must earn its place. Source: Vivek, 27 Oct, on a spec he called terse and an Ambition section he called useless.
+
 ### Added
 - `references/core.md`: six core actions that hold in every session, and the only place their words live. Install it as `~/.claude/rules/core.md` (README, Install), which Claude Code re-injects from disk after every compaction. Source: the office-laptop transcript review of 25 Oct 2026. In 145 of 202 compactions across 47 sessions, no reference came back (none re-attached within 30 lines, none read again within 500), and unchecked claims stayed at about 30% of candidates before and after a CLAUDE.md rule on 16 Oct. Every coding agent checked has an always-on tier (Claude Code, Kiro, Cursor, Windsurf, Continue, Cline, Copilot, Codex, Gemini CLI), and obra/superpowers re-injects its core on compaction. engineering-principles, writing-voice, respect-human-attention and judgement now point to it ("The step is `references/core.md` rule N"), and the 21 skills that rely on those name it.
 - `analyze-agent-transcripts`: `scripts/digest.py` shrinks a session before a reader goes through it (360 MB to 7.6 MB for the largest), the report adds "Did the last changes work?", helpers each get their own folder, and an event seen by an author and its reviewer counts once.

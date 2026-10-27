@@ -9,7 +9,7 @@ The job is not to find problems, it is to make the code simpler and more maintai
 
 If you wrote this code, stop. See `references/handoff-protocol.md`. Apply `references/untrusted-input.md`.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/shipping.md` (deploying and checking a change live), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/shipping.md` (deploying and checking a change live), `references/core.md` (the six core actions).
 
 Apply `references/judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
@@ -93,7 +93,7 @@ Same bar. Fix what is real. For the rest, **leave a one line reason before resol
 
 ## Output
 
-Write it in the voice of `references/writing-voice.md`. For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome. End with a recap table: PR, verdict, blocking or not.
+Write it with the `explain-simply` skill. For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome. End with a recap table: PR, verdict, blocking or not.
 
 Say what you checked and found sound, as well as what you did not. A review listing only failures reads as though nothing else was examined.
 

@@ -31,9 +31,9 @@ Run `extract-insights` on the source.
 
 **Map of content.** Add the new notes to an existing topic map, or propose a new one grouped under a few clear headings.
 
-Apply `references/writing-voice.md`.
+Write the notes with the `explain-simply` skill.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
 
 ## 4. Stop
 

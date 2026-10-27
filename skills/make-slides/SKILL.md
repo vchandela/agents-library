@@ -5,7 +5,7 @@ description: Use when someone wants a slide deck, a few slides for a meeting, or
 
 # Make slides
 
-A deck is an explanation with a speaker in front of it, so run explain-simply for the content: its read-before-you-explain, match-the-reader and no-terse-sentence rules apply to every line on a slide. Words follow `references/writing-voice.md` and `references/machine-tells.md`, pictures follow `references/visuals.md`, and the render check is `references/preview.md`. This skill adds only what is particular to slides. The six core actions are in `references/core.md`.
+A deck is an explanation with a speaker in front of it, so run explain-simply for the content: its read-before-you-explain, match-the-reader and no-terse-sentence rules apply to every line on a slide. Words follow explain-simply too, pictures follow `references/visuals.md`, and the render check is `references/preview.md`. This skill adds only what is particular to slides. The six core actions are in `references/core.md`.
 
 ## 1. Is a deck the right thing?
 
@@ -49,7 +49,7 @@ Gather the evidence (numbers, screenshots, a real ticket, a real quote) before w
 - **Title by deck type**, as the table in section 1 sets. No exclamation marks.
 - **The body is the evidence**: a diagram, a chart, a table, a screenshot, a real example or a real quote. Decoration never counts. A divider or an ask slide may be text only.
 - **One level of bullets**, because deeper levels chop the reasoning into fragments. Tables have two or three columns.
-- **At most three numbers on a slide.** Each number changes the audience's judgement or it goes, and each carries its unit, its window and its yardstick (`references/explaining.md`).
+- **At most three numbers on a slide.** Each number changes the audience's judgement or it goes, and each carries its unit, its window and its yardstick (explain-simply).
 - **A screenshot proves the title only if the reader can find the proof in it.** Crop to the part that proves it, and mark the proof with a thin outline in the colour of the box or label that names it. Colour-matched outlines link text to evidence without arrows crossing the image.
 - **Make the main item the biggest thing on the slide.** Items of unequal weight never sit in a grid of equal boxes. Emphasis appears at most once per slide.
 - **One visual system for the whole deck.** The company template sets the fonts, colours and page size; take those and never its sample text. Each slide's layout follows its role (claim and diagram, comparison, number, ask).
@@ -70,7 +70,7 @@ The reference is the user's house deck, linked in their notes or memory. Copy it
 
 ## 6. Slide tells
 
-No accent line under a title, no coloured bars or stripes along an edge or a card, no icon-plus-heading-plus-one-line cards repeated on every slide. The copy tells in `references/machine-tells.md` apply on slides too, and "Brief leaking into the output" is the slide-specific one: no "Option A", template name or brief note left on a slide.
+No accent line under a title, no coloured bars or stripes along an edge or a card, no icon-plus-heading-plus-one-line cards repeated on every slide. The machine-tells pass in explain-simply applies on slides too, and "Brief leaking into the output" is the slide-specific one: no "Option A", template name or brief note left on a slide.
 
 ## 7. Build it in Google Slides
 

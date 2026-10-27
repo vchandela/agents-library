@@ -5,9 +5,9 @@ description: Use when you are about to design something, or are new to a technic
 
 # Research prior art
 
-Apply `references/writing-voice.md` and `references/visuals.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/judgement.md` and `references/ambition.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why. For the one claim the decision rests on, reproduce it on the user's own data or a small run instead of only citing it.
+Write the report with the `explain-simply` skill, and apply `references/visuals.md`. The source checklist, company targets, sub-agent prompt, authority rubric and report shape are in `references/research-sources.md`. Apply `references/judgement.md` and `references/ambition.md`: the user's list of sources and companies is a minimum. Add the slices an expert would add, and say which you added and why. For the one claim the decision rests on, reproduce it on the user's own data or a small run instead of only citing it.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/core.md` (the six core actions).
 
 ## 1. Brief first
 

@@ -21,9 +21,9 @@ Assume a reader with no patience and real expertise.
 - Suggest phases where the work splits into phases.
 - Sections worth having: overview, design decisions, diagrams, tradeoffs, and what is knowingly left undone.
 
-The references this skill names rely on these, so read them in full too: `references/machine-tells.md` (the last pass for machine-sounding text), `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the six core actions).
 
-Apply `references/judgement.md` and `references/writing-voice.md`.
+Apply `references/judgement.md`, and write with the `explain-simply` skill.
 
 ## Diagrams
 

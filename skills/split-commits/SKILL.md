@@ -23,7 +23,7 @@ First line says what changed, in plain words, under about seventy characters. Th
 
 Explain the reasoning, not the diff. The diff is already there. What it cannot show is what you decided and what you rejected.
 
-Run the last pass from `references/machine-tells.md` on the message and keep only the final text.
+Write the message with the `explain-simply` skill and keep only the final text.
 
 ## Done when
 

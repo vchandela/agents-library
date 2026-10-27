@@ -7,9 +7,9 @@ description: Use when something is broken, throwing, failing, flaky or slow and 
 
 A loop first, a theory second, a fix last. A fix for a symptom is a guess that happened to pass.
 
-Apply `references/testing.md`, `references/engineering-principles.md`, `references/judgement.md`, `references/ambition.md` and `references/untrusted-input.md`.
+Apply `references/testing.md`, `references/engineering-principles.md`, `references/judgement.md`, `references/ambition.md` and `references/untrusted-input.md`. Write the report with the `explain-simply` skill.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/writing-voice.md` (plain, warm sentences), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
 
 Before the loop, name the outcome: this class of bug cannot come back unseen. List what that needs and ask for what is missing: the logs or crash reports, a map from a running version to its commit, a machine to reproduce on. A fix with no way to detect a repeat ends at one bug.
 
