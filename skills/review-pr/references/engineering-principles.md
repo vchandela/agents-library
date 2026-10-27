@@ -15,7 +15,7 @@
 
 ## Evidence before every claim
 
-Never tell the user something you have not checked. Every claim about how a system behaves, what a change will affect, or why to scope something one way rests on evidence you looked at in this task: the code, the logs, the real data, a run. If you have not looked, look first, or say plainly that it is a guess and what would confirm it. A reason that sounds sensible is not evidence. The step is `references/core.md` rule 2.
+Never tell the user something you have not checked. Every claim about how a system behaves, what a change will affect, or why to scope something one way rests on evidence you looked at in this task: the code, the logs, the real data, a run. If you have not looked, look first: checking everything is the default, and "not checked" is not an answer. When a check is truly out of reach, say what blocks it and ask for that access at once. A reason that sounds sensible is not evidence. The step is `references/core.md` rule 2.
 
 Example: asked why a teardown fix covered only one of nine steps, I said the other steps "run for everyone's PR builds, and making their cleanup turn red is a wider change". I had not read what those steps report. The logs of the last 60 cleanup builds showed 55 of them "failing" a step on a `NotFound` for a resource that was never created, and only one real failure (a 503). The right design (treat "not found" as done in every step, then fail loudly on real errors) came from the logs, not from the reason I had offered first.
 

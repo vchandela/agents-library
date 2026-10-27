@@ -45,7 +45,7 @@ When the user wants it exhaustive, or a handful of companies matter most, run th
 Mandatory before anything reaches the reader. A fresh agent gets the findings files and the link list, not the reasoning, re-opens every cited source and marks each claim: confirmed, wrong (with the correct version), partly right, or unreachable.
 
 - For internal claims, re-check `file:line` against the default branch, not a stale checkout, and live systems read only.
-- Cut or fix every wrong claim. Label what could not be opened as unverified in the text. A sub-agent saying it read a page is not evidence.
+- Cut or fix every wrong claim. Open every source another way before giving up on it (a reader proxy, an archive, the user's download); only what still cannot be opened after that is labelled unverified, with the ask that would open it. A sub-agent saying it read a page is not evidence.
 - If the research turns up exposed secrets or other security problems in the user's material, tell the user at once, without copying the values.
 
 ## 5. Report
