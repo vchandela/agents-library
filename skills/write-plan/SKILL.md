@@ -60,7 +60,7 @@ Same discipline as the spec. The user reviews it, then a teammate, before any co
 - Real diagrams and tables, not monospace text blocks.
 - No dense paragraphs: bullets, as "Bullets, not walls" in `references/respect-human-attention.md` says.
 - **Preview before every publish.** Apply `references/preview.md`.
-- Apply `references/writing-voice.md`.
+- **Write it with the `explain-simply` skill.** Invoke it before the first draft and again before each revision, and follow it in full: match the reader, never a terse sentence, every term defined where it first appears, proof beside each claim, one real item walked end to end. Example: a spec bullet "One lookup, shared: ... reads it once with `fetch_thread(limit=1)` and `pylon_issue`" drew "too terse, what is it trying to say?"; the rewrite said where the ticket number lives, which code already reads it, and why both callers share one function.
 - On every revision, fold the change into the step it affects. Never append.
 
 ## Folding in plan review

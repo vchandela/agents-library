@@ -105,7 +105,8 @@ Up to 3 pages for the working spec, tight and complete. The short page the team 
 - **Simplicity pass, before publishing and after every review round.** For each mechanism, name the simplest alternative and why it loses. If it doesn't lose, switch. When fixes keep stacking on one mechanism, replace it ("Question the mechanism" in `references/engineering-principles.md`). Then run the "Self-review before anyone sees a design" sweep in the same file.
 - Real diagrams (Mermaid) and real tables, not monospace text blocks.
 - **Preview before every publish.** Apply `references/preview.md`: parse every diagram, render a local preview, inspect it in Chrome, fix, repeat. Not optional.
-- Apply `references/writing-voice.md`. Titles name the thing in plain terms ("How we read Slack", not "reading code").
+- **Write it with the `explain-simply` skill.** Invoke it before the first draft and again before each revision, and follow it in full: match the reader, never a terse sentence, every term defined where it first appears, proof beside each claim, one real item walked end to end. Example: a spec bullet "One lookup, shared: ... reads it once with `fetch_thread(limit=1)` and `pylon_issue`" drew "too terse, what is it trying to say?"; the rewrite said where the ticket number lives, which code already reads it, and why both callers share one function.
+- Titles name the thing in plain terms ("How we read Slack", not "reading code").
 - For review: the artifact is the document; the team's doc tool holds the links and the open items for comments.
 
 ## Done when
