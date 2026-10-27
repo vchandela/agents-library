@@ -37,7 +37,7 @@ For any real decision, decide first, then present it as `references/judgement.md
 
 The references this skill names rely on these, so read them in full too: `references/machine-tells.md` (the last pass for machine-sounding text), `references/core.md` (the six core actions).
 
-Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals. `references/ambition.md` is a required slot in the spec: the round 1 lines below, kept in it.
+Apply `references/judgement.md`: propose requirements the user did not mention but the domain needs, marked as proposals. Apply `references/ambition.md` in the interview (round 1 below), never as a section of the spec.
 
 Apply `references/engineering-principles.md`. Every choice is a tradeoff: each piece of complexity says what it buys, or moves to a "later" list. Pragmatic, not perfect.
 
@@ -101,6 +101,7 @@ Up to 3 pages for the working spec, tight and complete. The short page the team 
 - Every number (limit, timeout, cap, wait, rate) carries its source or reason beside it, or goes ("No magic numbers" in `references/engineering-principles.md`).
 - Every new field, function or setting name reads right the first time, with nothing a newcomer must decode ("Names a newcomer reads right the first time" in the same file).
 - Before publishing, run a verification pass over every claim, and read it once for placeholders, sections that contradict each other, and any requirement that could be read two ways. Cut anything not needed.
+- **Every section earns its place.** Keep a section only if the reader decides something from it or builds from it. Cut one that restates the request, a pick already made, or another section. Example: an "Ambition" section that repeated the agreed cost, the chosen design and the real-world test, all stated elsewhere, drew "useless section".
 - **Simplicity pass, before publishing and after every review round.** For each mechanism, name the simplest alternative and why it loses. If it doesn't lose, switch. When fixes keep stacking on one mechanism, replace it ("Question the mechanism" in `references/engineering-principles.md`). Then run the "Self-review before anyone sees a design" sweep in the same file.
 - Real diagrams (Mermaid) and real tables, not monospace text blocks.
 - **Preview before every publish.** Apply `references/preview.md`: parse every diagram, render a local preview, inspect it in Chrome, fix, repeat. Not optional.
