@@ -29,7 +29,7 @@ Read the source before the first sentence: the code, the config, the Terraform, 
 
 ## Match the reader
 
-Find out what they already know and start there. If you cannot tell, ask one question before writing.
+Find out what they already know and start there. If you cannot tell, ask one question before writing. For a page, first write its story as one "and, but, therefore" line and name its reader, then confirm both with the user in one round of numbered questions, each with your recommended answer, and look up every fact yourself instead of asking.
 
 - Assume an intelligent reader who is new to *this* thing. Define its terms of art. Do not define general engineering terms they already use.
 - Bridge from what they know, in a table. Someone who knows Kubernetes learns ECS fastest as: task definition is roughly a pod spec, a service is roughly a Deployment. Say where the analogy breaks.
@@ -41,6 +41,7 @@ Find out what they already know and start there. If you cannot tell, ask one que
 
 The default shape for anything new to the reader, done for the first time, or reworked on an existing page. An overview of boxes joined by arrows is not an explanation: the reader has to assemble the meaning from names they have not met. A walk through numbered steps in order is.
 
+- **Every step unlocks the next.** Join steps with "but" or "therefore", never "and then": end each step on the gap or question the next one resolves, so the reader always knows why the next section exists.
 - **One step, one idea, in the order the reader needs it.** For a system that is usually: why it exists (the problem), what the pieces are, how one run goes, where it breaks, how it connects to what the reader is doing next.
 - **Bottom up.** Start from the smallest thing the reader can already picture (one program, one file, one person waiting), add exactly one new piece per step, and arrive at the full problem last. A step never uses a piece that a later step introduces.
 - **Animate what changes over time.** When a step is about things that move or take turns (a queue, a lock, retries, a message in flight), show it as a small stepped animation: Next and Back buttons, one change on screen per press, a caption saying what just happened, a Reset, and the end state left visible. Not autoplay, and honour reduced motion (changes appear instantly). Things that do not change stay static pictures. Mechanics are in `references/explainer-pages.md`.

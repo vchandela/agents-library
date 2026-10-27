@@ -160,6 +160,7 @@ This is not a "minimum viable diagram" rule. A tiny diagram that still requires 
 A page is for scanning, and a long one puts the reader off before they start. Keep the visible text of a page (an artifact, a hosted explainer, a doc for colleagues) as short as it can be, not counting collapsed evidence, and let diagrams, timelines and Now versus Fix panels carry the explanation. There is no word budget, but every sentence stays complete and the explanation reads coherently from one step to the next: cut words, never the verb or the link between two steps.
 
 - Open with the title and a one-line diagram key, or the first diagram. A lede, an "in short" box or a verdict paragraph that restates the page is cut.
+- **The diagram is the core, the text is its satellite.** Give each fact a place in the drawing (a label, an arrow's verb, a box) before it becomes a sentence, and let the sentences around a figure say only what the picture cannot: the decision and its reason, or a numbered walk through its boxes.
 - One item is a heading, one diagram (or a Now and Fix pair), and at most two sentences under it. A sentence that only describes what the diagram already shows is cut.
 - No section intro that announces what follows, no closing recap, and no history of the conversation (corrections go in chat).
 - Put the plain-words version of each point in a collapsed "Explain simply" dropdown (`<details>`) under it, for a reader who has never met the term: say what each thing is, give one real example, use no analogy, and keep it to about 50 to 120 words. Skip the dropdown when the visible sentences already use only plain words: a reader removed every dropdown on a page whose text already read clearly, because each one repeated its paragraph. Collapsed dropdowns and evidence keep the visible page short for a reader who knows the topic, and a reader who does not can open the explanation they need.
@@ -168,6 +169,7 @@ A page is for scanning, and a long one puts the reader off before they start. Ke
 
 ## Steps first, or the map first
 
+- **Pick the story before the first diagram, and say it in one line.** Either the problem, then the whole solution, then each part of it (for a reader who should see where it ends first), or the problem, then one fix per part, then the solution assembled from those fixes (for a reader who should build it up). A design page for colleagues usually takes the second: one sentence of need with its reason, the target diagram, then a numbered problem table whose rows each carry `evidence:` and line up with their fix.
 - **A reader new to the subject** (learning how something works): numbered steps in order (why it exists, the pieces, one run, where it breaks), each with plain words, one small picture, a real example and a one-line takeaway. System names come at the end of each step. An overview of boxes and arrows goes after the steps as a recap, never in their place.
 - **A reader who knows the domain and is judging a design** (a spec, a plan, a tech doc, a system page): the problem in a few lines, then one map of four to seven big boxes, then a section per box, layer by layer.
 
@@ -257,4 +259,7 @@ Visuals checklist
 - [ ] A page's visible text is as short as it can be, every sentence is complete, and each step follows from the last.
 - [ ] For a page or deck, the preview the skill names passed for this version.
 - [ ] A tired reader could explain the mechanism back without borrowing the document's jargon.
+- [ ] With all text hidden, the shapes, arrows and grouping of each diagram still show its structure; if not, it is a list in boxes and gets redrawn.
+- [ ] Cold-reader test: a fresh sub-agent given only the page answered the five questions a colleague would bring, plus "what does this page assume you already know?", without guessing, and every guess or miss was fixed.
+- [ ] Every claim on the page carries its proof where the eye already is (a `file:line`, a query with its date, a trace id, a live read), and nothing says "not checked".
 ```
