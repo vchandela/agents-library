@@ -44,7 +44,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 
 - Sizing a PR -> under about 200 lines of production code, atomic; bigger work is a stack of vertical slices; estimate before coding [engineering-principles: pull requests]
 - A PR description -> what it does now, in explain-simply voice, each decision with a before/after example; Evidence and Merge danger paragraphs; no review-fix logs [engineering-principles: pull requests]
-- Anything with a shape in a PR description (a table, a flow, a lifecycle, a boundary) -> draw it: Markdown table with real example rows, Mermaid flowchart or stateDiagram, ASCII in a code block; one picture per idea, at most two sentences under it, nothing the picture already shows [engineering-principles: pull requests, visuals: page brevity]
+- Anything with a shape in a PR description (a table, a flow, a lifecycle, a boundary) -> draw it: Markdown table with every column and real example rows, Mermaid flowchart or stateDiagram, ASCII in a code block; one picture per idea, at most two sentences under it, nothing the picture already shows [engineering-principles: pull requests, visuals: page brevity]
 - Stacked PRs -> each upper branch sits on the exact commits below; a merge commit carries nothing; run stack-merge-check.sh before every merge; lease only for a stack rebuilt onto a moved main [stacked-prs]
 - Before a deploy -> a rollback plan with a trigger, steps and time; define "working" as the two to four questions on-call will ask [shipping: before deploying]
 - After anyone else lands on main -> rebase and rerun the whole suite before pushing [shipping: several sessions]
