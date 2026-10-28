@@ -14,6 +14,12 @@ Then keep the six core actions in view in every session, including after a compa
 
     mkdir -p ~/.claude/rules && ln -s <clone>/references/core.md ~/.claude/rules/core.md
 
+Link `references/tech-index.md` the same way. It holds every engineering, testing, shipping and system design rule as one line, so it is in view without opening the full files:
+
+    ln -s <clone>/references/tech-index.md ~/.claude/rules/tech-index.md
+
+To make review requests carry a principles check, add a `PreToolUse` hook on `SendMessage` that runs `python3 <clone>/scripts/review-request-check.py`. It blocks a `[ship ...] review request` without a "Principles check" section that cites a `file:line`.
+
 Cowork on the desktop skips symlinked rules, so there use a copy and refresh it whenever `core.md` changes. If the rule does not come back after a compaction, a `SessionStart` hook with the `compact` matcher that prints the file does the same job.
 
 ## What is in here
