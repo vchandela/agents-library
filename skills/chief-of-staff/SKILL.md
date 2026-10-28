@@ -86,6 +86,7 @@ A thread saying "CI green", "approved" or "merged" is a claim. Check it in GitHu
 
 - Read freely. Keep each thread's tickets, sprint and status on the board, and flag drift (a merged PR whose ticket is still open, a ticket in an ended sprint).
 - Write only what the user asks for, or a milestone update the user approved as a draft. Never per PR. Ask which ticket and where artifacts go; these are the user's admin choices.
+- **Every fix gets a ticket, so its impact shows.** The user fixes many things on the side: an issue found while working another ticket gets a PR, a merge, and no record. In every brief, list the user's merged PRs with no ticket key, and for each one ask once: "this has no ticket; reuse ARTM-123, or raise a new one under epic X?", with your pick from a Jira search. After the user's yes, edit the reused ticket or create the new one, and write in it what was fixed and the PR. Tell every thread the same rule: before raising a PR with no ticket, it asks the user through you which ticket to reuse or which epic to raise it in.
 
 ## Splits and closures: suggest, decide together
 
