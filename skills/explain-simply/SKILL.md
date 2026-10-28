@@ -5,6 +5,17 @@ description: Use when someone wants to understand a system, a concept or a decis
 
 # Explain simply
 
+## First rule: simple sentences, never terse
+
+This is the most common failure, so it comes before everything else. Check every sentence against it before anyone reads the text.
+
+- **One idea per sentence, in the plain order: who does what.** Don't stack clauses, parentheses and citations into one sentence. Put a citation at the end of its sentence, or in its own sentence.
+- **Never terse, even when grammatically full.** A sentence is terse when it leans on a term the reader has not met, or skips the step between its cause and its conclusion. Say what the thing is and what it does.
+- **No labels in place of sentences.** A bold label followed by a compressed clause ("One outcome per answer, ids not text.") makes the reader decode it. Write the sentence the label stands for.
+- **No filler either.** Simple is not padded: cut lead-ins that only announce what follows.
+
+Example. Terse: "One outcome per answer, ids not text. A harmful answer (wrong, and following it would make things worse, `vocabulary.yaml:28`) is the outcome harmful, not wrong plus a flag." Simple: "A harmful answer is now its own outcome. Before, it was saved as wrong with a separate harmful flag. A harmful answer is a wrong answer that would make things worse if someone followed it (`vocabulary.yaml:28`)." Another: "We already have a baseline, because the learner grades Artemis on every ticket it studies" drew "what does this mean?"; the fix was "We can start measuring today, because the learner already checks whether Artemis's first answer was right on every closed ticket it studies." Slides and short lines tempt compression most, so check them hardest.
+
 Explain from first principles, with examples grounded in reality.
 
 **The bar is hard: easy to digest without losing technical depth.** Simplifying by removing the difficult part is not this. Keep the depth, change the delivery.
@@ -34,7 +45,6 @@ Find out what they already know and start there. If you cannot tell, ask one que
 - Assume an intelligent reader who is new to *this* thing. Define its terms of art. Do not define general engineering terms they already use.
 - Bridge from what they know, in a table. Someone who knows Kubernetes learns ECS fastest as: task definition is roughly a pod spec, a service is roughly a Deployment. Say where the analogy breaks.
 - When they mention their background ("I ran Temporal on EC2"), use it: put their setup and this one side by side.
-- **Never write a terse sentence, even a grammatically full one.** A sentence is terse when it leans on a term the reader has not met, or skips the step that links its cause to its conclusion. Say what the thing is and what it lets the reader do. Example: "We already have a baseline, because the learner grades Artemis on every ticket it studies" drew "what does this mean?". The fix spelled out the step: "We can start measuring today, because the learner already checks whether Artemis's first answer was right on every closed ticket it studies." This applies to slides and short lines most of all, because they tempt compression.
 - For devices that landed with real readers (a "who does what" table, one item walked end to end, a named scenario table, a job by its inputs), see `references/explaining.md`.
 
 ## Walk it step by step
