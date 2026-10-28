@@ -2,6 +2,7 @@
 
 ## Before deploying
 
+- **A diff that ships in more than one deployable unit names each one.** Map every changed file to the image, service or workflow that ships it. When there are two or more, the PR says each deploy and the safe order between them, or why any order is safe (no data or contract passes between them). Example: a fix to Pylon card reading changed the orchestrator (`deploy-app`) and the agent's Slack CLI (`deploy-agentcore`); the PR said neither, and a review bot flagged it.
 - **A rollback plan exists before the deploy, not after.** It names the trigger (for example error rate over twice the baseline, or p95 up more than half), the exact steps, how long they take, and whether each migration can be reversed, checked rather than assumed.
 - A feature flag, if used, has an owner and a removal date. Test both states. Never nest flags.
 - Define "working" first: write the two to four questions someone on call will ask about this change. Every log line or metric added must help answer one.

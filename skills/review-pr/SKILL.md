@@ -31,6 +31,12 @@ Write each simplification as one numbered line, `N. file:line: <tag> <what to cu
 
 **4. Line level, last.** Real bugs, misused APIs, missing error handling, unhandled edge cases.
 
+**Three checks a diff-only read misses.** Each one was missed by a review and then caught by a bot.
+
+1. **Follow every new failure path out of the diff** to the loop, scheduler, cursor or retry that runs it, and write the day 1 and day N scene: what waits, what is re-done, and whether either grows while it stays stuck (`references/engineering-principles.md`, "Errors never go silent", item 5).
+2. **Map the changed files to their deployable units** (`references/shipping.md`, "Before deploying"). Two or more units with no deploy order in the PR is a finding.
+3. **Run the repo's whole static toolchain on the changed files, not only what CI gates**: the formatter in check mode, the type checker, the linter, and the repo's semgrep rules. Run the same on the base, and report only what the diff adds.
+
 ## Before writing any finding
 
 Resolve the base ref and confirm the diff is not empty before starting. A bad ref fails here, not inside a sub-agent.
@@ -90,6 +96,8 @@ Say which order the set should merge in, and which PRs depend on each other.
 ## Triaging bot comments
 
 Same bar. Fix what is real. For the rest, **leave a one line reason before resolving**, so the next person knows it was considered and not just cleared.
+
+**Approve only after the repo's review bots have run on the exact head** (a code-review bot, semgrep), and give each of their comments a verdict in your report: real (fixed or required), or not, with the reason. A bot finding the review missed is a lesson: name which check above would have caught it, and add the check if none would. Example: on one PR the review approved a head; a code-review bot then posted two critical findings on that same head, unreadable input pinning a poller's bookmark and a fix shipped by two deploys with no order. Both were real.
 
 ## Output
 

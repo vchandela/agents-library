@@ -73,8 +73,9 @@ Less code never means less of these: validation at trust boundaries, error handl
 2. **Every key error does three things.** It records the failure where the data would have been (a status on the row, never just a missing row). It logs with context. And it reaches a human through the repo's existing alert route, never a new one.
 3. **Non-key errors** are logged with context and nothing more.
 4. **Before building, read how the repo alerts today** (a monitor probe, a chat thread, an error tracker, a metric with an alarm, a status page) and use that route.
+5. **Follow a new failure up to the job that reruns it.** When a loop over items runs on a schedule from a cursor that moves only on success (a bookmark, a watermark, a queue offset), a failure on one item fails the whole run, and the next run starts again from the same place. So the bad item fails the run only after the good items are done, and a stuck run re-does only the work that is not done yet. Otherwise, while it stays stuck, every later item waits, and the work per run grows with the time stuck. Write the scene for day 1 and day N before calling it done.
 
-Failure this prevents: a background job that was "best effort" stalled for days with nothing alarmed, because its failure was only a log line. "Fail open" and "logged and swallowed" are fine for convenience, never for something a later step trusts.
+Failure this prevents: a background job that was "best effort" stalled for days with nothing alarmed, because its failure was only a log line. And the other way: a poller raised on one unreadable Pylon card, which correctly paged, but also pinned its bookmark, so no later ticket got a row; the first fix re-read every Slack thread since the bookmark each minute, which would have hit Slack's rate limit within a week. Both were outside the diff, in the caller's loop, and a code-review bot caught the first before the human-side review did. "Fail open" and "logged and swallowed" are fine for convenience, never for something a later step trusts.
 
 ## Every complexity earns its place
 

@@ -32,6 +32,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
   1. a fact with two homes or a fallback copy; 2. one name, two meanings; 3. a comment the code contradicts; 4. a temporary piece with no removal step; 5. a fallback, default, retry, silent cut or `|| ""` with no cited failure; 6. an error path with no class; 7. the same snippet in several files
 - A review request -> carries a "Principles check": one line per rule above that the change touches, each with its verdict and `file:line`
 - A step in an agent workflow -> first ask if an existing step has the inputs and tools; add one only when none can [engineering-principles: fewest workflow steps]
+- A step that waits on another (`depends_on`, run after) -> name the output it reads from that step, in the spec and the PR; a wait with no output read runs in parallel, because a wait without a reason is wasted latency [engineering-principles: fewest workflow steps]
 - A lock, queue or serial step -> prefer optimistic work with a conflict check; a lock only when nothing else works, with its cost in time [engineering-principles: optimistic over pessimistic]
 - Anything a change creates (file, branch, row, session, cache entry) -> say who removes it and when, and what a half-done or doubled run leaves [engineering-principles: wrong paths and cleanup]
 - An error -> key (loses or corrupts something relied on): record a status where the data would be, log, alert through the repo's existing route; non-key: log with context [engineering-principles: errors never go silent]
@@ -88,6 +89,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 ## Background work, queues and events
 
 - Work takes more than a few seconds -> pending row, job on a queue, return the id; a worker or trusted event marks it done [system-design/long-running-work]
+- A new raise or exit inside a loop a scheduler reruns from a cursor that moves only on success -> trace it to the top: the bad item fails the run only after the good ones are done, and a stuck run re-does only unfinished work, so neither what waits nor the cost per run grows while stuck [engineering-principles: errors never go silent]
 - Retries -> make the operation idempotent first, back off with jitter, fail permanent errors fast, never retry an undiagnosed failure [system-design/long-running-work]
 - Waits on people, webhooks or timers for days -> a durable workflow engine; activities need idempotency [system-design/long-running-work]
 - An irreversible outside call -> write "in progress" first, "done" after; on retry ask the provider; pass an idempotency key [system-design/long-running-work: side effects]
