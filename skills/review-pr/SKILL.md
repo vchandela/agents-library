@@ -97,7 +97,7 @@ Say which order the set should merge in, and which PRs depend on each other.
 
 Same bar. Fix what is real. For the rest, **leave a one line reason before resolving**, so the next person knows it was considered and not just cleared.
 
-**Approve only after the repo's review bots have run on the exact head** (a code-review bot, semgrep), and give each of their comments a verdict in your report: real (fixed or required), or not, with the reason. A bot finding the review missed is a lesson: name which check above would have caught it, and add the check if none would. Example: on one PR the review approved a head; a code-review bot then posted two critical findings on that same head, unreadable input pinning a poller's bookmark and a fix shipped by two deploys with no order. Both were real.
+**Approve only after the repo's review bots have run on the exact head** (a code-review bot, semgrep), and give each of their comments a verdict in your report: real (fixed or required), or not, with the reason. A bot finding the review missed is a lesson: name the existing rule that would have caught it and apply it next time. Add a new rule only when none exists and it would catch a different bug on a different PR; never one rule per comment. Example: on one PR the review approved a head; a code-review bot then posted two critical findings on that same head, unreadable input pinning a poller's bookmark and a fix shipped by two deploys with no order. Both were real.
 
 ## Output
 
