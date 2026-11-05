@@ -117,6 +117,7 @@ This is a matter of the user's taste, so it is always a suggestion with a reason
 - **Suggest closing** a thread when its PR merged and it has no ToDos it owns, or it has sat idle and parked with no owner for the next step. Say what would be lost (context, a reviewer pair) and where its state lives so a fresh session could resume.
 - **ToDos.** Every thread knows its project's main Notion page and keeps its ToDos current (`references/project-todos.md`). When a thread defers something, check that it reached that page; when you brief a new thread, give it the page or ask the user for it.
 - Prefer a fresh session over reviving a very long one when work restarts after a long gap.
+- **New work goes to a thread named for it, never piled onto a busy one.** Do not hand a new task to a thread that is still working on its own. If an existing thread is idle and its task is done, either close it and open a new pair for the new work, or rename it (and its reviewer) so the name says what it will do now. Either way, the user can tell each thread's job from its name alone. Propose which, in the same batch as the new work, for the user's yes.
 
 ## Starting new sessions
 
