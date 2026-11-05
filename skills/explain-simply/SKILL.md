@@ -13,6 +13,9 @@ This is the most common failure, so it comes before everything else. Check every
 - **Never terse, even when grammatically full.** A sentence is terse when it leans on a term the reader has not met, or skips the step between its cause and its conclusion. Say what the thing is and what it does.
 - **No labels in place of sentences.** A bold label followed by a compressed clause ("One outcome per answer, ids not text.") makes the reader decode it. Write the sentence the label stands for.
 - **No filler either.** Simple is not padded: cut lead-ins that only announce what follows.
+- **Short sentences, with a hard cap.** Keep a sentence to about 20 words when it tells someone what to do, and about 25 when it describes something. Write in the active voice: who does what. This cap comes from ASD-STE100 Simplified Technical English, the standard Matt Pocock's `wait-what` skill uses for a re-pitch. A longer sentence is two ideas: split it.
+- **No pronoun the reader has to resolve.** Use "it", "this" or "that" only when its referent is in the same sentence or the one before. Otherwise repeat the noun. Never coin a label the reader has not seen, such as "the switch-back note"; use the real name or a short description (HumanLayer's prose rules). A coined word for something new is fine only with its real name in brackets, as `references/explaining.md` says.
+- **Name the actor and the call.** "The queue reader stores the request on a raw event" beats "the request gets persisted". "`fast_check` calls `run_db_query`" beats "the script delegates to the gateway" (poteto's `how` skill).
 - **Write for a reader who wasn't in the room.** A PR description, a Notion doc or an artifact is read by someone who missed the discussion behind it. Define every term at first use ("the learner", "the stale scanner"), state a rule in place of naming whose rule it is ("Ankur's rule"), and explain a step in place of pointing at it ("plan step 6", "the replay"). Never write "as we discussed" or "you and I agreed".
 
 Example. Terse: "One outcome per answer, ids not text. A harmful answer (wrong, and following it would make things worse, `vocabulary.yaml:28`) is the outcome harmful, not wrong plus a flag." Simple: "A harmful answer is now its own outcome. Before, it was saved as wrong with a separate harmful flag. A harmful answer is a wrong answer that would make things worse if someone followed it (`vocabulary.yaml:28`)." Another: "We already have a baseline, because the learner grades Artemis on every ticket it studies" drew "what does this mean?"; the fix was "We can start measuring today, because the learner already checks whether Artemis's first answer was right on every closed ticket it studies." Slides and short lines tempt compression most, so check them hardest.
@@ -34,6 +37,7 @@ Read the source before the first sentence: the code, the config, the Terraform, 
 - When the source cannot settle a fact, say so, in a list of unknowns at the end. A confident account with silent gaps is worse than an incomplete one with the gaps marked.
 - A correction to something you said earlier goes in a visible box where the topic comes up. Never bury it.
 - **Test an inference against live data before presenting it as a finding.** When the claim can be checked (a build log, an API, a cluster, an audit log), check it first, with read-only calls (get, describe, list, logs). Never change a live system to test a claim. Example: "teardowns all fail" fell to a few hundred logs showing most of them succeed. Check every claim by default; an "inference" or "not checked" label is not a substitute for the check. Only when every route has failed and the access was asked for does a claim stay open, and then it is written once, at the claim, as a blocker with the access it needs.
+- **Recompute every number and quantifier from the data before it goes on a page.** A count, a share, or a word like "most", "only" or "all" is a claim. Run the query or script that produces it while writing that sentence, keep the script beside the data, and re-run it after any relabelling. A summary written from memory of earlier analysis is not evidence. Failure this prevents: a page said the 19 unclear runs "mostly need Ray logs that returned HTTP 502". A join of the label file with the investigation notes showed 3 of 19; the other 11 had been moved by a later re-check the summary never looked at.
 - **State what happens in practice only from records of it happening.** What a flag, permission or code path allows is capability, not practice. Before saying who does something, when or why, open the records: run rows, logs, timestamps, who started each run, the team's own tracker. A summary from an earlier agent or a doc is a lead to open, not evidence. When the reader draws a conclusion from your answer ("so they press Troubleshoot on each ticket"), check it before you reply, or say plainly that it is not verified. Failure this prevents: a flag that lets two engineers run the obs agent on a customer's job became "engineers rerun it on the ticket's job", and the reader concluded they investigate live tickets by hand. The run records showed the opposite: past runs graded after the ticket closed, and nobody running the agent to help support.
 - **Cite something that breaks when the fact changes.** A Jira, Slack or BuildKite link keeps opening after the claim behind it goes stale, so it proves nothing later. Cite the code path, config key, flag or query the claim rests on, which a check can re-run. Example: "capped at 50 nodes (JIRA-123)" silently goes wrong when someone raises the cap; "capped at 50 nodes (`config/autoscaler.yaml: max_nodes`)" is flagged by the PR that changes it.
 - **Check what merged recently before proposing a fix.** Fetch the default branch and read the last few days of commits in the area. A fix designed from an old checkout may already exist (a pool backoff proposed in the morning had been merged that day).
@@ -47,6 +51,14 @@ Find out what they already know and start there. If you cannot tell, ask one que
 - Bridge from what they know, in a table. Someone who knows Kubernetes learns ECS fastest as: task definition is roughly a pod spec, a service is roughly a Deployment. Say where the analogy breaks.
 - When they mention their background ("I ran Temporal on EC2"), use it: put their setup and this one side by side.
 - For devices that landed with real readers (a "who does what" table, one item walked end to end, a named scenario table, a job by its inputs), see `references/explaining.md`.
+
+## Ground every concept before you lean on it
+
+From Matt Pocock's `writing-shape` and `writing-beats` skills. Defining terms is not enough: a sentence can lean on an idea the reader lacks with no jargon in it at all.
+
+- **Write down the prerequisites first.** Before the first sentence, list what this reader already knows on arrival, for example "knows what a Ray cluster and Grafana are; does not know the admin zone or the learner". Confirm it with the user when a page has more than one reader. Everything not on that list must be grounded on the page before anything relies on it.
+- **Keep a running grounded list while writing.** Each section either relies on concepts already grounded, or grounds a new one, landing the idea and its name together. When the next point needs a concept nothing has grounded yet, ground it first, or move it to the prerequisites. Demanding too much up front shuts readers out; grounding too much inside drowns the opening in definitions.
+- **Check every block before keeping it.** Ask "If I cut this, what breaks?" If nothing breaks, cut it. Ask "Is this sentence doing two jobs?" If yes, split it. Ask "The opening promised X; are we still on X?" If not, re-thread or change the opening.
 
 ## Walk it step by step
 
@@ -83,6 +95,58 @@ Failure this prevents: a 30-section research page went to review first; only the
 
 Every picture follows `references/visuals.md`: the form for each question, the 50-form catalog with the chart tools, the diagram rules, and the checklist that runs before anything goes out. For a page, also apply `references/explainer-pages.md` (layout) and `references/preview.md` (render and look).
 
+**For code and systems, pick the smallest code-shaped view that makes the point** (HumanLayer's `show-me`). Use one or two of these, never all:
+
+- A call tree for runtime flow: who calls whom, indented.
+- A shallow file tree with one comment per line saying what each file owns.
+- A step list or a small YAML excerpt for a workflow.
+- Pseudocode for a decision, marked as pseudocode.
+- A sequence or flow diagram for components talking to each other.
+
+**Show a change to an existing shape as a diff of that shape.** Use a `diff` block on the call tree, file tree, YAML or JSON the reader already knows, with `+` and `-` lines. Show the whole target shape only when most of it is new, or when a diff would hide the order. Failure this prevents: a spec described in prose that a workflow "gains a fast step before the answer write". A five-line diff of the YAML showed the same thing at a glance.
+
+**For "how does this system work", end with two small sections** (poteto's `how` skill):
+- "Where things live": the five or so files a newcomer opens first, each with what it owns.
+- "Gotchas": what is surprising or easy to get wrong, each with its proof.
+
+When something is complex, say why it is complex. Don't only describe the complexity.
+
+**When the reader says it didn't land, re-pitch it.** Don't repeat it louder. Give one line of context, use the short-sentence cap above, and use only words the page has already grounded (Matt Pocock's `wait-what`).
+
+## Every page reads the same way
+
+A reader should know where to look on any page we publish: a spec, a plan, a review page or an explainer. Use this order, and skip only a part the page has no use for:
+
+1. The title, then one line saying who it is for.
+2. The overview, in the user's voice or marked as a draft for them to rewrite.
+3. "Asked of you": what the reader must decide or do, with a link to each item.
+4. "What you need to know first": the prerequisites, then a small table of terms the page uses.
+5. One real item walked end to end, as a table of moments or a small diagram.
+6. "What changes", as diffs of the shapes the reader knows.
+7. Open questions, in the format below.
+8. Detail, collapsed: tables, failure cases, evidence.
+9. Rules that must hold, then "Where things live" and "Gotchas".
+
+**Each open question has the same five parts.** A reader can then answer it from the box alone:
+
+1. The question, as a question, in one line.
+2. One or two sentences of context: what the choice is about.
+3. A picture of what differs between the options: a small flowchart, a diff, or a comparison table with one row per dimension.
+4. Two or three option cards, each with what it is and what it costs. Your pick is marked on its card.
+5. One line per losing option, starting "Why <pick> over <option>:", saying why it loses. Name where the loser wins.
+
+Never ask a question with only one real option, and never offer an option nobody would pick (`references/respect-human-attention.md`).
+
+**Less text, never terse.** Cut a sentence when the picture already says it. Keep every sentence that stays a full, plain sentence under the length cap.
+
+**Run the checker before every publish.** `python3 ~/oss/agents-library/scripts/check_page_prose.py <page.html>` fails on:
+- a sentence over 25 words;
+- an em dash;
+- a paragraph or list item over three sentences;
+- an open question with no diagram, or with no "Why X over Y" line.
+
+Fix every line it prints, then preview the page (`references/preview.md`). The checker cannot see a diagram that renders badly, so look at each one. For options compared side by side, draw one plain row per option in a left-to-right flowchart, each row starting with the option's name. Mermaid subgraphs stack vertically and can reverse their order: a three-option picture once took a full screen and read C, B, A. Failure this prevents: a spec's open items were walls of text with no picture. The reader asked for options, a reason for each pick, and diagrams.
+
 ## Rationalisations to refuse
 
 | The excuse | What to do |
@@ -94,8 +158,10 @@ Every picture follows `references/visuals.md`: the form for each question, the 5
 | "A summary at the top helps them orient" | Only if every word in it is already defined. Otherwise it goes at the end. |
 | "The docs say so" | Check the code. Cite what you checked. |
 | "An example would make it longer" | The example is the explanation. Cut prose instead. |
+| "The reader knows this term" | Check the prerequisites list. If it isn't there, ground it on the page. |
+| "Prose describes the change well enough" | Show the change as a diff of the shape the reader already knows. |
 | "The HTML parses, so it is fine" | That is not a preview. Render it, screenshot every section, look, fix. Never publish unpreviewed. |
 
 ## Done when
 
-Somebody who did not already know this understands it on one read. Every term is defined before it is used, every claim has its example or its `file:line`, every decision is shown side by side with a verdict, every diagram element is annotated, every question the reader asked is answered where it arises, and the unknowns are listed. The visuals checklist in `references/visuals.md` passes, and for a page, so does the preview.
+Somebody who did not already know this understands it on one read. The page follows "Every page reads the same way", `scripts/check_page_prose.py` exits 0, the prerequisites are written down, every concept is grounded before a sentence leans on it, no sentence passes the length cap, no pronoun needs resolving, every term is defined before it is used, every claim has its example or its `file:line`, every decision is shown side by side with a verdict, every diagram element is annotated, every question the reader asked is answered where it arises, and the unknowns are listed. The visuals checklist in `references/visuals.md` passes, and for a page, so does the preview.
