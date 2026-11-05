@@ -31,6 +31,8 @@ Follow the plan's reasoning, not just its instructions. The reasoning is what te
 
 **Keep a progress file on a long plan.** One line per finished step: the step, the commits, the test command and what it returned. Context gets compacted; the file and `git log` do not. After a gap, trust them over your recollection.
 
+**Raise every PR of the plan together, not one at a time.** Build the whole stack (or each lane's stack, when the plan is split across sessions), open all its PRs, take them through review, and hand the user every link in one message once each is approved and green. Do not wait for one PR to merge before opening the next. After each merge, rerun the checks and adjust the PRs above it (rebase, fix what the merge changed); that is expected. When the work is split across lanes, the lanes agree on one hand-off so the user gets every link from every lane at once. Why: the user reviews in one sitting and merges in order, and PRs raised one per merge cycle cut throughput to one PR per review round.
+
 ## When the user said not to check in
 
 Only for an unattended run the user explicitly asked for. A question becomes a ruling instead of a stall. Stop only for four things: something irreversible or destructive, something security sensitive, a side effect outside the working copy (a merge, a push to a shared branch, a publish), or a plan so broken that every path is a guess. Everything else: decide with the spec as the authority, and record `Ruling: what you decided, why, what it costs if wrong`. The final message lists every ruling, and every finding you chose not to fix.
