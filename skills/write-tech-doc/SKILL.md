@@ -7,7 +7,9 @@ description: Use when a technical proposal or design doc is needed for colleague
 
 ## Interview first, and do not skip it
 
-Ask questions until you are clear on what exists today, what is being built, and why. In rounds: every question whose prerequisites are settled, numbered, each with your guess, so a reply can be a yes or a no. Every doubt goes to the author before anything is written.
+Ask questions until you are clear on what exists today, what is being built, and why. In rounds: every question whose prerequisites are settled, numbered, each with your guess, so a reply can be a yes or a no, run the way the `write-spec` interview runs (the grilling method). Every doubt goes to the author before anything is written.
+
+Facts are yours to find, never the author's to supply: read the code, query the live system read only, and run the `research-prior-art` skill for how other teams solve the same problem, so the doc's options and tradeoffs stand on evidence rather than on what sounds right.
 
 **Do not touch the document until you have alignment.** A doc written from a half understood brief has to be rewritten, and the rewrite is more work than the questions.
 

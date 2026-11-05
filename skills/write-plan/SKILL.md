@@ -15,6 +15,14 @@ For each mechanism the plan builds (a cache, a queue, a lock, a shard key), chec
 
 The toolbox's entries, each read in full when its problem comes up: `references/system-design/api-and-edge.md`, `references/system-design/caching.md`, `references/system-design/code-structure.md`, `references/system-design/consistency-and-concurrency.md`, `references/system-design/counting-and-aggregation.md`, `references/system-design/large-files.md`, `references/system-design/long-running-work.md`, `references/system-design/ml-systems.md`, `references/system-design/numbers.md`, `references/system-design/queues-and-streams.md`, `references/system-design/real-time-updates.md`, `references/system-design/scaling-and-partitioning.md`, `references/system-design/search.md`, `references/system-design/storage.md`.
 
+## Collect evidence before the steps
+
+A plan step is only as good as the evidence under it. Before writing steps:
+
+- **Run the `research-prior-art` skill** at the quick or comparison depth for each mechanism the plan builds that has no precedent in the repo (a retry policy, a migration pattern, a test harness), and for each failure mode the spec names but does not say how to handle. Cite what it found in the step that uses it, with the link.
+- **Look facts up with sub-agents rather than asking.** Whether a function exists, what a live system returns, how long a run takes: send a sub-agent with fresh context, and keep writing the steps that do not depend on it.
+- A question only the user can decide goes to the spec's open items, asked as the `write-spec` interview asks it (numbered, recommended answer on its own line, worded so "yes" accepts it).
+
 ## Rules
 
 - Every step is explicit and actionable.

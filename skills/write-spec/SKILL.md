@@ -27,6 +27,8 @@ Look for precedent in the target repo. A design that copies a pattern the team a
 
 Verify every claim against the source and cite `file:line`. When something does not exist in the repo, say so plainly. It is new work, not a port. A fetch result is a lead, never a quote (`references/research-sources.md`, Access notes).
 
+**Collect outside evidence with the `research-prior-art` skill.** For a new shape, run it before round 1, so the interview starts from how others already solve the problem rather than from a blank page. For a bounded change, run it at the quick depth when the change brings in a mechanism the repo has no precedent for. Its findings feed the options in the interview and the spec's open items, each with its link and how many organisations use it. Skip it only for a spike, and say that you skipped it.
+
 ## Shape before spec
 
 If the fundamental shape is undecided (where it runs, what owns state, one long process or many short ones), settle that first. A spec written for the wrong shape gets written twice.
@@ -59,13 +61,18 @@ Apply `references/visuals.md`. The spec's diagram shows the core behaviour end t
 
 Before the first question, write one line: your best guess of what the user wants, how confident you are, and what is missing.
 
-Interview in rounds. Map the decisions as a tree: each one opens the ones that hang off it. Each round, ask every question whose prerequisites are already settled, numbered, each with your guess or recommended answer, so every reply can be a yes or a no. A question that depends on one still open waits for a later round. Look up facts yourself; ask the user only for decisions. Cover implementation, interfaces, failure behaviour, tradeoffs, and what the user is actually optimising for. Round 1 always opens with four lines from `references/ambition.md`: the goal beyond the goal, the job as a verb, one ambitious option beside the plain one, each with its cost, and your pick, and the one belief the request rests on with how to test it against raw data.
+Interview in rounds, the grilling method (Matt Pocock's `grilling` and `grill-me` skills, github.com/mattpocock/skills, MIT). Map the decisions as a tree: each one opens the ones that hang off it. Each round, ask every question whose prerequisites are already settled, numbered, each with your guess or recommended answer, so every reply can be a yes or a no. A question that depends on one still open waits for a later round. Cover implementation, interfaces, failure behaviour, tradeoffs, and what the user is actually optimising for.
+
+- **Format each question so it can be answered by number:** `❓ Q1 · <title>: <the question, with its options>`, then your recommended answer alone on a `➡️` line. Word the question so that "yes" accepts your recommendation. When the recommendation argues against the question as asked, reword the question.
+- **Facts are your job, decisions are the user's.** When a question needs a fact (the code, a live system, a log, how others do it), send a sub-agent with fresh context to find it, or run `research-prior-art` for outside practice. Never ask the user something you could look up. Don't hold the round for it: only the questions that depend on that fact wait, and the rest go out now. Never answer a decision yourself, even when another skill or a ticket asked you to keep moving: a decision nobody answered is your opinion, not the user's.
+- **An answer can reopen a branch.** When an answer shows that an earlier question in the same round should have been asked differently, say so and ask it again in the next round.
+- **No cap on questions.** Some designs need three and some need fifty. When a session runs long, the scope is usually too big: suggest splitting it. The user can always say "wrap up". Round 1 always opens with four lines from `references/ambition.md`: the goal beyond the goal, the job as a verb, one ambitious option beside the plain one, each with its cost, and your pick, and the one belief the request rests on with how to test it against raw data.
 
 When an answer sounds like what a good answer should sound like ("scalable", "clean", "the standard way"), ask: "If you did not have to justify this to anyone, what would you actually want?"
 
 **Do not ask obvious questions.** Ask the ones whose answers would change the design: what happens when this is called twice, when the upstream is down, which of two costs matters more.
 
-Keep going until no branch is unvisited, nothing is silently assumed, and you can state the system back and the user agrees. Then write the file.
+Keep going until no branch is unvisited, nothing is silently assumed, and you can state the system back and the user agrees. An empty list of questions is not the end: the user confirming the shared understanding is. Then write the file.
 
 ## The spec
 
