@@ -78,6 +78,23 @@ The user reports to their manager every week, and you keep the record. When aske
 - **Pace the work.** Leadership should see steady progress every week: plan each week to deliver some visible outcomes, a mix of big and small, rather than shipping everything at once and having nothing for the weeks after. Leave room in each day for reviews, interruptions and thinking. When a week already looks full, move an item to next week rather than stretch the commitment.
 - The summary is a draft the user sends in their own words (`daily-brief.md`, "What you never do").
 
+## Weekly focus
+
+A team with many threads ships a lot and can still miss the one number leadership is watching. The fix is to pick at most two key deliverables for each week and check all work against them every day. Keep the plan in one file (`~/.claude/cos/week.md`). For each deliverable it holds a done line that someone else could check, the threads that serve it, and the tickets behind it. The file also has a "not this week" list and last week's baseline. The plan week starts on the day of the user's weekly review meeting (for example, Wednesday to Wednesday). Record that day in the brief config.
+
+- **Review day, morning.** Report what went well and what went wrong, with numbers: the goal metric, how many commitments were hit or missed, and how many merged PRs served the plan. Then propose next week's deliverables, at most two, each with its done line, and the "not this week" list. Draft the team update for the user to rewrite. Rewrite the plan file only after the user approves.
+- **Every daily brief** opens with "Key goals" (`daily-brief.md`, "Shape"). It covers how far each deliverable is from its done line, what is at risk, and one line for each off-plan item, for example: "runbooks is building the analytics section, and that is not in this week's plan".
+- **Check-ins.** On the check-in days the user picks (for example, Friday and Monday), add the week so far: each deliverable's progress and the share of merged PRs that served the plan.
+- **Intake.** Every new ask you see, from a thread, a meeting or chat, goes into the plan file's intake list with a proposed level:
+  - P0 is an incident, a security issue or a customer escalation. Only P0 may enter mid-week.
+  - P1 serves a deliverable.
+  - P2 waits for review day.
+
+  The user decides the levels in a batch.
+- **Count, don't remember.** The on-plan share is computed in the same turn as you write it. List the merged PRs with `gh` and map each one's ticket key to a deliverable.
+- **Flags go to the user only.** Never tell a thread to park or stop because its work is off-plan. The user decides what happens to it. Tag each thread in the registry with the deliverable it serves (`week_tag`), or "off-plan".
+- These reviews and check-ins are output the user asked for, so the default silence in "Cadence" does not apply to them.
+
 ## Verify, never relay
 
 A thread saying "CI green", "approved" or "merged" is a claim. Check it in GitHub or Jira before it goes on the board. A thread's PARTIAL result is a failure.

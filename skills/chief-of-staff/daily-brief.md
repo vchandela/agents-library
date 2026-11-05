@@ -47,8 +47,13 @@ Only the work the user names in the config. Skip personal projects, personal mee
 
 ## Shape
 
-The reader has a few minutes and one question: what do I have to do, and what could hurt my projects? So the brief is grouped by what the reader does with an item, not by project, and each item names its project in a short tag. Sections in this order, each left out when empty:
+The reader has a few minutes and one question: what do I have to do, and what could hurt my projects? So the brief is grouped by what the reader does with an item, not by project, and each item names its project in a short tag.
 
+Before writing, get today's weekday in the user's time zone (`TZ=<their zone> date +%A`). Then add that day's sections from SKILL.md, "Weekly focus": the check-in on check-in days, and the review and next week's plan on review day.
+
+Sections in this order, each left out when empty:
+
+0. **Key goals.** This comes first when a weekly plan exists. For each deliverable in the plan file, say how far it is from its done line, with evidence, and what is at risk. Add one line for each off-plan item. Give the count of merged PRs since the last brief that served a deliverable, computed with `gh` in this turn.
 1. **Needs you.** Only what the user can unblock: an action only they can take (a merge, an apply, a review asked of them by name, a decision within their project), or a person they should ask who has not been asked yet. Before listing an ask, search chat and the PR for whether the user already asked or the other person already answered; if so, it moves to "Blocked on others" with that message linked. Each item carries its context in one or two sentences: what it is, why only the user can do it, what it unblocks, and how long it has waited. An item the reader cannot act on from the brief alone ("say who owns the drift", "yes or no on a note") is not ready: get the context from the thread first.
    Not the user's to decide: other teams' work, risks someone else owns, and deferrals. Deferrals go to the project's ToDos page (`references/project-todos.md`); risks owned elsewhere go under "At risk" with who owns them. Tell the thread that raised it, so it fixes its own list.
 2. **At risk.** Anything that can quietly break or stall a project, even when every PR looks done. Merged but not live is the main case: Terraform not applied, an image not rebuilt or rolled, a deploy not run since the merge, a pin bumped in the repo while the running service is on the old one. Also drift someone else left in a shared Terraform root, failing CI on the default branch, an access or token about to expire, and a ticket whose status contradicts its PRs. For merged-not-live, check the deploy runs and, when credentials allow, the live system; say which it was.
