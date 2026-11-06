@@ -8,6 +8,7 @@
 - Never cut
 - Errors never go silent
 - Every complexity earns its place
+- Prompt or deterministic check
 - Keep v1 small
 - When it is a bug fix
 - Performance: measure, keep or revert
@@ -114,6 +115,15 @@ The user said it plainly after catching two of these: "please think of things li
 **Test every claim about an option before the reader sees it**, its cost and feasibility as much as its facts. The reader decides from what you write; a claim they agree to on first reading becomes their decision. Before saying something needs new work, cannot be done or costs a day, search the codebase for a mechanism that already does it, and settle the open questions you can settle by reading code yourself. Read each option's code path and write one line on what the user will actually see: where it posts, who is notified, what else it changes. Drop an option you have not traced, and the weaker of two that overlap. Examples: "add the workflow to the progress-thread setting" was offered for one quiet thread per ticket, but that path broadcasts every step to the whole channel; and a fix was offered as "needs an engine change, because script steps can't loop back", and the reader agreed; the engine already had a `loop` step (check script, fix agent only on failure, repeat) that another workflow used, so the fix needed no engine work at all.
 
 **The deletion test.** Imagine deleting the module. If the complexity vanishes, it was a pass-through: inline it. If it reappears across its callers, it earns its place.
+
+## Prompt or deterministic check
+
+An agent's behaviour can be shaped two ways: an instruction in its prompt, or a deterministic check in code (a script, a validator, a schema, a test, a guard on the route) that runs every time and gives the same answer every time. Both are fine. Pick by what a miss costs.
+
+- **Deterministic for what must never slip:** safety and security boundaries, data that other steps parse, anything a person or a system acts on without reading it, and anything that is cheap to check exactly (a field present, an id that exists, a value in range, a host on a list). A prompt that says "never do X" is a hope; a check that refuses X is a guarantee. Example: the runbooks build refuses a cause proof that is not scoped to one customer or that reads a log source where only the read-only database is allowed (`site/validate.py`), because one unsafe query would read another customer's data.
+- **Prompt first for judgment and quality:** how to reason, what to look at, how to word an answer, what to record and when. Fix it in the prompt, then watch real runs to see whether the agent follows it every time. Example: in a live test the investigating agent found the right cause but recorded it under an id that is not on the runbook page, and only at the very end; the fix was a prompt change, and the next runs show whether it holds.
+- **Promote a prompt rule to a check when runs show it slipping,** and the thing it guards is checkable. Name the runs it slipped on. Don't build the check before then: a validator for every prompt rule doubles the surface and fights the model's judgment.
+- **Don't overdo either side.** A check that encodes judgment (scoring an answer's wording with a regex) is brittle; a prompt that guards a boundary (asking the agent not to leak a token) is unsafe. When unsure, ask: if the agent ignores this once, what breaks, and would anyone notice? Breaks badly and silently: a check. Costs a little quality and is visible in review: a prompt.
 
 ## Keep v1 small
 

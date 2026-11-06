@@ -27,6 +27,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - Several booleans describing one state -> one status enum; a tagged union when a state carries data [system-design/code-structure: invalid states]
 - Building now vs building general -> build only what's needed, behind one clean seam (a setting, a named field, one interface) [engineering-principles: simplest thing, built to extend]
 - Long-term vs pragmatic -> long-term now if cheap and already run in the company (cite it); else pragmatic behind a seam, long-term written down [engineering-principles: long-term where cheap]
+- Shaping agent behaviour -> a deterministic check for what must never slip (safety, parsed data, cheap exact facts); a prompt for judgment and quality, watched on real runs; promote a prompt rule to a check only when runs show it slipping [engineering-principles: prompt or deterministic check]
 - Fixes piling onto one mechanism, or a long rule list -> stop patching; find the most direct way, often one rule or one existing fact [engineering-principles: question the mechanism]
 - Before anyone sees a spec, plan or PR -> run the seven-smell sweep on every touched function, as a list with a verdict per instance [engineering-principles: self-review]
   1. a fact with two homes or a fallback copy; 2. one name, two meanings; 3. a comment the code contradicts; 4. a temporary piece with no removal step; 5. a fallback, default, retry, silent cut or `|| ""` with no cited failure; 6. an error path with no class; 7. the same snippet in several files
