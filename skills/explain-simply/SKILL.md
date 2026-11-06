@@ -115,17 +115,16 @@ When something is complex, say why it is complex. Don't only describe the comple
 
 ## Every page reads the same way
 
-A reader should know where to look on any page we publish: a spec, a plan, a review page or an explainer. Use this order, and skip only a part the page has no use for:
+A reader should know where to look on any page we publish: a spec, a plan, a review page or an explainer. Use this order, and skip any part that would give the reader no new fact ("No fluff sections" in `references/respect-human-attention.md`):
 
 1. The title, then one line saying who it is for.
 2. The overview, in the user's voice or marked as a draft for them to rewrite.
-3. "Asked of you": what the reader must decide or do, with a link to each item.
-4. "What you need to know first": the prerequisites, then a small table of terms the page uses.
-5. One real item walked end to end, as a table of moments or a small diagram.
-6. "What changes", as diffs of the shapes the reader knows.
-7. Open questions, in the format below.
-8. Detail, collapsed: tables, failure cases, evidence.
-9. Rules that must hold, then "Where things live" and "Gotchas".
+3. "What you need to know first": the prerequisites, then a small table of terms the page uses.
+4. One real item walked end to end, as a table of moments or a small diagram: the flow, so the reader can picture it.
+5. The root cause and the key decisions, each with its reason, and "What changes", as diffs of the shapes the reader knows.
+6. Open questions, in the format below. A real ask of the reader lives here, never in a separate list that restates the page.
+7. Detail, collapsed: tables, failure cases, evidence.
+8. Rules that must hold, then "Where things live" and "Gotchas".
 
 **Each open question has the same five parts.** A reader can then answer it from the box alone:
 

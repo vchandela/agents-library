@@ -56,11 +56,14 @@ The same rule covers what a design asks of people once it runs, not only what a 
 
 | Keep visible | Collapse (one click away) |
 |---|---|
-| The user's overview and the ask of the reader ("Asked of you: …") | Comparison tables for choices already settled |
-| The case for the change (one worked example) | File-by-file "what moves" tables |
-| Core design diagrams and the key safety mechanisms | Data tables with example rows |
-| Guarantees (invariants), rollout gates | Rules carried over unchanged from an existing system |
-| Open questions | Failure catalogues, evidence, settled decisions with what was rejected |
+| The user's overview | Comparison tables for choices already settled |
+| The root cause or the case for the change (one worked example) | File-by-file "what moves" tables |
+| Core design diagrams, the flow drawn end to end, and the key safety mechanisms | Data tables with example rows |
+| The key decisions, each with its reason | Rules carried over unchanged from an existing system |
+| Guarantees (invariants), rollout gates | Failure catalogues, evidence, settled decisions with what was rejected |
+| Open questions | |
+
+**No fluff sections.** A page holds only the root cause and first-principles reasoning, the key decisions with their reasons, the flow drawn so the reader can picture it, and the open questions that steer them. Cut any section or line that gives no new fact, even when a template lists it. A real ask goes in an open-question box or the chat reply, never in a list that restates the page. Example: a spec's "Asked of you" section had three lines: "confirm the design as written, then the plan follows", a pointer to the open question below it, and a sign-off the header already named. The user cut it, asking for "only objective, first-principles, root-cause-level stuff with key decisions, how the flow works (that helps me visualize and build my mental models), and any open questions that guide me".
 
 ## Open questions
 
