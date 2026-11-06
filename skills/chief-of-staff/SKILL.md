@@ -48,7 +48,7 @@ Stages: `spec`, `plan`, `pr`, `merged`, `blocked`, `idle`, `parked`. A thread th
 
 What the user sees, every time they ask "where are we" and at each batch. Lists, not tables. Order by what needs the user first.
 
-1. **Needs you**: each item is one decision, which thread, the options and your recommendation, and what it unblocks. Batched; never one ping per question.
+1. **Needs you**: each item is one decision, which thread, the options and your recommendation, and what it unblocks. Batched; never one ping per question. A check is never on this list: when a thread lists a local or read-only production check as waiting on the user, send it back to the thread to run (`references/core.md` rule 2). Only production writes, including tests that write there, need the user.
 2. **Moving**: one line per thread, stage and next step.
 3. **Waiting on others**: who (Ankur, CI, an access request) and since when.
 4. **Parked and idle**, with the reason.
