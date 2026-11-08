@@ -34,6 +34,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - A review request -> carries a "Principles check": one line per rule above that the change touches, each with its verdict and `file:line`
 - A step in an agent workflow -> first ask if an existing step has the inputs and tools; add one only when none can [engineering-principles: fewest workflow steps]
 - A step that waits on another (`depends_on`, run after) -> name the output it reads from that step, in the spec and the PR; a wait with no output read runs in parallel, because a wait without a reason is wasted latency [engineering-principles: fewest workflow steps]
+- Starting many runs or requests (a backfill, a batch, parallel agents, a load test) -> find the shared limit they draw on (quota, token, DB, model account) and the cost per run, start only what fits with headroom, all at once only when that check passes [engineering-principles: bounded concurrency on shared limits]
 - A lock, queue or serial step -> prefer optimistic work with a conflict check; a lock only when nothing else works, with its cost in time [engineering-principles: optimistic over pessimistic]
 - Anything a change creates (file, branch, row, session, cache entry) -> say who removes it and when, and what a half-done or doubled run leaves [engineering-principles: wrong paths and cleanup]
 - An error -> key (loses or corrupts something relied on): record a status where the data would be, log, alert through the repo's existing route; non-key: log with context [engineering-principles: errors never go silent]
@@ -111,6 +112,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 
 - A list endpoint -> capped page plus a cursor on the last id (or timestamp plus id), never offset [system-design/api-and-edge]
 - Trust -> the server takes the user from the verified token, stamps times itself, looks prices up, checks the user may touch the record [system-design/api-and-edge]
+- Reading many items from a quota-limited API -> one batched read (GraphQL, filtered list, bulk export), never one call per item; count calls per item before scaling a job [system-design/api-and-edge]
 - Calling a dependency that fails -> cap in-flight calls, a circuit breaker with a fallback, self-throttle with jitter on provider limits [system-design/api-and-edge]
 - Rate limits -> counters in a shared store, run increment and expiry atomically, choose fail open or closed on purpose [system-design/api-and-edge]
 - Status codes -> never 200 with an error flag; a POST that moves money needs an idempotency key [system-design/api-and-edge]

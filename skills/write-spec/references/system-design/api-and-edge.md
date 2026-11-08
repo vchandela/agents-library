@@ -32,7 +32,7 @@ Keep limit counters in a shared store, because each server sees only its share. 
 
 ## Calling dependencies that fail
 
-Remote calls hang. Cap in-flight calls and give each dependency a circuit breaker with a fallback. Plain retries keep a recovering service down. When a provider limits you, throttle yourself with a shared counter plus jitter, or every waiting worker fires at once when the window resets. A single caller with no shared quota can skip the shared counter.
+Remote calls hang. Cap in-flight calls and give each dependency a circuit breaker with a fallback. Plain retries keep a recovering service down. When a provider limits you, throttle yourself with a shared counter plus jitter, or every waiting worker fires at once when the window resets. A single caller with no shared quota can skip the shared counter. Count calls per item before scaling a job up: reading many items from a quota-limited API one call each grows with the data. Use one batched read instead (a GraphQL query, a list endpoint with filters, a bulk export), checking that the provider budgets it separately or cheaper. Example: the runbook learner listed open PRs with one GitHub REST call per branch, so 50 open PRs made every listing cost about 50 calls; one GraphQL query costs 1 point from a separate 5,000-an-hour budget.
 
 ## Polite crawling
 
