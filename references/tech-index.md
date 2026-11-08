@@ -22,7 +22,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - A design that is only right for the inputs we expect -> change the mechanism so the bad case can't happen (constraint, atomic op, unique name); zero, one or infinity, never an arbitrary count [engineering-principles: correct by construction]
 - A number (limit, timeout, cap, size, rate) -> it carries its source beside it, or it goes; first ask if a deadline or the data already bounds it [engineering-principles: no magic numbers]
 - A name for a field, function, flag or file -> plain words a newcomer reads right; a yes/no reads as a question; one idea, one word [engineering-principles: names]
-- The same fact in two places (code and DDL, two configs, a fixture repeating the code's value) -> one home; a copy needs a written reason or a drift test [engineering-principles: DRY]
+- The same fact in two places (code and DDL, two configs, a fixture repeating the code's value, a prompt listing values a file already holds) -> one home; a copy needs a written reason or a drift test; prompts point at the central file, never repeat or split its values by case [engineering-principles: DRY]
 - Two stored fields that can never disagree -> store one, compute the other; store both only when they truly diverge [system-design/code-structure: derive or store]
 - Several booleans describing one state -> one status enum; a tagged union when a state carries data [system-design/code-structure: invalid states]
 - Building now vs building general -> build only what's needed, behind one clean seam (a setting, a named field, one interface) [engineering-principles: simplest thing, built to extend]
