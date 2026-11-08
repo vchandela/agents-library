@@ -64,6 +64,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - Faking an input -> build it from the producer's code or a real captured value, not its comment [testing: know the environment]
 - Changing what stored state means -> add a test that starts from the old shape [testing: anti-patterns]
 - Waiting for something -> wait on the condition with a named timeout, never a guessed sleep; long jobs run in the background and the notice wakes you [testing: anti-patterns]
+- Choosing what a replay, eval run or real-world test runs on -> a representative set: one item per case the change touches (each rule, surface, control, one held out), duplicates and untouched cases dropped with a reason; repeats only where the pass bar needs them; whole population only to measure a rate [testing: real-world]
 - Repo tests can't show it working for real users -> one real-world test replaying the original ask, written as action, input, expected, failure [testing: real-world]
 - Saying "passes", "works", "fixed" -> name the command you ran this turn and what it returned [testing: a claim and its evidence]
 
