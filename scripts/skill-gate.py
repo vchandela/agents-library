@@ -93,10 +93,13 @@ def main() -> int:
         return block(f"Blocked: {map_path} {err}. Fix the map, or delete it to turn the gate off.")
 
     tool_input = event.get("tool_input")
-    if not isinstance(tool_input, dict):
-        return 0
-    raw = tool_input.get("file_path") or tool_input.get("notebook_path") or ""
-    if not raw:
+    raw = None
+    if isinstance(tool_input, dict):
+        raw = tool_input.get("file_path") or tool_input.get("notebook_path")
+    if not isinstance(raw, str) or not raw:
+        # Without a path there is nothing to match, so the edit goes through; say
+        # so rather than pass silently, because a missing path is how a gate hides.
+        print(f"skill-gate: no file path in the {event.get('tool_name')} event; cannot check the map, edit allowed", file=sys.stderr)
         return 0
     target = Path(raw)
     if not target.is_absolute():
