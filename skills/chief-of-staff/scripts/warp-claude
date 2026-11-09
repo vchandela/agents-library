@@ -37,7 +37,12 @@ name = args[0].strip()
 directory = args[1] if len(args) == 2 else "~/anyscale"
 if not os.path.isdir(os.path.expanduser(directory)):
     sys.exit(f"no such directory: {directory}")
-words = shlex.split(command)
+try:
+    words = shlex.split(command)
+except ValueError:
+    words = []
+if not words:
+    sys.exit("--command needs a program name")
 words[0] = os.path.expanduser(words[0])
 main = os.path.basename(words[0]) == "claude"
 claude = f"{shlex.join(words)} --name {shlex.quote(name)}"
