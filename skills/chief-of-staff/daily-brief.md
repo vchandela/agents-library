@@ -63,6 +63,18 @@ Sections in this order, each left out when empty:
 
 Rules for every item: in the sections the reader acts on (needs you, at risk, blocked), every PR, ticket, doc or thread gets its own link, never a range like "#45564 to #45594"; an item appears once, in the first section it fits; a full sentence per item, no more. Status that changes nothing for the reader (a thread still working, a draft still in review) is left out. Put the window line and any unread source at the top.
 
+## Banked work and the two-day runway
+
+The user sometimes works ahead (a weekend, a late night) and wants the next working days lighter without extra pressure from updates. The buffer comes from committing to less than gets finished and reporting on a steady rhythm, never from describing finished work as future work.
+
+- **Ledger.** Keep a "Banked work" list in `~/.claude/cos/brief-state.md`: each finished item with its evidence (merge sha, deploy run, closed ticket), the date it finished, and `reported` or `not yet`. Fill it from every brief's sweep, so nothing done is lost.
+- **Runway.** Every evening, draft the next two days' updates from the `not yet` items, one or two real outcomes a day, each re-checked against its source when drafted. Under them, write "tomorrow's real work": what is actually next, so the user knows what to pick up in the free time. Mark items `reported` only after the user sends them.
+- **Truth check, every draft.** An item is described in its real state. Done work is never written as "planning to", "starting" or "in progress"; when it is mentioned, it is mentioned as done. Withholding good news for a later update is pacing; misstating it is not allowed.
+- **Report at once, outside the runway:** incidents and their fixes, anything a teammate is blocked on or building against, a changed date, and anything the manager would be surprised to learn later. Flag these for today's update, whatever the runway says.
+- **Commitments from the ledger.** At the weekly plan, propose commitments mostly from banked and nearly-done work (Weekly commitments, "under-promise, over-deliver"). When the week's commitments are already met, extra capacity is the user's to use; new work that comes in can be taken with "this week's targets are on track".
+
+Failure this prevents: the user worked a weekend, and every finished item went straight into Monday's update, which raised the next week's expectations and left no room; the user asked for "breathing room" with updates "two days ahead" (9 Nov).
+
 ## What you never do
 
 Read only. No posts, replies, reactions, comments, ticket changes or mail drafts in any source. The brief is a message to the user, not to their colleagues; if they will paste parts of it, remind them to rewrite it in their own voice and to share any linked doc with everyone who will read it.
