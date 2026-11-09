@@ -15,7 +15,10 @@ Anything left for later, from any source, in the same turn it comes up:
 - a "later", a "not in this PR", a "phase 2", a "left as is, on purpose" in a PR description, spec, plan or findings page;
 - a merge-order gate, an "after the deploy, check …", a real-world test still to run;
 - a follow-up ticket, a question parked for the user, a decision someone else owes;
-- an item a peer session hands you. A helper thread sends its deferrals to the agent that owns the page, and that agent adds them.
+- an after-deploy check, or a removal due "a week after the deploy" (a temporary gate, a patch marker, a fixture);
+- an item a peer session hands you.
+
+**Write it on the page yourself. Telling another thread is not enough.** A ToDo sent to a reviewer, a lead or the coordinator, and kept nowhere else, is lost when that session compacts or closes. Whoever finds the ToDo puts it on the page in the same turn, then tells the others if they need to know. When you take up this rule, check that every ToDo you have already sent to another thread is on the page now. Failure this prevents: a thread told its reviewer and the coordinator that a replay gate and a patch marker come out a week after a deploy, and wrote it nowhere else; the user said "instead of just telling the threads, it is important to keep all ToDos in the main notion page" (9 Nov).
 
 Each line says what to do, what it waits on, and where it came from (the PR, ticket or page). A PR description is read once and closed; the main page is where the project's open work lives. Failure this prevents: four phase-2 moves sat only in a PR's "Left as they are" section until the user found them.
 

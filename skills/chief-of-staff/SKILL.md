@@ -70,6 +70,18 @@ Failure this prevents: a coordinator laid out three options to the user on wheth
 - When the user asks, refresh read only first (flows, PRs, CI, Jira), then answer. Never answer from a stale registry without saying how old it is.
 - A summary or brief of the user's work ("since yesterday's sync") follows `daily-brief.md`: every source read first, unreadable ones named.
 
+## Token and session load: yours to manage, unasked
+
+You decide which threads spend tokens, without being asked. At every batch of notices, check three things:
+
+- **Off-priority work in progress.** Pause the thread. Tell it to reach a safe stop with nothing half-pushed, stop every loop, cron, wakeup and monitor it owns, save its state to its flow file and its ToDos to Notion, and then wait.
+- **A thread kept alive for a check.** Take the check yourself (read-only), and pause the thread.
+- **Near-done work.** Finish it first, because a merged PR frees a thread and an open one keeps costing.
+
+Resume a paused thread only for work that is still needed, and name exactly which part. An idle thread waiting on a person stays open, because idle costs nothing. Pausing is your call. Closing a thread always needs the user's yes.
+
+Failure this prevents: twelve sessions ran with none able to finish its task, one of them spending tokens only to run a background check the coordinator could have taken over. The user had to point it out: "I should not be telling you these things."
+
 ## Weekly commitments
 
 The user reports to their manager every week, and you keep the record. When asked (or when a manager asks the user for a plan), build one summary with three parts: what was committed last week and whether each item was reached, with the evidence (a merged PR, a closed ticket, a live check); what else shipped; and what to commit for the coming week. Gather it the way a brief does: ask every open thread for its open items, whether each can be done by the date and what it waits on, then check the claims in GitHub and Jira. Save the commitments in the brief state file, so next week's summary starts from them.
