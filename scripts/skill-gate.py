@@ -10,11 +10,12 @@ a list.
 
     {"docs/**": ["write-tech-doc"], "**/*.py": "review-pr"}
 
-A skill counts as launched when the session transcript holds a "Launching
-skill: <name>" line, which is what the Skill tool writes. No map, or a path no
-glob matches, lets the edit through. A map that is not valid JSON, or not that
-shape, blocks with exit 2: a gate that cannot read its map is off while looking
-on, so it says so instead.
+A skill counts as launched when the transcript records a Skill call for it,
+either as the tool call or as the "Launching skill: <name>" result that call
+returns; text that only quotes the line, in a file read or a log, does not
+count. No map, or a path no glob matches, lets the edit through. A map that is
+not valid JSON, or not that shape, blocks with exit 2: a gate that cannot read
+its map is off while looking on, so it says so instead.
 
 Exit 2 blocks the edit and shows the reason to the agent, as the Claude Code
 hooks docs describe for PreToolUse.
@@ -104,7 +105,9 @@ def main() -> int:
     target = Path(raw)
     if not target.is_absolute():
         target = cwd / target
-    rel = os.path.relpath(os.path.abspath(target), os.path.abspath(cwd))
+    # Real paths on both sides: /tmp and /private/tmp are one project on macOS,
+    # and a path spelled through a symlink must not slip past the gate.
+    rel = os.path.relpath(os.path.realpath(target), os.path.realpath(cwd))
     if rel.startswith(".."):
         return 0
     rel = Path(rel).as_posix()
