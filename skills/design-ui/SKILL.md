@@ -5,6 +5,8 @@ description: Use when a screen is being designed or built (a page, a component, 
 
 # Design a UI
 
+**The website or platform we design is judged against the most exceptional products there are: Apple, Anthropic, ChatGPT, Duolingo and the like. Every micro detail matters, and nobody gets to say it is good enough. Look at each screen as a stranger with no context on why it was built, and make it clear without explanation.**
+
 `references/ui-quality.md` is the bar every screen is judged against. This skill is the order of work that reaches it. Words on the screen are written with the `explain-simply` skill.
 
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the six core actions).
