@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""Install this library into a Claude Code home: skills, rules and the skill gate.
+
+    scripts/setup            link skills and rules, add the skill-gate hook
+    scripts/setup --check    report what is missing or different; change nothing
+
+Every step is safe to run again: a link that already points at its target is
+left alone, and the hook entry is updated in place instead of added twice. A
+file or folder setup would have to overwrite is reported and left untouched, so
+a skill of your own with the same name is never deleted. A rules file that is
+an identical copy, not a symlink, is replaced by the link, since the copy would
+go stale the next time the library changes.
+
+Paths are under $HOME: ~/.claude/skills, ~/.claude/rules and
+~/.claude/settings.json. Point HOME at a scratch folder to try it on a copy.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import shlex
+import sys
+from pathlib import Path
+
+from skill_hooks import MATCHER
+
+ROOT = Path(__file__).resolve().parent.parent
+SKILLS = ROOT / "skills"
+RULES = [ROOT / "references" / "core.md", ROOT / "references" / "tech-index.md"]
+HOOK = ROOT / "scripts" / "skill-gate.py"
+CLAUDE = Path(os.path.expanduser("~")) / ".claude"
+SETTINGS = CLAUDE / "settings.json"
+
+check = "--check" in sys.argv[1:]
+unknown = set(sys.argv[1:]) - {"--check"}
+if unknown:
+    sys.exit(f"unknown option(s): {', '.join(sorted(unknown))}; usage: scripts/setup [--check]")
+changes = []
+problems = []
+
+
+def current_target(where: Path) -> Path:
+    """The absolute path a symlink points at, relative links resolved from its folder."""
+    target = Path(os.readlink(where))
+    if not target.is_absolute():
+        target = where.parent / target
+    return target.resolve()
+
+
+def link(target: Path, where: Path) -> None:
+    """Point `where` at `target`, or report why setup will not touch it."""
+    if where.is_symlink():
+        if current_target(where) == target.resolve():
+            return
+        if check:
+            problems.append(f"stale: {where} -> {os.readlink(where)} (want {target})")
+            return
+        where.unlink()
+        where.symlink_to(target)
+        changes.append(f"relinked {where} -> {target}")
+        return
+    if where.exists():
+        problems.append(f"kept: {where} is not a symlink; move it aside, then rerun")
+        return
+    if check:
+        problems.append(f"missing: {where} (want -> {target})")
+        return
+    where.parent.mkdir(parents=True, exist_ok=True)
+    where.symlink_to(target)
+    changes.append(f"linked {where} -> {target}")
+
+
+def link_rule(target: Path, where: Path) -> None:
+    """Like link(), but an identical copy of the target becomes the link instead of blocking."""
+    if where.is_file() and not where.is_symlink() and where.read_bytes() == target.read_bytes():
+        if check:
+            problems.append(f"copy: {where} is a copy of {target}, not a symlink, and will go stale")
+            return
+        where.unlink()
+        where.symlink_to(target)
+        changes.append(f"replaced the copy at {where} with a link -> {target}")
+        return
+    link(target, where)
+
+
+def install_hook() -> None:
+    """Add or update the skill-gate hook in settings.json, keeping every other setting."""
+    # Resolve a symlinked settings.json, as a dotfiles setup often has, so writing
+    # keeps the link instead of replacing it with a file.
+    settings_file = SETTINGS.resolve()
+    if settings_file.exists():
+        try:
+            # An empty file counts as no settings yet.
+            settings = json.loads(settings_file.read_text(encoding="utf-8") or "{}")
+        except (OSError, json.JSONDecodeError) as err:
+            problems.append(f"kept: {SETTINGS} is not valid JSON ({err}); fix it, then rerun")
+            return
+        if not isinstance(settings, dict):
+            problems.append(f"kept: {SETTINGS} does not hold a JSON object; fix it, then rerun")
+            return
+    else:
+        settings = {}
+    hooks = settings.setdefault("hooks", {})
+    if not isinstance(hooks, dict):
+        problems.append(f"kept: 'hooks' in {SETTINGS} is not a JSON object; fix it, then rerun")
+        return
+    entries = hooks.setdefault("PreToolUse", [])
+    if not isinstance(entries, list):
+        problems.append(f"kept: 'hooks.PreToolUse' in {SETTINGS} is not a list; fix it, then rerun")
+        return
+
+    command = f"python3 {shlex.quote(str(HOOK))}"
+    our_hook = {"type": "command", "command": command}
+    existing = None
+    for entry in entries:
+        for hook in (entry.get("hooks") or []) if isinstance(entry, dict) else []:
+            if isinstance(hook, dict) and "skill-gate.py" in str(hook.get("command", "")):
+                existing = (entry, hook)
+    if existing is None:
+        if check:
+            problems.append(f"missing: the skill-gate hook in {SETTINGS} (want {HOOK} on {MATCHER})")
+            return
+        entries.append({"matcher": MATCHER, "hooks": [our_hook]})
+        changes.append(f"added the skill-gate hook to {SETTINGS}")
+    else:
+        entry, hook = existing
+        if entry.get("matcher") == MATCHER and hook.get("type") == "command" and hook.get("command") == command:
+            return
+        if check:
+            problems.append(f"stale: the skill-gate hook in {SETTINGS} does not run {HOOK} on {MATCHER}")
+            return
+        if len(entry.get("hooks") or []) == 1:
+            entry["matcher"] = MATCHER
+            hook.update(our_hook)
+        else:
+            # Other hooks share this entry; leave their matcher alone and give ours its own.
+            entry["hooks"].remove(hook)
+            entries.append({"matcher": MATCHER, "hooks": [our_hook]})
+        changes.append(f"updated the skill-gate hook in {SETTINGS}")
+
+    settings_file.parent.mkdir(parents=True, exist_ok=True)
+    scratch = settings_file.with_suffix(".json.tmp")
+    scratch.write_text(json.dumps(settings, indent=2) + "\n", encoding="utf-8")
+    if settings_file.exists():
+        os.chmod(scratch, settings_file.stat().st_mode & 0o777)
+    scratch.replace(settings_file)
+
+
+def usable_dir(path: Path) -> bool:
+    """False, with a problem recorded, when something that is not a folder sits at `path`."""
+    if path.exists() and not path.is_dir():
+        problems.append(f"kept: {path} is not a folder; move it aside, then rerun")
+        return False
+    return True
+
+
+def main() -> int:
+    if not HOOK.is_file():
+        problems.append(f"missing: {HOOK}; setup must run from a full clone of the library")
+        print("\n".join(problems))
+        return 1
+    skills_dir = CLAUDE / "skills"
+    rules_dir = CLAUDE / "rules"
+    if usable_dir(skills_dir):
+        for skill in sorted(SKILLS.glob("*/SKILL.md")):
+            link(skill.parent, skills_dir / skill.parent.name)
+    if skills_dir.is_dir():
+        for where in sorted(skills_dir.iterdir()):
+            if not where.is_symlink() or where.exists():
+                continue
+            target = current_target(where)
+            if SKILLS not in target.parents:
+                continue
+            if check:
+                problems.append(f"stale: {where} -> {target} is broken; the skill left the library")
+            else:
+                where.unlink()
+                changes.append(f"removed the broken link {where} -> {target}")
+    if usable_dir(rules_dir):
+        for target in RULES:
+            link_rule(target, rules_dir / target.name)
+    install_hook()
+
+    if check:
+        print("\n".join(problems) or "setup is in place")
+        return 1 if problems else 0
+    print("\n".join(changes) or "nothing to change: setup is in place")
+    if problems:
+        print("\n".join(problems), file=sys.stderr)
+    return 1 if problems else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
