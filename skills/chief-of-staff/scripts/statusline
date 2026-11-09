@@ -1,0 +1,90 @@
+#!/bin/bash
+# Two-line Claude Code status line.
+#
+#   ➜  myrepo git:(main) ✗ [Opus 5 (1M context)]
+#   ctx 5% · $0.46 · 1m34s · +0/-0 · 5h 8% · 7d 2%
+#
+# Line 1 approximates Oh My Zsh's "robbyrussell" theme, plus the model.
+# Line 2 is session metrics; context and rate limits turn yellow/red as they fill.
+
+input=$(cat)
+
+eval "$(printf '%s' "$input" | jq -r '
+  @sh "cwd=\(.workspace.current_dir // .cwd // "")",
+  @sh "model=\(.model.display_name // "")",
+  @sh "ctx=\(.context_window.used_percentage // "")",
+  @sh "cost=\(.cost.total_cost_usd // 0)",
+  @sh "dur_ms=\(.cost.total_duration_ms // 0)",
+  @sh "added=\(.cost.total_lines_added // 0)",
+  @sh "removed=\(.cost.total_lines_removed // 0)",
+  @sh "rl5=\(.rate_limits.five_hour.used_percentage // "")",
+  @sh "rl5_reset=\(.rate_limits.five_hour.resets_at // "")",
+  @sh "rl7=\(.rate_limits.seven_day.used_percentage // "")",
+  @sh "fast=\(.fast_mode // false)"
+')"
+
+# Usage meter for analyze-agent-transcripts pacing: keep the latest rate limits on disk.
+mkdir -p "$HOME/.claude/state"
+echo "$input" | jq -c 'select(.rate_limits != null) | {at: (now | floor), rate_limits}' > "$HOME/.claude/state/usage.json.tmp.$$" 2>/dev/null \
+  && [ -s "$HOME/.claude/state/usage.json.tmp.$$" ] && mv "$HOME/.claude/state/usage.json.tmp.$$" "$HOME/.claude/state/usage.json" \
+  || rm -f "$HOME/.claude/state/usage.json.tmp.$$"
+[ -z "$cwd" ] && cwd="$PWD"
+
+BOLD_GREEN=$'\033[1;32m'; BOLD_CYAN=$'\033[1;36m'
+BLUE=$'\033[0;34m';      RED=$'\033[0;31m'
+YELLOW=$'\033[1;33m';    GREEN=$'\033[0;32m'
+MAGENTA=$'\033[0;35m';   DIM=$'\033[2m'
+RESET=$'\033[0m'
+
+# green under 50%, yellow under 80%, red at or above
+heat() {
+  if   [ "$1" -ge 80 ] 2>/dev/null; then printf '%s' "$RED"
+  elif [ "$1" -ge 50 ] 2>/dev/null; then printf '%s' "$YELLOW"
+  else printf '%s' "$GREEN"; fi
+}
+
+git_segment=""
+if git -C "$cwd" --no-optional-locks rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  branch=$(git -C "$cwd" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ -n "$branch" ]; then
+    git_segment=" ${BLUE}git:(${RED}${branch}${BLUE})${RESET}"
+    if [ -n "$(git -C "$cwd" --no-optional-locks status --porcelain -uno 2>/dev/null)" ]; then
+      git_segment="${git_segment} ${YELLOW}✗${RESET}"
+    fi
+  fi
+fi
+
+model_segment=""
+if [ -n "$model" ]; then
+  [ "$fast" = "true" ] && model="⚡ $model"
+  model_segment=" ${MAGENTA}[${model}]${RESET}"
+fi
+
+secs=$(( dur_ms / 1000 ))
+if [ "$secs" -ge 3600 ]; then dur=$(printf '%dh%dm' $((secs/3600)) $((secs%3600/60)))
+elif [ "$secs" -ge 60 ]; then dur=$(printf '%dm%ds' $((secs/60)) $((secs%60)))
+else dur="${secs}s"; fi
+
+sep=" ${DIM}·${RESET} "
+parts=()
+[ -n "$ctx" ] && parts+=("$(heat "$ctx")ctx ${ctx}%${RESET}")
+parts+=("${DIM}$(printf '$%.2f' "$cost")${RESET}")
+parts+=("${DIM}${dur}${RESET}")
+parts+=("${GREEN}+${added}${RESET}${DIM}/${RESET}${RED}-${removed}${RESET}")
+if [ -n "$rl5" ]; then
+  rl5_seg="$(heat "$rl5")5h ${rl5}%${RESET}"
+  # resets_at is epoch seconds; show the reset time in IST, whatever the machine timezone
+  [ -n "$rl5_reset" ] && rl5_seg="${rl5_seg} ${DIM}resets $(TZ=Asia/Kolkata date -r "$rl5_reset" +%H:%M 2>/dev/null) IST${RESET}"
+  parts+=("$rl5_seg")
+fi
+[ -n "$rl7" ] && parts+=("$(heat "$rl7")7d ${rl7}%${RESET}")
+
+metrics=""
+for p in "${parts[@]}"; do
+  [ -n "$metrics" ] && metrics="${metrics}${sep}"
+  metrics="${metrics}${p}"
+done
+
+printf '%s➜%s  %s%s%s%s%s\n%s\n' \
+  "$BOLD_GREEN" "$RESET" "$BOLD_CYAN" "$(basename "$cwd")" "$RESET" "$git_segment" "$model_segment" \
+  "$metrics"

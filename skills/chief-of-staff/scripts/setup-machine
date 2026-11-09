@@ -17,6 +17,11 @@
    Remote Control comes back for every tmux session without anyone running it. It
    logs to ~/.claude/state/rc-reconnect.log: one dated line per run, plus FAILED or NOT IN TMUX
    for a session that needs a person, and CONNECTED for one it fixed.
+5. The two-line status line (scripts/statusline): context, cost, lines changed, the
+   five-hour and seven-day limits, and the five-hour reset time in IST. It also writes
+   ~/.claude/state/usage.json, which analyze-agent-transcripts paces on. Installed as
+   ~/.claude/statusline-command.sh (a different copy there is kept as .bak) and named
+   as the statusLine command in ~/.claude/settings.json if none is set.
 
 Usage: setup-machine [--check | --patch-only]
 """
@@ -192,7 +197,37 @@ def setup_timer():
     print(f"daily reconnect timer set for {TIMER_HOUR}:00 local time; log {log}")
     return []
 
-problems = patch_warp() if PATCH_ONLY else setup_tmux() + patch_warp() + setup_amphetamine() + setup_timer()
+# ---- 5. Status line -----------------------------------------------------------------
+STATUSLINE_DEST = os.path.expanduser("~/.claude/statusline-command.sh")
+STATUSLINE_CMD = 'bash "$HOME/.claude/statusline-command.sh"'
+
+def setup_statusline():
+    import json
+    src = os.path.join(os.path.dirname(os.path.realpath(__file__)), "statusline")
+    body = open(src).read()
+    have = open(STATUSLINE_DEST).read() if os.path.exists(STATUSLINE_DEST) else None
+    settings_path = os.path.expanduser("~/.claude/settings.json")
+    settings = json.load(open(settings_path)) if os.path.exists(settings_path) else {}
+    current = (settings.get("statusLine") or {}).get("command")
+    out = []
+    if have != body:
+        if CHECK: out.append(f"status line script missing or different: {STATUSLINE_DEST}")
+        else:
+            if have is not None: shutil.copy(STATUSLINE_DEST, STATUSLINE_DEST + ".bak")
+            with open(STATUSLINE_DEST, "w") as f: f.write(body)
+            os.chmod(STATUSLINE_DEST, 0o755)
+            print(f"installed {STATUSLINE_DEST}" + (" (old copy kept as .bak)" if have is not None else ""))
+    if current is None:
+        if CHECK: out.append("~/.claude/settings.json has no statusLine")
+        else:
+            settings["statusLine"] = {"type": "command", "command": STATUSLINE_CMD}
+            with open(settings_path, "w") as f: json.dump(settings, f, indent=2); f.write("\n")
+            print("set statusLine in ~/.claude/settings.json")
+    elif current != STATUSLINE_CMD:
+        out.append(f"statusLine already runs something else, left alone: {current}")
+    return out
+
+problems = patch_warp() if PATCH_ONLY else setup_tmux() + patch_warp() + setup_amphetamine() + setup_timer() + setup_statusline()
 for p in problems: print(p)
 if not PATCH_ONLY: print("machine ready" if not problems else f"{len(problems)} to fix")
 sys.exit(1 if problems and CHECK else 0)
