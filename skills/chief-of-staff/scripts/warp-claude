@@ -10,7 +10,9 @@ box, /resume picker and tab title; --remote-control <name> is the name the
 phone and claude.ai show. Claude runs inside a tmux session of the same stem,
 so the coordinator can type /remote-control into it after an account switch
 (scripts/rc-reconnect), and closing the tab does not stop the session.
---resume moves an existing conversation into a tab this way.
+--resume moves an existing conversation into a tab this way. --command <program> runs another
+provider's launcher instead: no --remote-control (it needs the claude.ai login) and the tmux session
+name starts claudealt_, which rc-reconnect skips.
 """
 import json, os, re, shlex, subprocess, sys
 
@@ -35,10 +37,14 @@ name = args[0].strip()
 directory = args[1] if len(args) == 2 else "~/anyscale"
 if not os.path.isdir(os.path.expanduser(directory)):
     sys.exit(f"no such directory: {directory}")
-stem = "claude_" + (re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_") or "session")
-claude = f"{shlex.quote(command)} --name {shlex.quote(name)}"
+words = shlex.split(command)
+words[0] = os.path.expanduser(words[0])
+main = os.path.basename(words[0]) == "claude"
+claude = f"{shlex.join(words)} --name {shlex.quote(name)}"
+# The prefix marks a session on another provider, so rc-reconnect leaves its tmux session alone.
+stem = ("claude_" if main else "claudealt_") + (re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_") or "session")
 # Remote Control needs the claude.ai login, so a session on another provider (--command) starts without it.
-if command == "claude":
+if main:
     claude += f" --remote-control {shlex.quote(name)}"
 if resume:
     claude += f" --resume {shlex.quote(resume)}"

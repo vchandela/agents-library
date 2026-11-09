@@ -22,11 +22,9 @@ for f in glob.glob(os.path.expanduser('~/.claude/sessions/*.json')):
     if j.get('bridgeSessionId'):
         connected += 1
         continue
-    # A session started without --remote-control (another provider) never had one to restore.
-    args = subprocess.run(['ps', '-o', 'command=', '-p', str(j['pid'])], capture_output=True, text=True).stdout
-    if '--remote-control' not in args:
-        continue
     target = pane_of.get(str(j['pid']))
+    if target and target.startswith('claudealt_'):
+        continue  # a session on another provider has no Remote Control to restore
     if not target:
         print(f"NOT IN TMUX  {j.get('name')} (pid {j['pid']})"); continue
     name = j.get('name') or ''
