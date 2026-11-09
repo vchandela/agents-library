@@ -65,6 +65,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - Changing what stored state means -> add a test that starts from the old shape [testing: anti-patterns]
 - Waiting for something -> wait on the condition with a named timeout, never a guessed sleep; long jobs run in the background and the notice wakes you [testing: anti-patterns]
 - Choosing what a replay, eval run or real-world test runs on -> a representative set: one item per case the change touches (each rule, surface, control, one held out), duplicates and untouched cases dropped with a reason; repeats only where the pass bar needs them; whole population only to measure a rate [testing: real-world]
+- Replaying a real item (ticket, thread, alert) -> list every outbound path a run can reach (reply, live status, progress note, ticket write, alert), confirm each is off for a test run, and run one replay alone and check it wrote nothing outside before the batch [testing: real-world]
 - Repo tests can't show it working for real users -> one real-world test replaying the original ask, written as action, input, expected, failure [testing: real-world]
 - Saying "passes", "works", "fixed" -> name the command you ran this turn and what it returned [testing: a claim and its evidence]
 
