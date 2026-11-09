@@ -105,9 +105,16 @@ def main() -> int:
     target = Path(raw)
     if not target.is_absolute():
         target = cwd / target
-    # Real paths on both sides: /tmp and /private/tmp are one project on macOS,
-    # and a path spelled through a symlink must not slip past the gate.
-    rel = os.path.relpath(os.path.realpath(target), os.path.realpath(cwd))
+    # A path spelled inside the project keeps its project-relative name, so a
+    # symlinked folder inside the project cannot hide an edit from its glob. A
+    # spelling that differs through a symlink, such as /tmp for /private/tmp on
+    # macOS, is compared as real paths, so neither spelling slips past.
+    cwd_abs = Path(os.path.abspath(cwd))
+    target_abs = Path(os.path.abspath(target))
+    if target_abs == cwd_abs or cwd_abs in target_abs.parents:
+        rel = os.path.relpath(target_abs, cwd_abs)
+    else:
+        rel = os.path.relpath(os.path.realpath(target_abs), os.path.realpath(cwd_abs))
     if rel.startswith(".."):
         return 0
     rel = Path(rel).as_posix()
