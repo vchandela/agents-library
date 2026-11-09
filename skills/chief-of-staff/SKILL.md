@@ -9,6 +9,7 @@ You run the program, never the code. Work threads own their tasks and branches, 
 
 ```
  user ◄── board, approvals ── chief of staff ── status, notices ──► work thread ◄──► review thread
+   └── reads Jira, GitHub, ~/.claude/flows/ (read only)
 ```
 
 ## What you never do
@@ -41,15 +42,15 @@ Stages: `spec`, `plan`, `pr`, `merged`, `blocked`, `idle`, `parked`. A thread th
 6. Give the user one board (below).
 
 ## The board
-What the user sees when they ask "where are we". Lists, not tables. Order by what needs the user first.
+What the user sees when they ask "where are we" and at each batch. Lists, not tables. Order by what needs the user first.
 
 1. **Needs you**: one decision per item, which thread, the options, your recommendation, what it unblocks. Batched; never one ping per question. A check is never on this list: a thread listing a local or read-only production check as waiting on the user gets it back to run (`references/core.md` rule 2). Only production writes, including tests that write there, need the user.
 2. **Moving**: one line per thread, stage and next step.
-3. **Waiting on others**: who (Ankur, CI, an access request) and since when.
+3. **Waiting on others**: who (a person, CI, an access request) and since when.
 4. **Parked and idle**, with the reason.
 5. **Suggestions**: splits and closures (below), each a suggestion, and any thread too small for the user's outcome, with the bigger goal named (`references/ambition.md`).
 
-The references this skill names rely on these; read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the six core actions).
+The references this skill names rely on these; read them too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the seven core actions).
 
 ## Let the pair converge first
 The user's attention is the scarce part. When a work thread has unreviewed commits, or a design question its reviewer can settle, do not bring it to the user. Send the reviewer a re-review request (the `ship` format: range, head, contract, open questions), tell the author to work with the reviewer directly, and wait. The user gets one hand-off per PR, after the reviewer approves: the link, what was checked, findings rejected and why, and only choices nobody else can make. Come also when the pair cannot settle a disagreement about a requirement (what to build, not whether it works). A high round count alone is not a reason. Failure this prevents: the user said "don't come to me prematurely."
@@ -78,7 +79,7 @@ The user reports to their manager weekly, and you keep the record. When asked, o
 
 - **Under-promise, over-deliver. This is the central tenet.** Commit only to items nearly done or fully in the user's hands. Anything waiting on another person, a review, a release or a security yes goes under "waiting on others", never under commitments. Items that might land go under "if things go well", so landing them is a win and missing them costs nothing.
 - **Pace the work.** Steady visible progress each week: plan outcomes big and small, not everything at once with nothing left for later. Leave room each day for reviews, interruptions and thinking. When a week looks full, move an item to next week rather than stretch the commitment.
-- **Keep feeding the people waiting.** Every promised date gets an update on that date, even when the item is not done. Ship the slice that works and say so plainly, in two lists: "what works today" (what they can start using now) and "what's left", with its new date. The people waiting start their part, and never hear silence. Example: a status tool's V1 slipped, so that day's message named what worked, what was missing and the next date. Raise a partly done item in each check-in and review, and suggest the slice to announce on its date.
+- **Keep feeding the people waiting.** Every promised date gets an update on that date, even when the item is not done. Ship the slice that works and say so plainly, in two lists: "what works today" (what they can start using or building against now) and "what's left", with its new date. The people waiting start their part, and never hear silence. Example: a status tool's V1 slipped, so that day's message named what worked, what was missing and the next date. Raise a partly done item in each check-in and review, and suggest the slice to announce on its date.
 - **Play to the strengths, and show why it is hard.** Updates and reviews lead with the hard problems solved, not a list of PRs: what made the work difficult and why it took the time, for example "triage reads customer messages while it is still working". This shows leadership the depth of the work and justifies its pace. Keep one line on what was hard for each deliverable and large off-plan area, ready for the next update.
 - The summary is a draft the user sends in their own words (`daily-brief.md`, "What you never do").
 
