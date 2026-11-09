@@ -4,11 +4,13 @@
     python3 scripts/skill-audit.py [--projects DIR]
 
 Reads every *.jsonl under ~/.claude/projects, the transcript store Claude Code
-keeps per project, and counts the "Launching skill: <name>" lines in each file.
-That is the same line the skill-gate hook checks, so the audit and the gate
-agree on what "loaded" means. A file under a subagents/ folder is a subagent's
-own transcript, not a session, so it is skipped. One row per session, newest
-first, then a summary that shows how many sessions launched no skill at all.
+keeps per project, and counts the Skill launches in each session: a Skill tool
+call, or the "Launching skill: <name>" line it returns, the same signal the
+gate checks, so the audit and the gate agree on what "loaded" means. Text that
+only quotes the line is not a launch. A file under a subagents/ folder is a
+subagent's own transcript, not a session, so it is skipped. One row per
+session, newest first, then a summary that shows how many sessions launched no
+skill at all.
 """
 
 import argparse
