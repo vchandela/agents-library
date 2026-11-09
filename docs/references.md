@@ -68,7 +68,7 @@ Where each idea came from, so adopting the next harness is a decision rather tha
 | lenny-skills | Guest quotes as the substance of each skill | Authority by name. Kept the idea, dropped the quote. |
 | ECC | The plugin bootstrap resolver | A 900 character inline resolver for marketplace installs. Not needed for a repo you clone. |
 | everyone | A build step that compiles skills from fragments | Five of five hand write. Ten lines of duplication does not justify a generator and a drift test. |
-| everyone | An install script | `npx skills add` exists and does symlinks properly. |
+| everyone | An install script for distributing skills | `npx skills add` exists and does symlinks properly. `scripts/setup` exists only for what npx does not install: the user-level rules and the skill-gate hook. |
 | me | A custom compliance measurement harness | Use the native `claude plugin eval` instead: isolated runs, a no-plugin baseline and graders, with no machinery to maintain. The trigger cases live in `evals/`. |
 | Anthropic, agentskills.io | A description that says what the skill does, then when | A description that says what gets followed instead of the body (superpowers), and describing what the skill adds did not raise triggering (addyosmani, Sep 2026). Ours open with "Use when". |
 | mattpocock/skills | "Refactoring is not part of the loop" | Conflicts with refactor only on green. |

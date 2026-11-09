@@ -6,17 +6,30 @@ Engineering skills for coding agents. Portable across Claude Code, Claude Deskto
 
 ## Install
 
+From a clone, one script puts the skills, rules and hook in place:
+
+    git clone https://github.com/vchandela/agents-library.git
+    python3 agents-library/scripts/setup
+    python3 agents-library/scripts/setup --check   # after a pull: every link and hook is in place, or what differs
+
+`scripts/setup` links each skill into `~/.claude/skills`, links `references/core.md` and `references/tech-index.md` into `~/.claude/rules`, and adds the skill-gate hook to `~/.claude/settings.json`. Claude Code re-injects the rules from disk after every compaction, so the seven core actions stay in view. The script is safe to run again, and it never overwrites a file or folder of yours: it names it and leaves it alone. Skills alone, without the rules or the hook:
+
     npx skills add vchandela/agents-library
 
-Project scope or global, symlink or copy. Or clone it and symlink `skills/` into `~/.claude/skills/`.
+### The skill gate
 
-Then keep the seven core actions in view in every session, including after a compaction, by linking `references/core.md` into your user-level rules, which Claude Code re-injects from disk after every compaction:
+`scripts/skill-gate.py` is a `PreToolUse` hook on `Edit`, `Write`, `MultiEdit` and `NotebookEdit`. It blocks an edit until the session has launched the skills the project says that path needs. The project names them in `.claude/skill-gates.json`, a JSON object from a path glob to one skill or a list:
 
-    mkdir -p ~/.claude/rules && ln -s <clone>/references/core.md ~/.claude/rules/core.md
+    {
+      "docs/**": ["write-tech-doc"],
+      "**/*.py": ["review-pr", "review-security"]
+    }
 
-Link `references/tech-index.md` the same way. It holds every engineering, testing, shipping and system design rule as one line, so it is in view without opening the full files:
+`*` and `?` stay inside one path segment and `**` crosses segments, so `**/*.py` matches at any depth. A skill counts as loaded when the session transcript holds its "Launching skill: <name>" line, which is what the Skill tool writes. No map, or a path no glob matches, lets the edit through; a map that will not parse blocks with the reason, because a gate that cannot read its map is off while looking on. `references/core.md` rule 1 asks the same thing without a hook: launch a skill before a task it covers, name the launches in the first reply, and launch again after a compaction.
 
-    ln -s <clone>/references/tech-index.md ~/.claude/rules/tech-index.md
+To see what actually loaded, count the launches in the transcripts:
+
+    python3 scripts/skill-audit.py   # one row per session, then the total
 
 To make review requests carry a principles check, add a `PreToolUse` hook on `SendMessage` that runs `python3 <clone>/scripts/review-request-check.py`. It blocks a `[ship ...] review request` without a "Principles check" section that cites a `file:line`.
 

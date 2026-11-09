@@ -2,7 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+- `scripts/skill-gate.py`: a `PreToolUse` hook on `Edit`, `Write`, `MultiEdit` and `NotebookEdit` that blocks an edit until the session transcript holds the "Launching skill: <name>" line for each skill the project requires for that path. The requirements live in `.claude/skill-gates.json`, a JSON object from a path glob to one skill or a list; `*` and `?` stay inside one path segment and `**` crosses segments. No map, or no glob match, lets the edit through; a map that will not parse blocks with the reason, because a gate that cannot read its map is off while looking on. Source: Vivek's goal, 9 Nov 2026: on any laptop where the library is installed, a session loads the right skills every time.
+- `scripts/setup` (with `--check`): one rerunnable command that links every skill into `~/.claude/skills`, `core.md` and `tech-index.md` into `~/.claude/rules`, and the skill-gate hook into `~/.claude/settings.json`. It keeps every other setting, updates the hook in place rather than adding it twice, replaces an identical stale copy of a rule with the link, and names and never deletes a file or folder of the user's that sits in the way.
+- `scripts/skill-audit.py`: skill launches per session from the transcripts under `~/.claude/projects`, one row per session and a total of the sessions that launched nothing. It counts the same "Launching skill: <name>" line as the gate and skips `subagents/` transcripts, which belong to a subagent rather than a session. A first run on 9 Nov 2026 found 27 sessions, 17 with a launch and 10 without, 298 launches. Source: Vivek counts these by hand today.
+
 ### Changed
+- `references/core.md` rule 1, still seven rules: before any task a skill covers, launch it with the Skill tool and read the references it names; reading the file by hand does not count, because the launch is what loads it into the session; name the launched skills in the first reply; launch them again after a compaction, which keeps the conversation but not the skill bodies. Source: Vivek's goal for the library, 9 Nov 2026, and his call to drop a "Skills loaded" line from PR descriptions, since the first reply names them already.
+- README Install: `scripts/setup` replaces the manual `ln -s` steps, and the skill gate and the audit each get a short section.
 - One voice for everything a person reads: every skill now writes with the `explain-simply` skill instead of applying `references/writing-voice.md`, `references/machine-tells.md` or `references/explaining.md` directly, and those three are kept only under explain-simply. `write-spec` and `write-plan` invoke it before each draft and revision. `write-spec` no longer has a required Ambition section (ambition stays in the interview), and each spec section must earn its place. Source: Vivek, 27 Oct, on a spec he called terse and an Ambition section he called useless.
 
 ### Added
