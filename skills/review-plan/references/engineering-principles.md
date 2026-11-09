@@ -154,6 +154,8 @@ Do not make something faster until something is measured slow.
 
 **Never present a number you did not measure.** Reading code finds "potential impact", never a measurement. Lab and field numbers are different numbers; label which one you have.
 
+**The test suite is where to measure first.** When many agents share one machine, the repeated identical runs cost more than the suite itself. `references/testing.md` has the rules, under "Test speed when many agents share one machine".
+
 Backend traps worth naming: a list endpoint without a limit; one query per row; a cache key that omits an input the response depends on (tenant, viewer, locale), which serves one user's data to another; a pool raised instead of finding what holds connections.
 
 ## Pull requests

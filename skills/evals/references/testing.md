@@ -1,5 +1,18 @@
 # Testing
 
+## Contents
+
+- The loop
+- Test speed when many agents share one machine
+- Pick the kinds of test the change needs
+- Fat tests
+- A test worth keeping
+- Anti-patterns
+- The real-world test
+- When the repo cannot run tests
+- A claim and its evidence
+- Done when
+
 ## The loop
 
 - **Red.** Write the failing test first. Run it and watch it fail for the reason you expect: the feature is missing, not a typo or a bad import. A test that passes on its first run proves nothing, so fix the test.
@@ -9,6 +22,19 @@
 - Bug fix: reproduce it in a failing test before touching the fix.
 - One slice at a time: one test, then its code. Not every test up front.
 - **Fast tier while building, heavy tier once.** While building, run the fast tier: the tests that read what you changed (search the tests for the file, route, selector or symbol), the cheap whole-repo guards (wiring, links, copy, schema), and a parse or collect of every file a script edited. Run the heavy full tier once, on the final head. A long run started first answers in 20 minutes what the fast tier answers in seconds: one full run of 27 minutes was spent on a test database behind main, and a docs-only change merged without the fast checks that read documents and turned main red.
+
+## Test speed when many agents share one machine
+
+Several agent sessions on one machine share its cores and test database. A lock lets one run use the shared database at a time. The rules below remove repeated work before making any single run faster.
+
+- **Measure from the run log.** A run log is the record each run writes. The cost is repeated identical runs, not the suite itself. On 9 Nov 2026, one run log recorded 215 locked starts (runs that take the shared test lock) from 24 worktrees. A worktree is a second checkout of the repository with its own files. A checkout survey that day found 19 git trees (the files at one commit) open in more than one worktree. Anthropic's CI article ("Agentic coding is straining CI") reports job volume rising 25 times in six months.
+- **Never run the same code twice.** A result cache stores each run's result under a key. The key names everything the result depends on: the git tree, the lockfile, the runtime version, the environment revision and the arguments. The git tree is the exact content of a commit. The environment revision is the version of everything outside the code, such as a template database's migration revision. Reuse a green result. Never reuse a red one: Bazel does not cache a failed test by default. Nx and Turborepo cache tasks by a hash of their inputs.
+- **Scope a run from one table.** The table maps each changed path to the tests that path can affect. Generate it from the import graph: which module imports which. Two tests keep the table honest. A drift test fails when the table and the graph disagree. An exhaustiveness test fails when a test file is missing from the table. There is no catch-all row, a row that names every path no other row names. A module imported across many test areas maps to the full suite. The threshold is a named constant with its reason. A file that no import shows, such as a template, CSS, content, SQL or TOML file, maps to the full suite. The pytest-testmon docs say it does not track static files. Fowler's article "The Rise of Test Impact Analysis" says a test's outcome can depend on external input such as resource files. The Testar tool described there could not tell which tests read one.
+- **Gate the merge on one recorded full run.** The record is a green full-suite run on the exact tree being merged. That tests the combined state once. GitLab runs the full suite after approval. Home Assistant runs it when core files change. A reviewer checks the record instead of rerunning the suite.
+- **Add nothing that does not fit one machine.** Do not add sharding, a merge queue service, nightly runs or cloud CI. Sharding splits one suite across several machines, for example with pytest-split. A merge queue is a service that retests merges in order. Do not add a lock slot (a second run allowed to hold the shared lock) on a saturated machine. A machine is saturated when it has no free core; check the load average against the core count first. The load average is the count of processes running or waiting to run. Here it was 27.7 on 10 cores when measured, so another slot would only queue.
+- **Size the worker count to the cores.** pytest-xdist is pytest's parallel runner. Give it one worker per core. Use its worksteal scheduler when test durations are uneven, so a free worker takes tests from a busy one. A benchmark here found 3 to 4 workers saved about 69 seconds in a 5 minute run.
+- **Give an end-of-response hook the same runner and log.** Some agents run the suite from a hook after every response. That hook must use the same test runner and log as every other run. Otherwise its cost is invisible to the cache and the log, and repeated work looks free. Cancel the run still going when a newer push supersedes it. CI calls this cancel-in-progress.
+- **No fallbacks.** The test runner is a pure function of the changed paths. A pure function's answer depends only on its inputs, so the same paths always choose the same tests. An unclassified file fails a test, so someone adds its row. A fallback that quietly runs everything burns the machine. A fallback that quietly runs nothing ships the bug.
 
 ## Pick the kinds of test the change needs
 
