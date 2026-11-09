@@ -26,7 +26,7 @@ Explain from first principles, with examples grounded in reality.
 
 Apply `references/judgement.md`, `references/writing-voice.md`, `references/explaining.md` and `references/visuals.md`. For a page, also apply `references/preview.md`. For a doc someone else will send or read critically, run the "Shape and rhythm" check in `references/writing-voice.md` before you hand it over.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the six core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/machine-tells.md` (the last pass for machine-sounding text), `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the seven core actions).
 
 ## Read before you explain
 

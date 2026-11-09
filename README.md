@@ -10,7 +10,7 @@ Engineering skills for coding agents. Portable across Claude Code, Claude Deskto
 
 Project scope or global, symlink or copy. Or clone it and symlink `skills/` into `~/.claude/skills/`.
 
-Then keep the six core actions in view in every session, including after a compaction, by linking `references/core.md` into your user-level rules, which Claude Code re-injects from disk after every compaction:
+Then keep the seven core actions in view in every session, including after a compaction, by linking `references/core.md` into your user-level rules, which Claude Code re-injects from disk after every compaction:
 
     mkdir -p ~/.claude/rules && ln -s <clone>/references/core.md ~/.claude/rules/core.md
 
