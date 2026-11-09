@@ -50,7 +50,7 @@ What the user sees when they ask "where are we" and at each batch. Lists, not ta
 4. **Parked and idle**, with the reason.
 5. **Suggestions**: splits and closures (below), each a suggestion, and any thread too small for the user's outcome, with the bigger goal named (`references/ambition.md`).
 
-The references this skill names rely on these; read them too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the seven core actions).
+The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the seven core actions).
 
 ## Let the pair converge first
 The user's attention is the scarce part. When a work thread has unreviewed commits, or a design question its reviewer can settle, do not bring it to the user. Send the reviewer a re-review request (the `ship` format: range, head, contract, open questions), tell the author to work with the reviewer directly, and wait. The user gets one hand-off per PR, after the reviewer approves: the link, what was checked, findings rejected and why, and only choices nobody else can make. Come also when the pair cannot settle a disagreement about a requirement (what to build, not whether it works). A high round count alone is not a reason. Failure this prevents: the user said "don't come to me prematurely."
