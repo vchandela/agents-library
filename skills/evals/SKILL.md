@@ -90,6 +90,7 @@ A model judge is a classifier, and an unchecked one makes every score fiction.
 - **Safety, for an agent that reads untrusted text**: plant fake secrets (canary strings) and injected instructions inside tool outputs, check none leak or get obeyed, and report usefulness under attack beside attack success. A fixed attack set catches regressions only, not a determined attacker.
 - **Cost**: choose models from the accuracy-for-cost frontier. Cache agent outputs only when changing the grader, never when measuring the agent.
 - **Simulated users make their own errors**. When a real conversation exists, replay its prefix and test only the next turn.
+- **A replay of a real item must post nowhere real.** It carries the original channel, thread or ticket, so every outbound path (reply, live status, progress note, ticket write, alert) has to be off for eval runs. Run one alone and check it wrote nothing outside before the batch (`references/testing.md`, real-world test).
 - **Evaluating a skill**: test triggering apart from behaviour, with near-miss prompts a neighbouring skill owns, and watch whether it actually loads. Then compare with no skill, and run a guidance-deletion test (the skill loaded, its guidance removed) to show the gain comes from what it says, not from loading it. A "don't do X" rule helps when the agent knows a rule and skips it under pressure; it backfires when the problem is the shape of the output, where a positive example works better.
 
 ## Rationalisations to refuse

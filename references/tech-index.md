@@ -48,6 +48,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - Sizing a PR -> under about 200 lines of production code, atomic; bigger work is a stack of vertical slices; estimate before coding [engineering-principles: pull requests]
 - A PR description -> what it does now, in explain-simply voice, each decision with a before/after example; Evidence and Merge danger paragraphs; no review-fix logs [engineering-principles: pull requests]
 - Anything with a shape in a PR description (a table, a flow, a lifecycle, a boundary) -> draw it: Markdown table with every column and real example rows, Mermaid flowchart or stateDiagram, ASCII in a code block; one picture per idea, at most two sentences under it, nothing the picture already shows [engineering-principles: pull requests, visuals: page brevity]
+- Before a PR link reaches the user -> every comment thread on it, from a person, a bot or another agent, is fixed or declined, replied to and resolved on the exact head, checked by a command named in the hand-off [handoff-protocol: gates]
 - Stacked PRs -> each upper branch sits on the exact commits below; a merge commit carries nothing; run stack-merge-check.sh before every merge; lease only for a stack rebuilt onto a moved main [stacked-prs]
 - Before a deploy -> a rollback plan with a trigger, steps and time; define "working" as the two to four questions on-call will ask [shipping: before deploying]
 - After anyone else lands on main -> rebase and rerun the whole suite before pushing [shipping: several sessions]
@@ -65,6 +66,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - Changing what stored state means -> add a test that starts from the old shape [testing: anti-patterns]
 - Waiting for something -> wait on the condition with a named timeout, never a guessed sleep; long jobs run in the background and the notice wakes you [testing: anti-patterns]
 - Choosing what a replay, eval run or real-world test runs on -> a representative set: one item per case the change touches (each rule, surface, control, one held out), duplicates and untouched cases dropped with a reason; repeats only where the pass bar needs them; whole population only to measure a rate [testing: real-world]
+- Replaying a real item (ticket, thread, alert) -> list every outbound path a run can reach (reply, live status, progress note, ticket write, alert), confirm each is off for a test run, and run one replay alone and check it wrote nothing outside before the batch [testing: real-world]
 - Repo tests can't show it working for real users -> one real-world test replaying the original ask, written as action, input, expected, failure [testing: real-world]
 - Saying "passes", "works", "fixed" -> name the command you ran this turn and what it returned [testing: a claim and its evidence]
 

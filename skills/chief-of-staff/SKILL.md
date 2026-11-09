@@ -35,7 +35,7 @@ Stages: `spec`, `plan`, `pr`, `merged`, `blocked`, `idle`, `parked`. A thread th
 
 ## Taking over (first run)
 1. Write your own address (from ListAgents or `/status`) to `~/.claude/cos/coordinator`. Every `/ship` flow reports to you there in one fixed line (ship's "With a coordinator"); remove the file when you stop coordinating.
-2. Run `scripts/setup-machine` (safe to rerun): it installs tmux, writes the `~/.tmux.conf` lines, patches the Warp plugin and sets Amphetamine (`--check` only reports), so sessions stay reachable with Warp's status icon ("Keep every session reachable").
+2. Run `scripts/setup-machine` (safe to rerun): it installs tmux, writes the `~/.tmux.conf` lines, patches the Warp plugin, sets Amphetamine and the status line (`--check` only reports), so sessions stay reachable with Warp's status icon ("Keep every session reachable").
 3. ListAgents. Match every session to the list the user gave. A session shown without a tmux marker moves into tmux while idle ("Moving a session into tmux"), after you tell the user which. A session the user did not name is reported, not contacted.
 4. Send each work thread and reviewer one status request in a fixed shape: goal, stage with links and flow file, review pair and last verdict, waiting on whom, numbered decisions with a recommendation, Jira tickets, next step. Ask for one line when a stage changes, a thread blocks, or it needs the user.
 5. Cross-check every answer read only: the flow file, the PR and its CI, the Jira ticket's status and sprint. Where a claim and the source disagree, the source wins and the board says so.
