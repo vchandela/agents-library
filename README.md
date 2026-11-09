@@ -12,7 +12,7 @@ From a clone, one script puts the skills, rules and hook in place:
     python3 agents-library/scripts/setup
     python3 agents-library/scripts/setup --check   # after a pull: every link and hook is in place, or what differs
 
-`scripts/setup` links each skill into `~/.claude/skills`, links `references/core.md` and `references/tech-index.md` into `~/.claude/rules`, and adds the skill-gate hook to `~/.claude/settings.json`. Claude Code re-injects the rules from disk after every compaction, so the seven core actions stay in view. The script is safe to run again, and it never overwrites a file or folder of yours: it names it and leaves it alone. Skills alone, without the rules or the hook:
+`scripts/setup` links each skill into `~/.claude/skills`, links `references/core.md` and `references/tech-index.md` into `~/.claude/rules`, and adds the skill-gate hook to `~/.claude/settings.json`. Claude Code re-injects the rules from disk after every compaction, so the seven core actions stay in view. The script is safe to run again, and it never overwrites a different file or folder of yours: it names it and leaves it alone. An identical copy of a rule is replaced by the link, so the copy cannot go stale. Skills alone, without the rules or the hook:
 
     npx skills add vchandela/agents-library
 
@@ -25,7 +25,7 @@ From a clone, one script puts the skills, rules and hook in place:
       "**/*.py": ["review-pr", "review-security"]
     }
 
-`*` and `?` stay inside one path segment and `**` crosses segments, so `**/*.py` matches at any depth. A skill counts as loaded when the session transcript holds its "Launching skill: <name>" line, which is what the Skill tool writes. No map, or a path no glob matches, lets the edit through; a map that will not parse blocks with the reason, because a gate that cannot read its map is off while looking on. `references/core.md` rule 1 asks the same thing without a hook: launch a skill before a task it covers, name the launches in the first reply, and launch again after a compaction.
+`*` and `?` stay inside one path segment and `**` crosses segments, so `**/*.py` matches at any depth. A skill counts as loaded when the transcript records a Skill call for it, either the call itself or the "Launching skill: <name>" line it returns; a file that only quotes the line does not count. No map, or a path no glob matches, lets the edit through; a map that will not parse blocks with the reason, because a gate that cannot read its map is off while looking on. `references/core.md` rule 1 asks the same thing without a hook: launch a skill before a task it covers, name the launches in the first reply, and launch again after a compaction.
 
 To see what actually loaded, count the launches in the transcripts:
 
