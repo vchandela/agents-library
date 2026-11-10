@@ -22,6 +22,9 @@ rather than implying it was clean.
 
 ## Authentication
 
+**These run against the local app and its test database, never production.**
+A forged, stale or swapped token is hostile input even when it is sent once.
+
 - Token with the subject swapped, `alg:none`, an unsigned token, a token from
   another account, an expired token: each must be rejected, with no partial
   data leaked in the error.

@@ -39,8 +39,10 @@ which environment it is. Then fix the rules before the first hostile request:
   no load, no denial of service, no fuzzing at volume, no real payments, no other
   person's data, nothing that deletes or changes another user's account.
 - Destructive acts, forged tokens, tampered ids and hostile input at volume run
-  against the local app and its test database, never production. A production
-  write needs the user's own yes, in the same message that names it.
+  against the local app and its test database, never production. Production
+  writes are only the normal screen actions of the pass, on the accounts and
+  data the user provides. Every other write, delete, account change or state
+  change is local-only and never production, with no exception.
 - If a session is signed out, stop and ask for a sign in; never type a
   credential.
 - Verify which host holds the session (with and without `www`) before testing a
@@ -88,8 +90,8 @@ only, screen reader, zoom, motion. `references/accessibility.md`, with
 
 Severity P0 to P3. Every finding has the fixed shape in
 `references/reporting.md`: title, severity, exact repro, what you saw, what you
-expected, evidence, proposed fix. One root cause is one finding, with every
-page it shows on listed.
+expected, evidence, proposed fix, and confidence. One root cause is one finding,
+with every page it shows on listed.
 
 A security finding names the lower trust actor, what it sent, the control that
 should have stopped it, and what it got. A missing header with nothing reachable

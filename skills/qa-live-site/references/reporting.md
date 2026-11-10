@@ -48,6 +48,13 @@ place fixes all of them. If it does not, they are different findings.
   it becomes a finding.
 - Retake a bad screenshot before writing anything from it.
 
+## Re-checking a fix
+
+When a later round re-checks a fix, mark each finding **resolved**, **partial**
+or **unresolved**, from what the screen shows now. A description of the fix, a
+commit, or a green pipeline is not evidence that the defect is gone: only the
+triggered repro is.
+
 ## The verdict
 
     Suite      [PASS/FAIL]

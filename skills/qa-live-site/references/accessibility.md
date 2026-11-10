@@ -1,8 +1,9 @@
 # Accessibility and UI state checks
 
-The bar is WCAG 2.1 AA. Automated checks (axe, Lighthouse) find roughly a third
-of defects; the keyboard and screen-reader passes are the other two thirds and
-are done by hand.
+The bar is WCAG 2.1 AA. Automated checks (axe, Lighthouse) cover only the rules
+they can evaluate. Keyboard flow, focus, and what a screen reader announces have
+no automated check here, so the manual passes below are mandatory, not
+supplementary.
 
 ## Both lenses
 

@@ -11,9 +11,10 @@ is yours.
   the server timing if present. A stopwatch includes your own machine and
   connection; one pass read a collapse that was the test client's own uplink.
 - **Several samples, then a median.** For a single API call, repeat it three or
-  five times, a few seconds apart, and compare the median and the worst. A
-  difference under about 2x is noise at this scale; a difference of 10x or more
-  is a finding.
+  five times, a few seconds apart, and compare the median and the worst. This
+  skill's rule of thumb is that a difference under about 2x is noise at this
+  scale, and 10x or more is a finding. Those two numbers are a heuristic, not a
+  measured constant; a project that states its own budget uses that instead.
 - **Cold against warm.** For serverless or edge targets, the first request after
   a quiet minute may pay a cold start: measure the first and the second, and
   report the gap separately. Do not call a cold start a slow endpoint.

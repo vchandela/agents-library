@@ -11,6 +11,17 @@ the action button, the empty message, the price, the nav.
 Work the cells in order. A cell that renders the wrong state, a state nobody
 specified, or a control that goes nowhere is a finding, with the cell named.
 
+## Reconnaissance before acting
+
+Wait for the page's own load signal (network idle, or the app's ready marker)
+before reading it; a fixed sleep measures your machine, not the app.
+
+Inspect the rendered DOM, not the source template, and identify the elements and
+selectors from that rendered state. Then act. After navigation, a submit or a
+dynamic update, read the DOM again: an element reference or handle taken before
+the change can point at a different element afterwards. A selector string that
+still matches is safe to reuse; a stored snapshot or reference is not.
+
 ## The flows
 
 Walk every flow **from where the reader actually enters to where they actually
