@@ -34,3 +34,5 @@ The list is a living view of what is open, not a log.
 Before each hand-off to the user, and when a stage or project closes, read the whole list once and bring it up to date.
 
 Only real deferrals go here. Low-hanging work gets done now, not listed.
+
+**A small follow-up goes into an open PR, not onto the list.** A reviewer's optional finding, a stale comment, a small cleanup: fix it in one of the PRs already open for that work, take it through review with the rest, and hand the user the links together. Only work that must wait on something (a deploy, another PR, a decision, someone else) is a ToDo. Failure this prevents: a reviewer's one-line comment fix was left for "a small follow-up PR" so three PRs avoided another round; the user said "whenever there are small ToDos, don't note them. Just fix them in the same PRs, review, and send me the links. I'll review everything together" (10 Nov).
