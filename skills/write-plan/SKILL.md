@@ -9,7 +9,7 @@ The agent implementing this has no background. Everything it needs goes in the p
 
 Apply `references/engineering-principles.md`: DRY, YAGNI, KISS, SOLID, cut premature optimisation.
 
-The references this skill names rely on these, so read them in full too: `references/core.md` (the seven core actions).
+The references this skill names rely on these, so read them in full too: `references/core.md` (the seven core actions), `references/verification.md` (the six rules for generated answers).
 
 For each mechanism the plan builds (a cache, a queue, a lock, a shard key), check its entry in `references/system-design/index.md` and give the way it fails a step or a test.
 

@@ -4,6 +4,7 @@
 
 - The loop
 - Test speed when many agents share one machine
+- Verifying generated answers
 - Pick the kinds of test the change needs
 - Fat tests
 - A test worth keeping
@@ -35,6 +36,10 @@ Several agent sessions on one machine share its cores and test database. A lock 
 - **Size the worker count to the cores, not above them.** pytest-xdist is pytest's parallel runner. Use one worker per core at most. Use its worksteal scheduler when test durations are uneven, so a free worker takes tests from a busy one. More workers gave diminishing returns on that busy machine: going from 3 to 4 saved about 69 seconds in a 5 minute run.
 - **Give an end-of-response hook the same runner and log.** Some agents run the suite from a hook after every response. That hook must use the same test runner and log as every other run. Otherwise its cost is invisible to the cache and the log, and repeated work looks free. Cancel the run still going when a newer push supersedes it. CI calls this cancel-in-progress.
 - **No fallbacks.** The selection is a pure function of the changed paths. A pure function's answer depends only on its inputs, so the same paths always choose the same tests. An unclassified file fails a test, so someone adds its row. A fallback that quietly runs everything burns the machine. A fallback that quietly runs nothing ships the bug.
+
+## Verifying generated answers
+
+A bank of generated answers has its own failure modes: a wrong key, a citation that is only a heading, a duplicate that looks different only because a sign was stripped. `references/verification.md` has the six rules, from a blind second solve to a person's confidence.
 
 ## Pick the kinds of test the change needs
 

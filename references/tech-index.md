@@ -60,6 +60,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - Writing code -> red first (watch it fail for the right reason), least code to green, refactor only on green; a bug fix starts with a failing reproduction [testing: the loop]
 - While building -> run the fast tier (tests that read what you changed, cheap whole-repo guards); the full suite once, on the final head [testing: the loop]
 - Many agents on one machine -> never run the same code twice: cache a green result by tree, scope runs from one table with no catch-all, and gate the merge on one recorded full run [testing: test speed]
+- A bank of generated answers (questions, keys, explanations) -> blind second solve, hash-pinned freeze, supports or coverage, a person's confidence, two checkers, and matching that keeps operators and signs [verification: generated answers]
 - Picking test kinds -> unit, integration, contract, live read-only, mutation, static checks, failure and concurrency, security refusals, unchanged behaviour, real-world; name which and why one is left out [testing: kinds]
 - A test -> one user-recognisable scenario through the public entry point; fake only network, clock, randomness; expected values typed out [testing: fat tests]
 - Before done -> mutation check: flip a constant, drop a branch, put the bug back; a test must fail each time [testing: mutation]
