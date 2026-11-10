@@ -110,7 +110,7 @@ A thread saying "CI green", "approved" or "merged" is a claim. Check it in GitHu
 Always a suggestion with a reason, never an action.
 
 - **Suggest a split** when one thread holds two things that could ship and be reviewed apart. Signs: two unrelated stacks in one flow, a reviewer reviewing two different contracts, a thread waiting on one half while the other could move. Say what each new thread would own and what stays.
-- **Suggest closing** a thread when its PR merged and it has no ToDos it owns, or it sat idle and parked with no owner for the next step. Say what would be lost (context, a reviewer pair) and where its state lives, so a fresh session can resume.
+- **Suggest closing** a work thread, with its reviewer, when its PR merged and it owns no ToDos, or it sat parked with no owner for the next step. Never a reviewer alone: it lives as long as its author (user, 10 Nov). Say what is lost and where the state lives.
 - **ToDos.** Every thread knows its project's main Notion page and keeps its ToDos current (`references/project-todos.md`). When a thread defers something, check that it reached that page; when you brief a new thread, give it the page or ask the user.
 - Prefer a fresh session over reviving a very long one after a long gap.
 - **New work goes to a thread named for it, never piled onto a busy one.** Do not hand a new task to a thread still working on its own. If an idle thread's task is done, close it and open a new pair, or rename it (and its reviewer) so the name says what it will do now. Either way, the user can tell each thread's job from its name alone. Propose which, in the same batch as the new work, for the user's yes.
