@@ -35,7 +35,7 @@ The references this skill names rely on these, so read them in full too: `refere
 | Session, stage | Model and effort |
 |---|---|
 | Author: spec and its research | Opus 5.5 medium |
-| Author: plan and PRs | Sonnet 5.5 high (switch with `/model` and `/effort` once the reviewer approves the spec) |
+| Author: plan and PRs | Sonnet 5.5 high. A session can't switch itself: once the reviewer approves the spec, ask the user in your tab to run `/model sonnet` and `/effort high` |
 | Reviewer: every stage | Opus 5.5 medium |
 
 The user set these on 11 Nov 2026 from cost per task (Artificial Analysis index, CursorBench): the spec decides the most, and a sound spec plus review makes coding work for Sonnet. A coordinator may start a small, fully specified job on Sonnet 5.5 high from the start.
