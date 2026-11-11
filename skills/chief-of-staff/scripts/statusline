@@ -30,9 +30,19 @@ mkdir -p "$HOME/.claude/state"
 echo "$input" | jq -c 'select(.rate_limits != null) | {at: (now | floor), rate_limits}' > "$HOME/.claude/state/usage.json.tmp.$$" 2>/dev/null \
   && [ -s "$HOME/.claude/state/usage.json.tmp.$$" ] && mv "$HOME/.claude/state/usage.json.tmp.$$" "$HOME/.claude/state/usage.json" \
   || rm -f "$HOME/.claude/state/usage.json.tmp.$$"
-# A session has no rate_limits until its first reply; show the last saved ones if under 15 minutes old.
+# A provider that does not send rate_limits (the DeepSeek gateway) or a session
+# before its first reply shows the last saved reading, marked with the time it
+# was taken so an old number is never read as a live one. A saved five hour
+# reading is void once its window has reset.
+saved_note=""
 if [ -z "$rl5" ] && [ -f "$HOME/.claude/state/usage.json" ]; then
-  eval "$(jq -r --argjson now "$(date +%s)" 'select(($now - .at) < 900) | @sh "rl5=\(.rate_limits.five_hour.used_percentage // "")", @sh "rl5_reset=\(.rate_limits.five_hour.resets_at // "")", @sh "rl7=\(.rate_limits.seven_day.used_percentage // "")", @sh "rl7_reset=\(.rate_limits.seven_day.resets_at // "")"' "$HOME/.claude/state/usage.json" 2>/dev/null)"
+  eval "$(jq -r 'select(.rate_limits) | @sh "rl5=\(.rate_limits.five_hour.used_percentage // "")", @sh "rl5_reset=\(.rate_limits.five_hour.resets_at // "")", @sh "rl7=\(.rate_limits.seven_day.used_percentage // "")", @sh "rl7_reset=\(.rate_limits.seven_day.resets_at // "")", @sh "saved_at=\(.at // "")"' "$HOME/.claude/state/usage.json" 2>/dev/null)"
+  now=$(date +%s)
+  if [ -n "$rl5_reset" ] && [ "$rl5_reset" -le "$now" ] 2>/dev/null; then rl5=""; rl5_reset=""; fi
+  if [ -n "$rl7_reset" ] && [ "$rl7_reset" -le "$now" ] 2>/dev/null; then rl7=""; rl7_reset=""; fi
+  if { [ -n "$rl5" ] || [ -n "$rl7" ]; } && [ -n "$saved_at" ]; then
+    saved_note="${DIM}as of $(TZ=Asia/Kolkata date -r "$saved_at" +%H:%M 2>/dev/null) IST${RESET}"
+  fi
 fi
 [ -z "$cwd" ] && cwd="$PWD"
 
@@ -90,6 +100,7 @@ if [ -n "$rl7" ]; then
   [ -n "$rl7_reset" ] && rl7_seg="${rl7_seg} ${DIM}resets $(TZ=Asia/Kolkata date -r "$rl7_reset" '+%a %H:%M' 2>/dev/null) IST${RESET}"
   parts+=("$rl7_seg")
 fi
+[ -n "$saved_note" ] && parts+=("$saved_note")
 
 metrics=""
 for p in "${parts[@]}"; do
