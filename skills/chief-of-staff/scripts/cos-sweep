@@ -1,0 +1,167 @@
+#!/usr/bin/env python3
+"""One line per coordinator thread: moving, waiting, stalled or lost.
+
+Reads only: the registry (~/.claude/cos/threads.json), the session records
+(~/.claude/sessions/*.json), the tmux panes and the transcript mtimes.
+Exit 0 when every thread is moving or waiting on a recorded person or event;
+exit 1 when any ACT line needs the coordinator.
+
+Usage: cos-sweep [--registry PATH] [--idle-minutes N]
+"""
+import argparse
+import glob
+import json
+import os
+import subprocess
+import sys
+import time
+
+MARKERS = (
+    "Enter to continue",
+    "Esc to cancel",
+    "Do you want to",
+    "waiting for approval",
+)
+
+
+def alive(pid):
+    try:
+        os.kill(int(pid), 0)
+        return True
+    except (OSError, ValueError):
+        return False
+
+
+def pane_tail(target, lines=12):
+    try:
+        out = subprocess.run(
+            ["tmux", "capture-pane", "-p", "-t", target],
+            capture_output=True, text=True, timeout=2,
+        )
+        return out.stdout.splitlines()[-lines:]
+    except Exception:
+        return []
+
+
+def transcript_age(rec):
+    cwd = rec.get("cwd") or ""
+    sid = rec.get("sessionId") or ""
+    path = os.path.expanduser(
+        "~/.claude/projects/%s/%s.jsonl" % (cwd.replace("/", "-"), sid)
+    )
+    try:
+        return time.time() - os.path.getmtime(path)
+    except OSError:
+        return None
+
+
+def fmt_age(seconds):
+    if seconds is None:
+        return "?"
+    minutes = int(seconds // 60)
+    if minutes < 120:
+        return "%dm" % minutes
+    return "%dh" % (minutes // 60)
+
+
+def load_live():
+    live = {}
+    for f in glob.glob(os.path.expanduser("~/.claude/sessions/*.json")):
+        try:
+            rec = json.load(open(f))
+        except Exception:
+            continue
+        if rec.get("kind") != "interactive" or not rec.get("name"):
+            continue
+        if not alive(rec.get("pid", -1)):
+            continue
+        live.setdefault(rec["name"], []).append(rec)
+    for recs in live.values():
+        recs.sort(key=lambda r: r.get("updatedAt") or 0)
+    return live
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument(
+        "--registry", default=os.path.expanduser("~/.claude/cos/threads.json")
+    )
+    ap.add_argument("--idle-minutes", type=int, default=20)
+    args = ap.parse_args()
+
+    try:
+        registry = json.load(open(args.registry))
+        threads = registry.get("threads", [])
+    except Exception as e:
+        print("ACT registry: cannot read %s: %s" % (args.registry, e))
+        return 1
+
+    live = load_live()
+    acts, needs = [], []
+    for t in threads:
+        name = t.get("name")
+        stage = t.get("stage") or "?"
+        if stage == "closed":
+            continue
+        if t.get("needs_user"):
+            needs.append("NEEDS %s: %d decision(s), first: %s" % (
+                name, len(t["needs_user"]), t["needs_user"][0]))
+        recs = live.get(name)
+        if not recs:
+            acts.append("ACT %s lost: no live session (stage %s, next: %s)" % (
+                name, stage, t.get("next") or "?"))
+            continue
+        rec = recs[-1]
+        status = rec.get("status") or "?"
+        wait = t.get("waiting_on") or ""
+        bits = [status, "active %s" % fmt_age(transcript_age(rec)), "stage %s" % stage]
+        if wait:
+            bits.append("waiting on %s" % wait)
+
+        reg_addr = t.get("address") or ""
+        live_addr = rec.get("messagingSocketPath") or ""
+        reg_bare = reg_addr[4:] if reg_addr.startswith("uds:") else reg_addr
+        if reg_addr.startswith("uds:") and live_addr and reg_bare != live_addr:
+            acts.append("ACT %s address: registry %s, live uds:%s" % (
+                name, reg_addr, live_addr))
+
+        target = (rec.get("tmux") or "").split(":")[0]
+        tail = pane_tail(target) if target else []
+        marker = next((m for m in MARKERS if m in "\n".join(tail)), None)
+        if marker:
+            acts.append(
+                "ACT %s stall: pane shows %r; dismiss with tmux send-keys -t %s Enter"
+                % (name, marker, target))
+            continue
+        if status == "waiting":
+            acts.append("ACT %s waiting for input in the pane (%s); answer it or record why" % (
+                name, " ".join(bits)))
+            continue
+        if status in ("idle", "shell") and not wait and stage not in ("parked", "merged"):
+            acts.append(
+                "ACT %s idle with no recorded wait (%s); ask for its next step or record what it waits on"
+                % (name, " ".join(bits)))
+            continue
+        print("OK  %s: %s" % (name, " ".join(bits)))
+
+    for line in acts:
+        print(line)
+    for line in needs:
+        print(line)
+    known = {t.get("name") for t in threads}
+    try:
+        me = open(os.path.expanduser("~/.claude/cos/coordinator")).read().strip()
+        me = me[4:] if me.startswith("uds:") else me
+        for name, recs in live.items():
+            if any(r.get("messagingSocketPath") == me for r in recs):
+                known.add(name)
+    except OSError:
+        pass
+    extra = sorted(set(live) - known)
+    if extra:
+        print("INFO not in registry: %s" % ", ".join(extra))
+    return 1 if acts else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

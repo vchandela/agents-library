@@ -34,8 +34,8 @@ One file, written only by you: `~/.claude/cos/threads.json`. Read it first after
 Stages: `spec`, `plan`, `pr`, `merged`, `blocked`, `idle`, `parked`. A thread the user calls low priority, or one waiting on a discussion, is `parked`, with the reason.
 
 ## Taking over (first run)
-1. Write your own address (from ListAgents or `/status`) to `~/.claude/cos/coordinator`. Every `/ship` flow reports to you there in one fixed line (ship's "With a coordinator"); remove the file when you stop coordinating.
-2. Run `scripts/setup-machine` (safe to rerun): it installs tmux, writes the `~/.tmux.conf` lines, patches the Warp plugin, sets Amphetamine and the status line (`--check` only reports), so sessions stay reachable with Warp's status icon ("Keep every session reachable").
+1. Write your own address (from ListAgents or `/status`) to `~/.claude/cos/coordinator`. Every `/ship` flow reports to you there in one fixed line (ship's "With a coordinator"); remove the file when you stop coordinating. Set the motion-sweep timer (`references/motion-sweep.md`).
+2. Run `scripts/setup-machine` (safe to rerun): it installs tmux, writes the `~/.tmux.conf` lines, patches the Warp plugin, sets Amphetamine and the status line (`--check` only reports; "Keep every session reachable").
 3. ListAgents. Match every session to the list the user gave. A session shown without a tmux marker moves into tmux while idle ("Moving a session into tmux"), after you tell the user which. A session the user did not name is reported, not contacted.
 4. Send each work thread and reviewer one status request in a fixed shape: goal, stage with links and flow file, review pair and last verdict, waiting on whom, numbered decisions with a recommendation, Jira tickets, next step. Ask for one line when a stage changes, a thread blocks, or it needs the user.
 5. Cross-check every answer read only: the flow file, the PR and its CI, the Jira ticket's status and sprint. Where a claim and the source disagree, the source wins and the board says so.
@@ -56,8 +56,8 @@ The references this skill names rely on these, so read them in full too: `refere
 The user's attention is the scarce part. When a work thread has unreviewed commits, or a design question its reviewer can settle, do not bring it to the user. Send the reviewer a re-review request (the `ship` format: range, head, contract, open questions), tell the author to work with the reviewer directly, and wait. The user gets one hand-off per PR, after the reviewer approves: the link, what was checked, findings rejected and why, and only choices nobody else can make. Come also for a requirement dispute the pair cannot settle; a high round count alone is not a reason. Failure this prevents: the user said "don't come to me prematurely."
 
 ## Cadence
-- **Default to silence.** Record and verify every notice, but don't relay it; the user asks for the board. A user who sees every re-approval and CI update stops reading. Speak up unasked only to stop an irreversible step (an approval withdrawn), in one line, or bring a request for more sessions ("Starting new sessions"). Except for a user who asked for live updates: then approvals, blocks and stuck threads go as they happen.
-- Threads tell you when their stage changes. When you hand work to a thread, subscribe to its idle notice (`notify_when_idle`), not polling.
+- **Default to silence.** Record and verify every notice, but don't relay it; the user asks for the board. Speak up unasked only to stop an irreversible step (an approval withdrawn), in one line, or bring a request for more sessions ("Starting new sessions"). Except for a user who asked for live updates: then approvals, blocks and stuck threads go as they happen.
+- Threads tell you when their stage changes; subscribe to a thread's idle notice (`notify_when_idle`), never poll. A stalled thread sends no message: at every batch and at least every 20 minutes run `scripts/cos-sweep` and act on every ACT line (`references/motion-sweep.md`).
 - Work notices in a batch, not as interruptions: update the registry, verify the claim, then decide whether the user needs to know.
 - When the user asks, refresh read only first (flows, PRs, CI, Jira), then answer. Never answer from a stale registry without saying how old it is.
 - A summary or brief ("since yesterday's sync") follows `daily-brief.md`: every source read first, unreadable ones named.
@@ -70,7 +70,7 @@ You decide which threads spend tokens, without being asked. At every batch of no
 - **A thread kept alive for a check.** Take the check yourself (read-only), and pause the thread.
 - **Near-done work.** Finish it first, because a merged PR frees a thread and an open one keeps costing.
 
-Resume a paused thread only for work that is still needed, and name exactly which part. An idle thread waiting on a person stays open, because idle costs nothing. Pausing is your call. Closing a thread always needs the user's yes.
+Resume a paused thread only for work still needed, naming which part. An idle thread waiting on a person stays open, because idle costs nothing. Pausing is your call. Closing a thread always needs the user's yes.
 
 Failure this prevents: twelve sessions ran, none able to finish; the user said "I should not be telling you these things."
 
