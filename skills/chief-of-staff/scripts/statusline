@@ -1,10 +1,10 @@
 #!/bin/bash
 # Two-line Claude Code status line.
 #
-#   ➜  myrepo git:(main) ✗ [Opus 5 (1M context)]
-#   ctx 5% · $0.46 · 1m34s · +0/-0 · 5h 8% · 7d 2%
+#   ➜  myrepo git:(main) ✗ [Opus 5.5 · medium]
+#   ctx 5% · $0.46 · 1m34s · +0/-0 · 5h 8% resets 19:10 IST · 7d 2% resets Fri 21:50 IST (both in IST)
 #
-# Line 1 approximates Oh My Zsh's "robbyrussell" theme, plus the model.
+# Line 1 approximates Oh My Zsh's "robbyrussell" theme, plus the model and its effort level.
 # Line 2 is session metrics; context and rate limits turn yellow/red as they fill.
 
 input=$(cat)
@@ -20,7 +20,9 @@ eval "$(printf '%s' "$input" | jq -r '
   @sh "rl5=\(.rate_limits.five_hour.used_percentage // "")",
   @sh "rl5_reset=\(.rate_limits.five_hour.resets_at // "")",
   @sh "rl7=\(.rate_limits.seven_day.used_percentage // "")",
-  @sh "fast=\(.fast_mode // false)"
+  @sh "rl7_reset=\(.rate_limits.seven_day.resets_at // "")",
+  @sh "fast=\(.fast_mode // false)",
+  @sh "effort=\(.effort.level // "")"
 ')"
 
 # Usage meter for analyze-agent-transcripts pacing: keep the latest rate limits on disk.
@@ -28,6 +30,10 @@ mkdir -p "$HOME/.claude/state"
 echo "$input" | jq -c 'select(.rate_limits != null) | {at: (now | floor), rate_limits}' > "$HOME/.claude/state/usage.json.tmp.$$" 2>/dev/null \
   && [ -s "$HOME/.claude/state/usage.json.tmp.$$" ] && mv "$HOME/.claude/state/usage.json.tmp.$$" "$HOME/.claude/state/usage.json" \
   || rm -f "$HOME/.claude/state/usage.json.tmp.$$"
+# A session has no rate_limits until its first reply; show the last saved ones if under 15 minutes old.
+if [ -z "$rl5" ] && [ -f "$HOME/.claude/state/usage.json" ]; then
+  eval "$(jq -r --argjson now "$(date +%s)" 'select(($now - .at) < 900) | @sh "rl5=\(.rate_limits.five_hour.used_percentage // "")", @sh "rl5_reset=\(.rate_limits.five_hour.resets_at // "")", @sh "rl7=\(.rate_limits.seven_day.used_percentage // "")", @sh "rl7_reset=\(.rate_limits.seven_day.resets_at // "")"' "$HOME/.claude/state/usage.json" 2>/dev/null)"
+fi
 [ -z "$cwd" ] && cwd="$PWD"
 
 BOLD_GREEN=$'\033[1;32m'; BOLD_CYAN=$'\033[1;36m'
@@ -57,6 +63,7 @@ fi
 model_segment=""
 if [ -n "$model" ]; then
   [ "$fast" = "true" ] && model="⚡ $model"
+  [ -n "$effort" ] && model="$model · $effort"
   model_segment=" ${MAGENTA}[${model}]${RESET}"
 fi
 
@@ -77,7 +84,12 @@ if [ -n "$rl5" ]; then
   [ -n "$rl5_reset" ] && rl5_seg="${rl5_seg} ${DIM}resets $(TZ=Asia/Kolkata date -r "$rl5_reset" +%H:%M 2>/dev/null) IST${RESET}"
   parts+=("$rl5_seg")
 fi
-[ -n "$rl7" ] && parts+=("$(heat "$rl7")7d ${rl7}%${RESET}")
+if [ -n "$rl7" ]; then
+  rl7_seg="$(heat "$rl7")7d ${rl7}%${RESET}"
+  # the weekly window can reset on another day, so the day goes in too
+  [ -n "$rl7_reset" ] && rl7_seg="${rl7_seg} ${DIM}resets $(TZ=Asia/Kolkata date -r "$rl7_reset" '+%a %H:%M' 2>/dev/null) IST${RESET}"
+  parts+=("$rl7_seg")
+fi
 
 metrics=""
 for p in "${parts[@]}"; do

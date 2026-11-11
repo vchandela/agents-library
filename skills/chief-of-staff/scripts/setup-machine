@@ -17,8 +17,8 @@
    Remote Control comes back for every tmux session without anyone running it. It
    logs to ~/.claude/state/rc-reconnect.log: one dated line per run, plus FAILED or NOT IN TMUX
    for a session that needs a person, and CONNECTED for one it fixed.
-5. The two-line status line (scripts/statusline): context, cost, lines changed, the
-   five-hour and seven-day limits, and the five-hour reset time in IST. It also writes
+5. The two-line status line (scripts/statusline): the model with its effort level, context,
+   cost, lines changed, and the five-hour and seven-day limits with their reset times in IST. It also writes
    ~/.claude/state/usage.json, which analyze-agent-transcripts paces on. Installed as
    ~/.claude/statusline-command.sh (a different copy there is kept as .bak) and named
    as the statusLine command in ~/.claude/settings.json if none is set.
