@@ -4,6 +4,7 @@
 
 - The loop
 - Test speed when many agents share one machine
+- A gate run is a gate of eligibility
 - Verifying generated answers
 - Pick the kinds of test the change needs
 - Fat tests
@@ -36,6 +37,16 @@ Several agent sessions on one machine share its cores and test database. A lock 
 - **Size the worker count to the cores, not above them.** pytest-xdist is pytest's parallel runner. Use one worker per core at most. Use its worksteal scheduler when test durations are uneven, so a free worker takes tests from a busy one. More workers gave diminishing returns on that busy machine: going from 3 to 4 saved about 69 seconds in a 5 minute run.
 - **Give an end-of-response hook the same runner and log.** Some agents run the suite from a hook after every response. That hook must use the same test runner and log as every other run. Otherwise its cost is invisible to the cache and the log, and repeated work looks free. Cancel the run still going when a newer push supersedes it. CI calls this cancel-in-progress.
 - **No fallbacks.** The selection is a pure function of the changed paths. A pure function's answer depends only on its inputs, so the same paths always choose the same tests. An unclassified file fails a test, so someone adds its row. A fallback that quietly runs everything burns the machine. A fallback that quietly runs nothing ships the bug.
+
+## A gate run is a gate of eligibility
+
+The one full run on a final head is only as useful as the head's eligibility. Before it starts, confirm three things.
+
+- **The head is final.** Every review fix is in, the branch is rebased on current main, and the tree is clean.
+- **Main is frozen.** While a critical-path gate runs, no merge lands. The merge gate's overlap rule refuses a head whose base main changed, so a run made while main moves is dead on arrival. Repeat a run after a move only on the rebased head.
+- **The selection is what you think it is.** A changed path with no table row makes a "scoped" run the whole suite. Read the selection line, and regenerate the table when a test file is added, renamed or removed.
+
+Then the pre-gate checks, each of which has cost a full run: the table's drift test, the coverage floor locally, the new or changed test at the head, the content checker's reports, and the self-solve before the blind. A red gate from any of these is a wasted slot, not a finding. Measured 11 November 2026: the test and CI work cut the full-suite p90 from 1,430 s to 681 s, but about 28 of 139 candidate moments in the seven-session transcript analysis were still a full suite spent on a head that could not count.
 
 ## Verifying generated answers
 
