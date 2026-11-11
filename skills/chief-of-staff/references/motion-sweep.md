@@ -22,6 +22,7 @@ Set the timer at takeover: `CronCreate` every 17 minutes, prompt "Run the chief-
 - **No live session**: the thread is lost. Read its flow file for its state, mark the registry entry, and tell the user what is left and where it lives.
 - **Waiting for input** in the pane: read the prompt and answer it from the registry and the flow file, or record why it waits on the user.
 - **Idle or shell with no recorded wait**: ask the thread for its next step, or record the person or event it waits on. A thread with no next step and no wait is a thread to close or rename, which is a suggestion for the user.
+- **Unread failed run**: a suite end line named after the thread, failed and newer than its transcript, means a background result arrived after the session's last turn and no notice woke it. Nudge with the run's name, tree, key and failing tests, then let the thread act. On 11 November 2026 m3 sat at the prompt for 22 minutes over a scoped set that failed at 20:12. Name every suite run with its thread's name so this check can find it.
 - **Busy**: leave it alone, unless it has run far past its stated step; then read its flow file before nudging.
 
 ## Optimal capacity

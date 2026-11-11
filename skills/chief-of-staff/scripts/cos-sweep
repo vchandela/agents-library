@@ -64,6 +64,27 @@ def fmt_age(seconds):
     return "%dh" % (minutes // 60)
 
 
+def norm(text):
+    return (text or "").lower().replace("-", "").replace("_", "")
+
+
+def load_suite_ends():
+    path = os.path.expanduser("~/.claude/flows/suite-runs.log")
+    ends = []
+    try:
+        with open(path) as f:
+            for line in f:
+                try:
+                    r = json.loads(line)
+                except Exception:
+                    continue
+                if r.get("event") == "end":
+                    ends.append(r)
+    except OSError:
+        pass
+    return ends
+
+
 def load_live():
     live = {}
     for f in glob.glob(os.path.expanduser("~/.claude/sessions/*.json")):
@@ -97,6 +118,7 @@ def main():
         return 1
 
     live = load_live()
+    ends = load_suite_ends()
     acts, needs = [], []
     for t in threads:
         name = t.get("name")
@@ -114,9 +136,27 @@ def main():
         rec = recs[-1]
         status = rec.get("status") or "?"
         wait = t.get("waiting_on") or ""
-        bits = [status, "active %s" % fmt_age(transcript_age(rec)), "stage %s" % stage]
+        age = transcript_age(rec)
+        bits = [status, "active %s" % fmt_age(age), "stage %s" % stage]
         if wait:
             bits.append("waiting on %s" % wait)
+
+        # A background run can finish red after the session's last turn, and a
+        # completion notice does not always wake an idle session. A failed end
+        # line newer than the transcript is an unread failure. Name runs after
+        # the thread so this check can find them.
+        if age is not None:
+            for line in reversed(ends):
+                if not norm(line.get("who")).startswith(norm(name)):
+                    continue
+                if (line.get("t") or 0) <= time.time() - age:
+                    break
+                if line.get("result") != "passed":
+                    acts.append(
+                        "ACT %s unread failed run: %s, tree %s, key %s, %s s; read it and act"
+                        % (name, line.get("who"), (line.get("tree") or "")[:12],
+                           line.get("key"), line.get("seconds")))
+                break
 
         reg_addr = t.get("address") or ""
         live_addr = rec.get("messagingSocketPath") or ""
