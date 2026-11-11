@@ -30,8 +30,8 @@ mkdir -p "$HOME/.claude/state"
 echo "$input" | jq -c 'select(.rate_limits != null) | {at: (now | floor), rate_limits}' > "$HOME/.claude/state/usage.json.tmp.$$" 2>/dev/null \
   && [ -s "$HOME/.claude/state/usage.json.tmp.$$" ] && mv "$HOME/.claude/state/usage.json.tmp.$$" "$HOME/.claude/state/usage.json" \
   || rm -f "$HOME/.claude/state/usage.json.tmp.$$"
-# The DeepSeek gateway sends no rate limits, so those segments never show there.
-# A main provider session shows them from its own payload, which carries them.
+# A provider that sends no rate limits (some third-party gateways) shows none.
+# A provider whose payload carries them shows the 5h and 7d segments with resets.
 # usage.json is still written above, because analyze-agent-transcripts paces on it.
 [ -z "$cwd" ] && cwd="$PWD"
 

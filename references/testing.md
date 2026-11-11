@@ -46,7 +46,7 @@ The one full run on a final head is only as useful as the head's eligibility. Be
 - **Main is frozen.** While a critical-path gate runs, no merge lands. The merge gate's overlap rule refuses a head whose base main changed, so a run made while main moves is dead on arrival. Repeat a run after a move only on the rebased head.
 - **The selection is what you think it is.** A changed path with no table row makes a "scoped" run the whole suite. Read the selection line, and regenerate the table when a test file is added, renamed or removed.
 
-Then the pre-gate checks, each of which has cost a full run: the table's drift test, the coverage floor locally, the new or changed test at the head, the content checker's reports, and the self-solve before the blind. A red gate from any of these is a wasted slot, not a finding. Measured 11 November 2026: the test and CI work cut the full-suite p90 from 1,430 s to 681 s, but about 28 of 139 candidate moments in the seven-session transcript analysis were still a full suite spent on a head that could not count.
+Then the pre-gate checks, each of which has cost a full run: the table's drift test, the coverage floor locally, the new or changed test at the head, the content checker's reports, and the self-solve before the blind. A red gate from any of these is a wasted slot, not a finding. As runs get cheaper, this is where the cost concentrates: a fleet can halve its full-suite time and still spend a large share of its runs on heads that could never land.
 
 ## Verifying generated answers
 
