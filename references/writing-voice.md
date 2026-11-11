@@ -14,7 +14,7 @@
 - **Concise, not clipped.** Cut ideas, not words. Keep fewer points, but write each as a full sentence that says who does what and when. Dot-separated fragments, dropped verbs and numbers without their reason are eaten words. Example: "reviewer ticks each claim · all PRs reviewed at first, then 10 to 20% samples" drew "what does this mean? you love eating words". A number keeps its reason: "6 links a cycle, because a busy incident pastes up to 12 in 15 minutes", not "links 3 → 6".
 - **No semicolons.** Join clauses with a comma or split them with a full stop.
 - **In the user's own docs** (Notion cells, bullets, captions), start cells and bullets in lowercase, like the rest of the doc, and keep proper nouns capitalised.
-- **Drafts someone will paste** (Slack, email, a comment) go in a plain code block, one long line per paragraph with no hard wraps and no `>` quote lines. End with "Rewrite this in your own words before sending."
+- **Drafts someone will paste** (Slack, email, a comment) go in a plain code block, one long line per paragraph or list item with no hard wraps and no `>` quote lines. The asks are a list, as "Bullets, not walls" in `respect-human-attention.md` says. End with "Rewrite this in your own words before sending."
 
 ## Structure
 
