@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+"""Run cos-sweep in the background with backoff, and exit only when the
+coordinator needs to look. Costs no tokens while nothing changes.
+
+The coordinator starts it with the Bash tool's run_in_background, so its exit
+wakes the coordinator. It exits, printing one line, when:
+  - the sweep has an ACT line (exit 1),
+  - any thread's status, wait or decision count changed (exit 0),
+  - every thread is quiet: none busy, every work thread waiting on a person or
+    event, so nothing can stall until someone answers (exit 0, "quiet").
+Otherwise it sleeps, doubling the gap each quiet round from --start up to
+--cap. Restart it after any message from the user or a thread: a restart
+resets the gap. Only one watcher runs; a new one stops the old one.
+
+Usage: cos-watch [--start MINUTES] [--cap MINUTES] [--registry PATH]
+"""
+import argparse
+import json
+import os
+import signal
+import subprocess
+import sys
+import time
+
+PIDFILE = os.path.expanduser("~/.claude/cos/watch.pid")
+SWEEP = os.path.join(os.path.dirname(os.path.realpath(__file__)), "cos-sweep")
+
+
+def sweep(registry):
+    cmd = [sys.executable, SWEEP, "--state"]
+    if registry:
+        cmd += ["--registry", registry]
+    out = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+    return json.loads(out.stdout.strip().splitlines()[-1])
+
+
+def take_pidfile():
+    try:
+        old = int(open(PIDFILE).read().strip())
+        if old != os.getpid():
+            os.kill(old, signal.SIGTERM)
+    except (OSError, ValueError):
+        pass
+    os.makedirs(os.path.dirname(PIDFILE), exist_ok=True)
+    with open(PIDFILE, "w") as f:
+        f.write(str(os.getpid()))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--start", type=float, default=15, help="first gap, minutes")
+    ap.add_argument("--cap", type=float, default=120, help="largest gap, minutes")
+    ap.add_argument("--registry", default=None)
+    args = ap.parse_args()
+    take_pidfile()
+
+    first = sweep(args.registry)
+    gap = args.start
+    while True:
+        state = first if first is not None else sweep(args.registry)
+        if state["acts"]:
+            print("cos-watch: ACT\n" + "\n".join(state["acts"]))
+            return 1
+        if first is None and state["fingerprint"] != baseline:
+            changed = sorted(
+                n for n in set(state["fingerprint"]) | set(baseline)
+                if state["fingerprint"].get(n) != baseline.get(n))
+            print("cos-watch: changed: %s" % ", ".join(changed))
+            return 0
+        if state["quiet"]:
+            print("cos-watch: quiet: every thread waits on a person or event; "
+                  "stopped until the next message")
+            return 0
+        baseline, first = state["fingerprint"], None
+        time.sleep(gap * 60)
+        gap = min(gap * 2, args.cap)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

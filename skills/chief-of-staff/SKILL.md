@@ -34,7 +34,7 @@ One file, written only by you: `~/.claude/cos/threads.json`. Read it first after
 Stages: `spec`, `plan`, `pr`, `merged`, `blocked`, `idle`, `parked`. A thread the user calls low priority, or one waiting on a discussion, is `parked`, with the reason.
 
 ## Taking over (first run)
-1. Write your own address (from ListAgents or `/status`) to `~/.claude/cos/coordinator`. Every `/ship` flow reports to you there in one fixed line (ship's "With a coordinator"); remove the file when you stop coordinating. Set the motion-sweep timer (`references/motion-sweep.md`).
+1. Write your own address (from ListAgents or `/status`) to `~/.claude/cos/coordinator`. Every `/ship` flow reports to you there in one fixed line (ship's "With a coordinator"); remove the file when you stop coordinating. Start the motion-sweep watcher (`references/motion-sweep.md`).
 2. Run `scripts/setup-machine` (safe to rerun): it installs tmux, writes the `~/.tmux.conf` lines, patches the Warp plugin, sets Amphetamine and the status line (`--check` only reports; "Keep every session reachable").
 3. ListAgents. Match every session to the list the user gave. A session shown without a tmux marker moves into tmux while idle ("Moving a session into tmux"), after you tell the user which. A session the user did not name is reported, not contacted.
 4. Send each work thread and reviewer one status request in a fixed shape: goal, stage with links and flow file, review pair and last verdict, waiting on whom, numbered decisions with a recommendation, Jira tickets, next step. Ask for one line when a stage changes, a thread blocks, or it needs the user.
@@ -57,7 +57,7 @@ The user's attention is the scarce part. When a work thread has unreviewed commi
 
 ## Cadence
 - **Default to silence.** Record and verify every notice, but don't relay it; the user asks for the board. Speak up unasked only to stop an irreversible step (an approval withdrawn), in one line, or bring a request for more sessions ("Starting new sessions"). Except for a user who asked for live updates: then approvals, blocks and stuck threads go as they happen.
-- Threads tell you when their stage changes; subscribe to a thread's idle notice (`notify_when_idle`), never poll. A stalled thread sends no message: at every batch and at least every 20 minutes run `scripts/cos-sweep` and act on every ACT line (`references/motion-sweep.md`).
+- Threads tell you when their stage changes; subscribe to a thread's idle notice (`notify_when_idle`), never poll. A stalled thread sends no message: run `scripts/cos-sweep` at every batch, keep `scripts/cos-watch` running between batches, and act on every ACT line (`references/motion-sweep.md`).
 - Work notices in a batch, not as interruptions: update the registry, verify the claim, then decide whether the user needs to know.
 - When the user asks, refresh read only first (flows, PRs, CI, Jira), then answer. Never answer from a stale registry without saying how old it is.
 - A summary or brief ("since yesterday's sync") follows `daily-brief.md`: every source read first, unreadable ones named.

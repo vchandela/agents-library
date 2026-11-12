@@ -6,7 +6,13 @@ Reads only: the registry (~/.claude/cos/threads.json), the session records
 Exit 0 when every thread is moving or waiting on a recorded person or event;
 exit 1 when any ACT line needs the coordinator.
 
-Usage: cos-sweep [--registry PATH] [--idle-minutes N]
+With --state it prints one JSON line instead, for scripts/cos-watch: the ACT
+lines, a fingerprint of every thread's status and wait (no ages, so a quiet
+fleet keeps the same fingerprint), and "quiet": true when no thread is busy
+and every work thread waits on a person or event rather than on itself or its
+reviewer, so nothing can stall until someone answers.
+
+Usage: cos-sweep [--registry PATH] [--idle-minutes N] [--state]
 """
 import argparse
 import glob
@@ -43,16 +49,40 @@ def pane_tail(target, lines=12):
         return []
 
 
-def transcript_age(rec):
+def transcript_path(rec):
     cwd = rec.get("cwd") or ""
     sid = rec.get("sessionId") or ""
-    path = os.path.expanduser(
+    return os.path.expanduser(
         "~/.claude/projects/%s/%s.jsonl" % (cwd.replace("/", "-"), sid)
     )
+
+
+def transcript_age(rec):
     try:
-        return time.time() - os.path.getmtime(path)
+        return time.time() - os.path.getmtime(transcript_path(rec))
     except OSError:
         return None
+
+
+def unanswered_since(rec):
+    """The time of the last message from another session that this session
+    has not answered with a turn of its own, or None."""
+    asked = answered = ""
+    try:
+        with open(transcript_path(rec)) as f:
+            for line in f:
+                try:
+                    r = json.loads(line)
+                except Exception:
+                    continue
+                ts = r.get("timestamp") or ""
+                if r.get("type") == "user" and "cross-session-message" in line:
+                    asked = ts
+                elif r.get("type") == "assistant":
+                    answered = ts
+    except OSError:
+        return None
+    return asked if asked and answered < asked else None
 
 
 def fmt_age(seconds):
@@ -108,6 +138,7 @@ def main():
         "--registry", default=os.path.expanduser("~/.claude/cos/threads.json")
     )
     ap.add_argument("--idle-minutes", type=int, default=20)
+    ap.add_argument("--state", action="store_true")
     args = ap.parse_args()
 
     try:
@@ -119,7 +150,8 @@ def main():
 
     live = load_live()
     ends = load_suite_ends()
-    acts, needs = [], []
+    acts, needs, oks = [], [], []
+    fingerprint, quiet = {}, True
     for t in threads:
         name = t.get("name")
         stage = t.get("stage") or "?"
@@ -136,6 +168,12 @@ def main():
         rec = recs[-1]
         status = rec.get("status") or "?"
         wait = t.get("waiting_on") or ""
+        reviewer = t.get("role") == "reviewer"
+        fingerprint[name] = [status, wait, len(t.get("needs_user") or [])]
+        if status not in ("idle", "shell"):
+            quiet = False
+        elif not reviewer and (not wait or wait.lower().startswith(("self", "reviewer"))):
+            quiet = False
         age = transcript_age(rec)
         bits = [status, "active %s" % fmt_age(age), "stage %s" % stage]
         if wait:
@@ -177,13 +215,28 @@ def main():
             acts.append("ACT %s waiting for input in the pane (%s); answer it or record why" % (
                 name, " ".join(bits)))
             continue
+        # An idle reviewer with an unanswered request stalls its author, and
+        # neither of them sends a message about it.
+        if reviewer and status in ("idle", "shell"):
+            since = unanswered_since(rec)
+            if since:
+                acts.append(
+                    "ACT %s reviewer has not answered the request of %s (author %s); nudge it"
+                    % (name, since, t.get("pair") or "?"))
+                continue
         if status in ("idle", "shell") and not wait and stage not in ("parked", "merged"):
             acts.append(
                 "ACT %s idle with no recorded wait (%s); ask for its next step or record what it waits on"
                 % (name, " ".join(bits)))
             continue
-        print("OK  %s: %s" % (name, " ".join(bits)))
+        oks.append("OK  %s: %s" % (name, " ".join(bits)))
 
+    if args.state:
+        print(json.dumps({"acts": acts, "fingerprint": fingerprint,
+                          "quiet": quiet and not acts}, sort_keys=True))
+        return 1 if acts else 0
+    for line in oks:
+        print(line)
     for line in acts:
         print(line)
     for line in needs:
