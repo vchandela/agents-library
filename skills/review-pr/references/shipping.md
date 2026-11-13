@@ -21,6 +21,19 @@ Artemis Terraform, with the PR's resource as `-target` (drop `-target` only for 
 
 Plan from the PR head only when the change must exist before the PR's code deploys (an IAM grant the new code needs), the branch contains current main for `deploy/terraform`, and the plan is targeted at the PR's own resources. Otherwise merge first and plan from `origin/main`, so the live state never runs ahead of main. Write the expected plan summary ("0 to add, 1 to change, 0 to destroy", and the resource) next to the command, so the user can check it at a glance. Delete the worktree (`git worktree remove`) once the apply is confirmed live.
 
+## A query against production
+
+Every query against a production datastore carries a strict time limit. Production can't hang on an analysis.
+
+- **A time limit, set first.** On Postgres, `SET statement_timeout = '60s'` at the start of the session, 60 seconds at most for analysis. A question that needs longer is bounded by ids or a time window, or answered from a sample.
+- **The read-only login, never the master one.** For Artemis that's `artemis_ro`, the default of `scripts/prod-rds-tunnel.sh`, which already carries a 60 s timeout. `--admin` is only for a write the user approved.
+- **Autocommit**, so no connection sits idle in a transaction holding locks.
+- **No unbounded scans of big tables** such as `transcripts`. Filter by session ids or a time window before you join.
+- **No analysis while a deploy or roll is in flight.** A startup migration needs a brief exclusive lock, and a long read blocks it.
+- **Know how to cancel your own query.** Closing the client or the tunnel doesn't stop a query already running on the server. Before you start, know how to find its pid and `pg_cancel_backend` it, and check that it's gone afterwards.
+
+Failure this prevents: on 13 Nov an over-cap analysis ran about 30 minutes on the master login through the tunnel. Its open transaction held AccessShare locks on `sessions`, and the new orchestrator failed its startup `ALTER TABLE` four times, leaving production on mixed versions until the user ended the connections by hand. The user's words: "every production query especially for testing should have strict time limits ... we can't hang prod".
+
 ## Several sessions, one main branch
 
 - **Claim main before a push-bound full test run, and release it after the push.** The others hold until "released". Two full runs were lost in one day to a session landing first and forcing a rebase and rerun.

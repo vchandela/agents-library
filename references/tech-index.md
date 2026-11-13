@@ -115,6 +115,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 
 ## APIs, the edge and outside systems
 
+- Any query against production -> read-only login, `statement_timeout` of 60 s at most set first, autocommit, bounded by ids or time, none during a deploy, and know how to cancel it server-side [shipping: a query against production]
 - A list endpoint -> capped page plus a cursor on the last id (or timestamp plus id), never offset [system-design/api-and-edge]
 - Trust -> the server takes the user from the verified token, stamps times itself, looks prices up, checks the user may touch the record [system-design/api-and-edge]
 - Reading many items from a quota-limited API -> one batched read (GraphQL, filtered list, bulk export), never one call per item; count calls per item before scaling a job [system-design/api-and-edge]
