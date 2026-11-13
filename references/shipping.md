@@ -8,6 +8,19 @@
 - Define "working" first: write the two to four questions someone on call will ask about this change. Every log line or metric added must help answer one.
 - A critical finding from any review means no ship, unless the user accepts the risk in writing.
 
+## A command the user runs
+
+When a step needs the user's credentials (a Terraform plan or apply, a login, a write to production), hand over one line they paste after `!`, which works from any directory. It builds a fresh worktree of the exact commit at an absolute path in your scratchpad, sets every environment variable inline, runs any init quietly, and trims long output. Never assume a current directory, never send several lines, and never plan from the user's own checkout, which may hold local changes. The apply runs the plan file saved by that plan, so what the user approved is exactly what changes. Failure this prevents: a multi-line plan that assumed `deploy/terraform` as the current directory failed with "No configuration files" and cost the user a round (13 Nov).
+
+Artemis Terraform, with the PR's resource as `-target` (drop `-target` only for a whole-root change, from main):
+
+- Plan: `! git -C ~/anyscale/artemis fetch -q origin pull/<N>/head && git -C ~/anyscale/artemis worktree add -f --detach <scratchpad>/tf-<N>-<sha7> FETCH_HEAD && cd <scratchpad>/tf-<N>-<sha7>/deploy/terraform && export AWS_PROFILE=027420445264_DevPowerUser AWS_REGION=us-west-2 && terraform init -input=false >/dev/null && terraform plan -input=false -target=<resource> -out=tfplan | tail -40`
+- Apply: `! cd <scratchpad>/tf-<N>-<sha7>/deploy/terraform && AWS_PROFILE=027420445264_DevPowerUser AWS_REGION=us-west-2 terraform apply -input=false tfplan`
+- After main moves on, or for an untargeted plan: replace the fetch with `fetch -q origin main` and the ref with `origin/main`.
+- An expired login shows as an SSO or credentials error. Prefix `aws sso login --profile 027420445264_DevPowerUser && `.
+
+Plan from the PR head only when the change must exist before the PR's code deploys (an IAM grant the new code needs), the branch contains current main for `deploy/terraform`, and the plan is targeted at the PR's own resources. Otherwise merge first and plan from `origin/main`, so the live state never runs ahead of main. Write the expected plan summary ("0 to add, 1 to change, 0 to destroy", and the resource) next to the command, so the user can check it at a glance. Delete the worktree (`git worktree remove`) once the apply is confirmed live.
+
 ## Several sessions, one main branch
 
 - **Claim main before a push-bound full test run, and release it after the push.** The others hold until "released". Two full runs were lost in one day to a session landing first and forcing a rebase and rerun.

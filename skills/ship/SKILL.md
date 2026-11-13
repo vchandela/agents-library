@@ -92,6 +92,7 @@ When `~/.claude/cos/coordinator` exists, the user runs a chief-of-staff session 
 
 - **Only the author reports, and only to the coordinator.** One line at every stage change, reviewer verdict, block, or point where the user is needed: `[cos] <topic> <stage> v<n> round <r>: <verdict>; heads <repo>#<n>@<sha> ...; needs user: <items, or none>`. The reviewer never messages the coordinator, so nothing arrives twice. The state file must exist and be current before you send, because the coordinator checks your line against it and against GitHub.
 - **Questions for the user still come to the user in this session**, each one standing alone (`references/respect-human-attention.md`, "Every question to the user stands alone").
+- **Ask the coordinator first when you're stuck on something simple**, such as how to hand the user a command (`references/shipping.md`, "A command the user runs"), which thread owns a piece, or how another thread did something. The coordinator sees every thread. Ask the user only what the coordinator can't answer (user, 13 Nov).
 - **Ask the coordinator for more author and reviewer pairs** when parts of the work could move in parallel. Send: each new thread's name, what it owns, the repo and files it touches (no two threads on the same files), and a one-paragraph brief. The coordinator brings it to the user, launches the pairs once the user agrees, and tells you their names. Never start sessions yourself.
 
 ## As the reviewer
