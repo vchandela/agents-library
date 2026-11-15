@@ -51,6 +51,8 @@ Every agent reads plain files with its own tools. That is the one mechanism they
 
 **Optional accelerators, never the only route.** A Claude rule with `paths:` loads by itself when Claude reads a matching file; keep it if the repo has one, and list the same file in the router so every agent reaches it. A rule link must point inside the repo, or Claude drops its `paths:`. A nested `AGENTS.md` is honoured by Codex from the root down to its working folder and by Codex review per changed file, but Claude reads a nested one only when no `CLAUDE.md` is above it. Prefer router rows over nested files, unless a folder is a separate project.
 
+**A rule that must never slip is a hook or a check, not a line here.** Instruction files are guidance a model may skip, most often late in a long session or after a compaction. So a must-hold rule (a production query's time limit, a hand-off gate) becomes a blocking hook or a CI check, and the instruction file names it in one line. Keep the root file near 200 lines, each skill under 20,000 characters, and the must-hold lines near the top. `references/adherence.md` has the evidence and says which file each kind of rule belongs in. On a new laptop, run agents-library's `scripts/setup`, so the shared rules, the hooks and the single memory folder (`autoMemoryDirectory`) match on every machine.
+
 **The size test covers bytes, not only lines.** Codex stops reading once the instruction files from the root to its working folder total 32 KiB (`project_doc_max_bytes`) and drops the rest without a warning. Fail the test above about 28 KiB, and above the agreed line budget.
 
 ## 4. The conventions themselves
