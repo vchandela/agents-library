@@ -27,6 +27,7 @@ Every query against a production datastore carries a strict time limit. Producti
 
 - **A time limit, set first.** On Postgres, `SET statement_timeout = '60s'` at the start of the session, 60 seconds at most for analysis. A question that needs longer is bounded by ids or a time window, or answered from a sample.
 - **The read-only login, never the master one.** For Artemis that's `artemis_ro`, the default of `scripts/prod-rds-tunnel.sh`, which already carries a 60 s timeout. `--admin` is only for a write the user approved.
+- **An approved write is run by the user, from one line you hand over.** The master login's password sits in a secret, and secret reads aren't an agent's to make, so the agent never runs the write itself. Get the user's yes for the exact rows first, then hand over one line in the "A command the user runs" shape. It opens the `--admin` tunnel, sets the time limit, and runs `BEGIN READ WRITE`, the statement keyed by ids, a check that the affected row count matches, then `COMMIT`, or a rollback if the count differs. Afterwards, check the result yourself with a read-only query. Example: on 13 Nov the user, not the agent, ended the two blocking connections by hand.
 - **Autocommit**, so no connection sits idle in a transaction holding locks.
 - **No unbounded scans of big tables** such as `transcripts`. Filter by session ids or a time window before you join.
 - **No analysis while a deploy or roll is in flight.** A startup migration needs a brief exclusive lock, and a long read blocks it.
