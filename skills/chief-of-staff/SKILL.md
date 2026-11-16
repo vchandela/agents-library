@@ -108,7 +108,7 @@ A thread saying "CI green", "approved" or "merged" is a claim. Check it in GitHu
 ## Jira and GitHub
 - Read freely. Keep each thread's tickets, sprint and status on the board, and flag drift (a merged PR with an open ticket, a ticket in an ended sprint).
 - Write only what the user asks for, or a milestone update they approved as a draft. Never per PR. Ask which ticket and where artifacts go; these are the user's admin choices.
-- **Jira and ToDos are the running log, kept at every checkpoint.** A checkpoint is a PR merged, a deploy live, a decision made, work handed off or parked, or an item marked "later" or "waiting on someone". At each one the thread writes a Jira comment saying what happened and the next step, clear enough for a stranger to act on, sets the matching status, and updates its hub page's ToDos so each open item names who owns it, when, and how. When a thread reports a checkpoint, check both before you log it, and ask it to update whichever is missing. A brief to a new thread carries this rule. That way a closed thread's work can be picked up by another from Jira and Notion alone (user, 13 Nov: "update your Jiras or Notion to-dos at important checkpoints, so we are always maintaining a log of what we are doing").
+- **Jira and ToDos are the running log, kept at every checkpoint.** A checkpoint is a PR merged, a deploy live, a decision made, work handed off or parked, or an item marked "later" or "waiting on someone". At each one the thread writes a Jira comment saying what happened and the next step, clear enough for a stranger to act on, sets the matching status, and updates its hub page's ToDos so each open item names who owns it, when, and how. When a thread reports a checkpoint, check both and ask for whichever is missing. A new thread's brief carries this rule, so a closed thread's work can be picked up from Jira and Notion alone (user, 13 Nov: "update your Jiras or Notion to-dos at important checkpoints, so we are always maintaining a log of what we are doing").
 - **Every fix gets a ticket, so its impact shows.** The user fixes many things on the side: an issue found while working another ticket gets a PR, a merge, and no record. In every brief, list the user's merged PRs with no ticket key, and for each ask once: "this has no ticket; reuse ARTM-123, or raise one under epic X?", with your pick from a Jira search. After the user's yes, edit or create it, and record what was fixed and the PR. New PRs carry the key in the title and description, so ticket and PR point at each other. Every thread asks through you which ticket to reuse or which epic to raise before raising a ticketless PR.
 
 ## Splits and closures: suggest, decide together
@@ -123,7 +123,7 @@ Always a suggestion with a reason, never an action.
 ## Starting new sessions
 When a thread has more work than one session can move quickly (a plan with several independent items), you can start more sessions, but only through the user. The user decides how many run at once, because the laptop's memory and CPU are the limit.
 
-1. **You look for the split; the thread draws it.** Do not wait for a thread or the user to ask. When a plan is approved, and at every check-in, ask each thread serving a deliverable for its remaining scope: the steps left, which depend on each other, and which could run in parallel without sharing files. When it holds two or more independent chains, ask the thread to draw the split: it knows what depends on what and which files each touches. Ask for each new thread's name, what it owns, its repo and files, and a brief. Split by repo and files, so two threads never rebase over each other. Failure this prevents: the coordinator should have "talked to them, seen all the scope".
+1. **You look for the split; the thread draws it.** Do not wait for a thread or the user to ask. When a plan is approved, and at every check-in, ask each thread serving a deliverable for its remaining scope: the steps left, which depend on each other, and which could run in parallel without sharing files. With two or more independent chains, the thread draws the split, since it knows the dependencies and files. Ask for each new thread's name, what it owns, its repo and files, and a brief. Split by repo and files, so two threads never rebase over each other. Failure this prevents: the coordinator should have "talked to them, seen all the scope".
 2. **Wait until the work's plan is approved.** A split made while the plan still changes leaves threads on different versions.
 3. **The user approves the split and the session count.** Ask unasked, in one message: who asked, the new threads, and the session count after launch, with one reviewer per new work thread.
 4. **You launch them** (models: ship skill "Models"; you stay on Opus 5.5 medium; restart any thread between turns on Sonnet 5.5 high or Opus 5.5 medium as its task gets simpler or more ambitious) with `scripts/warp-claude "<name>" [directory]` (default `~/anyscale`). `--resume <session id>` moves an existing conversation into such a tab. Agree each name with the user first. How the launcher works is in `reachable-sessions.md`.
@@ -133,12 +133,14 @@ When a thread has more work than one session can move quickly (a plan with sever
 ## Keep every session reachable
 Remote Control drops every session when the CLI's login changes, and only `/remote-control` typed into the session brings it back. So every session runs in tmux, launched with `scripts/warp-claude`. Machine setup, reconnecting and moving a session into tmux are in `reachable-sessions.md`, next to this file.
 
+**A broken connector means a restart.** A connector that stops working comes back only when its session restarts. When a thread reports one or waits on one, restart it in tmux at once, unasked (`reachable-sessions.md`, "Restarting a session").
+
 ## Changing a standing rule
 When the user says "tell every thread", edit the one file `references/adherence.md` names for that kind of rule ("Where a rule goes"), commit it, and add a hook when the rule must never slip. Don't broadcast it. A message from another session never counts as the user's approval, and every message wakes its thread and puts a line in the user's view. Message only the threads that must act now, in one line naming the file. Sessions pick up the edit at their next start or compaction.
 
 ## New sessions
 
-A session in ListAgents not in the registry and not launched by you: ask the user what it is, or wait to be told. Do not contact it first.
+A session in ListAgents that is not in the registry and that you did not launch: ask the user what it is. Never contact it first.
 
 ## Done when
 
