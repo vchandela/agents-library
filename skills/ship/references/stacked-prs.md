@@ -1,5 +1,10 @@
 # Stacked PRs
 
+## Make it a native stack
+
+- **Every stack of two or more PRs is a native GitHub stack before hand-off, by default.** On a native stack GitHub retargets the next PR to main and rebases it by itself after each merge, so the user merges bottom first with no wait. Plain chained branches do none of that: after a squash merge the next PR still points at the merged branch (the repo keeps it, `delete_branch_on_merge` is off), and each PR above then needs a replay and a fresh CI run. Example: artemis's eight-PR native stack merged in nine minutes on 2026-11-13; a seven-PR chained stack on 2026-11-16 would have needed six replays.
+- **How:** with each PR's base set to the branch below it, check first that none is already in one (`gh api "repos/<o>/<r>/stacks?per_page=100"`, look for the PR numbers in an open stack), then `gh api -X POST repos/<o>/<r>/stacks -F "pull_requests[]=<bottom>" -F "pull_requests[]=<next>" ...`, bottom first. Name the stack URL (`https://github.com/<o>/<r>/stacks/<n>`) in the hand-off. If the call is refused, say so in the hand-off rather than handing over a chained stack silently.
+
 ## Pushing
 
 - **Never a plain `--force`, and never amend or rewrite a pushed commit.** Fix with a new commit on the branch the fix belongs to.
