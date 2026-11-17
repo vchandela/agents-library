@@ -18,7 +18,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 
 - Any claim about code, a system or a cost -> check it in this task and cite `file:line`; no citation, no claim [engineering-principles: evidence, no citation no claim]
 - Adding a table, column, queue, setting, secret, service, route, file or flag -> list what already exists for the job and reuse it; new only with a `file:line` for why each candidate fails [engineering-principles: every new resource]
-- Any recommendation, new mechanism or "why not X?" -> grep how the repo already does it, lead with that and copy it; depart only for an objective, first-principles reason it is not optimal here, named with the user's yes [engineering-principles: repo conventions]
+- Any recommendation, new mechanism or "why not X?" -> find where the industry is converging (a quick research-prior-art pass) and how the repo already does it (grep), and lead with both; industry first when it fits behind one seam the change touches, else the convention with the industry route written down; never neither without the user's yes [core rule 10, engineering-principles: conventions]
 - A design that is only right for the inputs we expect -> change the mechanism so the bad case can't happen (constraint, atomic op, unique name); zero, one or infinity, never an arbitrary count [engineering-principles: correct by construction]
 - A number (limit, timeout, cap, size, rate) -> it carries its source beside it, or it goes; first ask if a deadline or the data already bounds it [engineering-principles: no magic numbers]
 - A name for a field, function, flag or file -> plain words a newcomer reads right; a yes/no reads as a question; one idea, one word [engineering-principles: names]
