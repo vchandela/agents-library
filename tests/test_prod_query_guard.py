@@ -167,6 +167,40 @@ class ReadingIsNotRunning(GuardTest):
         self.refused('bash -c "psql -h localhost -c \'select 1\'"', "statement_timeout")
 
 
+class WhereTheCommandRuns(GuardTest):
+    """An agent's Bash call is usually "cd <dir> && <command>", because the working folder resets after each call."""
+
+    BAD = f"import asyncpg\nasyncpg.connect(host='{HOST}', user='app_admin')\n"
+
+    def test_a_script_in_a_subfolder_is_found_after_cd_and_after_uv_run_directory(self):
+        files = {"sub/q.py": self.BAD}
+        for command in ["python3 sub/q.py", "cd sub && python q.py", "cd sub && uv run python q.py",
+                        "uv run --directory sub python q.py", "uv run --directory=sub python q.py",
+                        "cd ./sub; python3 q.py", "cd sub\npython3 q.py"]:
+            with self.subTest(command=command):
+                self.refused(command, "statement_timeout", files=files)
+
+    def test_a_guarded_script_in_a_subfolder_passes_the_same_way(self):
+        good = f"import asyncpg\nasyncpg.connect(host='{HOST}', user='app_readonly', server_settings={{'statement_timeout': '30000'}})\n"
+        self.passes("cd sub && uv run python q.py", files={"sub/q.py": good})
+
+    def test_a_cd_to_a_missing_folder_leaves_the_command_text_checked(self):
+        self.refused("cd nowhere && psql -h localhost -c 'select 1'", "statement_timeout")
+
+
+class ReadOnlyFlags(GuardTest):
+    def test_asking_psql_for_its_version_or_help_runs_no_sql_and_passes(self):
+        for command in ["psql --version", "psql -V", "psql --help", "pgcli --version"]:
+            with self.subTest(command=command):
+                self.passes(command)
+
+
+class LoginFromAVariable(GuardTest):
+    def test_a_login_read_from_a_variable_is_refused_with_a_clear_reason(self):
+        body = f"import os, asyncpg\nasyncpg.connect(host='{HOST}', user=os.environ[\"DB_USER\"], server_settings={{'statement_timeout': '30000'}})\n"
+        self.refused(f"uv run python - <<EOF\n{body}EOF", "no literal login")
+
+
 class Heredocs(GuardTest):
     def test_a_python_heredoc_with_a_production_marker_and_the_master_login_is_refused(self):
         body = f"import asyncpg\nasyncpg.connect(host='{HOST}', user='app_admin', server_settings={{'statement_timeout': '30000'}})\n"
