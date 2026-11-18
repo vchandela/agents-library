@@ -57,13 +57,13 @@ The user set these on 11 Nov 2026 from cost per task (Artificial Analysis index,
 `~/.claude/flows/<topic-slug>.json`, outside any scratchpad, so both sessions can read it. Write it at every change. After a compaction, read it before doing anything; trust it over memory.
 
 ```json
-{"topic": "runbook PR 2", "author": "anyscale-e5", "reviewer": "anyscale-a9",
+{"topic": "runbook PR 2", "author": "infra-e5", "reviewer": "infra-a9",
  "stage": "plan", "version": 3, "round": 2,
  "artifact": {"url": "https://claude.ai/artifact/...", "source": "/path/plan.html"},
- "contract": "spec v25 https://claude.ai/artifact/...", "repo": "anyscale/x", "pr": null,
+ "contract": "spec v25 https://claude.ai/artifact/...", "repo": "acme/x", "pr": null,
  "base_commit": "7ff2d92", "human": "waiting", "open_findings": ["R2", "R3"],
  "store": "https://app.notion.com/p/...", "jira": ["ART-123"],
- "heads": {"anyscale/x#123": "abc1234"}}
+ "heads": {"acme/x#123": "abc1234"}}
 ```
 
 `heads` holds every open PR's current head SHA, updated at every push, so anyone can check an approval against GitHub.

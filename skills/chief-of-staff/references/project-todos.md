@@ -28,7 +28,7 @@ The list is a living view of what is open, not a log.
 
 - **Add** an item the turn it is deferred.
 - **Update** it when its state changes: approved, blocked, moved to a ticket, a new owner.
-- **Tick** it when it is done, with one line on how (a merge sha, a run's result). When the plan changes, tick the old item with what replaced it ("moved to ARTM-638", "dropped: Pylon holds the context") rather than leaving it open.
+- **Tick** it when it is done, with one line on how (a merge sha, a run's result). When the plan changes, tick the old item with what replaced it ("moved to PROJ-638", "dropped: Pylon holds the context") rather than leaving it open.
 - **Delete** an item only when it was never real (a duplicate, a mistake).
 
 Before each hand-off to the user, and when a stage or project closes, read the whole list once and bring it up to date.

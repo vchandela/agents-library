@@ -12,12 +12,12 @@
 
 When a step needs the user's credentials (a Terraform plan or apply, a login, a write to production), hand over one line they paste after `!`, which works from any directory. It builds a fresh worktree of the exact commit at an absolute path in your scratchpad, sets every environment variable inline, runs any init quietly, and trims long output. Never assume a current directory, never send several lines, and never plan from the user's own checkout, which may hold local changes. The apply runs the plan file saved by that plan, so what the user approved is exactly what changes. Failure this prevents: a multi-line plan that assumed `deploy/terraform` as the current directory failed with "No configuration files" and cost the user a round (13 Nov).
 
-Artemis Terraform, with the PR's resource as `-target` (drop `-target` only for a whole-root change, from main):
+Terraform, with the PR's resource as `-target` (drop `-target` only for a whole-root change, from main):
 
-- Plan: `! git -C ~/anyscale/artemis fetch -q origin pull/<N>/head && git -C ~/anyscale/artemis worktree add -f --detach <scratchpad>/tf-<N>-<sha7> FETCH_HEAD && cd <scratchpad>/tf-<N>-<sha7>/deploy/terraform && export AWS_PROFILE=027420445264_DevPowerUser AWS_REGION=us-west-2 && terraform init -input=false >/dev/null && terraform plan -input=false -target=<resource> -out=tfplan | tail -40`
-- Apply: `! cd <scratchpad>/tf-<N>-<sha7>/deploy/terraform && AWS_PROFILE=027420445264_DevPowerUser AWS_REGION=us-west-2 terraform apply -input=false tfplan`
+- Plan: `! git -C ~/code/acme-shop fetch -q origin pull/<N>/head && git -C ~/code/acme-shop worktree add -f --detach <scratchpad>/tf-<N>-<sha7> FETCH_HEAD && cd <scratchpad>/tf-<N>-<sha7>/deploy/terraform && export AWS_PROFILE=<profile> AWS_REGION=us-west-2 && terraform init -input=false >/dev/null && terraform plan -input=false -target=<resource> -out=tfplan | tail -40`
+- Apply: `! cd <scratchpad>/tf-<N>-<sha7>/deploy/terraform && AWS_PROFILE=<profile> AWS_REGION=us-west-2 terraform apply -input=false tfplan`
 - After main moves on, or for an untargeted plan: replace the fetch with `fetch -q origin main` and the ref with `origin/main`.
-- An expired login shows as an SSO or credentials error. Prefix `aws sso login --profile 027420445264_DevPowerUser && `.
+- An expired login shows as an SSO or credentials error. Prefix `aws sso login --profile <profile> && `.
 
 Plan from the PR head only when the change must exist before the PR's code deploys (an IAM grant the new code needs), the branch contains current main for `deploy/terraform`, and the plan is targeted at the PR's own resources. Otherwise merge first and plan from `origin/main`, so the live state never runs ahead of main. Write the expected plan summary ("0 to add, 1 to change, 0 to destroy", and the resource) next to the command, so the user can check it at a glance. Delete the worktree (`git worktree remove`) once the apply is confirmed live.
 
@@ -26,7 +26,7 @@ Plan from the PR head only when the change must exist before the PR's code deplo
 Every query against a production datastore carries a strict time limit. Production can't hang on an analysis.
 
 - **A time limit, set first.** On Postgres, `SET statement_timeout = '60s'` at the start of the session, 60 seconds at most for analysis. A question that needs longer is bounded by ids or a time window, or answered from a sample.
-- **The read-only login, never the master one.** For Artemis that's `artemis_ro`, the default of `scripts/prod-rds-tunnel.sh`, which already carries a 60 s timeout. `--admin` is only for a write the user approved.
+- **The read-only login, never the master one.** That is the login the project's tunnel script defaults to, such as `app_readonly`, which already carries a 60 s timeout. `--admin` is only for a write the user approved.
 - **An approved write is run by the user, from one line you hand over.** The master login's password sits in a secret, and secret reads aren't an agent's to make, so the agent never runs the write itself. Get the user's yes for the exact rows first, then hand over one line in the "A command the user runs" shape. It opens the `--admin` tunnel, sets the time limit, and runs `BEGIN READ WRITE`, the statement keyed by ids, a check that the affected row count matches, then `COMMIT`, or a rollback if the count differs. Afterwards, check the result yourself with a read-only query. Example: on 13 Nov the user, not the agent, ended the two blocking connections by hand.
 - **Autocommit**, so no connection sits idle in a transaction holding locks.
 - **No unbounded scans of big tables** such as `transcripts`. Filter by session ids or a time window before you join.

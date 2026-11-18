@@ -139,7 +139,7 @@ Note on O5 for Opus 5.5: O55 says "the patterns in Prompting Claude Opus 5 remai
 - **A36** Thinking-disabled mitigations (tool calls as text, leaked tags). O5. REFUSE: Opus 5.5 cannot disable thinking. Removing any "do not think" rule still applies (B7).
 - **A37** Chat-only items: drop "think carefully" in chat for faster first token, treat earlier answers as settled. O55. REFUSE: our steps are agentic; O55 itself says to leave the second one out where later steps can reveal earlier mistakes.
 - **A38** Frontend design defaults and medication dosing blocks. PBP, O55. REFUSE: not our domain.
-- **A39** Prefill migration. PBP. REFUSE unless a harness still prefills the assistant turn (inferred; check the artemis call sites).
+- **A39** Prefill migration. PBP. REFUSE unless a harness still prefills the assistant turn (inferred; check the product's call sites).
 - **A40** Programmatic Tool Calling routing and `phase` replay. OAI56, OAI55. REFUSE unless enabled; codex CLI manages response state itself (inferred, not checked).
 - **A41** Context resets to cure "context anxiety". HD, MAG. REFUSE: MAG says resets "had become dead weight" on Opus 4.5.
 - **A42** "/clear after two corrections" and other interactive session advice. CCBP. REFUSE: interactive use, not prompt files.

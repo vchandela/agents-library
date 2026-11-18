@@ -2,7 +2,7 @@
 """Open a new Warp tab running Claude Code under a given name.
 
 Usage: warp-claude "<session name>" [directory] [--resume <session id>] [--command <program>]
-       (directory defaults to ~/anyscale)
+       (directory defaults to ~)
 
 Writes a Warp tab config (~/.warp/tab_configs/claude_<name>.toml) and opens it
 with warp://tab_config/<stem>. The name is set twice: --name labels the prompt
@@ -34,7 +34,7 @@ if "--resume" in args:
 if len(args) not in (1, 2) or not args[0].strip():
     sys.exit('usage: warp-claude "<session name>" [directory] [--resume <session id>] [--command <program>]')
 name = args[0].strip()
-directory = args[1] if len(args) == 2 else "~/anyscale"
+directory = args[1] if len(args) == 2 else "~"
 if not os.path.isdir(os.path.expanduser(directory)):
     sys.exit(f"no such directory: {directory}")
 try:
