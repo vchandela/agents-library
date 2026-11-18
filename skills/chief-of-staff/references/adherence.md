@@ -48,5 +48,7 @@ A coordinator that's asked to "tell every thread" edits the file this table name
 ## Not known yet
 
 - Whether stating the reason for a rule makes it likelier to be followed. No controlled study was found.
-- Whether a stop hook fires on a turn that another session's message started.
-- Whether a guard hook sees tool calls made inside subagents. A 2026 issue said it didn't (anthropics/claude-code #43612).
+- Whether a stop hook fires on a turn that another session's message started. It does (Claude Code 2.1.286, 18 Nov 2026): a message from one session to a throwaway second session ran UserPromptSubmit, PreToolUse and Stop in it, and Stop carried `last_assistant_message`.
+- Whether a guard hook sees tool calls made inside subagents. It does (2.1.286): a `claude -p` run that launched one subagent showed its Bash call to PreToolUse, with the subagent's `agent_id`. The 2026 issue that said it didn't (anthropics/claude-code #43612) does not hold on this version.
+- Whether SessionStart fires after an automatic compaction. It does, with `source: compact`, and what the hook prints reaches the transcript (2.1.286: three automatic compactions in one `claude -p` run, each followed by a SessionStart `compact`).
+- Whether the transcript a hook can read still holds what came before a compaction. It does: all 48 lines of one such run carry one `session_id`, so the Skill calls made before a compaction stay readable from `transcript_path`.

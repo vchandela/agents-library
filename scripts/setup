@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
-"""Install this library into a Claude Code home: skills, rules and the skill gate.
+"""Install this library into a Claude Code home: skills, rules, hooks and the memory folder.
 
-    scripts/setup            link skills and rules, add the skill-gate hook
+    scripts/setup            link skills and rules, add the hooks, set the memory folder
     scripts/setup --check    report what is missing or different; change nothing
 
+The hooks are the rows of HOOKS below: the skill gate, the production query guard, the
+review-request check and hand-off gate (on SendMessage and on Stop), and the skills-to-relaunch
+hook. The query guard reads the company details it needs from ~/.claude/hook-settings.json,
+which holds no company name in this repo. Setup asks for its three lists once, at a terminal,
+and writes the file; an existing file is never touched.
+
 Every step is safe to run again: a link that already points at its target is
-left alone, and the hook entry is updated in place instead of added twice. A
+left alone, and a hook entry is updated in place instead of added twice. A
 file or folder setup would have to overwrite is reported and left untouched, so
 a skill of your own with the same name is never deleted. A rules file that is
 an identical copy, not a symlink, is replaced by the link, since the copy would
 go stale the next time the library changes.
 
-Paths are under $HOME: ~/.claude/skills, ~/.claude/rules and
-~/.claude/settings.json. Point HOME at a scratch folder to try it on a copy.
+Paths are under $HOME: ~/.claude/skills, ~/.claude/rules, ~/.claude/settings.json and
+~/.claude/hook-settings.json. Point HOME at a scratch folder to try it on a copy.
 """
 
 from __future__ import annotations
@@ -28,9 +34,24 @@ from skill_hooks import MATCHER
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / "skills"
 RULES = [ROOT / "references" / "core.md", ROOT / "references" / "tech-index.md"]
-HOOK = ROOT / "scripts" / "skill-gate.py"
+# (event, matcher, script, timeout in seconds). The two review-request-check rows wait at most 10 s:
+# the gate's own gh call times out at 5 s (scripts/review-request-check.py), plus room to start Python.
+HOOKS = [
+    ("PreToolUse", MATCHER, "skill-gate.py", None),
+    ("PreToolUse", "Bash", "prod-query-guard.py", None),
+    ("PreToolUse", "SendMessage", "review-request-check.py", 10),
+    ("Stop", None, "review-request-check.py", 10),
+    ("SessionStart", "compact", "session-rules.py", None),
+]
+MEMORY_DIR = "~/.claude/memory"  # references/adherence.md:39: one memory folder for every session
 CLAUDE = Path(os.path.expanduser("~")) / ".claude"
 SETTINGS = CLAUDE / "settings.json"
+HOOK_SETTINGS = CLAUDE / "hook-settings.json"
+HOOK_SETTINGS_QUESTIONS = [
+    ("prod_markers", "Words that show a command targets production (a host or tunnel name), comma separated"),
+    ("readonly_logins", "Database logins that may query production, comma separated"),
+    ("refused_commands", "Commands the agent must never run itself, comma separated"),
+]
 
 check = "--check" in sys.argv[1:]
 unknown = set(sys.argv[1:]) - {"--check"}
@@ -84,8 +105,8 @@ def link_rule(target: Path, where: Path) -> None:
     link(target, where)
 
 
-def install_hook() -> None:
-    """Add or update the skill-gate hook in settings.json, keeping every other setting."""
+def install_hooks() -> None:
+    """Add or update every hook in HOOKS, and the memory folder, in settings.json, keeping every other setting."""
     # Resolve a symlinked settings.json, as a dotfiles setup often has, so writing
     # keeps the link instead of replacing it with a file.
     settings_file = SETTINGS.resolve()
@@ -105,46 +126,77 @@ def install_hook() -> None:
     if not isinstance(hooks, dict):
         problems.append(f"kept: 'hooks' in {SETTINGS} is not a JSON object; fix it, then rerun")
         return
-    entries = hooks.setdefault("PreToolUse", [])
-    if not isinstance(entries, list):
-        problems.append(f"kept: 'hooks.PreToolUse' in {SETTINGS} is not a list; fix it, then rerun")
-        return
-
-    command = f"python3 {shlex.quote(str(HOOK))}"
-    our_hook = {"type": "command", "command": command}
-    existing = None
-    for entry in entries:
-        for hook in (entry.get("hooks") or []) if isinstance(entry, dict) else []:
-            if isinstance(hook, dict) and "skill-gate.py" in str(hook.get("command", "")):
-                existing = (entry, hook)
-    if existing is None:
-        if check:
-            problems.append(f"missing: the skill-gate hook in {SETTINGS} (want {HOOK} on {MATCHER})")
-            return
-        entries.append({"matcher": MATCHER, "hooks": [our_hook]})
-        changes.append(f"added the skill-gate hook to {SETTINGS}")
-    else:
+    changed = False
+    for event, matcher, script, timeout in HOOKS:
+        entries = hooks.setdefault(event, [])
+        if not isinstance(entries, list):
+            problems.append(f"kept: 'hooks.{event}' in {SETTINGS} is not a list; fix it, then rerun")
+            continue
+        path = ROOT / "scripts" / script
+        our_hook = {"type": "command", "command": f"python3 {shlex.quote(str(path))}"}
+        if timeout:
+            our_hook["timeout"] = timeout
+        where = f"the {script} hook on {event}" + (f" {matcher}" if matcher else "")
+        existing = None
+        for entry in entries:
+            for hook in (entry.get("hooks") or []) if isinstance(entry, dict) else []:
+                if isinstance(hook, dict) and script in str(hook.get("command", "")) and entry.get("matcher") == matcher:
+                    existing = (entry, hook)
+        new_entry = {"matcher": matcher, "hooks": [our_hook]} if matcher else {"hooks": [our_hook]}
+        if existing is None:
+            if check:
+                problems.append(f"missing: {where} in {SETTINGS} (want {path})")
+                continue
+            entries.append(new_entry)
+            changes.append(f"added {where} to {SETTINGS}")
+            changed = True
+            continue
         entry, hook = existing
-        if entry.get("matcher") == MATCHER and hook.get("type") == "command" and hook.get("command") == command:
-            return
+        if all(hook.get(key) == value for key, value in our_hook.items()) and ("timeout" in our_hook or "timeout" not in hook):
+            continue
         if check:
-            problems.append(f"stale: the skill-gate hook in {SETTINGS} does not run {HOOK} on {MATCHER}")
-            return
+            problems.append(f"stale: {where} in {SETTINGS} does not run {path}" + (f" with a {timeout} s timeout" if timeout else ""))
+            continue
         if len(entry.get("hooks") or []) == 1:
-            entry["matcher"] = MATCHER
             hook.update(our_hook)
+            if not timeout:
+                hook.pop("timeout", None)
         else:
-            # Other hooks share this entry; leave their matcher alone and give ours its own.
+            # Other hooks share this entry; leave them alone and give ours its own.
             entry["hooks"].remove(hook)
-            entries.append({"matcher": MATCHER, "hooks": [our_hook]})
-        changes.append(f"updated the skill-gate hook in {SETTINGS}")
-
+            entries.append(new_entry)
+        changes.append(f"updated {where} in {SETTINGS}")
+        changed = True
+    if os.path.expanduser(str(settings.get("autoMemoryDirectory", ""))) != os.path.expanduser(MEMORY_DIR):
+        if check:
+            problems.append(f"missing: autoMemoryDirectory in {SETTINGS} (want {MEMORY_DIR})")
+        else:
+            settings["autoMemoryDirectory"] = MEMORY_DIR
+            changes.append(f"set autoMemoryDirectory in {SETTINGS} to {MEMORY_DIR}")
+            changed = True
+    if check or not changed:
+        return
     settings_file.parent.mkdir(parents=True, exist_ok=True)
     scratch = settings_file.with_suffix(".json.tmp")
     scratch.write_text(json.dumps(settings, indent=2) + "\n", encoding="utf-8")
     if settings_file.exists():
         os.chmod(scratch, settings_file.stat().st_mode & 0o777)
     scratch.replace(settings_file)
+
+
+def write_hook_settings() -> None:
+    """Ask for the production query guard's three lists once, at a terminal. An existing file is never touched."""
+    if HOOK_SETTINGS.exists():
+        return
+    if check:
+        problems.append(f"missing: {HOOK_SETTINGS} (without it the guard's login and refused-command checks are off)")
+    elif sys.stdin.isatty():
+        answers = {key: [w.strip() for w in input(f"{question}: ").split(",") if w.strip()] for key, question in HOOK_SETTINGS_QUESTIONS}
+        HOOK_SETTINGS.write_text(json.dumps(answers, indent=2) + "\n", encoding="utf-8")
+        changes.append(f"wrote {HOOK_SETTINGS}")
+    else:
+        print(f"note: {HOOK_SETTINGS} is missing, so the production query guard's login and refused-command checks are off. "
+              "Run scripts/setup at a terminal to write it.", file=sys.stderr)
 
 
 def usable_dir(path: Path) -> bool:
@@ -156,8 +208,9 @@ def usable_dir(path: Path) -> bool:
 
 
 def main() -> int:
-    if not HOOK.is_file():
-        problems.append(f"missing: {HOOK}; setup must run from a full clone of the library")
+    absent = [str(ROOT / "scripts" / script) for _, _, script, _ in HOOKS if not (ROOT / "scripts" / script).is_file()]
+    if absent:
+        problems.extend(f"missing: {path}; setup must run from a full clone of the library" for path in absent)
         print("\n".join(problems))
         return 1
     skills_dir = CLAUDE / "skills"
@@ -180,7 +233,8 @@ def main() -> int:
     if usable_dir(rules_dir):
         for target in RULES:
             link_rule(target, rules_dir / target.name)
-    install_hook()
+    install_hooks()
+    write_hook_settings()
 
     if check:
         print("\n".join(problems) or "setup is in place")
