@@ -45,6 +45,7 @@ SETTINGS_FILE = Path.home() / ".claude" / "hook-settings.json"
 MAX_FILE_BYTES = 1_000_000
 
 PSQL = {"psql", "pgcli"}
+ASKING_ONLY = {"--version", "-V", "--help", "-?"}
 PYTHON = re.compile(r"python[\d.]*")
 SHELLS = {"bash", "sh", "zsh"}
 WRAPPERS = {"env", "time", "nohup", "command", "exec", "sudo"}
@@ -59,7 +60,7 @@ _UNIT_MS = {"us": 0.001, "ms": 1, "s": 1000, "min": 60_000, "h": 3_600_000, "d":
 # and 'statement_timeout': '30000' in asyncpg's server_settings. A bare number is milliseconds.
 _TIMEOUT = re.compile(r"statement_timeout['\"]?\s*(?:=|:|,|\bTO\b)\s*['\"]?\s*(\d+(?:\.\d+)?)\s*(us|ms|s|min|h|d)?\b", re.I)
 _LOGINS = (
-    re.compile(r"\buser\s*=\s*['\"]?([\w.-]+)", re.I),                  # conninfo, Python user="x"
+    re.compile(r"\buser\s*=\s*['\"]?([\w.-]+)(?![\w.\[(])", re.I),     # conninfo, Python user="x"; not user=os.environ["X"]
     re.compile(r"postgres(?:ql)?://([^:@/\s]+)(?::[^@/\s]*)?@"),         # URL
     re.compile(r"(?:^|\s)-U\s*['\"]?([\w.-]+)"),                         # psql -U x
     re.compile(r"--username[=\s]\s*['\"]?([\w.-]+)"),                    # --username x
@@ -190,6 +191,8 @@ def check_segment(segment: str, cwd: Path, settings: dict, follow: bool = True) 
         for inner in segments(args[args.index("-c") + 1]):
             if reason := check_segment(inner, cwd, settings, follow):
                 return reason
+    if base in PSQL and any(a in ASKING_ONLY for a in args):
+        return None  # psql --version and psql --help connect to nothing
     texts, runs_sql, is_python = [segment], base in PSQL, bool(PYTHON.fullmatch(base))
     for path in executed_files(prog, args, cwd) if follow else []:
         text = read(path)
@@ -217,8 +220,22 @@ def check_segment(segment: str, cwd: Path, settings: dict, follow: bool = True) 
     if prod and allowed:
         used = logins(text)
         if not used or used - allowed:
-            who = ", ".join(sorted(used - allowed)) or "no login named"
-            return f"production query on {who}; use a login in readonly_logins ({SETTINGS_FILE})."
+            if not used:
+                return ("production query with no literal login in the command or script, so it cannot be checked "
+                        f"(a login read from a variable counts); name one from readonly_logins ({SETTINGS_FILE}).")
+            return f"production query on {', '.join(sorted(used - allowed))}; use a login in readonly_logins ({SETTINGS_FILE})."
+    return None
+
+
+def uv_directory(words: list[str]) -> str | None:
+    """The folder `uv run --directory X` runs in, or None."""
+    if words[:2] != ["uv", "run"]:
+        return None
+    for i, word in enumerate(words[2:], start=2):
+        if word == "--directory" and i + 1 < len(words):
+            return words[i + 1]
+        if word.startswith("--directory="):
+            return word.split("=", 1)[1]
     return None
 
 
@@ -226,7 +243,14 @@ def decide(command: str, cwd: Path, settings: dict) -> str | None:
     if any(entry in command for entry in settings.get("refused_commands", [])):
         return f"this command is listed in refused_commands in {SETTINGS_FILE}. The user runs it, not the agent."
     for segment in segments(command):
-        if reason := check_segment(segment, cwd, settings):
+        words = tokens(segment)
+        # An agent's Bash call is usually "cd <dir> && <command>": the files a command runs are
+        # found from the folder it runs in, so a cd moves cwd for the segments after it.
+        if words[:1] == ["cd"] and len(words) > 1 and words[1] != "-":
+            cwd = cwd / os.path.expanduser(words[1])
+            continue
+        here = cwd / os.path.expanduser(uv_directory(words) or "")
+        if reason := check_segment(segment, here, settings):
             return reason
     return None
 
@@ -235,7 +259,8 @@ def load_settings(session: str) -> dict:
     try:
         return json.loads(SETTINGS_FILE.read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        warned = Path(tempfile.gettempdir()) / f"prod-query-guard-warned-{re.sub(r'[^\w-]', '_', session)}"
+        safe_session = re.sub(r"[^\w-]", "_", session)
+        warned = Path(tempfile.gettempdir()) / f"prod-query-guard-warned-{safe_session}"
         if not warned.exists():
             warned.touch()
             print(f"prod-query-guard: {SETTINGS_FILE} is missing or not valid JSON, so the login and "
