@@ -31,7 +31,7 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 | 5 | more than one agent works in the repo | One source for every rule, read the same way by every agent (section 3). |
 | 6 | the repo holds text a model runs (workflow or system prompts, skills, tool descriptions) | A router row that sends anyone changing those files to a copy of `references/agent-prompts.md`, and its checklist in the review rules. |
 
-The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions).
+The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions), `references/engineering-principles.md` (how to design, build and review a change), `references/respect-human-attention.md` (what a reader's time is worth), `references/testing.md` (how to test, and what counts as evidence), `references/verification.md` (the six rules for generated answers), `references/visuals.md` (charts, diagrams and the visuals checklist).
 
 ## 3. One source, read the same way by every agent
 

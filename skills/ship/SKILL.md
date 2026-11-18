@@ -28,7 +28,7 @@ One command runs the whole pipeline. You (the author) write each stage, and a se
 
 Apply `references/handoff-protocol.md`. The stage skills do the work: `write-spec`, `write-plan`, `implement-plan` for you, `review-plan` (spec and plan) and `review-pr` for the reviewer.
 
-The references this skill names rely on these, so read them in full too: `references/shipping.md` (deploying and checking a change live), `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions).
+The references this skill names rely on these, so read them in full too: `references/shipping.md` (deploying and checking a change live), `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions), `references/engineering-principles.md` (how to design, build and review a change), `references/testing.md` (how to test, and what counts as evidence), `references/verification.md` (the six rules for generated answers), `references/visuals.md` (charts, diagrams and the visuals checklist).
 
 ## Models
 
