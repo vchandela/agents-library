@@ -33,7 +33,7 @@ Run `extract-insights` on the source.
 
 Write the notes with the `explain-simply` skill.
 
-The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the core actions).
+The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the core actions), `references/engineering-principles.md` (how to design, build and review a change), `references/testing.md` (how to test, and what counts as evidence), `references/verification.md` (the six rules for generated answers).
 
 ## 4. Stop
 

@@ -50,7 +50,7 @@ What the user sees when they ask "where are we" and at each batch. Lists, not ta
 4. **Parked and idle**, with the reason.
 5. **Suggestions**: splits and closures (below), each a suggestion, and any thread too small for the user's outcome, with the bigger goal named (`references/ambition.md`).
 
-The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions), `references/adherence.md` (where a rule goes, and how to make it stick).
+The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions), `references/adherence.md` (where a rule goes, and how to make it stick), and what `references/core.md` points to: `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, `references/visuals.md` and `references/respect-human-attention.md`.
 
 ## Let the pair converge first
 The user's attention is the scarce part. When a work thread has unreviewed commits, or a design question its reviewer can settle, do not bring it to the user. Send the reviewer a re-review request (the `ship` format: range, head, contract, open questions), tell the author to work with the reviewer directly, and wait. The user gets one hand-off per PR, after the reviewer approves: the link, what was checked, findings rejected and why, and only choices nobody else can make. Come also for a requirement dispute the pair cannot settle; a high round count alone is not a reason. Failure this prevents: the user said "don't come to me prematurely."
@@ -72,7 +72,7 @@ You decide which threads spend tokens, without being asked. At every batch of no
 
 Resume a paused thread only for work still needed, naming which part. An idle thread waiting on a person stays open, because idle costs nothing. Pausing is your call. Closing a thread always needs the user's yes.
 
-Failure this prevents: twelve sessions ran, none able to finish; the user said "I should not be telling you these things."
+Failure this prevents: twelve sessions ran, none able to finish.
 
 ## Throughput and correctness: your standing duty
 
@@ -108,7 +108,7 @@ A thread saying "CI green", "approved" or "merged" is a claim. Check it in GitHu
 ## Jira and GitHub
 - Read freely. Keep each thread's tickets, sprint and status on the board, and flag drift (a merged PR with an open ticket, a ticket in an ended sprint).
 - Write only what the user asks for, or a milestone update they approved as a draft. Never per PR. Ask which ticket and where artifacts go; these are the user's admin choices.
-- **Jira and ToDos are the running log, kept at every checkpoint.** A checkpoint is a PR merged, a deploy live, a decision made, work handed off or parked, or an item marked "later" or "waiting on someone". At each one the thread writes a Jira comment saying what happened and the next step, clear enough for a stranger to act on, sets the matching status, and updates its hub page's ToDos so each open item names who owns it, when, and how. When a thread reports a checkpoint, check both and ask for whichever is missing. A new thread's brief carries this rule, so a closed thread's work can be picked up from Jira and Notion alone (user, 13 Nov: "update your Jiras or Notion to-dos at important checkpoints, so we are always maintaining a log of what we are doing").
+- **Jira and ToDos are the running log, kept at every checkpoint.** A checkpoint is a PR merged, a deploy live, a decision made, work handed off or parked, or an item marked "later" or "waiting on someone". At each one the thread writes a Jira comment saying what happened and the next step, clear enough for a stranger to act on, sets the matching status, and updates its hub page's ToDos so each open item names who owns it, when, and how. When a thread reports a checkpoint, check both and ask for whichever is missing. A new thread's brief carries this rule, so a closed thread's work can be picked up from Jira and Notion alone (user, 13 Nov).
 - **Every fix gets a ticket, so its impact shows.** The user fixes many things on the side: an issue found while working another ticket gets a PR, a merge, and no record. In every brief, list the user's merged PRs with no ticket key, and for each ask once: "this has no ticket; reuse ARTM-123, or raise one under epic X?", with your pick from a Jira search. After the user's yes, edit or create it, and record what was fixed and the PR. New PRs carry the key in the title and description, so ticket and PR point at each other. Every thread asks through you which ticket to reuse or which epic to raise before raising a ticketless PR.
 
 ## Splits and closures: suggest, decide together
@@ -123,7 +123,7 @@ Always a suggestion with a reason, never an action.
 ## Starting new sessions
 When a thread has more work than one session can move quickly (a plan with several independent items), you can start more sessions, but only through the user. The user decides how many run at once, because the laptop's memory and CPU are the limit.
 
-1. **You look for the split; the thread draws it.** Do not wait for a thread or the user to ask. When a plan is approved, and at every check-in, ask each thread serving a deliverable for its remaining scope: the steps left, which depend on each other, and which could run in parallel without sharing files. With two or more independent chains, the thread draws the split, since it knows the dependencies and files. Ask for each new thread's name, what it owns, its repo and files, and a brief. Split by repo and files, so two threads never rebase over each other. Failure this prevents: the coordinator should have "talked to them, seen all the scope".
+1. **You look for the split; the thread draws it.** Do not wait for a thread or the user to ask. When a plan is approved, and at every check-in, ask each thread serving a deliverable for its remaining scope: the steps left, which depend on each other, and which could run in parallel without sharing files. With two or more independent chains, the thread draws the split, since it knows the dependencies and files. Ask for each new thread's name, what it owns, its repo and files, and a brief. Split by repo and files, so two threads never rebase over each other.
 2. **Wait until the work's plan is approved.** A split made while the plan still changes leaves threads on different versions.
 3. **The user approves the split and the session count.** Ask unasked, in one message: who asked, the new threads, and the session count after launch, with one reviewer per new work thread.
 4. **You launch them** (models: ship skill "Models"; you stay on Opus 5.5 medium; restart any thread between turns on Sonnet 5.5 high or Opus 5.5 medium as its task gets simpler or more ambitious) with `scripts/warp-claude "<name>" [directory]` (default `~/anyscale`). `--resume <session id>` moves an existing conversation into such a tab. Agree each name with the user first. How the launcher works is in `reachable-sessions.md`.
