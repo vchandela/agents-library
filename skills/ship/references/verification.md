@@ -41,7 +41,7 @@ Agents write every row at `confidence=low`. The blind pass and the strict checks
 
 The writer's script and an independent checker written by the reviewer are two implementations. A writer's "0 failures" is never accepted alone. Every gate is proven by a planted defect. A planted defect is a deliberate fault in a test input, and the gate must catch it. A gate nobody has seen red is not known to work.
 
-**Measured:** the reviewer's strict substring check found a paraphrase inside quotation marks (`coswp_manual`). It also found two quotes that failed only on list-bullet glyphs, rows 001 and 070. The writer's sweep passed all three. The strict check found 98 of 100 quotes contiguous (review gp-mocks, PR #127, 10 November 2026).
+**Measured:** the reviewer's strict substring check found a paraphrase inside quotation marks (`coswp_manual`). It also found two quotes that failed only on list-bullet glyphs, rows 001 and 070. The writer's sweep passed all three. The strict check found 98 of 100 quotes contiguous (a review on 10 November 2026).
 
 ## Normalise without changing meaning
 

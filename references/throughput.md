@@ -1,6 +1,6 @@
 # Throughput and correctness
 
-The user holds the chief of staff responsible, always, for how much correct work reaches production, and for its impact (Vivek, 10 November 2026: "it is your duty to make sure that my throughput is always high while maintaining the correctness of my work"). The failure it prevents: three pull requests queued behind each other because each bumped the same version lines; a merge-tree check found all three conflict in CHANGELOG.md, pyproject.toml and uv.lock (session b10ddf4e, 10 Nov 2026).
+The user holds the chief of staff responsible, always, for how much correct work reaches production, and for its impact (the user, 10 November 2026: "it is your duty to make sure that my throughput is always high while maintaining the correctness of my work"). The failure it prevents: three pull requests queued behind each other because each bumped the same version lines; a merge-tree check found all three conflict in CHANGELOG.md, pyproject.toml and uv.lock (session b10ddf4e, 10 Nov 2026).
 
 ## The loop
 

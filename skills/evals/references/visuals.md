@@ -112,7 +112,7 @@ This is not a "minimum viable diagram" rule. A tiny diagram that still requires 
 | 26 | Flowchart | steps and decisions in a process | several actors talking over time (use a sequence) |
 | 27 | Sequence diagram | who calls whom, in what order | the question is structure, not order |
 | 28 | Swimlane | who does which step across a hand-off | one owner |
-| 29 | Boundary or zone diagram | who can reach what across a trust line (inside Anyscale vs the customer) | there is no boundary |
+| 29 | Boundary or zone diagram | who can reach what across a trust line (inside the vendor vs the customer) | there is no boundary |
 | 30 | Architecture or component map | what the parts are and how they connect | a reader new to the system before the steps (`explain-simply`) |
 | 31 | Data-flow diagram | where data is written, copied and read | there is no data movement |
 | 32 | State machine | the states one thing passes through, and what moves it | fewer than 3 states |
