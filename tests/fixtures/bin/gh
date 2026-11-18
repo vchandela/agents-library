@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+"""A stand-in for `gh` in the hand-off gate tests: print a recorded GraphQL answer.
+
+GH_ANSWER is the file to print, GH_CALLS a file that gets one line per call, GH_SLEEP seconds
+to wait first, and GH_FAIL makes the call fail the way `gh` does without a login.
+"""
+import os
+import sys
+import time
+
+with open(os.environ["GH_CALLS"], "a") as calls:
+    calls.write(" ".join(sys.argv[1:3]) + "\n")
+time.sleep(float(os.environ.get("GH_SLEEP", "0")))
+if os.environ.get("GH_FAIL"):
+    print("gh: HTTP 401: Bad credentials", file=sys.stderr)
+    sys.exit(1)
+sys.stdout.write(open(os.environ["GH_ANSWER"]).read())
