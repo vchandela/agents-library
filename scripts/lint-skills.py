@@ -25,6 +25,8 @@ from refgraph import ROOT, links
 NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 HIDDEN = re.compile("[​-‏‪-‮⁠-⁤﻿]")
 MAX_WORDS = 3500
+# "Keep each SKILL.md under 20,000 characters" (references/adherence.md:35): after a compaction Claude Code keeps only the start of each skill.
+MAX_CHARS = 20000
 
 errors = []
 
@@ -61,6 +63,8 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
         fail(skill, "description must not contain anything shaped like an XML tag, such as <name> (Agent Skills spec)")
     if len(parts[2].split()) > MAX_WORDS:
         fail(skill, f"body is {len(parts[2].split())} words; keep it under {MAX_WORDS}")
+    if len(text) >= MAX_CHARS:
+        fail(skill, f"{len(text)} characters; keep it under {MAX_CHARS}, or a compaction cuts the end")
     if re.search(r"(?<!\\)\$(ARGUMENTS|[0-9]|\{CLAUDE_)", parts[2]):
         fail(skill, "$ARGUMENTS, $N or ${CLAUDE_...} in the body is replaced when the skill is invoked with arguments; escape it")
     for ref in sorted(set(re.findall(r"references/([\w./-]+\.md)", text))):
