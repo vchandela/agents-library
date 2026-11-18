@@ -1,0 +1,8 @@
+{"type": "user", "message": {"role": "user", "content": "start a flow"}}
+{"type": "assistant", "message": {"role": "assistant", "content": [{"type": "text", "text": "I will launch the skills."}, {"type": "tool_use", "id": "toolu_01", "name": "Skill", "input": {"skill": "ship", "args": "/ship 123 a task"}}]}}
+{"type": "assistant", "message": {"role": "assistant", "content": [{"type": "tool_use", "id": "toolu_02", "name": "Bash", "input": {"command": "ls"}}]}}
+{"type": "assistant", "message": {"role": "assistant", "content": [{"type": "tool_use", "id": "toolu_03", "name": "Agent", "input": {"description": "look it up", "skill": "decoy-not-a-skill-call"}}]}}
+{"type": "user", "message": {"role": "user", "content": [{"type": "tool_result", "content": "Skill ship is loaded"}]}}
+{"type": "assistant", "message": {"role": "assistant", "content": [{"type": "tool_use", "id": "toolu_01", "name": "Skill", "input": {"skill": "explain-simply"}}]}}
+{"type": "assistant", "message": {"role": "assistant", "content": [{"type": "tool_use", "id": "toolu_01", "name": "Skill", "input": {"skill": "ship"}}]}}
+not json at all
