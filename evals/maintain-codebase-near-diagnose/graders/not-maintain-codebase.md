@@ -3,6 +3,7 @@ type: tool_used
 tool: Skill
 input_match: '"skill"\s*:\s*"(?:[\w-]+:)?maintain-codebase"'
 max: 0
+min: 0
 arm: both
 ---
 

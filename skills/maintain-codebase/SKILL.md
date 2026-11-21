@@ -1,6 +1,6 @@
 ---
 name: maintain-codebase
-description: "Use when the work is the repository's recurring health rather than a feature: a red CI run to triage, a suite with flaky tests, dead or unused code, stale feature flags or experiments, CI cost, a slow suite, a dependency or migration chore. Not for finding the cause of one failure; that is diagnose-bug. Not for reviewing a diff; that is review-pr. Not for a planned feature; that is implement-plan."
+description: "Use when the work is a maintenance batch for the repository's health rather than a feature: a red CI run that needs triage, flaky tests across the suite, dead or unused code, a flag or experiment platform full of stale entries, CI cost or a slow suite, a dependency or migration chore. Not for finding the cause of one failure; that is diagnose-bug. Not for reviewing a diff; that is review-pr. Not for a planned feature; that is implement-plan."
 ---
 
 # Maintain a codebase
