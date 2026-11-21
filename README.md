@@ -69,6 +69,7 @@ Cowork on the desktop skips symlinked rules, so there use a copy and refresh it 
 | `evals` | Is an agent, prompt, judge or skill good, and did a change help? Real data first, an honest answer key, a checked judge, two arms |
 | `review-security` | Proves a trust boundary failure from source, or says what it could not see |
 | `review-product-page` | Will a stranger get it, believe it and act? Positioning first, then the page in impact order |
+| `merge-risk` | Grades a PR before merge: alignment, impact, verification, rollback cost, error detection |
 
 **Maintaining.**
 
