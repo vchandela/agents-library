@@ -27,6 +27,8 @@ Look at the screen and write down what is wrong before running any detector, lin
 
 Inspect every width and theme in one round, fix in one batch, confirm in one more round; a defect in the confirming round came from the fix batch.
 
+An audit finding that contradicts a recorded design decision is the audit's error until the record changes. Cite the record line before restyling: an audit sees a screen, and the record is why the screen is the way it is.
+
 ## Evidence
 
 - A link checker's 403, 404 or certificate error is fetched again from a real browser before it is reported. Bot walls and a missing local certificate store produced 41 false dead links in one pass; three survived the second check.
@@ -52,6 +54,9 @@ Inspect every width and theme in one round, fix in one batch, confirm in one mor
 - Sticky and full-height layouts: a sticky header sets `scroll-padding-block-start` to its height, so in-page links and the focused control land below it. Use `overflow: clip` where nothing scrolls, because `overflow: hidden` silently breaks `position: sticky` inside it. Full-height sections use `svh` or `dvh`, never `vh`. Fixed bars pad by `env(safe-area-inset-*, 0px)` on phones.
 - Menus, tooltips and popovers opened at the bottom and right edges of the viewport are never cut by an `overflow` ancestor. Prefer `<details>`, `<dialog>` with `showModal()` and the `popover` attribute to scripted ones, unless the reason for a library is written down.
 - Keyboard and screen-reader order match the visual order.
+- The same heading hierarchy, rhythm and side gutter at every width: a phone is not a shrunken laptop. Compare headings and nav side by side at 390 and 1280, and treat a heading that loses its weight or rhythm on one width as a finding.
+- A coloured band can run full width on a phone; the text inside it keeps the page gutter.
+- A set of repeated badges, chips or pills takes one computed size for the whole set, taken from the tallest real content, with a test that reads it. Sizing each one from its own text makes the row ragged.
 
 ## Typography
 
@@ -87,6 +92,9 @@ Every screen and control answers each of these, or says why it cannot happen: de
 - One word per concept across the product.
 - Write out each abbreviation at its first use on every page, from one list of names, rendered rather than hand-typed, and never inside a heading or a quote.
 - Ask before changing factual copy or adding a claim.
+- A label that introduces the items under it ends with a colon.
+- A copy sweep cuts filler: if a clause adds no fact and no instruction, it goes. Read every changed screen aloud.
+- The sweep covers our own words. Quoted or third-party text (a guide's body, a testimonial) is out of scope and stays untouched; say so in the report.
 
 ## Input
 
@@ -113,18 +121,9 @@ Very long and very short text, emoji and right-to-left text, numbers in the mill
 
 ## Performance budgets (web)
 
-Measured, never estimated from code. Label each number lab or field.
-
-| Metric | Good | Poor |
-|---|---|---|
-| LCP | 2.5s or less | over 4.0s |
-| INP | 200ms or less | over 500ms |
-| CLS | 0.1 or less | over 0.25 |
-| TTFB | under 800ms | |
+The metrics, their ranges, the measuring method and how to read a reading are in [performance-frontend](performance-frontend.md). A screen is judged against those budgets before it ships.
 
 The LCP image is not lazy-loaded. Every image declares width and height, with `height: auto` in the CSS so it keeps its ratio when narrowed.
-
-Measure on a throttled phone (390px, slow 4G, 4x CPU), not a laptop. Lighthouse in the lab ranks Apple, Stripe, Linear and Vercel's own homepages at 29 to 45 for performance (October 2026): a famous site is not a performance reference, so compare against the budget, not against them.
 
 ## Loading (what the fastest sites do, and what each saved when measured)
 

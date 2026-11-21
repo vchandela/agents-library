@@ -7,7 +7,7 @@ description: Use when something is broken, throwing, failing, flaky or slow and 
 
 A loop first, a theory second, a fix last. A fix for a symptom is a guess that happened to pass.
 
-Apply `references/testing.md`, `references/engineering-principles.md`, `references/judgement.md`, `references/ambition.md` and `references/untrusted-input.md`. Write the report with the `explain-simply` skill.
+Apply `references/testing.md`, `references/engineering-principles.md`, `references/judgement.md`, `references/ambition.md` and `references/untrusted-input.md`. When the bug is slow, start from `references/performance-backend.md` for the server and `references/performance-frontend.md` for the page. Write the report with the `explain-simply` skill.
 
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the core actions), `references/verification.md` (the six rules for generated answers).
 

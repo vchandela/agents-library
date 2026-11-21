@@ -14,7 +14,7 @@ this file is the order, the rules that hold for all five, and the report.
 - `references/performance.md` - single-call latency, cold starts, payloads, N+1 page loads.
 - `references/accessibility.md` - keyboard, screen reader, contrast, zoom, motion, both registers.
 - `references/reporting.md` - the fixed finding shape, severity, evidence, the verdict.
-- `references/ui-quality.md` - what a good screen is. `references/shipping.md` - the ship decision.
+- `references/ui-quality.md` - what a good screen is, and `references/performance-frontend.md` the speed budgets it is checked against. `references/shipping.md` - the ship decision.
 
 ## Before clicking anything
 
