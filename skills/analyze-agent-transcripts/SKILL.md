@@ -55,7 +55,7 @@ Never substitute the session's own closing summary (a compaction summary, a fina
 
 ## 3. The human writes the first notes
 
-The human writes the notes; the agent organises them. Read a transcript (or let the agent surface candidate moments) and write one line per moment that felt wrong, in your own words: a wrong assumption, a step repeated for no reason, a tool call that shouldn't have happened, a question that should have been asked, output you had to push back on. Your read of "that was wrong" is the ground truth, not a match on words like "error" or "sorry".
+The human writes the notes; the agent organises them. Read a transcript (or let the agent surface candidate moments) and write one line per moment that felt wrong, in your own words: a wrong assumption, a step repeated for no reason, a tool call that shouldn't have happened, a question that should have been asked, output you had to push back on. Your read of "that was wrong" is the ground truth, not a match on words like "error" or "sorry". Tag the line when you can tell which it is: **context lost** (a rule or fact was in the session and dropped, for example by compaction), **context missing** (the session never had it), **context ignored** (it had it and did not apply it), or **not context** (a code, tool or one-off failure). The tag decides the fix: a loss is fixed by what the session carries, an ignored rule by its wording.
 
 When readers work in batches, they return candidate moments, saved as candidates, never as the human's notes. The human adds their one-line reads when they review the candidates. A session counts as read in the ledger once its candidates are saved.
 
@@ -76,13 +76,13 @@ One section per failure mode:
 - The mode, named in plain words, not a category label borrowed from a bug tracker.
 - Its count across the batch (for example "4 of 12 sessions").
 - One to three concrete examples: which session, roughly where in it, and a short verbatim quote or close paraphrase.
-- A one-line guess at what kind of thing it is (a prompt or skill wording issue, a missing check, a one-off), without turning it into a recommendation.
+- A one-line guess at what kind of thing it is, using the section 3 tag where it fits (context lost, context missing, context ignored, not context), without turning it into a recommendation.
 
 Redact anything that looks like a secret, token, password, API key or personal data pulled from a tool result before it goes in the report.
 
 ### Did the last changes work?
 
-For each rule that landed since the last run (the CHANGELOG entries, with their dates), compare its failure mode's share of the candidates before and after that date, and say whether it moved. A share of candidates is not a rate per hour of work, so say that too. Example: an "evidence before every claim" rule went into CLAUDE.md on 16 Oct, and unchecked claims stayed at 31% of candidates before and 30% after, which suggested the rule needed a different form.
+For each rule that landed since the last run (the CHANGELOG entries, with their dates), compare its failure mode's share of the candidates before and after that date, and say whether it moved. A share of candidates is not a rate per hour of work, so say that too. Example: an "evidence before every claim" rule went into CLAUDE.md on 16 Oct, and unchecked claims stayed at 31% of candidates before and 30% after, which suggested the rule needed a different form. The stricter test of one instruction is a replay: take the session prompt it misdirected, run it twice from the same repository snapshot and model, once with the instruction unchanged and once with only that instruction removed or fixed, and compare task quality, tool calls, tokens, runtime and cost. Keep the change only if it helped. The replay is an `evals` case; this skill names the candidate and the evidence, it does not build the arm.
 
 Close with what the report does not cover: sessions you didn't get to, anything unreadable, anything the human didn't have time to note.
 

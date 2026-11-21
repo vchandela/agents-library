@@ -40,6 +40,7 @@ Stages: `spec`, `plan`, `pr`, `merged`, `blocked`, `idle`, `parked`. A thread th
 4. Send each work thread and reviewer one status request in a fixed shape: goal, stage with links and flow file, review pair and last verdict, waiting on whom, numbered decisions with a recommendation, Jira tickets, next step. Ask for one line when a stage changes, a thread blocks, or it needs the user.
 5. Cross-check every answer read only: the flow file, the PR and its CI, the Jira ticket's status and sprint. Where a claim and the source disagree, the source wins and the board says so.
 6. Give the user one board (below).
+This skill also names `references/engineering-principles.md`, `references/respect-human-attention.md`, `references/testing.md`, `references/verification.md`, `references/visuals.md`, so every reference it needs is one level from this file.
 
 ## The board
 What the user sees when they ask "where are we" and at each batch. Lists, not tables. Order by what needs the user first.

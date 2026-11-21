@@ -34,6 +34,7 @@ Copy cannot be judged against nothing. Read the product's positioning doc if one
 Judge the copy by the voice rules of the `explain-simply` skill. Clarity beats cleverness; benefits beat features; one idea per section.
 
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the core actions).
+This skill also names `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, so every reference it needs is one level from this file.
 
 **The perception gap.** Read each key line as each audience. "Move fast" is momentum to one reader and risk to another; the user and the person paying hear different things. Frame for the one who decides.
 

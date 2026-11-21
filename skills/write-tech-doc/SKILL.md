@@ -22,6 +22,7 @@ Assume a reader with no patience and real expertise.
 - **Then the solution**, concise: when it has a handful of parts, one picture of four to seven big boxes, each box a section that goes deeper layer by layer, with one real example running through every section (`references/visuals.md`, "Steps first, or the map first"). A single decision or a comparison needs another shape.
 - Suggest phases where the work splits into phases.
 - Sections worth having: overview, design decisions, diagrams, tradeoffs, and what is knowingly left undone.
+This skill also names `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, so every reference it needs is one level from this file.
 
 The references this skill names rely on these, so read them in full too: `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the core actions).
 

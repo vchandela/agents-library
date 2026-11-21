@@ -10,6 +10,7 @@ One commit does one thing. A reviewer should be able to read each one on its own
 ## How to split
 
 Before rewriting, save a backup branch. Split only commits that are not pushed yet; for pushed work, add new commits. Never a plain `--force` push. The only force push allowed is `--force-with-lease` for a rebuilt stack (`references/stacked-prs.md`).
+This skill also names `references/engineering-principles.md`, `references/visuals.md`, so every reference it needs is one level from this file.
 
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/stack-merge-check.sh` (run it before merging a stack), `references/core.md` (the core actions), `references/verification.md` (the six rules for generated answers).
 

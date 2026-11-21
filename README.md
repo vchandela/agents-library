@@ -70,6 +70,12 @@ Cowork on the desktop skips symlinked rules, so there use a copy and refresh it 
 | `review-security` | Proves a trust boundary failure from source, or says what it could not see |
 | `review-product-page` | Will a stranger get it, believe it and act? Positioning first, then the page in impact order |
 
+**Maintaining.**
+
+| Skill | Does |
+|---|---|
+| `maintain-codebase` | The repo's recurring health: red CI, flaky tests, dead code, stale flags and experiments, CI cost, dependencies |
+
 **Writing.**
 
 | Skill | Does |

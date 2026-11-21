@@ -98,6 +98,8 @@ Each brief carries an objective, an output format, the tools and sources to use,
 
 Every line in a prompt and every step in a harness encodes an assumption about what the model cannot do alone, and an upgrade can make it dead weight. After each model change, run the prompt with and without each major block on every model that runs it, and delete what no longer moves the result. Context resets were needed on earlier models, and Anthropic found they "had become dead weight" on Opus 4.5. Ship prompt changes gradually, because runs already in flight read the old text.
 
+To test one instruction, take the session prompt it misdirected and run it twice from the same repository snapshot and model, once with the instruction and once with only it removed or fixed; compare task quality, tool calls, tokens, runtime and cost, and keep it only if it helped. An instruction earns its place by moving a real run, not by reading well.
+
 ## Checklist for one prompt
 
 Copy it and tick it for each prompt you write or review. A yes is good.
@@ -116,8 +118,9 @@ Copy it and tick it for each prompt you write or review. A yes is good.
 
 ## Sources
 
-Read in full on 24 Oct 2026. The rule-by-rule ledger, with what was taken, covered or refused, is `docs/ledgers/anthropic-prompting.md` in this repo.
+Read in full on 24 Oct 2026; the maintenance blog below was read on 21 Nov 2026. The rule-by-rule ledger, with what was taken, covered or refused, is `docs/ledgers/anthropic-prompting.md` in this repo, and the maintenance source is in `docs/ledgers/openai-maintenance.md`.
 
 - Anthropic: [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents), [Writing tools for agents](https://www.anthropic.com/engineering/writing-tools-for-agents), [Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills), [Multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system), [Demystifying evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents), [Harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents), [Harness design for long-running apps](https://www.anthropic.com/engineering/harness-design-long-running-apps), [Managed agents](https://www.anthropic.com/engineering/managed-agents)
 - Anthropic docs: [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices), [Prompting Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5), [Prompting Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5), [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices), [Claude Code best practices](https://code.claude.com/docs/en/best-practices)
 - OpenAI: [Prompt guidance for gpt-5.5 and 5.6](https://developers.openai.com/api/docs/guides/prompt-guidance)
+- OpenAI: [Maintaining software with the GPT-6 family](https://developers.openai.com/blog/maintaining-software-with-the-gpt-6-family) (read 21 Nov 2026; the rules taken from it are in `docs/ledgers/openai-maintenance.md`)

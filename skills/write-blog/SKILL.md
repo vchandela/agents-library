@@ -8,6 +8,7 @@ description: Use when turning a system you built into a published engineering po
 Clear, practical, no fluff. Readers range from junior to staff: the mechanics teach the juniors, the generalisable lessons teach the seniors.
 
 Write with the `explain-simply` skill, and apply `references/judgement.md` and `references/ambition.md`. Before sending the draft, have a reader who was not in the work, and who is hunting for the weakest claim, read it, and fix what they find. Your own re-read does not count.
+This skill also names `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, so every reference it needs is one level from this file.
 
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the core actions).
 

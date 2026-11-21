@@ -30,6 +30,7 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 | 4 | no test runner exists | Say so plainly, then substitute the closest real verification and map every rule to one. |
 | 5 | more than one agent works in the repo | One source for every rule, read the same way by every agent (section 3). |
 | 6 | the repo holds text a model runs (workflow or system prompts, skills, tool descriptions) | A router row that sends anyone changing those files to a copy of `references/agent-prompts.md`, and its checklist in the review rules. |
+This skill also names `references/engineering-principles.md`, `references/respect-human-attention.md`, `references/testing.md`, `references/verification.md`, `references/visuals.md`, so every reference it needs is one level from this file.
 
 The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions).
 
