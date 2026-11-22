@@ -100,7 +100,7 @@ Failure this prevents: a 30-section research page went to review; only the later
 
 Every picture follows `references/visuals.md`: the form for each question, the 50-form catalog with the chart tools, the diagram rules, and the checklist run before anything goes out. For a page, also apply `references/explainer-pages.md` (layout) and `references/preview.md` (render and look).
 
-**Lead with the artifact in a hand-off or a review.** Open with the artifact `references/handoff-protocol.md`, "The hand-off leads with its artifact", names for the change, and write the text as its caption.
+**Lead with the artifact in a hand-off or a review.** In a hand-off or review, open with the artifact for the change, then write the text as its caption. `references/handoff-protocol.md`, "The hand-off leads with its artifact", names the artifact for each change.
 
 **For code and systems, pick the smallest code-shaped view that makes the point** (HumanLayer's `show-me`). Use one or two of these, never all:
 
