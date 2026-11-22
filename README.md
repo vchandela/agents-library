@@ -37,11 +37,13 @@ Cowork on the desktop skips symlinked rules, so there use a copy and refresh it 
 
 ## What is in here
 
-**The pipeline.** Six skills, one workflow, run in order, and `ship` to drive them.
+**The pipeline.** Six skills, one workflow, run in order, and `ship` to drive them. Two skills feed it when the shape is still open: `prototype` when a build can settle the question, `architect` when the change spans call sites.
 
 | Skill | Does |
 |---|---|
 | `write-spec` | Interviews you, then writes the spec |
+| `prototype` | Two or three throwaway variants, driven in the real app, then a pick with reasons |
+| `architect` | Designs a change across call sites: grounded brief, independent candidates, a cross-judge, an implementation order |
 | `write-plan` | Turns a spec into an implementation plan |
 | `review-plan` | Tears the plan apart. Different agent. |
 | `implement-plan` | Executes an approved plan, stops when unsure |
@@ -64,6 +66,7 @@ Cowork on the desktop skips symlinked rules, so there use a copy and refresh it 
 | Skill | Does |
 |---|---|
 | `design-ui` | Designs a screen: the job, the tokens, a state grid, then a look in a real browser |
+| `verify-app` | The agent checks its own app change in the real browser: the project's generated feature map, its CLI, structural checks and a local-database guard |
 | `qa-live-site` | QA a deployed app: states first, then functional, adversarial, security, performance and accessibility families |
 | `diagnose-bug` | A loop that goes red first, then the cause, then the fix |
 | `evals` | Is an agent, prompt, judge or skill good, and did a change help? Real data first, an honest answer key, a checked judge, two arms |
