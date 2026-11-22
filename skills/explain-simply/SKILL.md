@@ -53,6 +53,10 @@ Find out what they already know and start there. If you cannot tell, ask one que
 - When they mention their background ("I ran Temporal on EC2"), use it: put their setup and this one side by side.
 - For devices that landed with real readers (a "who does what" table, one item walked end to end, a named scenario table, a job by its inputs), see `references/explaining.md`.
 
+## When the reader is learning
+
+Explanation is not the same as teaching. If the reader wants to learn the material rather than decide something, do not hand over the answer. Ask one question at a time, give a hint only when they are stuck, and make them explain it back. A reader given the solution feels they learned more and tests worse; a reader made to struggle feels worse and tests better. A skill the reader must have stays theirs to do; a skill they can check can be delegated.
+
 ## Ground every concept before you lean on it
 
 From Matt Pocock's `writing-shape` and `writing-beats` skills. Defining terms is not enough: a sentence can lean on an idea the reader lacks with no jargon in it at all.
