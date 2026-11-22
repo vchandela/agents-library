@@ -1,5 +1,5 @@
 ---
-max_turns: 4
+max_turns: 6
 tags: [trigger]
 ---
 
