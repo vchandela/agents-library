@@ -19,7 +19,7 @@ LEAD = re.compile(r"^(?:sudo\s+|command\s+|env\s+|nohup\s+|time\s+|[A-Za-z_][A-Z
 MERGE = re.compile(r"^gh\s+pr\s+merge(?:\s|$)", re.I)
 API = re.compile(r"^gh\s+api\b", re.I)
 MUTATING = re.compile(r"(?:-X|--method)(?:\s+|=)?(?:PUT|POST|PATCH)\b", re.I)
-MERGE_PATH = re.compile(r"/merge(?:-async)?(?:[/?#]|\s|$)", re.I)
+MERGE_PATH = re.compile(r"/merge(?:-async)?(?:[/?#\"']|\s|$)", re.I)
 HELP = re.compile(r"(?:^|\s)(?:--help|-h)(?:\s|$)")
 
 

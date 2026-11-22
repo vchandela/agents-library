@@ -36,6 +36,8 @@ ACTIVE = [
     ("gh api -X PUT repos/o/r/pulls/1/merge", 2),
     ("gh api -XPUT repos/o/r/pulls/1/merge", 2),
     ("gh api -X PUT repos/o/r/pulls/1/merge?foo=1", 2),
+    ("gh api -X PUT 'repos/o/r/pulls/1/merge'", 2),
+    ('gh api -X PUT "repos/o/r/pulls/1/merge"', 2),
     ("gh api repos/o/r/pulls/1/merge", 0),
 ]
 
