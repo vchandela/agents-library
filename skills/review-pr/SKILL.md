@@ -1,6 +1,6 @@
 ---
 name: review-pr
-description: Use when reviewing a pull request or diff from anyone, or triaging review comments left by a bot. Not for a plan before code exists; that is review-plan. Not for a security audit; that is review-security.
+description: Use when reviewing a pull request or diff from anyone, even when the diff is pasted inline, or triaging review comments left by a bot. Not for a plan before code exists; that is review-plan. Not for a security audit; that is review-security.
 ---
 
 # Review a pull request

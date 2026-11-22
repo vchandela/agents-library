@@ -1,0 +1,4 @@
+schema_version: "1.0"
+name: review-pr-pasted-diff
+context:
+  scaffold_script: scaffold.sh
