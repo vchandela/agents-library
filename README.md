@@ -12,7 +12,7 @@ From a clone, one script puts the skills, rules and hook in place:
     python3 agents-library/scripts/setup
     python3 agents-library/scripts/setup --check   # after a pull: every link and hook is in place, or what differs
 
-`scripts/setup` links each skill into `~/.claude/skills`, links `references/core.md` and `references/tech-index.md` into `~/.claude/rules`, and adds the skill-gate hook to `~/.claude/settings.json`. Claude Code re-injects the rules from disk after every compaction, so the seven core actions stay in view. The script is safe to run again, and it never overwrites a different file or folder of yours: it names it and leaves it alone. An identical copy of a rule is replaced by the link, so the copy cannot go stale. Skills alone, without the rules or the hook:
+`scripts/setup` links each skill into `~/.claude/skills`, links `references/core.md` and `references/tech-index.md` into `~/.claude/rules`, and adds the skill-gate hook to `~/.claude/settings.json`. Claude Code re-injects the rules from disk after every compaction, so the core actions stay in view. The script is safe to run again, and it never overwrites a different file or folder of yours: it names it and leaves it alone. An identical copy of a rule is replaced by the link, so the copy cannot go stale. Skills alone, without the rules or the hook:
 
     npx skills add vchandela/agents-library
 
