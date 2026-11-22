@@ -14,3 +14,4 @@ jobs:
           persist-credentials: false
       - run: sh scripts/sync-references.sh --check
       - run: python3 scripts/lint-skills.py
+      - run: python3 scripts/test-ship-hook.py

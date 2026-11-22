@@ -30,7 +30,7 @@ Each case is a folder:
 Hand the reviewer only the patch, the contract and the repo. Never the labeled bug, the case folder or the results file.
 
 1. Stage a throwaway worktree at the case's base commit and apply its patch. Remove `review-evals/` from that worktree, so the label is not in the material the reviewer can read.
-2. Start the repo's reviewer the way the repo starts it: a fresh session with `review-pr`, the configured review bot, or the vendor's runner. Give it the repo, the contract and the change (`git diff` at the worktree head), nothing else.
+2. Start the repo's reviewer with `<tmp>/<case>` as its working directory, never the main repo, because the label lives there. Give it the contract and the change (`git diff` at the worktree head), nothing else.
 3. Record one line per case: `caught` (the first-round report names the failure at the labeled line, or an equivalent concrete failure), `missed` (it does not), or `noise` (a clean case that drew a finding a person judges wrong). Keep the reviewer's finding ids beside the verdict.
 4. Report `caught x of n` and `noise y of m`. A rising miss rate or a rising noise rate is a regression, whatever the round count did.
 
@@ -39,6 +39,7 @@ The staging commands, for a Claude Code session:
     git -C <repo> worktree add --detach <tmp>/<case> <base>
     git -C <tmp>/<case> apply <repo>/review-evals/incidents/<case>/patch.diff
     rm -rf <tmp>/<case>/review-evals
+    cd <tmp>/<case>
 
 No runner script ships with this reference. A script can stage the worktree and apply the patch in three lines; it cannot make the caught, missed or noise call, and a wrapper that also started the reviewer would own the prompt, which is half of what the eval measures. The commands are the runner, and a person reads the report.
 

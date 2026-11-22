@@ -25,7 +25,7 @@ A fresh session is the minimum. A different model family is better, because two 
 ## Gates
 
 - **Implementation does not start until the plan review approves it.** Not "mostly fine". Approved.
-- Rounds continue while each round finds a real defect, up to three; after that the approach changes or the flow stops ("Three rounds, then the approach"). When author and reviewer disagree about a requirement, a human decides.
+- Rounds continue while each round finds a real defect, three per approach; after that the approach changes or the flow stops ("Three rounds, then the approach"). When author and reviewer disagree about a requirement, a human decides.
 - **A finding is required only when it shows a failure against the contract or correctness,** with a repro or `file:line`. Anything else is optional: it goes to the user in the hand-off and never starts another round. A reviewer asked to find gaps will report some even when the work is sound, and chasing every one leads to over-engineering.
 - **A PR reaches the user with no open comment threads, from anyone.** A person, a review bot, a linter or scanner bot, or another agent: every comment on the PR is the author's to answer before the hand-off, not the user's to find. For each one, fix it or decide not to, reply in its thread (`fixed in <sha>` or `not changing: why`), then resolve the thread. Check it on the exact head you hand over, with a command, and name it in the hand-off, for example `gh api graphql -f query='{repository(owner:"o",name:"r"){pullRequest(number:N){reviewThreads(first:100){nodes{isResolved}}}}}'` returning no `false`, plus no unanswered top-level review or issue comment. A comment that arrives after the hand-off reopens the loop: handle it, then hand off again. Findings you declined still go in the hand-off with their reason, so the user can overrule them. Failure this prevents: the user opened PR links marked ready, found pending comments, and sent the thread back for another round of fixes, tests and review; the user said "it's better if the threads only own this stuff" (9 Nov).
 - **The Artemis review bot is optional, not a gate.** Don't wait for it to run or to re-review. The gate is the author, the reviewer and the user being satisfied. When the bot has already commented, fix what's real while you're there, then reply and resolve. A bot thread that's still open doesn't hold the hand-off; list it in the hand-off with one line on it. People's comments, scanners such as Semgrep, and CI still have to be clear (user, 13 Nov: "it's replies are good to have but author, reviewer and me being happy are enough").
@@ -74,11 +74,11 @@ When the same work is reviewed again after fixes, the reader needs to see what t
 
 ### Three rounds, then the approach
 
-A stage gets at most three rounds.
+A stage gets three rounds per approach; an approach change starts a new count.
 
 - **Round 1 is a full fresh read.** List everything you can find.
-- **Rounds 2 and 3 read three things:** the new diff, each old finding's closure, and what the change touches: callers, imports, tests and failure paths. An approach change resets the next round to a full read.
-- **After round 3 without approval, post no new findings.** Ask the author to reconsider the approach, and name the evidence that the approach, not the line, keeps failing. Stop. A fourth round happens only after the approach changes, and its verdict says what changed. A different design, a fresh session or a stronger model is an approach change; another reading of the same approach is not.
+- **Rounds 2 and 3 read three things:** the new diff, each old finding's closure, and what the change touches: callers, imports, tests and failure paths.
+- **After round 3 without approval, post no new findings.** Ask the author to reconsider the approach, and name the evidence that the approach, not the line, keeps failing. Stop. A fourth round happens only after the approach changes, and its verdict says what changed; a genuine new bug in the new approach is a finding like any other. A different design, a fresh session or a stronger model is an approach change; another reading of the same approach is not.
 - **The state file's `round` is a gate, not a note.** The author does not send round 4 until the state file records `approach_changed` with what changed, and the reviewer refuses a round 4 request without it.
 
 ### Every finding
@@ -94,6 +94,6 @@ A stage gets at most three rounds.
 ### Replying to a finding
 
 - Start every reply with one of four words and the reason: `fixed` (with the sweep), `wrong` (the line or contract that shows it), `intentional` (the contract or a written trade-off says so), or `not-material` (no user-visible failure, with the impact).
-- Record every finding in the state file: id, severity, origin, class, round, outcome, and `survived`. `outcome` is the reply word; `survived` is true when the fix was still there at the merge. The coordinator reports the weekly trend from these fields, never a per-PR count.
+- Record every finding in the state file: id, severity, origin, class, round, outcome, and `survived`. `outcome` is null until a reply, then the reply word; `survived` is true when the fix was still there at the merge. The coordinator reports the weekly trend from these fields, never a per-PR count.
 - **Style, formatting and cleanup never block and are not posted as findings.** The formatter and the linter own them; a finding is a failure of behaviour or the contract.
 

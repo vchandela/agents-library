@@ -3,7 +3,8 @@
 
 Checks, standard library only:
   - frontmatter has only `name`, `description`, `license`, `disable-model-invocation` and `hooks`;
-    each top-level value parses as strict YAML would (a value containing ": " must be quoted);
+    each top-level value parses as strict YAML would (a value containing ": " must be quoted).
+    Nested blocks such as `hooks` are not parsed here; `claude plugin validate` checks them;
   - `name` matches the folder and the spec's pattern, is at most 64 characters and avoids the reserved
     words "anthropic" and "claude"; description is 1 to 1,024 characters with nothing shaped like an XML tag;
   - the body stays under about 5,000 tokens (3,500 words);
@@ -44,6 +45,7 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
     for line in parts[1].strip().splitlines():
         if not line.strip() or line[0].isspace() or line.startswith("- "):
             # An indented block, such as the hooks map, belongs to the key above it.
+            # It is not parsed here; `claude plugin validate` checks the block.
             continue
         key, sep, value = line.partition(":")
         if not sep:

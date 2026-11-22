@@ -82,9 +82,9 @@ Two passes are scheduled by the diff, and both run in this session. No extra sub
 
 ## Re-review rounds
 
-A review gets at most three rounds; the full rules (round depth, the class and its sweep, one post per finding, the source fix, the state file fields) are `references/handoff-protocol.md`, "Re-review rounds". For a diff, also:
+A review gets three rounds per approach; an approach change starts a new count and a full read. The full rules (round depth, the class and its sweep, one post per finding, the source fix, the state file fields) are `references/handoff-protocol.md`, "Re-review rounds". For a diff, also:
 
-- **Round 1 is a full fresh read; rounds 2 and 3 read the new diff, each old finding's closure, and what the change touches.** After round 3 without approval, post no new findings and ask the author to change the approach; a fourth round needs a changed approach and starts with a full read.
+- **Round 1 is a full fresh read; rounds 2 and 3 read the new diff, each old finding's closure, and what the change touches.** After round 3 without approval, post no new findings and ask the author to change the approach; a fourth round needs a changed approach, and a genuine new bug in it is a finding like any other.
 - **Give every finding a one-line `class` and its cause.** A finding is posted once; a new failure path is a new finding that cites the old id. The same class in two rounds or two PRs lands the source fix in this repo (a lint rule, a test, a `REVIEW.md` or doc line), or in the library when the class crosses repos. A third occurrence is the reviewer's failure, not the author's.
 - **One verdict per old finding:** addressed or not addressed, with `file:line`. Attempted is not addressed: the defect has to be gone. Problems outside the fix go in a separate list and do not reopen the round.
 - **Pin each round to exact commits.** Fetch without hiding errors, list the head of every PR, and name those SHAs in the report. A first round once reported bugs that were already fixed, because it read an hours-old fetch. A later "nothing changed" came from a fetch whose error had been sent to `/dev/null`. If the heads have not moved, say so instead of reviewing again.

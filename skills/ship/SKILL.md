@@ -6,7 +6,7 @@ hooks:
     - matcher: "Bash"
       hooks:
         - type: command
-          command: 'p="$CLAUDE_PLUGIN_ROOT/skills/ship/scripts/refuse-gh-pr-merge.py"; [ -f "$p" ] || p="$HOME/.claude/skills/ship/scripts/refuse-gh-pr-merge.py"; python3 "$p"'
+          command: 'p="$CLAUDE_PLUGIN_ROOT/skills/ship/scripts/refuse-gh-pr-merge.py"; [ -f "$p" ] || p="$CLAUDE_PROJECT_DIR/.claude/skills/ship/scripts/refuse-gh-pr-merge.py"; [ -f "$p" ] || p="$HOME/.claude/skills/ship/scripts/refuse-gh-pr-merge.py"; [ -f "$p" ] || exit 0; python3 "$p"'
           timeout: 10
 ---
 
@@ -21,9 +21,9 @@ One command runs the whole pipeline. You (the author) write each stage, and a se
  ────────────                        ────────────────                ────
  stage: spec ─► plan ─► pr ─► merged
    │
-   ├─ write or revise ─────────────► review (up to 3 rounds)
+   ├─ write or revise ─────────────► review (3 rounds per approach)
    │◄──────────── verdict + findings ┘      ▲
-   │  fold, reply per finding, resend ──────┘   (round 4 only after an approach change)
+   │  fold, reply per finding, resend ──────┘   (a new approach starts a new count)
    │
    ├─ spec approved by reviewer ──► write the plan, same loop (no wait for the user)
    │
@@ -62,9 +62,9 @@ The user set these on 11 Nov 2026 from cost per task (Artificial Analysis index,
 
 ## The merge guard
 
-Loading this skill registers a hook: a direct `gh pr merge` is refused, and the flow lands through the repo's `scripts/land`. `scripts/land`, `gh pr view` and every read pass. The hook lasts for the rest of the session, so it also covers the moments after the flow's last stage. It is a guardrail, not a security boundary. A refusal means run `scripts/land <PR>`, never rephrase the merge to get past the guard.
+Loading this skill registers a hook: a direct `gh pr merge` or `gh api .../merge` is refused, and the flow lands through the repo's `scripts/land`. `scripts/land`, `gh pr view`, help flags and every read pass. The guard is on only where the repo has `scripts/land`; without one it stays off, and the hook also exits 0 when its own script cannot be found, so a copied skill never blocks Bash. It is a guardrail, not a security boundary. A refusal means run `scripts/land <PR>`, never rephrase the merge to get past the guard. The hook lasts for the rest of the session.
 
-The command resolves the script through the plugin root when the library is loaded as a plugin, and through `~/.claude/skills` when `scripts/setup` installed it. A copy of the skill folder anywhere else needs the hook command repointed.
+The command resolves the script through the plugin root when the library is loaded as a plugin, through the project's `.claude/skills` when the skill is copied into a repo, and through `~/.claude/skills` when `scripts/setup` installed it. A copy anywhere else leaves the guard off. The hook is a Claude Code extension; another harness ignores it and the guard is off there.
 
 ## The state file
 
@@ -77,12 +77,12 @@ The command resolves the script through the plugin root when the library is load
  "contract": "spec v25 https://claude.ai/artifact/...", "repo": "anyscale/x", "pr": null,
  "base_commit": "7ff2d92", "human": "waiting",
  "findings": [{"id": "R2", "severity": "required", "origin": "new", "class": "error-path",
-               "round": 2, "outcome": "open", "survived": null}],
+               "round": 2, "outcome": null, "survived": null}],
  "store": "https://app.notion.com/p/...", "jira": ["ART-123"],
  "heads": {"anyscale/x#123": "abc1234"}}
 ```
 
-`round` is a gate, not a note: a fourth round needs `approach_changed` set to what changed, and the reviewer refuses a round 4 request without it. `findings` records every finding: id, severity, origin, class, round, outcome (the reply word) and `survived`, true when the fix was still there at the merge.
+`round` is a gate, not a note: a fourth round needs `approach_changed` set to what changed, and the reviewer refuses a round 4 request without it. `findings` records every finding: id, severity, origin, class, round, outcome (null until a reply, then one of the four reply words) and `survived`, true when the fix was still there at the merge.
 
 `heads` holds every open PR's current head SHA, updated at every push, so anyone can check an approval against GitHub. An approval covers one commit: a push after it voids it.
 
@@ -94,7 +94,7 @@ The command resolves the script through the plugin root when the library is load
    Keep messages short: links and paths, never pasted documents. The artifact and the state file carry the content.
 3. **End your turn without telling the user.** Review rounds, fixes, pushes and CI runs are not news to the user: no message about them, not even one line. The reviewer's reply wakes you; never poll. A turn the reviewer, a peer or a background task woke ends with no text at all, because every turn end marks the tab for the user. The user hears from you only at the hand-off in step 5, once the reviewer has approved and CI is green, or for a blocker only they can clear (`references/respect-human-attention.md`, "Silent while a loop runs").
 4. **On findings**: check each against the source, fix every instance of its class (search the repo for every copy of what it named, and read the fix back from the pushed head, not from your own summary), rerun the checks, then reply per finding with one of four words and the reason: `fixed` (with `fixed in <sha>; swept N other places, found M`), `wrong`, `intentional` or `not-material`. Resend as round r+1.
-   A stage gets at most three rounds (`references/handoff-protocol.md`, "Three rounds, then the approach"). Only `required` findings start a new round; carry `optional` ones to the user's hand-off. After round 3 without approval the reviewer asks for an approach change: change the approach, not the words, record `approach_changed`, and the next round starts from a full read. Stop and ask the user only when the author and the reviewer disagree about a requirement (what to build, not whether it works), since only the user can settle that. Before resending, run the simplicity pass from `write-spec`: if the fixes this round piled onto one mechanism, replace the mechanism.
+   A stage gets three rounds per approach (`references/handoff-protocol.md`, "Three rounds, then the approach"). Only `required` findings start a new round; carry `optional` ones to the user's hand-off. After round 3 without approval the reviewer asks for an approach change: change the approach, not the words, record `approach_changed`, and the next round starts from a full read; a genuine new bug in the new approach is a finding like any other. Stop and ask the user only when the author and the reviewer disagree about a requirement (what to build, not whether it works), since only the user can settle that. Before resending, run the simplicity pass from `write-spec`: if the fixes this round piled onto one mechanism, replace the mechanism.
 5. **On approve**: at the spec stage, record `reviewer_approved` for the spec and start the plan straight away (step 1 for the plan); do not ask the user yet. At the plan and PR stages, send a PushNotification, then give the user one screen: the link (for the plan, both the spec and the plan links), what the reviewer checked, findings you rejected and why, and anything only the user can decide. Set `human: waiting`.
    At the PR stage, PRs are opened as drafts while the reviewer loop runs. On the reviewer's approve, mark that PR ready for review yourself (`gh pr ready`) before the hand-off, and give the user the PR link to review. Never ask the user whether a draft may be opened. Opening a PR can request reviewers automatically (CODEOWNERS); say who was requested in the hand-off. Merging still waits for the user's approval and green CI. The PR description carries **How to revert** and **What to watch, and when**, or points at the rollback plan in `references/shipping.md`; reread both against the exact head before the hand-off.
    Before the hand-off, answer and resolve every comment thread on the PR from anyone (people, review bots, scanners, other agents) on the exact head, and name the command that shows none is open (`references/handoff-protocol.md`, Gates). A PR with a pending comment is not ready.
@@ -116,13 +116,13 @@ When `~/.claude/cos/coordinator` exists, the user runs a chief-of-staff session 
 - **Questions for the user still come to the user in this session**, each one standing alone (`references/respect-human-attention.md`, "Every question to the user stands alone").
 - **Ask the coordinator first when you're stuck on something simple**, such as how to hand the user a command (`references/shipping.md`, "A command the user runs"), which thread owns a piece, or how another thread did something. The coordinator sees every thread. Ask the user only what the coordinator can't answer (user, 13 Nov).
 - **Ask the coordinator for more author and reviewer pairs** when parts of the work could move in parallel. Send: each new thread's name, what it owns, the repo and files it touches (no two threads on the same files), and a one-paragraph brief. The coordinator brings it to the user, launches the pairs once the user agrees, and tells you their names. Never start sessions yourself.
-- **Report the trend, not the PRs.** Send the weekly trend from the state file's `findings`: findings by class, how many survived, rounds per merge, and the revert and incident counts. Never a per-PR list; the user reads the trend.
+- **Report the trend, not the PRs.** Send the weekly trend: findings by class, how many survived, and rounds per merge from the state file's `findings`, beside the repo's revert and incident counts for the same week. Never a per-PR list; the user reads the trend.
 
 ## As the reviewer
 
 When a `[ship` review request arrives, read the state file, then run `review-plan` (spec or plan) or `review-pr` (PR) on the artifact against its contract.
 
-- **Round 1 is a full fresh read.** Rounds 2 and 3 read the new diff, each old finding's closure, and what the change touches: callers, imports, tests, failure paths. After round 3 without approval, post no new findings and ask the author to change the approach; a fourth round happens only after it changes, and the verdict says so.
+- **Round 1 is a full fresh read.** Rounds 2 and 3 read the new diff, each old finding's closure, and what the change touches: callers, imports, tests, failure paths. An approach change starts a new count and a full read. After round 3 without approval, post no new findings and ask the author to change the approach; a fourth round happens only after it changes, it can find real bugs, and the verdict says so.
 - Tag every finding `required` or `optional`, and `new`, `caused-by-fix` or `old`, with a one-line `class` and the cause. A finding is posted once; a new failure path cites the old id. Check the author's sweep, not its count. `required` and `optional`, and what an approval needs, follow `references/handoff-protocol.md`, Gates.
 - Reply to the author with SendMessage. First line: `[ship <topic>] <stage> v<n> round <r>: approve` or `: changes (k required)`. Then the findings, numbered, each with a repro or `file:line`.
 - **When you are blocked, tell the author in the same turn**, never only your own thread: the user does not read review threads. First line: `[ship <topic>] <stage> v<n> round <r>: blocked`. Then what blocks you (a connector down, an access missing, a question only the user can answer), what you cannot check without it, and the exact fix for the user to run. The author puts that text, reason and fix included, in its next line to the user or the coordinator, so the user reads why the review stalled, not "the review is not back yet". Failure this prevents: a reviewer's connector blocker sat in its own thread for hours while the author only said the review was pending.
