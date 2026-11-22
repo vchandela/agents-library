@@ -86,7 +86,9 @@ The guard proceeds only when all three hold:
 
 An integration that is not in the manifest is treated as production and refused. The manifest is the project owner's declaration, not the agent's: adding a row or marking an integration local needs a person's yes. `doctor` prints every integration and its verdict.
 
-The manifest is not the guard's only input. The guard scans the app's actual configuration for keys that look like outbound integrations: names ending in `_URL`, `_ENDPOINT`, `_API_KEY`, `_TOKEN` or `_SECRET`, plus the database and cache URLs. Every such key must have a manifest row and a local verdict. A key with no row is refused, and `doctor` prints the key; the fix is a person adding the row, not the agent widening the pattern. A key the scan cannot classify is also refused, with its name.
+The manifest is not the guard's only input. The guard scans the app's actual configuration for keys that look like outbound integrations: names ending in `_URL`, `_ENDPOINT`, `_URI`, `_HOST`, `_DSN`, `_BUCKET`, `_WEBHOOK`, `_API_KEY`, `_KEY`, `_SECRET`, `_SECRET_KEY`, `_ACCESS_KEY`, `_CLIENT_SECRET`, `_TOKEN` or `_PASSWORD`, plus the database and cache URLs. It also refuses any key whose value parses as a URL or a host with a dot, whatever the name. Every such key must have a manifest row and a local verdict. A key with no row is refused, and `doctor` prints the key; the fix is a person adding the row, not the agent widening the pattern. A key the scan cannot classify is also refused, with its name.
+
+The scan is a check on the owner's declaration, not a proof of completeness: a key whose name and value look ordinary can still reach a service, so the owner still lists every outbound service in the manifest.
 
 The guard launches the app with the environment it checked, or reads the running process's environment and refuses a mismatch. A file that says local while a production app is already running is not a local run.
 
