@@ -44,11 +44,13 @@ A PR or a hand-off opens with its artifact. The artifact is the smallest thing t
 | **UI:** what a user sees and does | A screen recording of the changed flow, made as `references/visuals.md`, "Recordings", says |
 | **Product:** a behaviour a spec names | The spec link |
 
+A one-line fix, or a change whose code diff is the clearest view, opens with that diff; no diagram is needed.
+
 After the artifact comes the caption, in this order: what the change does and why, the risk, how to revert, and what to watch and when. Text is the caption, never a substitute for the artifact.
 
 **Text is not banned.** Decisions, risks, exact commands, numbers and legal or finance claims stay in text, because a diagram cannot be diffed or audited. A change with no visual or structural shape stays text.
 
-The reviewer receives the artifact and the contract it must meet. The state file records each artifact's link and source path, so the author, the reviewer and the user open the same thing.
+The state file records each artifact's link and source path, so the author, the reviewer and the user open the same thing.
 
 ## Gates
 

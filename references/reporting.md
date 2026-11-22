@@ -12,7 +12,8 @@ Repro: <numbered steps, exact: the URL, the input, the click, the request>
 Saw: <the exact outcome, with the value: the status, the text, the number>
 Expected: <what the spec, the state grid or the invariant says should happen>
 Evidence: <the smallest proof: request and response, console line, DOM excerpt,
-  or screenshot path; a screenshot that failed to capture is retaken, never cited>
+  screenshot path, or clip path with the second; a screenshot that failed to
+  capture is retaken, never cited>
 Fix: <the smallest change that removes the cause, pointing at the layer>
 Confidence: confirmed | likely | needs verification
 ```
@@ -36,8 +37,9 @@ place fixes all of them. If it does not, they are different findings.
 ## Evidence rules
 
 - The evidence is the smallest artifact that proves the observation: the raw
-  request and response, the console line, the DOM excerpt, the stored row, or
-  the screenshot. A finding with no artifact is a hypothesis, not a finding.
+  request and response, the console line, the DOM excerpt, the stored row, the
+  screenshot, or a clip with the second. A finding with no artifact is a
+  hypothesis, not a finding.
 - **Fresh evidence.** A claim about the live site needs its observation in this
   pass; a description of a fix, a commit, or an earlier run is not evidence that
   the thing works now.

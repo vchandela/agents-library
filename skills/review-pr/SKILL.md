@@ -120,9 +120,9 @@ Same bar. Fix what is real. For each comment, start the reply with `fixed`, `wro
 
 ## Output
 
-Write it with the `explain-simply` skill. Open with the artifact you judged: the diagram for a structural change, the recording for a UI change, or the before/after table. Then the recap table: PR, verdict, blocking or not. Then the findings, each with `file:line`, most severe first.
+Write it with the `explain-simply` skill. Open with the artifact you judged (`references/handoff-protocol.md`, "The hand-off leads with its artifact"). For a behaviour change with no diagram or recording, the before/after table is the artifact. Then the recap table: PR, verdict, blocking or not. Then the findings, each with `file:line`, most severe first.
 
-**The count comes before any finding:** `N required, M optional`. When both are zero, say `Nothing to fix` in those words. A reader should know the verdict from the top of the report.
+**The count comes before any finding:** `N required, M optional`. When both are zero, say `Nothing to fix` in those words. The recap table carries the verdict.
 
 For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome.
 

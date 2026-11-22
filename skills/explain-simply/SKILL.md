@@ -17,7 +17,7 @@ This is the most common failure, so it comes before everything else. Check every
 - **No pronoun the reader has to resolve.** Use "it", "this" or "that" only when its referent is in the same sentence or the one before. Otherwise repeat the noun. Never coin a label the reader has not seen, such as "the switch-back note"; use the real name or a short description (HumanLayer's prose rules). A coined word for something new is fine only with its real name in brackets, as `references/explaining.md` says.
 - **Name the actor and the call.** "The queue reader stores the request on a raw event" beats "the request gets persisted". "`fast_check` calls `run_db_query`" beats "the script delegates to the gateway" (poteto's `how` skill).
 - **Write for a reader who wasn't in the room.** A PR description, a Notion doc or an artifact is read by someone who missed the discussion behind it. Define every term at first use, state a rule in place of naming whose rule it is, and explain a step in place of pointing at it. Never write "as we discussed" or "you and I agreed".
-This skill also names `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, so every reference it needs is one level from this file.
+This skill also names `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, `references/shipping.md`, so every reference it needs is one level from this file.
 
 Example. Terse: "One outcome per answer, ids not text." Simple: "A harmful answer is now its own outcome. Before, it was saved as wrong with a separate harmful flag. A harmful answer is a wrong answer that would make things worse if someone followed it (`vocabulary.yaml:28`)." Slides and short lines tempt compression most, so check them hardest.
 
@@ -100,7 +100,7 @@ Failure this prevents: a 30-section research page went to review; only the later
 
 Every picture follows `references/visuals.md`: the form for each question, the 50-form catalog with the chart tools, the diagram rules, and the checklist run before anything goes out. For a page, also apply `references/explainer-pages.md` (layout) and `references/preview.md` (render and look).
 
-**Lead with the artifact in a hand-off or a review.** A PR, a review or any hand-off opens with the smallest artifact that lets the reader judge the change. It is a diagram of the change's shape, a recording of a changed flow, or the spec link. The text is the caption: intent, risk, how to revert, what to watch. Decisions, risks, exact commands, numbers, and legal or finance claims stay in text, because a picture cannot be diffed or audited. A change with no visual or structural shape stays text (`references/visuals.md`, "Recordings").
+**Lead with the artifact in a hand-off or a review.** Open with the artifact `references/handoff-protocol.md`, "The hand-off leads with its artifact", names for the change, and write the text as its caption.
 
 **For code and systems, pick the smallest code-shaped view that makes the point** (HumanLayer's `show-me`). Use one or two of these, never all:
 

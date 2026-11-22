@@ -219,7 +219,7 @@ A page is for scanning, and a long one puts the reader off before they start. Ke
 
 ### Recordings
 
-A screen recording is the artifact for a UI change. Show the changed flow in 20 to 30 seconds: the screen at rest, the action, then the result. Use real data, and record in one register (phone or laptop). Add a second clip only when the two registers differ in what the user does or sees. Start on the first screen the change touches and stop on the result, so the clip carries no dead time.
+A screen recording is the artifact for a UI change. Show the changed flow in 20 to 30 seconds: the screen at rest, the action, then the result. Use real data from the test account the user provides, with secrets and other people's data off screen. Record in one register (phone or laptop). Add a second clip only when the two registers differ in what the user does or sees. Start on the first screen the change touches and stop on the result, so the clip carries no dead time.
 
 Attach the clip to the hand-off, review or report, or link it. Never commit a large binary to the repo. A recording is evidence for a flow, not a document. Decisions, numbers and revert steps stay in the caption, because a clip cannot be diffed or audited.
 
