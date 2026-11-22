@@ -90,7 +90,9 @@ only, screen reader, zoom, motion. `references/accessibility.md`, with
 
 Severity P0 to P3. Every finding has the fixed shape in
 `references/reporting.md`: title, severity, exact repro, what you saw, what you
-expected, evidence, proposed fix, and confidence. One root cause is one finding,
+expected, evidence, proposed fix, and confidence. A recording of the flow counts
+as evidence beside a screenshot, and the finding's evidence line names the clip
+with the second where the defect appears. One root cause is one finding,
 with every page it shows on listed.
 
 A security finding names the lower trust actor, what it sent, the control that

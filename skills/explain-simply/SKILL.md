@@ -100,6 +100,8 @@ Failure this prevents: a 30-section research page went to review; only the later
 
 Every picture follows `references/visuals.md`: the form for each question, the 50-form catalog with the chart tools, the diagram rules, and the checklist run before anything goes out. For a page, also apply `references/explainer-pages.md` (layout) and `references/preview.md` (render and look).
 
+**Lead with the artifact in a hand-off or a review.** A PR, a review or any hand-off opens with the smallest artifact that lets the reader judge the change. It is a diagram of the change's shape, a recording of a changed flow, or the spec link. The text is the caption: intent, risk, how to revert, what to watch. Decisions, risks, exact commands, numbers, and legal or finance claims stay in text, because a picture cannot be diffed or audited. A change with no visual or structural shape stays text (`references/visuals.md`, "Recordings").
+
 **For code and systems, pick the smallest code-shaped view that makes the point** (HumanLayer's `show-me`). Use one or two of these, never all:
 
 - A call tree for runtime flow: who calls whom, indented.

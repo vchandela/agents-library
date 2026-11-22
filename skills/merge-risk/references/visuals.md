@@ -12,7 +12,7 @@ How to show anything: the rules, which form fits which question, the tools that 
 - Budget
 - Diagram quality
 - Grammar
-- Charts and screenshots
+- Charts, screenshots and recordings
 - Before using a term
 - Code and progressive detail
 - Notion pages and docs others read
@@ -60,6 +60,7 @@ Decide what the reader must understand first, then the picture. If a three-colum
 | What layered defences leave behind | Layers in order. Each says what it stops and what gets past. End with the risk that remains. Never imply the last layer makes risk zero. |
 | Who does what across a handoff | One lane per owner. A step sits in exactly one lane. The handoffs are the arrows that matter. |
 | Events over time | A timeline with honest spacing: unequal gaps are drawn unequal. |
+| What a user sees and does after a UI change | A screen recording of the changed flow: the screen, the action, the result, in 20 to 30 seconds ("Recordings"). |
 
 This is not a "minimum viable diagram" rule. A tiny diagram that still requires the reader to decode a paragraph has failed. Make the visual complete enough to stand on its own.
 
@@ -210,11 +211,17 @@ A page is for scanning, and a long one puts the reader off before they start. Ke
 - Flowchart: shape carries the type (rounded for start and end, box for a step, diamond for a decision). A diamond has at most 3 exits, each labelled.
 - Colour never carries meaning alone. Pair it with a word, a dash pattern or a shape, so the diagram survives print, dark mode and colour blindness.
 
-## Charts and screenshots
+## Charts, screenshots and recordings
 
 - A chart's title says the finding ("Triage time halved after the page merged"), not what the axes are.
 - Label the values on the chart itself. A single series has no legend, gridlines are quiet, and the colours come from the page's own tokens.
 - Crop a screenshot to the part that matters and mark that part with one callout. Cut any caption that only names what the reader can already see.
+
+### Recordings
+
+A screen recording is the artifact for a UI change. Show the changed flow in 20 to 30 seconds: the screen at rest, the action, then the result. Use real data, and record in one register (phone or laptop). Add a second clip only when the two registers differ in what the user does or sees. Start on the first screen the change touches and stop on the result, so the clip carries no dead time.
+
+Attach the clip to the hand-off, review or report, or link it. Never commit a large binary to the repo. A recording is evidence for a flow, not a document. Decisions, numbers and revert steps stay in the caption, because a clip cannot be diffed or audited.
 
 ## Before using a term
 

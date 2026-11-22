@@ -2,6 +2,18 @@
 
 Who proposes, and who judges.
 
+## Contents
+
+- The rule
+- What separation means
+- The hand-off leads with its artifact
+- Gates
+- What the reviewer receives
+- Sorting the findings
+- Ending a session
+- Several agents, one branch
+- Re-review rounds
+
 ## The rule
 
 **The agent that produced the work does not review the work.**
@@ -21,6 +33,22 @@ Never call work independently verified when the agent that produced it is the on
 | **Review the code** | **fresh session, and not the one that wrote the code** |
 
 A fresh session is the minimum. A different model family is better, because two models from one family share failure modes.
+
+## The hand-off leads with its artifact
+
+A PR or a hand-off opens with its artifact. The artifact is the smallest thing that lets the reader judge the change, and the reader sees it before any summary.
+
+| The change | The artifact it opens with |
+|---|---|
+| **Structural:** what calls what, what moves, how the pieces fit | A diagram of the shape of the change: ASCII or mermaid, or a diff of the shape the reader already knows, with `+` and `-` lines |
+| **UI:** what a user sees and does | A screen recording of the changed flow, made as `references/visuals.md`, "Recordings", says |
+| **Product:** a behaviour a spec names | The spec link |
+
+After the artifact comes the caption, in this order: what the change does and why, the risk, how to revert, and what to watch and when. Text is the caption, never a substitute for the artifact.
+
+**Text is not banned.** Decisions, risks, exact commands, numbers and legal or finance claims stay in text, because a diagram cannot be diffed or audited. A change with no visual or structural shape stays text.
+
+The reviewer receives the artifact and the contract it must meet. The state file records each artifact's link and source path, so the author, the reviewer and the user open the same thing.
 
 ## Gates
 

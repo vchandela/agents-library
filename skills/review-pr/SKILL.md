@@ -21,6 +21,8 @@ Apply `references/judgement.md`: the checks below are a floor. Report what an ex
 
 ## Order, and the order matters
 
+**The artifact comes first.** For a UI change, watch the recording of the flow before reading the diff, because it shows what a user meets. For a structural change, check the diagram against the diff, box by box and arrow by arrow; a diagram that disagrees with the diff is a finding about the hand-off, whatever the code says. What the artifact is, and which change gets which, is `references/handoff-protocol.md`, "The hand-off leads with its artifact".
+
 **1. Design.** Does this solve the right problem? Are the abstractions well chosen? Is there a simpler shape with less surface area?
 
 Read the spec or issue the change came from. Report three things on their own, quoting the spec line for each: what it asked for that is missing or partial, what the diff does that nobody asked for, and what looks done but behaves wrong. Keep these apart from code quality findings: a change can follow every convention and still build the wrong thing.
@@ -118,9 +120,11 @@ Same bar. Fix what is real. For each comment, start the reply with `fixed`, `wro
 
 ## Output
 
-Write it with the `explain-simply` skill. For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome. End with a recap table: PR, verdict, blocking or not.
+Write it with the `explain-simply` skill. Open with the artifact you judged: the diagram for a structural change, the recording for a UI change, or the before/after table. Then the recap table: PR, verdict, blocking or not. Then the findings, each with `file:line`, most severe first.
 
-**Start the summary with a count:** `N required, M optional`. When both are zero, say `Nothing to fix` in those words, before anything else; a reader should know the verdict from the first line.
+**The count comes before any finding:** `N required, M optional`. When both are zero, say `Nothing to fix` in those words. A reader should know the verdict from the top of the report.
+
+For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome.
 
 Say what you checked and found sound, as well as what you did not. A review listing only failures reads as though nothing else was examined.
 
