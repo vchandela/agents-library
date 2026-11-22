@@ -29,6 +29,8 @@ Verify every claim against the source and cite `file:line`. When something does 
 
 **Collect outside evidence with the `research-prior-art` skill.** For a new shape, run it before round 1, so the interview starts from how others already solve the problem rather than from a blank page. For a bounded change, run it at the quick depth when the change brings in a mechanism the repo has no precedent for. Its findings feed the options in the interview and the spec's open items, each with its link and how many organisations use it. Skip it only for a spike, and say that you skipped it.
 
+**Brief sub-agents indirectly.** When a question needs a fact from the code, a live system or a log, send a sub-agent the goal, the constraints and where the evidence lives, not a step script (`references/agent-prompts.md`, Indirect prompts). Start the interview by restating the request in your own words, so a wrong reading is caught on the first line rather than in the spec.
+
 ## Shape before spec
 
 If the fundamental shape is undecided (where it runs, what owns state, one long process or many short ones), settle that first. A spec written for the wrong shape gets written twice.

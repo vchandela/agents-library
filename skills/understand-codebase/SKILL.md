@@ -21,6 +21,21 @@ If the repo already has a knowledge graph (for example `graphify-out/graph.json`
 
 **Search in the repo's words.** Before searching, list the identifiers in the code that match the question, pick only from that list, and say the mapping: "Searched for `session`, `token`, `guard` (the repo's words for login)." If nothing matches, say the repo has nothing on it.
 
+## Find the why beyond the code
+
+The code records what was decided, never why. Six sources settle what the code cannot:
+
+| Source | What it settles that the code cannot |
+|---|---|
+| Git history: `git log -L`, `git blame`, commit bodies, the pull request behind a merge | Which alternative was tried first, and what the change was reacting to. |
+| Tickets and issue threads | The user problem, the acceptance test, and what was deliberately left out. |
+| Docs and decision records, including superseded ones | The stated constraint at the time. Compare each date against the code. |
+| Chat: team channels and review comments | The argument that settled a choice, and who objected. |
+| Incidents and postmortems | The failure the design exists to prevent, and the cost that made it worth preventing. |
+| Monitors and error logs | Which path is actually exercised, how often, and what breaks under real traffic. |
+
+Read the source, quote the line, and give it a date. An undated doc is a claim about some earlier code. When two sources disagree, the newest wins; the code wins over both about what runs today. Say which sources you used and which you could not get.
+
 ## Find the decisions
 
 Every system makes a set of choices its authors could have made differently. Name them, and name the alternative that was rejected.

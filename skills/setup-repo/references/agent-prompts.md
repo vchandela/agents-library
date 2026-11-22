@@ -9,6 +9,7 @@ How to write text that a model runs as instructions: a workflow step's prompt, a
 - What each model needs
 - Evidence and missing evidence
 - Outcome, success and when to stop
+- Indirect prompts
 - Scope and what the agent may do alone
 - Sub-agent briefs
 - Review and finder prompts
@@ -59,6 +60,14 @@ Current models follow the system prompt closely, and aggressive wording makes th
 ## Outcome, success and when to stop
 
 Every prompt states what done looks like and when to stop. That includes a search budget for lookups: one search is enough for a fact, a few for a comparison, and many only for a landscape. Without a stop rule an agent either quits after the first plausible answer or keeps searching after the answer is in hand.
+
+## Indirect prompts
+
+For work whose route is not known, give the agent the goal, the constraints and the evidence path, not a step script. A step script records the author's guesses about how the work goes, so the agent follows the guessed route past better evidence. The indirect prompt says what outcome is wanted, what must stay true, where the code, logs or files that settle it live, and what the agent may decide alone; the agent finds the way.
+
+Ask for a restatement first: "In your own words, what is the problem and what would count as solved?" A wrong restatement is visible before any code is written, which is the cheapest place to catch it. The restatement is not a plan and does not replace the evidence rules above.
+
+Indirect is not vague. A goal with no constraint and no evidence path is a wish. Use the step script where the path itself is the requirement: an ordered or destructive operation, a migration, a merge. Use the indirect prompt where choosing the route is part of the work: a diagnosis, a design, a candidate solution. `write-spec` uses it when it briefs a fact-finding sub-agent, and `diagnose-bug` uses it for every probe.
 
 ## Scope and what the agent may do alone
 
@@ -115,6 +124,7 @@ Copy it and tick it for each prompt you write or review. A yes is good.
 9. A review or finder prompt asks for every finding with a severity and filters afterwards.
 10. Output length and shape are pinned, with structured output where a machine reads it.
 11. It has been run with and without its major blocks on each model that runs it since the last model upgrade.
+12. An indirect prompt gives the goal, the constraints, the evidence path and the decision boundary, and asks for a restatement in the agent's own words.
 
 ## Sources
 

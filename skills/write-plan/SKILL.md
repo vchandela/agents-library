@@ -37,12 +37,16 @@ A plan step is only as good as the evidence under it. Before writing steps:
 - **Each step is a vertical slice** that can be checked on its own, sized to fit one fresh session, with acceptance criteria, what is out of scope for it, and the steps that block it. A step with no open blockers can start now.
 - **Each step names what it produces and consumes**: exact function names, signatures and paths a later step relies on. A later step calling `clear_layers()` when an earlier one defined `clear_full_layers()` is a bug in the plan.
 - **Every command says what passing looks like.** `Run: pytest tests/test_x.py::test_y` then `Expected: FAIL, name 'y' is not defined`. The implementer compares, rather than judges.
+- **Every step names its proof.** Passing is not the same as proven: the step names the command, observation or measurement that shows it worked, and the artifact a reviewer can re-run. A step whose claim is runtime behaviour names the run, the input and what should be seen. A green unit test proves the unit, not the app.
+- **A plan written only to unblock is marked Temporary.** Put `Temporary` in its title, the date or triggering event that retires it, and the step that deletes it or replaces it with the durable plan. A temporary plan that loses its trigger quietly becomes the design.
 - A step that will wait days before anyone picks it up names the interface and the behaviour it changes, not a line number, because lines move. A step done now keeps `file:line`.
 - Every step uses an existing repo pattern and cites it. Anything new to the repo stays out of the plan until the user confirms it; list it under "needs sign-off".
 
 ## Teach the implementation
 
 Apply `references/visuals.md`. The plan's diagram shows the order of components or phases. Pseudocode, when the implementer still needs an exact check or ordering, is marked as pseudocode and names the files that will hold the real code.
+
+**Test it on a stranger.** The plan has to let someone who has not seen the conversation follow the change. Write it with the `explain-simply` skill: every term defined at first use, one real call flow walked end to end. Then prove it: hand the plan alone to a reader and ask them to restate the change, the order and the first step. Every place they cannot restate is a missing link in the plan, not a reader failure. Fix the plan before the reviewer sees it.
 
 ## Testing
 

@@ -15,9 +15,11 @@ The person who wrote this will not grow if you go easy on them.
 
 ## Order
 
-**1. Steelman it.** Say what the plan is trying to do and why, in your own words, before criticising anything. If you cannot, you do not understand it well enough to review it.
+**1. Follow it cold.** Read the plan once without the repo, the conversation or the author's notes. Restate the change, the order of work and the first step in your own words, with every term defined. A place you cannot follow is a finding against the plan: name the sentence and what is missing. Write the restatement with the `explain-simply` skill, so the author sees what a stranger actually understood.
 
-**2. Attack it.** Find logic gaps, missing edge cases, wrong ordering, unstated assumptions, and anything that breaks at 2am in production. Skip style. Find what will actually break. Three checks that caught real misses:
+**2. Steelman it.** Say what the plan is trying to do and why, in your own words, before criticising anything. If you cannot, you do not understand it well enough to review it.
+
+**3. Attack it.** Find logic gaps, missing edge cases, wrong ordering, unstated assumptions, and anything that breaks at 2am in production. Skip style. Find what will actually break. Three checks that caught real misses:
 
 - **Who else writes this at the same moment?** For every fixed path, key or row the plan writes, find what runs in parallel on the same machine or store. Search the repo's own notes on concurrency. Example: a plan saved Slack images to `/tmp/slack-images/<id>.png`, and four workflow steps ran at once in one microVM. One step could read a file while another was rewriting it. Round 1 missed this.
 - **Every caller of a shared entry point.** A change to a shared CLI, prompt banner or helper reaches every caller, including ones that loop over many items. Grep for all of them. Example: "open every image" was right for one thread and wrong for a step reading 20 incident threads.
@@ -26,9 +28,9 @@ The person who wrote this will not grow if you go easy on them.
 
 The toolbox's entries, each read in full when its problem comes up: `references/system-design/api-and-edge.md`, `references/system-design/caching.md`, `references/system-design/code-structure.md`, `references/system-design/consistency-and-concurrency.md`, `references/system-design/counting-and-aggregation.md`, `references/system-design/large-files.md`, `references/system-design/long-running-work.md`, `references/system-design/ml-systems.md`, `references/system-design/numbers.md`, `references/system-design/queues-and-streams.md`, `references/system-design/real-time-updates.md`, `references/system-design/scaling-and-partitioning.md`, `references/system-design/search.md`, `references/system-design/storage.md`.
 
-**3. Fix it.** Every issue gets a concrete fix. Not "consider handling errors". Show what handling that error looks like.
+**4. Fix it.** Every issue gets a concrete fix. Not "consider handling errors". Show what handling that error looks like.
 
-**4. Cut it.** Apply `references/engineering-principles.md`. Remove retries and fallbacks nobody measured, backward compatibility nobody asked for, and abstraction with one implementation. Flag every number with no stated source or reason ("No magic numbers"), and every new name a first-time reader could misread ("Names a newcomer reads right the first time"). Run the seven-smell sweep in "Self-review before anyone sees a design" and put its list (each instance and its verdict) in the review. An approve without that list is not a review.
+**5. Cut it.** Apply `references/engineering-principles.md`. Remove retries and fallbacks nobody measured, backward compatibility nobody asked for, and abstraction with one implementation. Flag every number with no stated source or reason ("No magic numbers"), and every new name a first-time reader could misread ("Names a newcomer reads right the first time"). Run the seven-smell sweep in "Self-review before anyone sees a design" and put its list (each instance and its verdict) in the review. An approve without that list is not a review.
 
 **Fixes use the repo's conventions.** A required fix must use a pattern the repo already has, cited `file:line`. If only something new would work, say so, explain why from first principles, and mark it for the user to confirm.
 

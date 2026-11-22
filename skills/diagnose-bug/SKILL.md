@@ -13,6 +13,8 @@ The references this skill names rely on these, so read them in full too: `refere
 
 Before the loop, name the outcome: this class of bug cannot come back unseen. List what that needs and ask for what is missing: the logs or crash reports, a map from a running version to its commit, a machine to reproduce on. A fix with no way to detect a repeat ends at one bug.
 
+Brief every probe and sub-agent with the goal, the constraints and the evidence path, not a step script (`references/agent-prompts.md`, Indirect prompts). The agent closest to the evidence chooses the route; a script written from here would carry the guesses this skill exists to test.
+
 ## 1. Build the loop
 
 Read the whole error and stack trace first, and check what changed: recent commits, dependencies, config, environment. Then take the first loop that reaches the bug:

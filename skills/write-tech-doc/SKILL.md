@@ -13,6 +13,12 @@ Facts are yours to find, never the author's to supply: read the code, query the 
 
 **Do not touch the document until you have alignment.** A doc written from a half understood brief has to be rewritten, and the rewrite is more work than the questions.
 
+## Choose the mode first
+
+Read `references/diataxis.md`. Tutorial, how-to, reference and explanation do different jobs, and a document that mixes them serves none. A technical proposal is an explanation that asks for a decision: it argues why, not how to install or what every parameter is. Link to the reference for mechanics instead of restating it.
+
+When the interface is new, write the README or the tutorial first: what the reader will do, in order, before any code exists. Then work backwards to the design. If the usage cannot be written plainly, the interface is not ready.
+
 ## Shape
 
 Assume a reader with no patience and real expertise.
@@ -22,7 +28,7 @@ Assume a reader with no patience and real expertise.
 - **Then the solution**, concise: when it has a handful of parts, one picture of four to seven big boxes, each box a section that goes deeper layer by layer, with one real example running through every section (`references/visuals.md`, "Steps first, or the map first"). A single decision or a comparison needs another shape.
 - Suggest phases where the work splits into phases.
 - Sections worth having: overview, design decisions, diagrams, tradeoffs, and what is knowingly left undone.
-This skill also names `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, so every reference it needs is one level from this file.
+This skill also names `references/diataxis.md`, `references/engineering-principles.md`, `references/testing.md`, `references/verification.md`, so every reference it needs is one level from this file.
 
 The references this skill names rely on these, so read them in full too: `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the core actions).
 
