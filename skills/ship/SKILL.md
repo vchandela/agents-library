@@ -62,7 +62,7 @@ The user set these on 11 Nov 2026 from cost per task (Artificial Analysis index,
 
 ## The merge guard
 
-Loading this skill registers a hook: a direct `gh pr merge` or `gh api .../merge` is refused, and the flow lands through the repo's `scripts/land`. `scripts/land`, `gh pr view`, help flags and every read pass. The guard is on only where the repo has `scripts/land`; without one it stays off, and the hook also exits 0 when its own script cannot be found, so a copied skill never blocks Bash. It is a guardrail, not a security boundary. A refusal means run `scripts/land <PR>`, never rephrase the merge to get past the guard. The hook lasts for the rest of the session.
+Loading this skill registers a hook: a direct `gh pr merge` is always refused, and `gh api .../merge` is refused where the repo has a `scripts/land`, because there the flow lands through that script. A repo without one runs the API call in `references/stacked-prs.md` directly. `scripts/land`, `gh pr view`, help flags and every read pass. The hook exits 0 when its own script cannot be found, so a copied skill never blocks Bash. It is a guardrail, not a security boundary. A refusal means run `scripts/land <PR>` where it exists, or the API call in `references/stacked-prs.md` where it does not; never rephrase the merge to get past the guard. The hook lasts for the rest of the session.
 
 The command resolves the script through the plugin root when the library is loaded as a plugin, through the project's `.claude/skills` when the skill is copied into a repo, and through `~/.claude/skills` when `scripts/setup` installed it. A copy anywhere else leaves the guard off. The hook is a Claude Code extension; another harness ignores it and the guard is off there.
 
@@ -116,7 +116,7 @@ When `~/.claude/cos/coordinator` exists, the user runs a chief-of-staff session 
 - **Questions for the user still come to the user in this session**, each one standing alone (`references/respect-human-attention.md`, "Every question to the user stands alone").
 - **Ask the coordinator first when you're stuck on something simple**, such as how to hand the user a command (`references/shipping.md`, "A command the user runs"), which thread owns a piece, or how another thread did something. The coordinator sees every thread. Ask the user only what the coordinator can't answer (user, 13 Nov).
 - **Ask the coordinator for more author and reviewer pairs** when parts of the work could move in parallel. Send: each new thread's name, what it owns, the repo and files it touches (no two threads on the same files), and a one-paragraph brief. The coordinator brings it to the user, launches the pairs once the user agrees, and tells you their names. Never start sessions yourself.
-- **Report the trend, not the PRs.** Send the weekly trend: findings by class, how many survived, and rounds per merge from the state file's `findings`, beside the repo's revert and incident counts for the same week. Never a per-PR list; the user reads the trend.
+- **Report the trend, not the PRs.** Send the weekly trend: findings by class, how many survived, and rounds per merge from the state file's `findings`, beside the revert count from `git log --since=<week> --grep='^Revert'` on the default branch and the incident count from the repo's incident log when it keeps one. Never a per-PR list; the user reads the trend.
 
 ## As the reviewer
 

@@ -24,6 +24,7 @@ COMMAND = COMMAND.group(1)
 
 ACTIVE = [
     ("gh pr merge 42 --squash", 2),
+    ("gh pr merge 42 # --help", 2),
     ("scripts/land 42", 0),
     ("gh pr view 42", 0),
     ("cat README.md", 0),
@@ -33,7 +34,14 @@ ACTIVE = [
     ("gh pr merge 42\n", 2),
     ("FOO=1 sudo gh pr merge 42", 2),
     ("gh api -X PUT repos/o/r/pulls/1/merge", 2),
+    ("gh api -XPUT repos/o/r/pulls/1/merge", 2),
+    ("gh api -X PUT repos/o/r/pulls/1/merge?foo=1", 2),
     ("gh api repos/o/r/pulls/1/merge", 0),
+]
+
+NO_LAND = [
+    ("gh pr merge 42", 2),
+    ("gh api -X PUT repos/o/r/pulls/1/merge", 0),
 ]
 
 
@@ -71,10 +79,11 @@ with tempfile.TemporaryDirectory() as tmp:
 
     without = tmp / "without-land"
     without.mkdir()
-    got = run("gh pr merge 42", without, env)
-    ok = got == 0
-    failures += not ok
-    print(f"{'ok' if ok else 'FAIL'}  exit {got}, want 0 (no scripts/land): gh pr merge 42")
+    for command, want in NO_LAND:
+        got = run(command, without, env)
+        ok = got == want
+        failures += not ok
+        print(f"{'ok' if ok else 'FAIL'}  exit {got}, want {want} (no scripts/land): {command!r}")
 
     missing = tmp / "missing"
     missing.mkdir()
@@ -84,5 +93,6 @@ with tempfile.TemporaryDirectory() as tmp:
     failures += not ok
     print(f"{'ok' if ok else 'FAIL'}  exit {got}, want 0 (guard script missing): gh pr merge 42")
 
-print(f"\n{len(ACTIVE) + 2 - failures} of {len(ACTIVE) + 2} cases pass")
+total = len(ACTIVE) + len(NO_LAND) + 1
+print(f"\n{total - failures} of {total} cases pass")
 sys.exit(1 if failures else 0)

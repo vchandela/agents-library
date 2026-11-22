@@ -74,7 +74,7 @@ When the same work is reviewed again after fixes, the reader needs to see what t
 
 ### Three rounds, then the approach
 
-A stage gets three rounds per approach; an approach change starts a new count.
+A stage gets three rounds per approach; an approach change starts a new count and a full read.
 
 - **Round 1 is a full fresh read.** List everything you can find.
 - **Rounds 2 and 3 read three things:** the new diff, each old finding's closure, and what the change touches: callers, imports, tests and failure paths.
