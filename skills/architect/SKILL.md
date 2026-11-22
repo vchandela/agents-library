@@ -27,7 +27,7 @@ If the brief has an open question only the user can answer, ask it now, in one n
 
 Two or three designers work in parallel, each with the whole brief and no sight of the others. Use different model families where the setup allows, because two candidates from one family tend to share the same blind spot. At least one candidate is the ambitious option: the one that changes more of the shape if the evidence supports it, with its cost. Record the model and family each candidate ran on. If only one family is available, say so in the output and name what the missing cross-family check could not catch.
 
-Brief each designer indirectly: the goal, the constraints, where the evidence lives, the output shape, and what it may decide alone (`references/agent-prompts.md`, Indirect prompts). Do not hand it a step script; the route is the work.
+Brief each designer indirectly: the goal, the constraints, the tools and sources, the evidence path, the output shape, the return size (a file path or a token cap), and what it may decide alone (`references/agent-prompts.md`, Indirect prompts). Do not hand it a step script; the route is the work.
 
 Each candidate returns a design package:
 
@@ -104,6 +104,7 @@ Write it with the `explain-simply` skill. A reader who was not in the candidate 
 ## Done when
 
 - [ ] Every call site in the brief has a `file:line`, and the search was rerun after the design.
+- [ ] The brief fixed the tie-break order before the candidates ran.
 - [ ] Two or three independent candidates existed, with no shared sight, and at least one was the ambitious option.
 - [ ] Every candidate and the judge name their model and family, and a single-family run says what it could not check.
 - [ ] A different judge scored them against the same rubric and named one winner.

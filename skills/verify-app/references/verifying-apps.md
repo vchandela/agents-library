@@ -28,7 +28,7 @@ A loop that ends on "the test passes" is a different loop. The unit test stays; 
 
 ## The feature map is generated, never typed
 
-The map is one row per reachable page: the route, what it does, how a user reaches it, the CLI command that opens it, the role or fixture needed, and its known traps. It is built by a script from the app's own routes and pages:
+The map is one row per reachable page: the route, what it does, how a user reaches it, the CLI command and flags that open and drive it, the role or fixture needed, and its known traps. It is built by a script from the app's own routes and pages:
 
 - the server's route table, read with the framework's own route command or router registration;
 - the file-based pages the framework serves;
@@ -42,7 +42,7 @@ A map that drifts is worse than no map: it gives false confidence. Regenerate it
 
 One small executable in the project, for example `scripts/verify-app`, wraps the project's existing browser fixture and test-auth helper. It does not reimplement login, launch or the browser driver; those already exist for the test suite.
 
-- `doctor` checks the app URL, the browser, the auth fixture, the database host and every declared outbound integration, and prints what is missing with the command that fixes it.
+- `doctor` checks the app URL, the browser, the auth fixture, the fixture data, the database host and every declared outbound integration, and prints what is missing with the command that fixes it.
 - `open <route>` opens the app authenticated at that route and waits for the page to settle.
 - `snapshot` writes the page's accessibility tree and visible text to a file, so two runs can be compared.
 
@@ -86,7 +86,11 @@ The guard proceeds only when all three hold:
 
 An integration that is not in the manifest is treated as production and refused. The manifest is the project owner's declaration, not the agent's: adding a row or marking an integration local needs a person's yes. `doctor` prints every integration and its verdict.
 
-The guard runs before the browser opens, before the app boots and before any network call. It is not a flag the agent can turn off. If the project has no manifest, build one before the first run; until every integration is declared local, a run is read-only and its evidence covers only the pages it read. A run that passes the guard has no production path; a run that fails it has not started.
+The manifest is not the guard's only input. The guard scans the app's actual configuration for keys that look like outbound integrations: names ending in `_URL`, `_ENDPOINT`, `_API_KEY`, `_TOKEN` or `_SECRET`, plus the database and cache URLs. Every such key must have a manifest row and a local verdict. A key with no row is refused, and `doctor` prints the key; the fix is a person adding the row, not the agent widening the pattern. A key the scan cannot classify is also refused, with its name.
+
+The guard launches the app with the environment it checked, or reads the running process's environment and refuses a mismatch. A file that says local while a production app is already running is not a local run.
+
+The guard runs before the browser opens, before the app boots and before any network call. It is not a flag the agent can turn off. If the project has no manifest, build one before the first run; until every integration is declared local, a run is read-only and its evidence covers only the pages it read. A run that passes the guard has no production path among the integrations it could scan. A key it could not map is a refusal, not a pass; the manifest's coverage is the owner's declaration, and `doctor` prints every key it could not map.
 
 ## Before and after
 

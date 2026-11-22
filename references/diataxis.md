@@ -44,6 +44,8 @@ When the interface is new, write the intended usage before the implementation:
 
 Then work backwards to the implementation. The draft usage is the target and the first acceptance test. If a parameter needs a paragraph to justify its name, rename it now, while the design is still soft. If the example cannot be written without a caveat, the interface has a caveat to fix.
 
+Diátaxis does not fix a writing order: a reference can be drafted first because it settles the interface, and that is a fair choice. What this rule adds is that the README and the tutorial for the intended usage are written before the implementation, so the usage is the target rather than a description added afterwards.
+
 A README records intent, not proof. Its examples are run in the same change that ships the code, and the README changes in that change too. A stale README is a wrong reference, and a reader trusts it more than the code.
 
 ## Checklist
