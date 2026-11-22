@@ -1,5 +1,5 @@
 ---
-max_turns: 1
+max_turns: 2
 tags: [near-miss]
 ---
 

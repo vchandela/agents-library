@@ -95,4 +95,5 @@ State a cause only when the loop proves it. Otherwise write "cause not yet prove
 - [ ] The step 1 loop no longer reproduces the bug, and its number moved.
 - [ ] A regression test fails without the fix and passes with it, or the missing seam is written down.
 - [ ] The same kind of mistake was searched for, with what the search found.
+- [ ] Every probe or sub-agent got the goal, the constraints and the evidence path, not a step script.
 - [ ] The debug tag greps to nothing; throwaway harnesses are deleted.

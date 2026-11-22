@@ -120,4 +120,4 @@ Up to 3 pages for the working spec, tight and complete. The short page the team 
 
 ## Done when
 
-The preview in `references/preview.md` and the visuals checklist in `references/visuals.md` pass. Every error case names an exact behaviour, every invariant is falsifiable, every decision shows its discarded options, and the user has confirmed the spec back. Then end the turn: share the link, list the open questions and ask for approval. The plan and the code start in a later turn. Next: `write-plan`.
+The preview in `references/preview.md` and the visuals checklist in `references/visuals.md` pass. Every error case names an exact behaviour, every invariant is falsifiable, every decision shows its discarded options, and the user has confirmed the spec back. Every sub-agent brief gave the goal, the constraints and the evidence path, not a step script. Then end the turn: share the link, list the open questions and ask for approval. The plan and the code start in a later turn. Next: `write-plan`.

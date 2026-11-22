@@ -1,6 +1,6 @@
 ---
-max_turns: 1
+max_turns: 2
 tags: [trigger]
 ---
 
-The dropdown overlapped the save button on narrow screens; I fixed it. Drive the app at that width, confirm the fix and add a test that would have caught it.
+You just changed the dropdown's CSS. Open the app at phone width and show me that it no longer overlaps the save button.

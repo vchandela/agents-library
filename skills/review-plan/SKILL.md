@@ -87,4 +87,4 @@ When the plan comes back after fixes, show what the revision did: `references/ha
 
 ## Done when
 
-Every issue cites the plan line it is about, each has a fix or a question, and the verdict is one of the three above.
+Every issue cites the plan line it is about, each has a fix or a question, and the verdict is one of the three above. The cold restatement is in the review, with every place the plan could not be followed named as a finding.

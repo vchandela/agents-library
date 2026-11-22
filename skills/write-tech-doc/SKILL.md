@@ -46,4 +46,4 @@ Name the real limits, including the ones easy to gloss over. A doc that only lis
 
 ## Done when
 
-A colleague who has read nothing else understands the problem before the solution, can find each decision and its reason, and knows what you chose not to do. The visuals checklist in `references/visuals.md` passes.
+A colleague who has read nothing else understands the problem before the solution, can find each decision and its reason, and knows what you chose not to do. The mode is named, the checklist in `references/diataxis.md` passes, and a new interface has its README or tutorial first. The visuals checklist in `references/visuals.md` passes.

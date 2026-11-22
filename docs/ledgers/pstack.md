@@ -22,11 +22,11 @@ pstack calls its reusable playbooks "playbooks"; this library calls them skills,
 | V1 | Faster generation moves the bottleneck to verification, so the agent needs hands and eyes: it must run the app and see its change. | p1 | described | TAKEN | `references/verifying-apps.md`, opening and The loop. |
 | V2 | The verification skill is project-local and maintained, not rebuilt per task. | p1 | described | TAKEN | `skills/verify-app/SKILL.md`, Before the first run. |
 | V3 | Build the lever: one small CLI reused by every run, instead of one-off scripts. | p1 | described | TAKEN | `references/verifying-apps.md`, The CLI is thin. |
-| V4 | The CLI exposes doctor, open, snapshot, screenshot, click, type, press and wait-settle as composable commands. | p1 | described | TAKEN | Same section, as `doctor` and `open` with click, type, settle, trace and screenshot flags. |
+| V4 | The CLI exposes doctor, open, snapshot, screenshot, click, type, press and wait-settle as composable commands. | p1 | described | TAKEN | Same section, as `doctor`, `open` and `snapshot`, with click, type, press, settle, trace and screenshot flags. |
 | V5 | A deep command surface hides the browser, auth and launch machinery; the agent keeps the judgement. | p1 | described | COVERED | `references/engineering-principles.md`, "Deep modules". |
 | V6 | Destructive commands support a dry run; output has a machine mode and errors name the fix. | p1 | described | TAKEN | `references/verifying-apps.md`, The CLI is thin (`--dry-run`, `--json`, errors name the failing step). |
-| V7 | The feature map carries, per feature, what it does, how a user reaches it, how to drive it and its traps. | p1 | described | TAKEN | `references/verifying-apps.md`, The feature map is generated, never typed. |
-| V8 | The map is materialised memory: a compact projection of the codebase that saves tokens. | p1 | described | TAKEN | Same section, as the map's purpose. |
+| V7 | The feature map carries, per feature, what it does, how a user reaches it, how to drive it and its traps. | p1 | described | TAKEN | `references/verifying-apps.md`, The feature map is generated, never typed: the route, what it does, how a user reaches it, the CLI command that opens it, the role or fixture and its traps. |
+| V8 | The map is materialised memory: a compact projection of the codebase that saves tokens. | p1 | described | TAKEN | Same section: the map is a compact copy of the app's surface, kept because reading every route and page on each run costs more than keeping the map current. |
 | V9 | Keep the map current on a regular cadence. | p1 | described | TAKEN | Same section and The upkeep cost, without the source's daily cadence. |
 | V10 | Run verification with cloud agents because worktrees stop scaling after about ten on one laptop. | p1 | claimed | REFUSE | Vendor and a number. This library isolates in worktrees and stays host-neutral. |
 | V11 | Use a browser debug protocol for web and a simulator for iOS. | p1 | described | REFUSE | Vendor and platform specifics; the skill says "the project's browser fixture". |
@@ -78,7 +78,7 @@ pstack calls its reusable playbooks "playbooks"; this library calls them skills,
 | T1 | The feature map is generated from the app's routes and pages, never hand-typed, and the sweep's page list comes from the map. | trial | added | TAKEN | `references/verifying-apps.md`, The feature map is generated, never typed. This was the trial's one must-fix. |
 | T2 | A structural self-check covers sideways scroll, clipping, wrapping, row heights and overlap at every supported width. | trial | added | TAKEN | Same reference, The structural self-check. |
 | T3 | Every finding becomes a test that is seen red without the fix and green with it. | trial | added | TAKEN | Same reference, Every finding becomes a test. |
-| T4 | Before any connection, refuse to run unless the database host is local; the guard is not a flag. | trial | added | TAKEN | Same reference, The production guard. |
+| T4 | Before any connection, refuse to run unless every declared integration, including the database, is local; an undeclared integration is treated as production and refused. | trial | added | TAKEN | Same reference, The production guard: an integration manifest names every outbound endpoint and credential, and the guard is not a flag. |
 | T5 | Record before and after on the same route, viewport, fixture and input; name the upkeep cost of the map, CLI and guard. | trial | added | TAKEN | Same reference, Before and after and The upkeep cost. |
 
 ## Sources

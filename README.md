@@ -66,7 +66,7 @@ Cowork on the desktop skips symlinked rules, so there use a copy and refresh it 
 | Skill | Does |
 |---|---|
 | `design-ui` | Designs a screen: the job, the tokens, a state grid, then a look in a real browser |
-| `verify-app` | The agent checks its own app change in the real browser: the project's generated feature map, its CLI, structural checks and a local-database guard |
+| `verify-app` | The agent checks its own app change in the real browser: the project's generated feature map, its browser CLI, the page-load and structural checks, and an integration guard |
 | `qa-live-site` | QA a deployed app: states first, then functional, adversarial, security, performance and accessibility families |
 | `diagnose-bug` | A loop that goes red first, then the cause, then the fix |
 | `evals` | Is an agent, prompt, judge or skill good, and did a change help? Real data first, an honest answer key, a checked judge, two arms |

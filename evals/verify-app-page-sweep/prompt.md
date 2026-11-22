@@ -1,6 +1,6 @@
 ---
-max_turns: 1
+max_turns: 2
 tags: [trigger]
 ---
 
-Sweep every page in the app for sideways scroll and clipped text after the CSS change.
+You changed the shared CSS. Sweep every page in the app for sideways scroll and clipped text.

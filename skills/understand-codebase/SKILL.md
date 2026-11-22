@@ -77,5 +77,5 @@ Say which parts you could not work out. A confident account with silent gaps is 
 
 ## Done when
 
-Each decision names the alternative rejected and the cost accepted, the diagram matches what the code does rather than what the docs claim, and the unknowns are listed. Every identifier and path you cite was grepped once more before you finished.
+Each decision names the alternative rejected and the cost accepted, the diagram matches what the code does rather than what the docs claim, and the unknowns are listed. Every why source is dated, quoted and named, and the sources you could not get are listed. Every identifier and path you cite was grepped once more before you finished.
 

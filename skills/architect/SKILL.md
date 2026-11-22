@@ -1,6 +1,6 @@
 ---
 name: architect
-description: Use when a change spans call sites, such as a new or changed interface, type, schema or shared function that many callers depend on, and the shape has to be chosen before an implementation plan, even when the work first looks like a migration or a refactor, or the repository is unfamiliar and reading it feels like the first step. Not for surveying how others solve it; that is research-prior-art. Not for the tactical plan once the shape is agreed; that is write-plan. Not for criticising a plan; that is review-plan.
+description: Use when a change spans call sites, such as a new or changed interface, type, schema or shared function that many callers depend on, including a new interface whose implementers do not exist yet, and the shape has to be chosen before an implementation plan, even when the work first looks like a migration or a refactor, or the repository is unfamiliar and reading it feels like the first step. Not for surveying how others solve it; that is research-prior-art. Not for the tactical plan once the shape is agreed; that is write-plan. Not for criticising a plan; that is review-plan.
 ---
 
 # Architect a change that spans call sites
@@ -18,12 +18,14 @@ The brief is a set of facts, not a proposed solution.
 - **The constraints.** Compatibility with what exists, migration and deploy order, data that cannot be rewritten, the consumers outside this repo, the performance budget.
 - **The why sources.** Git history, tickets, docs, incidents and monitors, as `understand-codebase` reads them. A design that ignores why the current shape won is likely to recreate the problem it solved.
 - **What must not change.** Name the behaviour, contract or caller that is out of bounds, so a candidate cannot quietly widen the job.
+- **The judge's tie-break order**, fixed before any candidate runs: call-site fit, then interface depth, then blast radius, then reversibility, then testability, then repo fit. The judge uses it only when two scores are equal.
+- **The model and family** each candidate and the judge will run on, or the fact that only one family is available.
 
 If the brief has an open question only the user can answer, ask it now, in one numbered list, with your recommendation. A candidate design built on a guess is a candidate built on the wrong problem.
 
 ## 2. Run independent candidates
 
-Two or three designers work in parallel, each with the whole brief and no sight of the others. Use different model families where the setup allows, because two candidates from one family tend to share the same blind spot.
+Two or three designers work in parallel, each with the whole brief and no sight of the others. Use different model families where the setup allows, because two candidates from one family tend to share the same blind spot. At least one candidate is the ambitious option: the one that changes more of the shape if the evidence supports it, with its cost. Record the model and family each candidate ran on. If only one family is available, say so in the output and name what the missing cross-family check could not catch.
 
 Brief each designer indirectly: the goal, the constraints, where the evidence lives, the output shape, and what it may decide alone (`references/agent-prompts.md`, Indirect prompts). Do not hand it a step script; the route is the work.
 
@@ -39,7 +41,7 @@ No candidate sees another package. A candidate that asks a question gets the ans
 
 ## 3. Cross-judge
 
-A judge on a different agent, and a different model family where possible, scores every package against the same rubric before discussing any of them:
+A judge on a different agent, and a different model family where possible, scores every package against the same rubric before discussing any of them. Record the judge's model and family. The brief fixed the tie-break order before the candidates ran; the judge uses it only when two scores are equal. The rubric:
 
 1. **Call-site fit:** how many callers change, and how mechanical each change is.
 2. **Interface depth:** one call hides the mechanism, versus many knobs the caller must understand.
@@ -48,7 +50,7 @@ A judge on a different agent, and a different model family where possible, score
 5. **Testability:** the smallest test that proves a call site works, and whether it can go red.
 6. **Repo fit:** the existing pattern it follows, cited `file:line`.
 
-Scores carry reasons. The judge names one winner and what would change the verdict. A tie is a failed judgement: give the judge the tie-break order from the brief and ask again. The judge is a proposal to the user, not a decision; say where its reasoning is thin.
+Scores carry reasons. The judge names one winner and what would change the verdict. A tie that the brief's tie-break order does not resolve is a failed judgement: ask the judge again with the order restated. The judge is a proposal to the user, not a decision; say where its reasoning is thin.
 
 ## 4. Sketch the call sites and types
 
@@ -83,7 +85,7 @@ Count them. One workaround is a smell; two independent workarounds at different 
 One design decision record:
 
 - the question, the brief and the constraints;
-- the candidates and the judge's scores;
+- the candidates, their models and families, and the judge's model and scores;
 - the winner and the reasons;
 - the call-site sketch and the signatures;
 - the implementation order and the first slice;
@@ -102,7 +104,8 @@ Write it with the `explain-simply` skill. A reader who was not in the candidate 
 ## Done when
 
 - [ ] Every call site in the brief has a `file:line`, and the search was rerun after the design.
-- [ ] Two or three independent candidates existed, with no shared sight.
+- [ ] Two or three independent candidates existed, with no shared sight, and at least one was the ambitious option.
+- [ ] Every candidate and the judge name their model and family, and a single-family run says what it could not check.
 - [ ] A different judge scored them against the same rubric and named one winner.
 - [ ] The winner has a call-site sketch, exact signatures and one real call written out.
 - [ ] The implementation order starts with one real call site and names the scrap triggers.

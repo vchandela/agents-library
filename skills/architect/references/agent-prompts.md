@@ -67,7 +67,7 @@ For work whose route is not known, give the agent the goal, the constraints and 
 
 Ask for a restatement first: "In your own words, what is the problem and what would count as solved?" A wrong restatement is visible before any code is written, which is the cheapest place to catch it. The restatement is not a plan and does not replace the evidence rules above.
 
-Indirect is not vague. A goal with no constraint and no evidence path is a wish. Use the step script where the path itself is the requirement: an ordered or destructive operation, a migration, a merge. Use the indirect prompt where choosing the route is part of the work: a diagnosis, a design, a candidate solution. `write-spec` uses it when it briefs a fact-finding sub-agent, and `diagnose-bug` uses it for every probe.
+Indirect is not vague. A goal with no constraint and no evidence path is a wish. Use the step script where the path itself is the requirement: an ordered or destructive operation, a migration, a merge. Use the indirect prompt where choosing the route is part of the work: a diagnosis, a design, a candidate solution. `write-spec` uses it when it briefs a fact-finding sub-agent, `diagnose-bug` uses it for every probe, and `architect` uses it for every candidate brief.
 
 ## Scope and what the agent may do alone
 
