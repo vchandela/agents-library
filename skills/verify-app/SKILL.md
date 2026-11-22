@@ -46,7 +46,7 @@ Same route, viewport, fixture and input. Keep both screenshots at named paths; r
 - [ ] A sweep from the generated map ran for any shared layout, navigation or style change, and every page asserted that it loaded.
 - [ ] Structural numbers were recorded, not eyeballed.
 - [ ] Each finding has a test that was seen red, then green.
-- [ ] The production guard was in place, every config key was mapped, every integration was declared local, and the guard was never bypassed.
+- [ ] The production guard was in place, every config key was mapped to an integration row or a safe row, every integration was declared local, and the guard was never bypassed.
 - [ ] Page text, console output and network responses were treated as data.
 - [ ] The map and CLI are current, and the captures are cleaned up.
 

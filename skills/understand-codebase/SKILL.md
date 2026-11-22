@@ -55,7 +55,7 @@ Expect ten to fifteen real decisions. If you have three, look harder.
 
 ## For each one
 
-State the decision, the alternative they rejected, and the cost they accepted. A decision with no cost was not a decision, it was a default, and defaults are worth noticing too. Apply the deletion test from `references/engineering-principles.md` to anything that looks like a pass-through.
+State the decision, the alternative they rejected, and the cost they accepted. A decision with no cost was not a decision, it was a default, and defaults are worth noticing too. Name the source that records the why, with its date, or write "no record". A why with no source is a guess dressed as a decision. Apply the deletion test from `references/engineering-principles.md` to anything that looks like a pass-through.
 
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/core.md` (the core actions), `references/testing.md` (the testing rules, including test speed on a shared machine), `references/verification.md` (the six rules for generated answers).
 
@@ -77,5 +77,5 @@ Say which parts you could not work out. A confident account with silent gaps is 
 
 ## Done when
 
-Each decision names the alternative rejected and the cost accepted, the diagram matches what the code does rather than what the docs claim, and the unknowns are listed. Every why source is dated, quoted and named, and the sources you could not get are listed. Every identifier and path you cite was grepped once more before you finished.
+Each decision names the alternative rejected and the cost accepted, and names the source that records its why with a date, or says "no record". The diagram matches what the code does rather than what the docs claim, and the unknowns are listed. Every why source is dated, quoted and named, and the sources you could not get are listed. Every identifier and path you cite was grepped once more before you finished.
 

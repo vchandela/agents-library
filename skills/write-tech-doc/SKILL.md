@@ -15,9 +15,9 @@ Facts are yours to find, never the author's to supply: read the code, query the 
 
 ## Choose the mode first
 
-Read `references/diataxis.md`. Tutorial, how-to, reference and explanation do different jobs, and a document that mixes them serves none. A technical proposal is an explanation that asks for a decision: it argues why, not how to install or what every parameter is. Link to the reference for mechanics instead of restating it.
+Read `references/diataxis.md`. Tutorial, how-to, reference and explanation do different jobs, and a document that mixes them serves none. A tutorial teaches by doing; a how-to gets one task done; a reference is looked up; an explanation argues why. A technical proposal is an explanation that asks for a decision: it argues why, not how to install or what every parameter is. Link to the reference for mechanics instead of restating it.
 
-When the interface is new, write the README or the tutorial first: what the reader will do, in order, before any code exists. Then work backwards to the design. If the usage cannot be written plainly, the interface is not ready.
+When the interface is new, write the README and the tutorial for the intended usage before the implementation, then work backwards to the design. If the usage cannot be written plainly, the interface is not ready.
 
 ## Shape
 

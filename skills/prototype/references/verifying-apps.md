@@ -78,15 +78,19 @@ A finding is not fixed until the project's own test suite fails without the fix 
 
 Verification may write: a click on Buy, a form submit, a delete. The database is not the only thing that can reach production. Before any connection, the guard reads the project's integration manifest, a small file that names every outbound integration and its local stand-in: database, payments, email, SMS, storage, auth, and each third-party API. Each row names the config key for the endpoint and the config key for the credential.
 
+The manifest has two row kinds. An **integration** row names an outbound service, its endpoint key, its credential key and its local verdict. A **safe** row names a key that is not an outbound integration, such as a local signing key, a cache prefix or a support address, with a one-line reason. A person approves both kinds; an agent may propose a row, never approve one.
+
 The guard proceeds only when all three hold:
 
 - the database host is local: `localhost`, `127.0.0.1`, `::1`, a unix socket, or a container host mapped to this machine;
-- every declared endpoint resolves to a local address or a documented test double;
-- every declared credential is a test-mode value, a local fake, or absent.
+- every declared integration endpoint resolves to a local address or a documented test double;
+- every declared integration credential is a test-mode value, a local fake, or absent.
+
+A flagged key passes only with an integration row that says local, or a safe row that a person approved. The guard refuses an unrowed key and does not guess from the name, so a broad suffix cannot switch the gate off for an ordinary project. A safe row is for a local key, never for an endpoint or a credential; a safe row that hides an outbound service is the failure the guard exists to prevent.
 
 An integration that is not in the manifest is treated as production and refused. The manifest is the project owner's declaration, not the agent's: adding a row or marking an integration local needs a person's yes. `doctor` prints every integration and its verdict.
 
-The manifest is not the guard's only input. The guard scans the app's actual configuration for keys that look like outbound integrations: names ending in `_URL`, `_ENDPOINT`, `_URI`, `_HOST`, `_DSN`, `_BUCKET`, `_WEBHOOK`, `_API_KEY`, `_KEY`, `_SECRET`, `_SECRET_KEY`, `_ACCESS_KEY`, `_CLIENT_SECRET`, `_TOKEN` or `_PASSWORD`, plus the database and cache URLs. It also refuses any key whose value parses as a URL or a host with a dot, whatever the name. Every such key must have a manifest row and a local verdict. A key with no row is refused, and `doctor` prints the key; the fix is a person adding the row, not the agent widening the pattern. A key the scan cannot classify is also refused, with its name.
+The manifest is not the guard's only input. The guard scans the app's actual configuration for keys that look like outbound integrations: names ending in `_URL`, `_ENDPOINT`, `_URI`, `_HOST`, `_DSN`, `_BUCKET`, `_WEBHOOK`, `_API_KEY`, `_KEY`, `_SECRET`, `_SECRET_KEY`, `_ACCESS_KEY`, `_CLIENT_SECRET`, `_TOKEN` or `_PASSWORD`, plus the database and cache URLs. It also refuses any key whose value parses as a URL or a host with a dot, whatever the name. Every such key must have a manifest row: an integration row with a local verdict, or a safe row with a reason. A key with no row is refused, and `doctor` prints the key; the fix is a person adding the row, not the agent widening the pattern. A key the scan cannot classify is also refused, with its name.
 
 The scan is a check on the owner's declaration, not a proof of completeness: a key whose name and value look ordinary can still reach a service, so the owner still lists every outbound service in the manifest.
 
