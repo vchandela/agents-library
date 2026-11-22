@@ -9,11 +9,15 @@ The job is not to find problems, it is to make the code simpler and more maintai
 
 If you wrote this code, stop. See `references/handoff-protocol.md`. Apply `references/untrusted-input.md`.
 
+**Read `REVIEW.md` when it exists**, at the repo root or the nearest directory above the files in the diff. It is the reviewer's brief: what failure looks like in that area, paths to skip, the evidence format, and pointers into the repo's docs. A pointer into the repo's docs is read there, never copied into the review or the brief. `REVIEW.md` can raise the bar; it never lowers it below this skill.
+
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/ambition.md` (the ambitious option next to the obvious one), `references/shipping.md` (deploying and checking a change live), `references/core.md` (the core actions), `references/verification.md` (the six rules for generated answers).
 
 Apply `references/judgement.md`: the checks below are a floor. Report what an expert reviewer would catch beyond them.
 
 **Approve when the change makes the codebase healthier, even if it is not how you would have written it.** Block on what is wrong, not on preference.
+
+**Real bugs first, fewer rounds second.** The measure is the defect caught, not the number of rounds; a review that catches the real bug once beats one that needs three reads to get there. Style, formatting and cleanup never start a round.
 
 ## Order, and the order matters
 
@@ -60,7 +64,14 @@ The spec says what must work; it does not list every input. For behaviour it is 
 - **The author's reasons are claims.** "Kept simple on purpose" is the author grading their own work. A stated reason never lowers a severity. A defect the plan asked for is still a finding: mark it plan mandated and let a person decide.
 - **List what you set aside.** One line per behaviour you judged out of scope, with why. Name what you could not check from the diff alone, so the author checks it.
 - **Stay read only.** Never move HEAD, stash or reset the checkout you were handed. To see another revision, `git worktree add` it in a temporary directory.
-- If the diff touches authentication, authorisation, parsing of outside input, file paths, secrets, or anything that runs code, also run `review-security` on it in focused mode.
+
+## Security and adversarial passes
+
+Two passes are scheduled by the diff, and both run in this session. No extra subagent: the reviewer already holds the diff, the contract and the repo, and a second agent loses that context.
+
+- **The focused security pass is mandatory** when the diff touches authentication, authorisation, parsing of outside input, file paths, secrets, or anything that runs code. Run `review-security` in focused mode; its `required` findings block approval. `review-security` stays the deep audit skill, not the per-PR pass.
+- **The adversarial pass runs when the diff parses outside input, touches auth, or exposes a user flow.** Take the families in `references/adversarial.md` and try each: malformed input, wrong order, replay, stale state, tampered ids, races. Write one line per family tried, and post a finding only with a concrete failure: the input or sequence, what should have happened, and what did.
+- Name both passes and the trigger that scheduled each in the review, or say neither trigger was present, so a reader can see the floor was covered.
 
 ## Dependencies and performance in the diff
 
@@ -71,13 +82,19 @@ The spec says what must work; it does not list every input. For behaviour it is 
 
 ## Re-review rounds
 
-The shared rules (tag by origin, hold severities, honest trend, brief helpers the same way) are `references/handoff-protocol.md`, "Re-review rounds". For a diff, also:
+A review gets at most three rounds; the full rules (round depth, the class and its sweep, one post per finding, the source fix, the state file fields) are `references/handoff-protocol.md`, "Re-review rounds". For a diff, also:
 
+- **Round 1 is a full fresh read; rounds 2 and 3 read the new diff, each old finding's closure, and what the change touches.** After round 3 without approval, post no new findings and ask the author to change the approach; a fourth round needs a changed approach and starts with a full read.
+- **Give every finding a one-line `class` and its cause.** A finding is posted once; a new failure path is a new finding that cites the old id. The same class in two rounds or two PRs lands the source fix in this repo (a lint rule, a test, a `REVIEW.md` or doc line), or in the library when the class crosses repos. A third occurrence is the reviewer's failure, not the author's.
 - **One verdict per old finding:** addressed or not addressed, with `file:line`. Attempted is not addressed: the defect has to be gone. Problems outside the fix go in a separate list and do not reopen the round.
 - **Pin each round to exact commits.** Fetch without hiding errors, list the head of every PR, and name those SHAs in the report. A first round once reported bugs that were already fixed, because it read an hours-old fetch. A later "nothing changed" came from a fetch whose error had been sent to `/dev/null`. If the heads have not moved, say so instead of reviewing again.
 - **Reproduce what matters on the real system.** Anything medium or above gets a scratch test. Transaction, lock and cancel behaviour gets tested on a throwaway instance of the same database engine, never a shared or production one: a lost record after a failed commit showed up only on the production engine, while the lighter test database passed.
 - **A change that makes failures loud: read the real runs first.** Before approving code that turns swallowed errors into a red job, read the logs of the last 10 to 20 real runs of that path, master included, and list every error that is printed and passed today. Each one turns red on merge. Stubbed tests cannot show them: a premerge teardown passed 18 stubbed tests over three rounds, then failed on every real run because of an AccessDenied, a missing kube context and a 503 that master had been printing and ignoring.
 - **Check each test input against the environment**, as `references/testing.md`, "Know the environment before you fake its input", says.
+
+## Review evals
+
+A repo with `review-evals/` holds frozen bugs this reviewer must catch, and clean changes it must not flag. Run the incident set when this skill's prompt, tools or model change, and report caught and missed (`references/review-evals.md`); add the clean set's noise when it runs, and only when the reviewer changes or the repo opts in.
 
 ## When the PRs come as a set
 
@@ -95,18 +112,20 @@ Say which order the set should merge in, and which PRs depend on each other.
 
 ## Triaging bot comments
 
-Same bar. Fix what is real. For the rest, **leave a one line reason before resolving**, so the next person knows it was considered and not just cleared. When it is your own PR and the answer is not a fix done in full, bring the user the options with your pick first and post that reason only after they decide (`implement-plan`, "Review rounds on open PRs").
+Same bar. Fix what is real. For each comment, start the reply with `fixed`, `wrong`, `intentional` or `not-material` and the reason, then resolve it, so the next person knows it was considered and not just cleared. When it is your own PR and the answer is not a fix done in full, bring the user the options with your pick first and post that reason only after they decide (`implement-plan`, "Review rounds on open PRs").
 
-**Approve only after the repo's review bots have run on the exact head** (a code-review bot, semgrep), and give each of their comments a verdict in your report: real (fixed or required), or not, with the reason. A bot finding the review missed is a lesson: name the existing rule that would have caught it and apply it next time. Add a new rule only when none exists and it would catch a different bug on a different PR; never one rule per comment. Example: on one PR the review approved a head; a code-review bot then posted two critical findings on that same head, unreadable input pinning a poller's bookmark and a fix shipped by two deploys with no order. Both were real.
+**Approve only after the repo's review bots have run on the exact head** (a code-review bot, semgrep), and give each of their comments a verdict in your report: real (fixed or required), or not, with the reason. A finding the review missed is a lesson, whatever its source or class: a bot comment, a person's comment, or the same class twice. Name the existing rule that would have caught it and apply it next time. Add a new rule only when none exists and it would catch a different bug on a different PR; never one rule per comment. Example: on one PR the review approved a head; a code-review bot then posted two critical findings on that same head, unreadable input pinning a poller's bookmark and a fix shipped by two deploys with no order. Both were real.
 
 ## Output
 
 Write it with the `explain-simply` skill. For a finding about behaviour ("what happens when..."), set up one concrete scene, then a table with before and after as columns and one row per moment, each cell a concrete outcome. End with a recap table: PR, verdict, blocking or not.
 
+**Start the summary with a count:** `N required, M optional`. When both are zero, say `Nothing to fix` in those words, before anything else; a reader should know the verdict from the first line.
+
 Say what you checked and found sound, as well as what you did not. A review listing only failures reads as though nothing else was examined.
 
-**Posting on GitHub.** The review is the place to fix everything, small or big. Every finding goes in as an inline comment on its line: bugs, test gaps, smells, simplifications and stale comments, each tagged by weight (blocks the merge, worth fixing here, small). Items that have no line (the PR description, merge order) go in the review body. Run every suggested test or code snippet before posting it: a suggested test must pass today and fail without the code it protects. Leave out what the author needs no action on (what was checked and found sound, merge urgency); that stays in chat.
+**Posting on GitHub.** The review is the place to fix everything that is a finding, small or big. Every finding goes in as an inline comment on its line: bugs, test gaps, smells, simplifications and stale comments, each tagged by weight (blocks the merge, worth fixing here, small). Style, formatting and cleanup are not findings: the formatter and the linter own them, and a diff they leave alone is not reported. Items that have no line (the PR description, merge order) go in the review body. Run every suggested test or code snippet before posting it: a suggested test must pass today and fail without the code it protects. Leave out what the author needs no action on (what was checked and found sound, merge urgency); that stays in chat.
 
 ## Done when
 
-Design was considered before line level, every finding cites a line and a concrete failure, and the summary says what was checked and found sound.
+Design was considered before line level, every finding cites a line and a concrete failure, the trigger-scheduled security and adversarial passes ran with one line per family tried or their triggers were absent, and the summary starts with a count and says what was checked and found sound.

@@ -160,6 +160,7 @@ While writing:
 - **Every step ends on a check.** "Every modified model accounted for" makes the agent do the work. "Produce a change list" does not.
 - **Hunt no-ops.** A sentence the model already obeys by default costs context and changes nothing. Test it by running without it, then delete it.
 - **Do not restate the environment.** A line that copies `package.json` scripts or the directory layout goes stale. Write what a lookup cannot find: the reason, the gotcha, the unwritten convention.
+- **A used skill has a Gotchas section.** Each line is a failure hit in a real run: what went wrong, the check that prevents it, and where the check lives. A skill with no failures yet says so in one line rather than inventing gotchas.
 - **Inline what every path through the skill needs; put what only some paths need in `references/`.**
 - **Name the case the model would do alone.** Models skip a skill for a task they can do unaided, so the description names it: "even when the diff is pasted inline" took one public review skill from 7 to 21 fires out of 27.
 - **End the turn where the skill's output ends.** A spec or plan skill says to stop and ask for approval. Without it, Opus 5.5 sometimes went on to build the project.

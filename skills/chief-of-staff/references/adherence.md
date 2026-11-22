@@ -40,6 +40,7 @@ A coordinator that's asked to "tell every thread" edits the file this table name
 
 ## Many sessions
 
+- **A new session reads the records before the work.** The memory index, the project's docs, its state and its board hold the decisions already made; a session that re-derives one pays twice and can contradict it. A lesson that must hold in every folder belongs in the always-loaded rules, not in one folder's memory, and a repeated mistake becomes a rule with a check, not a note in a message (user, 22 Nov 2026).
 - **A worker wakes the user for only two reasons: its work is ready after review, or it needs a decision only the user can make.** Status belongs in a file the coordinator reads, not in a message (Devin, Copilot's coding agent and Claude Code's agent teams all work this way).
 - **Every message wakes the session it's sent to.** An idle session starts a new, paid turn for each message, and there's no broadcast. That turn must end with some text, so each message adds a line to that tab. Message only the threads that must act.
 - **Check claims by re-running them, not by reading the report.** Copilot can't approve its own PR, and Factory uses fresh validator agents. In the MAST study, failures to verify the task made up 23.5% of multi-agent failures (arXiv 2503.13657).

@@ -2,8 +2,8 @@
 """Lint every skill so a broken one fails CI instead of failing in a user's tool.
 
 Checks, standard library only:
-  - frontmatter has only `name`, `description`, `license` and `disable-model-invocation`, and parses as strict YAML would
-    (a value containing ": " must be quoted);
+  - frontmatter has only `name`, `description`, `license`, `disable-model-invocation` and `hooks`;
+    each top-level value parses as strict YAML would (a value containing ": " must be quoted);
   - `name` matches the folder and the spec's pattern, is at most 64 characters and avoids the reserved
     words "anthropic" and "claude"; description is 1 to 1,024 characters with nothing shaped like an XML tag;
   - the body stays under about 5,000 tokens (3,500 words);
@@ -42,15 +42,22 @@ for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
         continue
     fields = {}
     for line in parts[1].strip().splitlines():
-        key, _, value = line.partition(":")
+        if not line.strip() or line[0].isspace() or line.startswith("- "):
+            # An indented block, such as the hooks map, belongs to the key above it.
+            continue
+        key, sep, value = line.partition(":")
+        if not sep:
+            fail(skill, f"frontmatter line is not 'key: value': {line!r}")
+            continue
         value = value.strip()
         quoted = value[:1] in "\"'" and value[-1:] == value[:1]
         if ": " in value and not quoted:
             fail(skill, f"unquoted ': ' in {key!r} breaks strict YAML parsers")
         fields[key.strip()] = value
-    extra = set(fields) - {"name", "description", "license", "disable-model-invocation"}
+    allowed = {"name", "description", "license", "disable-model-invocation", "hooks"}
+    extra = set(fields) - allowed
     if extra:
-        fail(skill, f"frontmatter keys outside name, description, license and disable-model-invocation: {sorted(extra)}")
+        fail(skill, f"frontmatter keys outside name, description, license, disable-model-invocation and hooks: {sorted(extra)}")
     if fields.get("name") != folder or not NAME.match(folder):
         fail(skill, f"name {fields.get('name')!r} must equal the folder {folder!r} and match {NAME.pattern}")
     if len(folder) > 64 or "anthropic" in folder or "claude" in folder:

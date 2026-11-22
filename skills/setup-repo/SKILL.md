@@ -30,7 +30,26 @@ Only the layers that apply. A layer whose trigger is absent is skipped, not forc
 | 4 | no test runner exists | Say so plainly, then substitute the closest real verification and map every rule to one. |
 | 5 | more than one agent works in the repo | One source for every rule, read the same way by every agent (section 3). |
 | 6 | the repo holds text a model runs (workflow or system prompts, skills, tool descriptions) | A router row that sends anyone changing those files to a copy of `references/agent-prompts.md`, and its checklist in the review rules. |
-This skill also names `references/engineering-principles.md`, `references/respect-human-attention.md`, `references/testing.md`, `references/verification.md`, `references/visuals.md`, so every reference it needs is one level from this file.
+| 7 | a reviewer reads the repo's PRs | A `REVIEW.md` brief, and `review-evals/incidents/` and `review-evals/clean/` with a template case. |
+This skill also names `references/engineering-principles.md`, `references/respect-human-attention.md`, `references/testing.md`, `references/verification.md`, `references/visuals.md`, `references/review-evals.md`, so every reference it needs is one level from this file.
+
+**Layer 7, in practice.** `REVIEW.md` at the root is the reviewer's brief: what failure looks like in this area, paths to skip, the evidence format, and pointers into the repo's own docs, never copies of them.
+
+    # REVIEW.md
+    The reviewer's brief for this repo.
+
+    ## What failure looks like here
+    - <the failure modes this area has actually had>
+
+    ## Paths to skip
+    - <a generated or vendored path, and why>
+
+    ## Evidence
+    - <the command or artifact every finding must carry>
+
+    Read before review: <links into the repo's docs>.
+
+Ask before overwriting an existing `REVIEW.md`: show the diff and keep the repo's own wording where it does the job. Create `review-evals/incidents/` and `review-evals/clean/`, each with a `TEMPLATE/` case (`case.md` and `patch.diff`), so the first real incident has a slot; the case format is `references/review-evals.md`, "The set". An incident fills the incident set, and a known-good change fills the clean set only when the repo opts in.
 
 The references this skill names rely on these, so read them in full too: `references/judgement.md` (what to add beyond the request, and when to stop), `references/core.md` (the core actions).
 
@@ -80,7 +99,7 @@ Every agent reads plain files with its own tools. That is the one mechanism they
 
 ## 5. Never overwrite
 
-For an existing repo, show the diff and wait. If the repo already has a convention that does the same job, **keep theirs**. The goal is a repo that holds its own rules, not one that matches this list.
+For an existing repo, show the diff and wait. If the repo already has a convention that does the same job, **keep theirs**. The goal is a repo that holds its own rules, not one that matches this list. `REVIEW.md` and the `review-evals/` template are proposals like every other file: an existing `REVIEW.md` is shown a diff, never replaced.
 
 ## Done when
 
