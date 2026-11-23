@@ -82,6 +82,7 @@ Two passes are scheduled by the diff, and both run in this session. No extra sub
 
 - A version bump is a behaviour change you did not write. Read its changelog. One dependency per change. Review the lockfile diff.
 - Flag the backend traps in `references/engineering-principles.md` ("Performance") and the targets in `references/performance-backend.md`, an index added without a query plan before and after, and a performance claim with no before and after number.
+- If the diff adds or changes a request path, a job or a service, check it against `references/observability.md`: one wide event per request, a span at each exported I/O function, context on every span, and the incoming traceparent forwarded.
 - If the diff has a screen, apply `references/ui-quality.md`, judging the screen before any tool, and check its speed against `references/performance-frontend.md`.
 - If the diff edits text a model runs as instructions (a workflow prompt, a system prompt, a skill, a tool description), run the checklist in `references/agent-prompts.md` on each changed file, and check the model each one runs on.
 

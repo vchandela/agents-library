@@ -7,7 +7,7 @@ description: Use when an approved plan exists and implementation is starting. No
 
 Execute it precisely, completely, and in order. No shortcuts, no skipped steps.
 
-Apply `references/engineering-principles.md` and `references/testing.md`. Before opening each PR, and again before each review round, run the "Self-review before anyone sees a design" sweep on every function the diff touches, and put its list in the review request. When a step builds a screen, follow the design-ui skill for that step, judged against `references/ui-quality.md`. The targets for a slow path are `references/performance-backend.md`, and for a page `references/performance-frontend.md`. When it reaches users, `references/shipping.md`.
+Apply `references/engineering-principles.md` and `references/testing.md`. Before opening each PR, and again before each review round, run the "Self-review before anyone sees a design" sweep on every function the diff touches, and put its list in the review request. When a step builds a screen, follow the design-ui skill for that step, judged against `references/ui-quality.md`. The targets for a slow path are `references/performance-backend.md`, and for a page `references/performance-frontend.md`. When it reaches users, `references/shipping.md`. When it runs in production, `references/observability.md` is the floor for what it emits: one wide event per request and a span at each exported I/O function.
 
 The references this skill names rely on these, so read them in full too: `references/respect-human-attention.md` (what a reader's time is worth), `references/visuals.md` (charts, diagrams and the visuals checklist), `references/core.md` (the core actions), `references/verification.md` (the six rules for generated answers).
 

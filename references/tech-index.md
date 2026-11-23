@@ -12,6 +12,7 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - Background work, queues and events
 - Concurrency and correctness
 - APIs, the edge and outside systems
+- Observability
 - Counting, search, ML and code shape
 
 ## Before any design, plan or PR
@@ -134,3 +135,9 @@ Always loaded (`~/.claude/rules/tech-index.md`), so every rule below is in view 
 - An ML metric with rare positives -> PR-AUC and recall at the threshold, a golden set the model never influenced [system-design/ml-systems]
 - A class -> only for a noun that owns changing state or enforces a rule; data rules sit with the data's owner [system-design/code-structure]
 - Variation along independent axes -> composition, not inheritance; an abstraction waits for its second implementation [system-design/code-structure]
+
+## Observability
+
+- A new endpoint, service or job -> one wide event per request per service, emitted once at the end on success and failure, fields not messages [observability: one wide event per request per service]
+- Anything that makes an I/O call -> a span at the function definition, request context on every span, the incoming traceparent forwarded downstream [observability: traces are complementary]
+- Choosing what to keep -> decide after the outcome: all errors, all slow requests, named cohorts, 1-5% of the rest [observability: sampling]
