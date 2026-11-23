@@ -31,17 +31,20 @@ Read the spec or issue the change came from. Report three things on their own, q
 
 **3. Simplicity.** Flag anything over engineered, optimised without a measured need, or complex without a clear payoff. Prefer boring and obvious.
 
+With agent code, the usual smells are absent, because an LLM can write a clean-looking diff. Check the non-functional properties explicitly: duplicated logic, a hard-coded constant, a foot gun, an abstraction with no caller, a test that proves nothing.
+
 A refactor counts only if it removes concepts a reader must hold. Count them before and after; if the count did not drop, the complexity moved. Apply the deletion test from `references/engineering-principles.md` to anything that looks like a pass-through. Run the seven-smell sweep in "Self-review before anyone sees a design" in the same file on every function the diff touches, and put its list (each instance and its verdict) in the review. An approve without that list is not a review.
 
 Write each simplification as one numbered line, `N. file:line: <tag> <what to cut>. <what replaces it>.`, so the author can reply "fix 2 and 5". Tags: `delete` (nothing replaces it), `stdlib`, `native` (the platform does it), `reuse` (an existing helper, with its path), `yagni` (one implementation, one caller, config nobody sets), `shrink` (same logic, fewer lines, shown). Before any `delete`, grep the whole tree for the symbol, including tests, fixtures and string or dynamic references. End with `net: -N lines possible`, or "Nothing to cut."
 
 **4. Line level, last.** Real bugs, misused APIs, missing error handling, unhandled edge cases.
 
-**Three checks a diff-only read misses.** Each one was missed by a review and then caught by a bot.
+**Four checks a diff-only read misses.** Each one is easy to miss in a diff-only read.
 
 1. **Follow every new failure path out of the diff** to the loop, scheduler, cursor or retry that runs it, and write the day 1 and day N scene: what waits, what is re-done, and whether either grows while it stays stuck (`references/engineering-principles.md`, "Errors never go silent", item 5).
 2. **Map the changed files to their deployable units** (`references/shipping.md`, "Before deploying"). Two or more units with no deploy order in the PR is a finding.
 3. **Run the repo's whole static toolchain on the changed files, not only what CI gates**: the formatter in check mode, the type checker, the linter, and the repo's semgrep rules. Run the same on the base, and report only what the diff adds.
+4. **The tests the diff removes or weakens.** List every test the diff deletes, skips or loosens. A deleted test is a finding until the author says which behaviour it protected and where that is tested now; a loosened assertion is a finding until the author names the case it no longer catches. An agent's easiest way to pass is to remove the test, and a weakened assertion keeps the line count while dropping the case.
 
 ## Before writing any finding
 
